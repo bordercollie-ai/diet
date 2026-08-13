@@ -1,0 +1,313 @@
+export type Nutrition = {
+  calories: number;
+  protein: number;
+  fat: number;
+  carbohydrates: number;
+};
+
+export type Profile = {
+  age: number;
+  sex: "female" | "male";
+  heightCm: number;
+  weightKg: number;
+  activity: "bmrOnly" | "sedentary" | "light" | "moderate" | "very" | "extra";
+  targetWeightKg: number;
+  targetDate: string;
+};
+
+export type TargetOverrides = Partial<Nutrition>;
+
+export type Food = {
+  id: string;
+  name: Record<string, string>;
+  serving: string;
+  nutrition: Nutrition;
+  source: "bundled" | "user";
+};
+
+export type MealEntry = {
+  id: string;
+  date: string;
+  time: string;
+  foodId: string;
+  quantity: number;
+  nutrition: Nutrition;
+};
+
+export type AppData = {
+  foods: Food[];
+  mealEntries: MealEntry[];
+  profile?: Profile;
+  targetOverrides?: TargetOverrides;
+};
+
+export type Backup = {
+  schemaVersion: 1;
+  exportedAt: string;
+  data: AppData;
+};
+
+export type ImportResult = {
+  schemaVersion: 1;
+  data: AppData;
+};
+
+export type Store = {
+  load(): Promise<AppData>;
+  save(data: AppData): Promise<void>;
+  export(): Promise<string>;
+  import(file: string): Promise<ImportResult>;
+};
+
+export const bundledFoods: Food[] = [
+  {
+    id: "bundled-rice-ball",
+    name: { en: "Rice ball", ja: "おにぎり", zh: "饭团" },
+    serving: "1 piece",
+    nutrition: { calories: 180, protein: 4, fat: 1, carbohydrates: 38 },
+    source: "bundled"
+  },
+  {
+    id: "bundled-milk",
+    name: { en: "Milk", ja: "牛乳", zh: "牛奶" },
+    serving: "200 ml",
+    nutrition: { calories: 134, protein: 6.6, fat: 7.6, carbohydrates: 9.6 },
+    source: "bundled"
+  }
+];
+
+const SCHEMA_VERSION = 1 as const;
+// ponytail: JSON round-trip instead of structuredClone — the latter throws on
+// Svelte 5 $state proxies passed in by callers; JSON.stringify unwraps them
+// via normal property access. Fine since AppData is plain JSON-safe data.
+const copy = <T>(value: T): T => JSON.parse(JSON.stringify(value));
+const emptyData = (): AppData => ({ foods: [], mealEntries: [] });
+
+function invalid(message: string): never {
+  throw new Error(`Invalid data: ${message}`);
+}
+
+function validNutrition(value: unknown): value is Nutrition {
+  return typeof value === "object" && value !== null &&
+    ["calories", "protein", "fat", "carbohydrates"].every((key) => {
+      const number = (value as Record<string, unknown>)[key];
+      return typeof number === "number" && Number.isFinite(number) && number >= 0;
+    });
+}
+
+export function validateFood(food: unknown): asserts food is Food {
+  if (typeof food !== "object" || food === null) invalid("food");
+  const value = food as Record<string, unknown>;
+  const names = value.name;
+  if (typeof value.id !== "string" || !value.id ||
+      typeof names !== "object" || names === null ||
+      !Object.values(names).some((name) => typeof name === "string" && name.trim()) ||
+      typeof value.serving !== "string" || !value.serving.trim() ||
+      !validNutrition(value.nutrition) ||
+      (value.source !== "bundled" && value.source !== "user")) invalid("food");
+}
+
+export function validateMealEntry(entry: unknown, foods: Food[]): asserts entry is MealEntry {
+  if (typeof entry !== "object" || entry === null) invalid("meal entry");
+  const value = entry as Record<string, unknown>;
+  if (typeof value.id !== "string" || !value.id ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(String(value.date)) ||
+      !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(String(value.time)) ||
+      typeof value.foodId !== "string" ||
+      typeof value.quantity !== "number" || !Number.isFinite(value.quantity) || value.quantity <= 0 ||
+      !validNutrition(value.nutrition)) invalid("meal entry");
+}
+
+export function validateAppData(data: unknown): asserts data is AppData {
+  if (typeof data !== "object" || data === null) invalid("application data");
+  const value = data as Record<string, unknown>;
+  if (!Array.isArray(value.foods) || !Array.isArray(value.mealEntries)) invalid("application data");
+  value.foods.forEach(validateFood);
+  value.mealEntries.forEach((entry) => validateMealEntry(entry, value.foods as Food[]));
+  if (value.profile !== undefined) validateProfile(value.profile);
+  if (value.targetOverrides !== undefined) validateTargetOverrides(value.targetOverrides);
+}
+
+export function createFood(input: Omit<Food, "id"> & { id?: string }): Food {
+  const food = { ...input, id: input.id ?? crypto.randomUUID() };
+  validateFood(food);
+  return copy(food);
+}
+
+export function scaleNutrition(nutrition: Nutrition, quantity: number): Nutrition {
+  if (!Number.isFinite(quantity) || quantity <= 0) invalid("quantity");
+  return Object.fromEntries(Object.entries(nutrition).map(([key, value]) => [key, value * quantity])) as Nutrition;
+}
+
+export function searchFoods(foods: Food[], query: string): Food[] {
+  const needle = query.trim().toLocaleLowerCase();
+  if (!needle) return foods;
+  return foods.filter((food) => Object.values(food.name).some((value) =>
+    value.toLocaleLowerCase().includes(needle)));
+}
+
+export function createMealEntry(
+  input: Omit<MealEntry, "id" | "nutrition"> & { id?: string },
+  food: Food
+): MealEntry {
+  const entry = { ...input, id: input.id ?? crypto.randomUUID(), nutrition: scaleNutrition(food.nutrition, input.quantity) };
+  validateMealEntry(entry, [food]);
+  return copy(entry);
+}
+
+export function updateFood(data: AppData, id: string, changes: Partial<Omit<Food, "id" | "source">>): AppData {
+  const food = data.foods.find((item) => item.id === id);
+  if (!food) invalid("food not found");
+  if (food.source === "bundled") invalid("bundled food is read-only");
+  const next = { ...food, ...changes };
+  validateFood(next);
+  return { ...copy(data), foods: data.foods.map((item) => item.id === id ? next : item) };
+}
+
+export function deleteFood(data: AppData, id: string): AppData {
+  const food = data.foods.find((item) => item.id === id);
+  if (!food) invalid("food not found");
+  if (food.source === "bundled") invalid("bundled food is read-only");
+  return { ...copy(data), foods: data.foods.filter((item) => item.id !== id) };
+}
+
+export function updateMealEntry(
+  data: AppData,
+  id: string,
+  changes: Partial<Omit<MealEntry, "id" | "nutrition">>
+): AppData {
+  const entry = data.mealEntries.find((item) => item.id === id);
+  if (!entry) invalid("meal entry not found");
+  const next = { ...entry, ...changes };
+  const food = data.foods.find((item) => item.id === next.foodId);
+  if (!food) invalid("food not found");
+  const updated = createMealEntry(next, food);
+  return { ...copy(data), mealEntries: data.mealEntries.map((item) => item.id === id ? updated : item) };
+}
+
+export function deleteMealEntry(data: AppData, id: string): AppData {
+  if (!data.mealEntries.some((item) => item.id === id)) invalid("meal entry not found");
+  return { ...copy(data), mealEntries: data.mealEntries.filter((item) => item.id !== id) };
+}
+
+export function dailyTotals(data: AppData, date: string): Nutrition {
+  return data.mealEntries
+    .filter((entry) => entry.date === date)
+    .reduce((total, entry) => ({
+      calories: total.calories + entry.nutrition.calories,
+      protein: total.protein + entry.nutrition.protein,
+      fat: total.fat + entry.nutrition.fat,
+      carbohydrates: total.carbohydrates + entry.nutrition.carbohydrates
+    }), { calories: 0, protein: 0, fat: 0, carbohydrates: 0 });
+}
+
+const ACTIVITY_MULTIPLIERS = {
+  bmrOnly: 1,
+  sedentary: 1.2,
+  light: 1.375,
+  moderate: 1.55,
+  very: 1.725,
+  extra: 1.9
+} as const;
+
+export function validateProfile(profile: unknown): asserts profile is Profile {
+  if (typeof profile !== "object" || profile === null) invalid("profile");
+  const value = profile as Record<string, unknown>;
+  if (typeof value.age !== "number" || !Number.isInteger(value.age) || value.age < 1 || value.age > 120 ||
+      (value.sex !== "female" && value.sex !== "male") ||
+      typeof value.heightCm !== "number" || !Number.isFinite(value.heightCm) || value.heightCm < 50 || value.heightCm > 250 ||
+      typeof value.weightKg !== "number" || !Number.isFinite(value.weightKg) || value.weightKg < 10 || value.weightKg > 500 ||
+      typeof value.activity !== "string" || !(value.activity in ACTIVITY_MULTIPLIERS) ||
+      typeof value.targetWeightKg !== "number" || !Number.isFinite(value.targetWeightKg) || value.targetWeightKg < 10 || value.targetWeightKg > 500 ||
+      typeof value.targetDate !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value.targetDate)) invalid("profile");
+}
+
+export function estimateMaintenanceCalories(profile: Profile): number {
+  return Math.round(estimateBMR(profile) * ACTIVITY_MULTIPLIERS[profile.activity]);
+}
+
+export function estimateBMR(profile: Profile): number {
+  validateProfile(profile);
+  const bmr = 10 * profile.weightKg + 6.25 * profile.heightCm - 5 * profile.age + (profile.sex === "male" ? 5 : -161);
+  return Math.round(bmr);
+}
+
+export function estimateTargets(profile: Profile, fromDate = new Date().toISOString().slice(0, 10)): Nutrition {
+  const days = (Date.parse(`${profile.targetDate}T00:00:00Z`) - Date.parse(`${fromDate}T00:00:00Z`)) / 86_400_000;
+  if (!Number.isFinite(days) || days <= 0) invalid("target date");
+  const calories = Math.round(estimateMaintenanceCalories(profile) + (profile.targetWeightKg - profile.weightKg) * 7700 / days);
+  const protein = Math.round(profile.targetWeightKg * 1.6 * 10) / 10;
+  const fat = Math.round(calories * 0.25 / 9 * 10) / 10;
+  const carbohydrates = Math.round((calories - protein * 4 - fat * 9) / 4 * 10) / 10;
+  return { calories, protein, fat, carbohydrates };
+}
+
+function validateTargetOverrides(overrides: unknown): asserts overrides is TargetOverrides {
+  if (typeof overrides !== "object" || overrides === null) invalid("target overrides");
+  for (const [key, value] of Object.entries(overrides)) {
+    if (!["calories", "protein", "fat", "carbohydrates"].includes(key) ||
+        typeof value !== "number" || !Number.isFinite(value) || value < 0) invalid("target override");
+  }
+}
+
+export function resolveTargets(profile: Profile, overrides: TargetOverrides = {}, fromDate = new Date().toISOString().slice(0, 10)): Nutrition {
+  const estimated = estimateTargets(profile, fromDate);
+  validateTargetOverrides(overrides);
+  return { ...estimated, ...overrides };
+}
+
+function checkedData(data: AppData): AppData {
+  validateAppData(data);
+  return copy(data);
+}
+
+function mergeData(current: AppData, imported: AppData): AppData {
+  const mergeById = <T extends { id: string }>(existing: T[], incoming: T[]) => {
+    const merged = new Map(existing.map((item) => [item.id, item]));
+    incoming.forEach((item) => merged.set(item.id, item));
+    return [...merged.values()];
+  };
+  return {
+    foods: mergeById(current.foods, imported.foods),
+    mealEntries: mergeById(current.mealEntries, imported.mealEntries),
+    ...(current.profile || imported.profile ? { profile: imported.profile ?? current.profile } : {}),
+    ...(current.targetOverrides || imported.targetOverrides
+      ? { targetOverrides: imported.targetOverrides ?? current.targetOverrides }
+      : {})
+  };
+}
+
+export function previewBackup(file: string): ImportResult {
+  try {
+    const parsed: unknown = JSON.parse(file);
+    if (typeof parsed !== "object" || parsed === null ||
+        !("schemaVersion" in parsed) || parsed.schemaVersion !== SCHEMA_VERSION ||
+        !("data" in parsed)) throw new Error("Unsupported backup version");
+    const imported = (parsed as { data: unknown }).data;
+    validateAppData(imported);
+    return { schemaVersion: SCHEMA_VERSION, data: copy(imported) };
+  } catch (error) {
+    throw new Error(`Invalid backup: ${error instanceof Error ? error.message : "Unknown error"}`);
+  }
+}
+
+export function createMemoryStore(initial: AppData = emptyData()): Store {
+  let data = checkedData(initial);
+
+  return {
+    async load() {
+      return copy(data);
+    },
+    async save(next) {
+      data = checkedData(next);
+    },
+    async export() {
+      return JSON.stringify({ schemaVersion: SCHEMA_VERSION, exportedAt: new Date().toISOString(), data });
+    },
+    async import(file) {
+      const imported = previewBackup(file);
+      data = checkedData(mergeData(data, imported.data));
+      return { schemaVersion: SCHEMA_VERSION, data: copy(data) };
+    }
+  };
+}

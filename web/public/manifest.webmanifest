@@ -1,0 +1,8 @@
+{
+  "name": "Diet",
+  "short_name": "Diet",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff"
+}

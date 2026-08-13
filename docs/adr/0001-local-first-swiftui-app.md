@@ -58,9 +58,29 @@ date: 2026-08-12
 - **完整自动抓取食品库**：授权、准确性和持续更新成本过高。
 - **首版 AI 识别**：不是饮食记录闭环的必要条件，延后到 MVP 验证后。
 
+## 开发与分发限制
+
+- iOS Simulator 和 Mac Catalyst 开发不需要付费 Apple Developer 证书。
+- 从 Xcode 或免费个人签名直接安装到 iPhone/iPad，需要用户在设备上开启 Developer Mode；免费签名通常约 7 天后过期并需要重新安装。
+- TestFlight/App Store 安装不需要 Developer Mode，但需要 Apple 签名、分发和相应流程。用户不愿开启 Developer Mode 时，开发与验证范围限定为模拟器和 Mac Catalyst；HealthKit 等真实设备能力标记为不可用。
+
 ## 实施前验证
 
 - 确认当前 macOS/Xcode 与目标 iOS/macOS 版本。
 - 在个人设备上验证免费签名周期和重装流程。
 - 验证 HealthKit entitlement、授权流程及 Mac Catalyst 行为。
 - 为 JSON 备份建立版本号、校验和备份恢复测试。
+
+## Phase 0 capability spike (2026-08-12)
+
+- Xcode 26.3 (17C529) is installed at `/Applications/Xcode.app`; the active developer directory remains `/Library/Developer/CommandLineTools`, so checks used `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`.
+- Selected spike deployment targets were iOS 18.0 (iPhone/iPad) and iOS 18.0
+  for Mac Catalyst. The installed SDKs are iOS/iOS Simulator/macOS 26.2.
+- The disposable SwiftUI app built successfully for Mac Catalyst with
+  `CODE_SIGNING_ALLOWED=NO`.
+- After installing the simulator runtime, the iOS simulator build succeeded and the app installed and launched on iPhone 16e (iOS 26.3).
+- The simulator notification check succeeded: the app logged
+  `notification scheduled` and `notification cancelled`.
+- `security find-identity -v -p codesigning` reports `0 valid identities found`. A trusted iPhone is visible to Xcode, but Developer Mode is intentionally not enabled, so free signing/install behavior cannot be tested.
+- `HealthKit.framework` and `UserNotifications.framework` are present in the SDKs. HealthKit authorization and read/write remain untested because they require a real device with Developer Mode and signing; the user declined enabling Developer Mode.
+- **Result:** HealthKit is `unavailable` for this environment by deliberate device-security choice. Keep HealthKit optional and do not let it block local recording.

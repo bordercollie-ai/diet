@@ -24,7 +24,7 @@ This is the executable specification for agents. Read `docs/prd.md` first for pr
 
 ## Phase 0 — toolchain and capability spike
 
-**Status:** pending
+**Status:** blocked (2026-08-12)
 
 ### Design
 
@@ -54,7 +54,8 @@ HealthKit results are a hard boundary:
 ### Deliverables
 
 - Xcode/toolchain result in the ADR.
-- A minimal project only if the environment can build it.
+- A disposable blank project built for Mac Catalyst only; not retained because
+  the iOS simulator destination and device checks were blocked.
 
 ## Phase 1 — project shell and local domain
 
@@ -245,3 +246,11 @@ All PRD MVP acceptance criteria pass, no known data-loss path remains, and the A
 ## Handoff protocol
 
 Before starting a phase, mark its status `in progress` and read its complete section. After finishing, replace the status with `done`, add the date, list changed files and checks, and record any blocked item. Do not start a phase whose dependency is not `done`.
+
+## Phase 0 handoff (2026-08-12)
+
+- **Status:** blocked.
+- **Files changed:** `docs/adr/0001-local-first-swiftui-app.md`, `docs/implementation-plan.md`.
+- **Checks:** Xcode 26.3 and SDKs detected; disposable SwiftUI app built for iOS Simulator and Mac Catalyst; iPhone 16e simulator installed and launched the app; notification scheduling and cancellation logged successfully. Signing check found 0 valid identities. HealthKit authorization/read/write was not run on a physical device because Developer Mode was intentionally declined.
+- **Unresolved blockers:** free signing and physical-device HealthKit remain unverified by user choice. The core simulator path is unaffected.
+- **Next ready phase:** none; Phase 1 remains blocked until Phase 0 exit criteria are satisfied.
