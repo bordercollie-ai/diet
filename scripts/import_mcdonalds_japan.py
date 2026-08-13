@@ -189,6 +189,7 @@ def main() -> int:
             {
                 "id": f"mcd-jp-{product_id}",
                 "name": name,
+                "description": "McDonald's Japan",
                 "serving": "1 serving",
                 "nutrition": {
                     "calories": number(cells[1]),

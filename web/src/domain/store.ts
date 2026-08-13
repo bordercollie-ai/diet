@@ -22,6 +22,10 @@ export type TargetOverrides = Partial<Nutrition>;
 export type Food = {
   id: string;
   name: Record<string, string>;
+  // Optional free-text detail (e.g. brand name) shown alongside the food's
+  // name in lists and search results. Absent on data saved before this field
+  // existed; treated as "no description" everywhere.
+  description?: string;
   serving: string;
   nutrition: Nutrition;
   source: "bundled" | "user";
@@ -111,7 +115,8 @@ export function validateFood(food: unknown): asserts food is Food {
       !Object.values(names).some((name) => typeof name === "string" && name.trim()) ||
       typeof value.serving !== "string" || !value.serving.trim() ||
       !validNutrition(value.nutrition) ||
-      (value.source !== "bundled" && value.source !== "user")) invalid("food");
+      (value.source !== "bundled" && value.source !== "user") ||
+      (value.description !== undefined && typeof value.description !== "string")) invalid("food");
 }
 
 export function validateMealEntry(entry: unknown, foods: Food[]): asserts entry is MealEntry {
@@ -152,8 +157,9 @@ export const roundForDisplay = (value: number): number => Math.round(value);
 export function searchFoods(foods: Food[], query: string): Food[] {
   const needle = query.trim().toLocaleLowerCase();
   if (!needle) return foods;
-  return foods.filter((food) => Object.values(food.name).some((value) =>
-    value.toLocaleLowerCase().includes(needle)));
+  return foods.filter((food) =>
+    Object.values(food.name).some((value) => value.toLocaleLowerCase().includes(needle)) ||
+    (food.description ?? "").toLocaleLowerCase().includes(needle));
 }
 
 export function createMealEntry(

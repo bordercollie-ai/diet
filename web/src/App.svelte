@@ -68,6 +68,7 @@
   let time = $state(new Date().toTimeString().slice(0, 5))
   let quantity = $state(1)
   let foodName = $state('')
+  let foodDescription = $state('')
   let serving = $state('1 serving')
   let calories = $state(0)
   let protein = $state(0)
@@ -204,10 +205,15 @@
       overrideProtein = loaded.targetOverrides?.protein
       overrideFat = loaded.targetOverrides?.fat
       overrideCarbohydrates = loaded.targetOverrides?.carbohydrates
-      const existing = new Set(data.foods.map((food) => food.id))
-      const foods = [...bundledFoods.filter((food) => !existing.has(food.id)), ...data.foods]
+      // Always refresh bundled foods from the canonical bundledFoods source (never
+      // trust the persisted copy) so field additions/edits — e.g. this description
+      // field — reach installs that saved bundled records before the change shipped.
+      // User-created foods are left untouched.
+      const bundledIds = new Set(bundledFoods.map((food) => food.id))
+      const userFoods = data.foods.filter((food) => !bundledIds.has(food.id))
+      const foods = [...bundledFoods, ...userFoods]
       if (
-        foods.length !== data.foods.length ||
+        JSON.stringify(foods) !== JSON.stringify(data.foods) ||
         mealEntries.some((entry, index) => entry.time !== loaded.mealEntries[index].time)
       ) {
         data = { ...data, foods }
@@ -301,6 +307,7 @@
     try {
       const input = {
         name: { en: foodName },
+        description: foodDescription.trim() || undefined,
         serving,
         nutrition: { calories, protein, fat, carbohydrates },
         source: 'user' as const,
@@ -312,6 +319,7 @@
       selectedFoodId = editingFoodId || next.foods.at(-1)?.id || ''
       editingFoodId = ''
       foodName = ''
+      foodDescription = ''
       serving = '1 serving'
       calories = 0
       protein = 0
@@ -408,6 +416,7 @@
     if (!food || food.source === 'bundled') return
     editingFoodId = id
     foodName = food.name.en ?? Object.values(food.name)[0]
+    foodDescription = food.description ?? ''
     serving = food.serving
     ;({ calories, protein, fat, carbohydrates } = food.nutrition)
     foodDialogOpen = true
@@ -416,6 +425,7 @@
   function startNewFood() {
     editingFoodId = ''
     foodName = ''
+    foodDescription = ''
     serving = '1 serving'
     calories = 0
     protein = 0
@@ -427,6 +437,7 @@
   function addFoodFromMealSearch() {
     editingFoodId = ''
     foodName = foodSearch.trim()
+    foodDescription = ''
     serving = '1 serving'
     calories = 0
     protein = 0
@@ -787,6 +798,7 @@
               <span class="font-semibold">{food.name.en ?? Object.values(food.name)[0]}</span>
               <span class="text-lg font-semibold">{displayNumber(food.nutrition.calories)} kcal</span>
             </div>
+            {#if food.description}<span class="text-sm text-muted-foreground">{food.description}</span>{/if}
             <span class="text-sm text-muted-foreground">{food.serving}</span>
           </button>
         {:else}
@@ -995,6 +1007,7 @@
                     onclick={() => chooseFoodResult(food.id)}
                   >
                     <span class="meal-name">{food.name.en ?? Object.values(food.name)[0]}</span>
+                    {#if food.description}<span class="meal-card-topline">{food.description}</span>{/if}
                     <strong class="meal-calories">{displayNumber(food.nutrition.calories)} kcal</strong>
                     <span class="meal-card-topline">{food.serving}</span>
                   </button>
@@ -1061,6 +1074,10 @@
           <div class="grid gap-2">
             <Label for="food-name">Name</Label>
             <Input id="food-name" bind:value={foodName} required />
+          </div>
+          <div class="grid gap-2">
+            <Label for="food-description">Description (e.g. brand)</Label>
+            <Input id="food-description" bind:value={foodDescription} placeholder="Optional" />
           </div>
           <div class="grid gap-2">
             <Label for="food-serving">Serving</Label>

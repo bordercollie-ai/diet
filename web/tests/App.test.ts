@@ -1,10 +1,11 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/svelte'
 import { vi, test, expect } from 'vitest'
-import { createMemoryStore } from '../src/domain/store'
+import { createMemoryStore, type AppData } from '../src/domain/store'
 import App from '../src/App.svelte'
 
+let storeOverride: AppData | undefined
 vi.mock('../src/storage/indexeddb', () => ({
-  createIndexedDBStore: () => createMemoryStore()
+  createIndexedDBStore: () => createMemoryStore(storeOverride)
 }))
 
 test('records 1.4 servings of a 68 kcal food and displays rounded calories', async () => {
@@ -74,4 +75,41 @@ test('records a quick entry with calories and macros without creating a food', a
     expect(screen.getAllByText('250 kcal')).toHaveLength(2)
     expect(screen.getByText('10 g')).toBeTruthy()
   })
+})
+
+test("shows a bundled food's brand/description in the Record a meal search results", async () => {
+  storeOverride = undefined
+  render(App)
+
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Record a meal' }))
+  await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: 'Big Mac' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
+
+  await waitFor(() => expect(screen.getAllByText("McDonald's Japan").length).toBeGreaterThan(0))
+})
+
+test('refreshes a bundled food saved before the description field existed, so its brand appears on next load', async () => {
+  // Simulate an install that persisted the McDonald's Japan Big Mac record before
+  // this app version added `description` — the stored copy has no description.
+  storeOverride = {
+    foods: [
+      {
+        id: 'mcd-jp-1210',
+        name: { en: 'Big Mac®', ja: 'ビッグマック®' },
+        serving: '1 serving',
+        nutrition: { calories: 524, protein: 26.4, fat: 28, carbohydrates: 41.8 },
+        source: 'bundled',
+      },
+    ],
+    mealEntries: [],
+  }
+  render(App)
+
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Record a meal' }))
+  await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: 'Big Mac' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
+
+  await waitFor(() => expect(screen.getAllByText("McDonald's Japan").length).toBeGreaterThan(0))
 })

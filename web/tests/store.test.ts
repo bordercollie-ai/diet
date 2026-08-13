@@ -90,6 +90,25 @@ test("searches localized food names", () => {
   assert.equal(searchFoods(bundledFoods, "牛乳")[0].id, "bundled-milk");
 });
 
+test("searches foods by description (e.g. brand) and tolerates missing descriptions", () => {
+  const foods = [
+    food(),
+    createFood({
+      id: "branded-1",
+      name: { en: "Big Mac" },
+      description: "McDonald's Japan",
+      serving: "1 serving",
+      nutrition: { calories: 524, protein: 26.4, fat: 28, carbohydrates: 41.8 },
+      source: "bundled"
+    })
+  ];
+  assert.deepEqual(searchFoods(foods, "mcdonald").map((item) => item.id), ["branded-1"]);
+  assert.deepEqual(searchFoods(foods, "big mac").map((item) => item.id), ["branded-1"]);
+  // Foods without a description (e.g. legacy data saved before this field existed) still validate and search fine.
+  assert.doesNotThrow(() => validateFood(food()));
+  assert.deepEqual(searchFoods(foods, food().name.en ?? "").map((item) => item.id), [food().id]);
+});
+
 test("bundles McDonald's Japan foods with valid, unique, read-only records", () => {
   const mcdonalds = bundledFoods.filter((item) => item.id.startsWith("mcd-jp-"));
   assert.equal(mcdonalds.length, 202);
@@ -102,6 +121,7 @@ test("bundles McDonald's Japan foods with valid, unique, read-only records", () 
     assert.equal(item.source, "bundled");
     assert.ok(item.name.ja?.trim(), `missing Japanese name: ${item.id}`);
     assert.ok(item.name.en?.trim(), `missing English name: ${item.id}`);
+    assert.equal(item.description, "McDonald's Japan", `missing brand description: ${item.id}`);
     assert.throws(() => updateFood({ foods: [item], mealEntries: [] }, item.id, { serving: "2 servings" }), /read-only/);
   }
 });
@@ -119,6 +139,10 @@ test("finds a McDonald's Japan food by its English or Japanese name", () => {
     byEnglish.find((item) => item.id === "mcd-jp-1210"),
     byJapanese.find((item) => item.id === "mcd-jp-1210")
   );
+
+  // Searching by brand ("mcdonald") surfaces the same records via description.
+  const byBrand = searchFoods(bundledFoods, "mcdonald");
+  assert.ok(byBrand.some((item) => item.id === "mcd-jp-1210"));
 });
 
 test("creates, edits, deletes, and totals scaled meal entries by date", () => {
