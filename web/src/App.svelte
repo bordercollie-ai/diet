@@ -269,8 +269,9 @@
   async function save(next: AppData) {
     try {
       // ponytail: $state proxies aren't structured-cloneable; snapshot before persisting.
-      await store.save($state.snapshot(next))
-      data = next
+      const saved = $state.snapshot(next)
+      await store.save(saved)
+      data = saved
       error = ''
     } catch (cause) {
       error = cause instanceof Error ? cause.message : 'Unable to save local data.'
@@ -599,7 +600,7 @@
           <div class="meal-list">
             {#each data.mealEntries
               .filter((entry) => entry.date === date)
-              .sort((a, b) => a.time.localeCompare(b.time)) as entry}
+              .sort((a, b) => a.time.localeCompare(b.time)) as entry (entry.id)}
               {@const food = data.foods.find((item) => item.id === entry.foodId)}
               <button
                 type="button"
