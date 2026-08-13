@@ -304,7 +304,7 @@
       {:else if selectedFood}
         <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
           {#if !editingMealId}
-            <Button type="button" variant="ghost" class="-ml-2 w-fit justify-start" onclick={backToSearch}>
+            <Button type="button" variant="ghost" class="w-full justify-start" onclick={backToSearch}>
               <ChevronLeftIcon aria-hidden="true" />
               Back to search
             </Button>
