@@ -8,6 +8,8 @@ body {
 
 html,
 body {
+  overflow-y: scroll;
+  scrollbar-gutter: stable;
   scrollbar-width: none;
 }
 
@@ -197,6 +199,8 @@ input[type='time'] {
   max-width: 100%;
   min-width: 0;
   width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 .macro-grid {
