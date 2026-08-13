@@ -217,12 +217,20 @@ The core flows have a coherent, responsive visual hierarchy and remain usable wi
 
 - **Done (2026-08-13):** Added `scripts/import_mcdonalds_japan.py` for official Japanese nutrition and English menu pages.
 - **Done (2026-08-13):** Added source/retrieval metadata and explicit failure for missing Chinese mappings.
-- **Next:** Add a reviewed mapping file and run the importer; then add the 7-Eleven importer.
+- **Done (2026-08-13):** Switched English names to per-product official pages (`/en/products/{id}/`), since the aggregate English menu page only exposes a small "Featured" subset, not the full catalog. Made `--zh-map` optional (Chinese names are omitted, never invented, when no reviewed mapping is supplied) and split output into `--raw-output` (raw scraped rows/names/provenance, for audit) and `--output` (app-format `Food[]`).
+- **Done (2026-08-13):** Ran the importer against the live official pages (202 products, no duplicates) and committed results: raw data at `scripts/output/mcdonalds_japan.raw.json`, app-format data at `web/src/data/mcdonalds_japan.json`. Wired the latter into `bundledFoods` in `web/src/domain/store.ts` as a built-in dataset shipped with the app; no reviewed Chinese names yet, so these 202 entries currently carry only `ja`/`en` names.
+- **Done (2026-08-13):** Added unit tests (`web/tests/store.test.ts`) verifying all 202 McDonald's Japan foods are unique, read-only, and pass `validateFood`, and that `searchFoods` resolves the same bundled record ("Big Mac®", 524 kcal) by both its English and Japanese name. Added UI tests (`web/tests/App.test.ts`) that search, select, and log a McDonald's meal end-to-end via the "Record a meal" flow once by English name ("Big Mac") and once by Japanese name ("ビッグマック"), asserting the correct calories and displayed name.
+- **Done (2026-08-13):** Fixed `pnpm test` (plain `node --test`), which had been silently broken by this sandbox's system Node 22.22.1 (packaged without TypeScript type-stripping support, so it can't load a `.ts` file at all). Installed Node 26.7.0 locally (user-space, `~/.local/node-latest`, plus the `libatomic1` shared library it needs — no system Node changed) and reran `pnpm test`, which then failed for a second, real reason: `store.ts`'s new JSON import needs a `with { type: "json" }` import attribute under Node's strict ESM loader, even though bundler tooling (Vite/esbuild) doesn't require it. Added the attribute to `web/src/domain/store.ts` and recorded a `"engines": { "node": ">=23.6.0" }` floor in `web/package.json` (the version type-stripping became default-on) so `pnpm test` works out of the box on any sufficiently new Node, not just this sandbox's patched one.
+- **Next:** Optionally supply a reviewed Chinese mapping and re-run to backfill `zh` names; then add the 7-Eleven importer.
 
 ### Checks
 
 - Python syntax and deterministic parsing against downloaded official HTML fixtures.
 - No runtime network dependency or access-control bypass.
+- `cd web && pnpm check` (svelte-check --tsgo): 0 errors, 0 warnings — validates the new JSON import and `bundledFoods` wiring.
+- `pnpm build`: passed with Vite 7.3.6.
+- `pnpm test:ui`: passed (4 tests, including the 2 new McDonald's UI tests).
+- `pnpm test` (plain `node --test tests/store.test.ts`, with Node >=23.6 on PATH): passed (18 tests, including the 2 new McDonald's unit tests).
 
 ### Exit criteria
 

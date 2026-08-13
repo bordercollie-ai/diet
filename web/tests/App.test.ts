@@ -10,7 +10,7 @@ vi.mock('../src/storage/indexeddb', () => ({
 test('records 1.4 servings of a 68 kcal food and displays rounded calories', async () => {
   render(App)
 
-  await screen.findByText('Daily summary')
+  await screen.findByRole('tabpanel', { name: 'Summary' })
   await fireEvent.click(screen.getByRole('button', { name: 'Record a meal' }))
   await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: '68 kcal snack' } })
   await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
@@ -25,10 +25,42 @@ test('records 1.4 servings of a 68 kcal food and displays rounded calories', asy
   await waitFor(() => expect(screen.getAllByText('95 kcal')).toHaveLength(2))
 })
 
+test('records a McDonald\'s Japan meal found by its English name', async () => {
+  render(App)
+
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Record a meal' }))
+  await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: 'Big Mac' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
+  await fireEvent.click(await screen.findByRole('button', { name: /Big Mac®/ }))
+  await fireEvent.click(screen.getByRole('button', { name: 'Add meal' }))
+
+  await waitFor(() => {
+    expect(screen.getByRole('img', { name: /^524 of \d+ kcal/ })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /Big Mac®, 524 kcal\. Open meal actions\./ })).toBeTruthy()
+  })
+})
+
+test('records a McDonald\'s Japan meal found by its Japanese name', async () => {
+  render(App)
+
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Record a meal' }))
+  await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: 'ビッグマック' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
+  await fireEvent.click(await screen.findByRole('button', { name: /Big Mac®/ }))
+  await fireEvent.click(screen.getByRole('button', { name: 'Add meal' }))
+
+  await waitFor(() => {
+    expect(screen.getByRole('img', { name: /^524 of \d+ kcal/ })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /Big Mac®, 524 kcal\. Open meal actions\./ })).toBeTruthy()
+  })
+})
+
 test('records a quick entry with calories and macros without creating a food', async () => {
   render(App)
 
-  await screen.findByText('Daily summary')
+  await screen.findByRole('tabpanel', { name: 'Summary' })
   await fireEvent.click(screen.getByRole('button', { name: 'Quick add' }))
   await fireEvent.input(screen.getByLabelText('Name'), { target: { value: 'Dessert' } })
   await fireEvent.input(screen.getByLabelText('Calories'), { target: { value: '250' } })

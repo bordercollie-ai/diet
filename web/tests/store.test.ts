@@ -18,7 +18,8 @@ import {
   searchFoods,
   type AppData,
   updateFood,
-  updateMealEntry
+  updateMealEntry,
+  validateFood
 } from "../src/domain/store.ts";
 
 const food = (source: "bundled" | "user" = "user") => createFood({
@@ -87,6 +88,37 @@ test("searches localized food names", () => {
   ];
   assert.deepEqual(searchFoods(foods, "おにぎり").map((item) => item.id), ["brand-1"]);
   assert.equal(searchFoods(bundledFoods, "牛乳")[0].id, "bundled-milk");
+});
+
+test("bundles McDonald's Japan foods with valid, unique, read-only records", () => {
+  const mcdonalds = bundledFoods.filter((item) => item.id.startsWith("mcd-jp-"));
+  assert.equal(mcdonalds.length, 202);
+
+  const ids = new Set(mcdonalds.map((item) => item.id));
+  assert.equal(ids.size, mcdonalds.length, "no duplicate McDonald's Japan food IDs");
+
+  for (const item of mcdonalds) {
+    assert.doesNotThrow(() => validateFood(item), `invalid McDonald's food: ${item.id}`);
+    assert.equal(item.source, "bundled");
+    assert.ok(item.name.ja?.trim(), `missing Japanese name: ${item.id}`);
+    assert.ok(item.name.en?.trim(), `missing English name: ${item.id}`);
+    assert.throws(() => updateFood({ foods: [item], mealEntries: [] }, item.id, { serving: "2 servings" }), /read-only/);
+  }
+});
+
+test("finds a McDonald's Japan food by its English or Japanese name", () => {
+  const byEnglish = searchFoods(bundledFoods, "Big Mac");
+  assert.ok(byEnglish.some((item) => item.id === "mcd-jp-1210"));
+  assert.equal(byEnglish.find((item) => item.id === "mcd-jp-1210")?.nutrition.calories, 524);
+
+  const byJapanese = searchFoods(bundledFoods, "ビッグマック");
+  assert.ok(byJapanese.some((item) => item.id === "mcd-jp-1210"));
+
+  // Both queries resolve to the same underlying bundled record.
+  assert.deepEqual(
+    byEnglish.find((item) => item.id === "mcd-jp-1210"),
+    byJapanese.find((item) => item.id === "mcd-jp-1210")
+  );
 });
 
 test("creates, edits, deletes, and totals scaled meal entries by date", () => {

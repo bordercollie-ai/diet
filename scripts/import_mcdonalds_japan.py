@@ -1,8 +1,15 @@
-#!/usr/bin/env python3
 """Import McDonald's Japan's public nutrition table into local Food JSON.
 
-The Japanese site publishes Japanese and English menu pages, but not an
-official Chinese menu. Supply a reviewed JSON map for the Chinese names.
+Fetches the official Japanese nutrition table and, for each product,
+the official English product page title. McDonald's Japan does not
+publish an official Chinese menu; Chinese names are optional and only
+filled in from a reviewed JSON map (--zh-map). Missing Chinese names
+are simply omitted, never invented.
+
+Writes two files:
+  --raw-output   the raw scraped rows/names/provenance, for audit
+  --output       records converted to the app's Food[] shape, ready to
+                 ship as a bundled/built-in dataset
 """
 
 from __future__ import annotations
@@ -15,11 +22,12 @@ import time
 from datetime import date
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 BASE = "https://www.mcdonalds.co.jp"
 NUTRIENT_URL = f"{BASE}/quality/allergy_Nutrition/nutrient/"
-EN_MENU_URL = f"{BASE}/en/menu/"
+EN_PRODUCT_URL = BASE + "/en/products/{product_id}/"
 USER_AGENT = "diet-seed-importer/1.0 (local development)"
 
 
@@ -67,12 +75,21 @@ class NutritionParser(HTMLParser):
             self._row = None
 
 
-def english_names(page: str) -> dict[str, str]:
-    # The official English page exposes the same product IDs in its data layer.
-    return {
-        product_id: name
-        for product_id, name in re.findall(r'"id":"(\d+)","name":"([^"]+)"', page)
-    }
+TITLE_RE = re.compile(r"<title>\s*([^<|]+?)\s*\|", re.IGNORECASE)
+
+
+def fetch_english_name(product_id: str, delay: float) -> str | None:
+    """Fetch the official English product page title, or None if it 404s."""
+    try:
+        page = fetch(EN_PRODUCT_URL.format(product_id=product_id))
+    except HTTPError as error:
+        if error.code == 404:
+            return None
+        raise
+    finally:
+        time.sleep(delay)
+    match = TITLE_RE.search(page)
+    return match.group(1).strip() if match else None
 
 
 def number(value: str) -> float:
@@ -85,60 +102,122 @@ def number(value: str) -> float:
 
 def load_chinese_map(path: Path | None) -> dict[str, str]:
     if path is None:
-        raise SystemExit("--zh-map is required: McDonald's Japan does not publish official Chinese names")
+        return {}
     value = json.loads(path.read_text(encoding="utf-8"))
-    if not isinstance(value, dict) or any(not isinstance(k, str) or not isinstance(v, str) or not v.strip()
-                                          for k, v in value.items()):
-        raise SystemExit("Chinese map must be a JSON object of product ID to non-empty name")
+    if not isinstance(value, dict) or any(
+        not isinstance(k, str) or not isinstance(v, str) or not v.strip()
+        for k, v in value.items()
+    ):
+        raise SystemExit(
+            "Chinese map must be a JSON object of product ID to non-empty name"
+        )
     return value
 
 
 def main() -> int:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", type=Path, default=Path("mcdonalds_japan.json"))
-    parser.add_argument("--zh-map", type=Path, help="Reviewed JSON map: {\"1030\": \"虾堡\"}")
-    parser.add_argument("--delay", type=float, default=1.5, help="Delay between official requests")
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=Path("mcdonalds_japan.json"),
+        help="App-format Food[] JSON (built-in/bundled dataset)",
+    )
+    parser.add_argument(
+        "--raw-output",
+        type=Path,
+        default=Path("mcdonalds_japan.raw.json"),
+        help="Raw scraped rows/names/provenance, for audit",
+    )
+    parser.add_argument(
+        "--zh-map",
+        type=Path,
+        help='Optional reviewed JSON map: {"1030": "虾堡"}; McDonald\'s Japan '
+        "does not publish official Chinese names, so entries without a "
+        "reviewed mapping simply omit the Chinese name.",
+    )
+    parser.add_argument(
+        "--delay", type=float, default=1.5, help="Delay between official requests"
+    )
+    parser.add_argument(
+        "--limit", type=int, help="Only process the first N products (for smoke tests)"
+    )
     args = parser.parse_args()
     if args.delay < 1:
         parser.error("--delay must be at least 1 second")
 
+    retrieved_at = date.today().isoformat()
     nutrition_page = fetch(NUTRIENT_URL)
     time.sleep(args.delay)
-    english_page = fetch(EN_MENU_URL)
     chinese = load_chinese_map(args.zh_map)
 
     nutrition = NutritionParser()
     nutrition.feed(nutrition_page)
-    english = english_names(english_page)
 
-    foods = []
+    rows = []
     seen: set[str] = set()
     for row in nutrition.rows:
         product_id, *cells = row
         if product_id in seen or len(cells) < 6:
             continue
         seen.add(product_id)
-        if product_id not in english:
-            raise SystemExit(f"Missing official English name for product {product_id}")
-        if product_id not in chinese:
-            raise SystemExit(f"Missing reviewed Chinese name for product {product_id}")
-        foods.append({
-            "id": f"mcd-jp-{product_id}",
-            "name": {"ja": cells[0], "en": english[product_id], "zh": chinese[product_id]},
-            "serving": "1 serving",
-            "nutrition": {
-                "calories": number(cells[1]),
-                "protein": number(cells[2]),
-                "fat": number(cells[3]),
-                "carbohydrates": number(cells[5]),
-            },
-            "source": "bundled",
-            "provenance": {"url": NUTRIENT_URL, "retrievedAt": date.today().isoformat()},
-        })
+        rows.append((product_id, cells))
+    if args.limit is not None:
+        rows = rows[: args.limit]
+
+    raw_products = []
+    foods = []
+    for product_id, cells in rows:
+        english_name = fetch_english_name(product_id, args.delay)
+        if english_name is None:
+            print(
+                f"Skipping product {product_id}: no official English page",
+                file=sys.stderr,
+            )
+            continue
+        raw_products.append(
+            {
+                "productId": product_id,
+                "nameJa": cells[0],
+                "nameEn": english_name,
+                "nutritionRow": cells,
+            }
+        )
+        name = {"ja": cells[0], "en": english_name}
+        if product_id in chinese:
+            name["zh"] = chinese[product_id]
+        foods.append(
+            {
+                "id": f"mcd-jp-{product_id}",
+                "name": name,
+                "serving": "1 serving",
+                "nutrition": {
+                    "calories": number(cells[1]),
+                    "protein": number(cells[2]),
+                    "fat": number(cells[3]),
+                    "carbohydrates": number(cells[5]),
+                },
+                "source": "bundled",
+            }
+        )
 
     if not foods:
         raise SystemExit("No products found; the official page layout may have changed")
-    args.output.write_text(json.dumps(foods, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+    raw = {
+        "retrievedAt": retrieved_at,
+        "sources": {
+            "nutrition": NUTRIENT_URL,
+            "englishProduct": EN_PRODUCT_URL,
+        },
+        "products": raw_products,
+    }
+    args.raw_output.write_text(
+        json.dumps(raw, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    args.output.write_text(
+        json.dumps(foods, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    print(f"Wrote {len(foods)} raw products to {args.raw_output}", file=sys.stderr)
     print(f"Wrote {len(foods)} foods to {args.output}", file=sys.stderr)
     return 0
 

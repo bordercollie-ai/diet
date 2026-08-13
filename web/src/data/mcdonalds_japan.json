@@ -1,0 +1,3032 @@
+[
+  {
+    "id": "mcd-jp-1030",
+    "name": {
+      "ja": "えびフィレオ®",
+      "en": "Shrimp Filet-O"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 408,
+      "protein": 11.4,
+      "fat": 18.6,
+      "carbohydrates": 49.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1170",
+    "name": {
+      "ja": "てりやきチキンフィレオ",
+      "en": "Teriyaki Chicken Filet-O"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 496,
+      "protein": 20.1,
+      "fat": 23,
+      "carbohydrates": 52.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1070",
+    "name": {
+      "ja": "てりやきマックバーガー",
+      "en": "Teriyaki McBurger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 485,
+      "protein": 14.2,
+      "fat": 31.3,
+      "carbohydrates": 37.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-7070",
+    "name": {
+      "ja": "エグチ(エッグチーズバーガー)",
+      "en": "Egg Cheeseburger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 390,
+      "protein": 22.4,
+      "fat": 19,
+      "carbohydrates": 31.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1410",
+    "name": {
+      "ja": "エッグマックマフィン®",
+      "en": "Egg McMuffin®"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 310,
+      "protein": 18.6,
+      "fat": 13.6,
+      "carbohydrates": 27.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-6410",
+    "name": {
+      "ja": "ジューシーチキン 旨辛ガーリック",
+      "en": "Juicy Chicken Spicy Garlic"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 477,
+      "protein": 17.4,
+      "fat": 24.1,
+      "carbohydrates": 48.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4040",
+    "name": {
+      "ja": "ソーセージエッグマフィン",
+      "en": "Sausage Egg Muffin"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 477,
+      "protein": 22,
+      "fat": 30.6,
+      "carbohydrates": 27.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4030",
+    "name": {
+      "ja": "ソーセージマフィン",
+      "en": "Sausage Muffin"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 397,
+      "protein": 15.5,
+      "fat": 25.1,
+      "carbohydrates": 27.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-6440",
+    "name": {
+      "ja": "タルタルデミソーセージマフィン",
+      "en": "Tartar Demi Sausage Muffin"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 491,
+      "protein": 16.7,
+      "fat": 31.7,
+      "carbohydrates": 34.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-6400",
+    "name": {
+      "ja": "タルタルデミ肉厚ビーフ",
+      "en": "Tartar Demi Thick Beef"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 473,
+      "protein": 22.3,
+      "fat": 25.8,
+      "carbohydrates": 38.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-6430",
+    "name": {
+      "ja": "タルタルデミ倍肉厚ビーフ",
+      "en": "Tartar Demi Double Thick Beef"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 640,
+      "protein": 35.2,
+      "fat": 38.7,
+      "carbohydrates": 38.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1360",
+    "name": {
+      "ja": "ダブルチーズバーガー",
+      "en": "Double Cheeseburger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 459,
+      "protein": 26.4,
+      "fat": 25.1,
+      "carbohydrates": 31.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1020",
+    "name": {
+      "ja": "チーズバーガー",
+      "en": "Cheeseburger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 310,
+      "protein": 15.9,
+      "fat": 13.5,
+      "carbohydrates": 31
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8000",
+    "name": {
+      "ja": "チキチー® (マックチキン® チーズ)",
+      "en": "McChicken® Cheese"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 436,
+      "protein": 16.4,
+      "fat": 23.6,
+      "carbohydrates": 40.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1050",
+    "name": {
+      "ja": "チキンフィレオ®",
+      "en": "Chicken Filet-O®"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 479,
+      "protein": 19.9,
+      "fat": 23.8,
+      "carbohydrates": 47
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1430",
+    "name": {
+      "ja": "チキンマックマフィン",
+      "en": "Chicken McMuffin"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 401,
+      "protein": 15.1,
+      "fat": 20.8,
+      "carbohydrates": 38.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1010",
+    "name": {
+      "ja": "ハンバーガー",
+      "en": "Hamburger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 259,
+      "protein": 13,
+      "fat": 9.5,
+      "carbohydrates": 30.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8502",
+    "name": {
+      "ja": "バターパット",
+      "en": "Butter"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 60,
+      "protein": 0,
+      "fat": 6.6,
+      "carbohydrates": 0
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1210",
+    "name": {
+      "ja": "ビッグマック®",
+      "en": "Big Mac®"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 524,
+      "protein": 26.1,
+      "fat": 28,
+      "carbohydrates": 42
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1110",
+    "name": {
+      "ja": "フィレオフィッシュ®",
+      "en": "Filet-O-Fish®"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 338,
+      "protein": 15.1,
+      "fat": 14.2,
+      "carbohydrates": 37.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1420",
+    "name": {
+      "ja": "ベーコンエッグマックサンド",
+      "en": "Bacon Egg McSandwich"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 294,
+      "protein": 16.3,
+      "fat": 12.6,
+      "carbohydrates": 27.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1040",
+    "name": {
+      "ja": "ベーコンレタスバーガー",
+      "en": "Bacon Lettuce Burger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 362,
+      "protein": 17.5,
+      "fat": 19.4,
+      "carbohydrates": 30.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4010",
+    "name": {
+      "ja": "ホットケーキ",
+      "en": "Hotcakes"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 323,
+      "protein": 8.3,
+      "fat": 9.3,
+      "carbohydrates": 53.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8501",
+    "name": {
+      "ja": "ホットケーキシロップ",
+      "en": "HotCake Syrup"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 121,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 30.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8640",
+    "name": {
+      "ja": "マックグリドル® ソーセージ",
+      "en": "McGriddles Sausage"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 414,
+      "protein": 10.5,
+      "fat": 23.4,
+      "carbohydrates": 40.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8642",
+    "name": {
+      "ja": "マックグリドル® ソーセージエッグ",
+      "en": "McGriddles Sausage &amp; Egg"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 545,
+      "protein": 19.8,
+      "fat": 32.9,
+      "carbohydrates": 41.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8641",
+    "name": {
+      "ja": "マックグリドル® ベーコンエッグ",
+      "en": "McGriddles Bacon &amp; Egg"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 382,
+      "protein": 15.6,
+      "fat": 16.7,
+      "carbohydrates": 41.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1250",
+    "name": {
+      "ja": "マックチキン®",
+      "en": "McChicken®"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 386,
+      "protein": 13.5,
+      "fat": 19.6,
+      "carbohydrates": 39.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1270",
+    "name": {
+      "ja": "マックポーク®",
+      "en": "McPORK®"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 409,
+      "protein": 14.8,
+      "fat": 23.8,
+      "carbohydrates": 34.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8637",
+    "name": {
+      "ja": "メガマフィン",
+      "en": "Mega Muffin"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 693,
+      "protein": 30,
+      "fat": 49.3,
+      "carbohydrates": 31.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4590",
+    "name": {
+      "ja": "倍えびフィレオ",
+      "en": "Bai Shrimp Filet-O"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 582,
+      "protein": 17.5,
+      "fat": 26.7,
+      "carbohydrates": 68.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4680",
+    "name": {
+      "ja": "倍てりやきチキンフィレオ",
+      "en": "Bai Teriyaki Chicken Filet-O"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 769,
+      "protein": 35,
+      "fat": 36.4,
+      "carbohydrates": 76.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4530",
+    "name": {
+      "ja": "倍てりやきマックバーガー",
+      "en": "Bai Teriyaki McBurger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 747,
+      "protein": 23.3,
+      "fat": 52.9,
+      "carbohydrates": 45.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4600",
+    "name": {
+      "ja": "倍エグチ(倍エッグチーズバーガー)",
+      "en": "Bai Egg Cheeseburger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 489,
+      "protein": 29.9,
+      "fat": 26.6,
+      "carbohydrates": 31.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4560",
+    "name": {
+      "ja": "倍ダブルチーズバーガー",
+      "en": "Bai Double Cheeseburger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 657,
+      "protein": 41.6,
+      "fat": 40.3,
+      "carbohydrates": 31.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4510",
+    "name": {
+      "ja": "倍チーズバーガー",
+      "en": "Bai Cheeseburger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 409,
+      "protein": 23.5,
+      "fat": 21.1,
+      "carbohydrates": 31
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4610",
+    "name": {
+      "ja": "倍チキチー(倍マックチキン チーズ)",
+      "en": "Bai McChicken Cheese"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 599,
+      "protein": 24.8,
+      "fat": 33.5,
+      "carbohydrates": 50.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4570",
+    "name": {
+      "ja": "倍チキンフィレオ",
+      "en": "Bai Chicken Filet-O"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 725,
+      "protein": 34.6,
+      "fat": 37.1,
+      "carbohydrates": 63.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4500",
+    "name": {
+      "ja": "倍ハンバーガー",
+      "en": "Bai Hamburger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 358,
+      "protein": 20.6,
+      "fat": 17.1,
+      "carbohydrates": 30.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4550",
+    "name": {
+      "ja": "倍ビッグマック",
+      "en": "Bai Big Mac"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 722,
+      "protein": 41.3,
+      "fat": 43.2,
+      "carbohydrates": 42
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4540",
+    "name": {
+      "ja": "倍フィレオフィッシュ",
+      "en": "Bai Filet-O-Fish"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 453,
+      "protein": 23.4,
+      "fat": 19.1,
+      "carbohydrates": 46.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4580",
+    "name": {
+      "ja": "倍ベーコンレタスバーガー",
+      "en": "Bai Bacon Lettuce Burger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 461,
+      "protein": 25,
+      "fat": 27,
+      "carbohydrates": 30.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4720",
+    "name": {
+      "ja": "倍マックチキン",
+      "en": "Bai McChicken"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 549,
+      "protein": 21.9,
+      "fat": 29.5,
+      "carbohydrates": 49.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4730",
+    "name": {
+      "ja": "倍マックポーク",
+      "en": "Bai McPORK®"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 644,
+      "protein": 23.7,
+      "fat": 45.3,
+      "carbohydrates": 35.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1260",
+    "name": {
+      "ja": "炙り醤油風 たまごベーコン肉厚ビーフ",
+      "en": "Roasted Soy Sauce Egg Bacon Thick Beef"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 517,
+      "protein": 30.8,
+      "fat": 27,
+      "carbohydrates": 37.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1220",
+    "name": {
+      "ja": "炙り醤油風 ダブル肉厚ビーフ",
+      "en": "Roasted Soy Sauce Double Thick Beef"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 633,
+      "protein": 38,
+      "fat": 37.1,
+      "carbohydrates": 37.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-6420",
+    "name": {
+      "ja": "焙煎ごまタルタルシュリンプ",
+      "en": "Roasted Sesame Tartar Shrimp"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 460,
+      "protein": 14.9,
+      "fat": 21.6,
+      "carbohydrates": 52.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1910",
+    "name": {
+      "ja": "チーズチーズてりやきマックバーガー",
+      "en": "Cheese Cheese Teriyaki McBurger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 586,
+      "protein": 20.1,
+      "fat": 39.3,
+      "carbohydrates": 38.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1900",
+    "name": {
+      "ja": "チーズチーズダブルチーズバーガー",
+      "en": "Cheese Cheese Double Cheeseburger"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 561,
+      "protein": 32.4,
+      "fat": 33.2,
+      "carbohydrates": 33.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1618",
+    "name": {
+      "ja": "うま塩ガーリックソース",
+      "en": "Savory Garlic Sauce"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 34,
+      "protein": 0.1,
+      "fat": 1,
+      "carbohydrates": 6.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-2220",
+    "name": {
+      "ja": "えだまめコーン",
+      "en": "Edamame &amp; Corn"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 84,
+      "protein": 5.2,
+      "fat": 3.2,
+      "carbohydrates": 9.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8575",
+    "name": {
+      "ja": "りんご&クリーム",
+      "en": "Apple &amp; Cream"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 31,
+      "protein": 0.2,
+      "fat": 1.5,
+      "carbohydrates": 4.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3010",
+    "name": {
+      "ja": "ケチャップ",
+      "en": "Ketchup"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 23,
+      "protein": 0.4,
+      "fat": 0.1,
+      "carbohydrates": 5.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-2200",
+    "name": {
+      "ja": "サイドサラダ",
+      "en": "Side Salad"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 10,
+      "protein": 0.5,
+      "fat": 0.1,
+      "carbohydrates": 2.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-6450",
+    "name": {
+      "ja": "シャカシャカポテト® のり塩味シーズニング",
+      "en": "Shaka Shaka Potato® Nori Salt Flavor Seasoning"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 8,
+      "protein": 0.4,
+      "fat": 0.1,
+      "carbohydrates": 1.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-9014",
+    "name": {
+      "ja": "シャカチキ",
+      "en": "Shaka-Chicki"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 246,
+      "protein": 14.7,
+      "fat": 13.3,
+      "carbohydrates": 16.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-9018",
+    "name": {
+      "ja": "シャカチキ チェダーチーズ味シーズニング",
+      "en": "Shaka-Chicki Cheddar Cheese Flavored Seasoning"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 8,
+      "protein": 0.3,
+      "fat": 0.1,
+      "carbohydrates": 1.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8611",
+    "name": {
+      "ja": "ソフトツイスト",
+      "en": "Soft Twist"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 148,
+      "protein": 3.9,
+      "fat": 3.8,
+      "carbohydrates": 24.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1617",
+    "name": {
+      "ja": "チーズカレーソース",
+      "en": "Cheese Curry Sauce"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 90,
+      "protein": 0.2,
+      "fat": 9,
+      "carbohydrates": 1.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-2130",
+    "name": {
+      "ja": "チーズベーコンポテトパイ",
+      "en": "Cheese Bacon Potato Pie"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 250,
+      "protein": 3.8,
+      "fat": 15.6,
+      "carbohydrates": 23.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-9030",
+    "name": {
+      "ja": "チキンマックナゲット® 15ピース",
+      "en": "Chicken McNuggets® 15Pcs"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 786,
+      "protein": 46,
+      "fat": 47.8,
+      "carbohydrates": 43.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1610",
+    "name": {
+      "ja": "チキンマックナゲット® 5ピース",
+      "en": "Chicken McNuggets® 5Pcs"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 262,
+      "protein": 15.3,
+      "fat": 15.9,
+      "carbohydrates": 14.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-5010",
+    "name": {
+      "ja": "ハッシュポテト",
+      "en": "Hash Potato"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 157,
+      "protein": 1.4,
+      "fat": 10.2,
+      "carbohydrates": 14.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1611",
+    "name": {
+      "ja": "バーベキューソース",
+      "en": "BBQ Sauce"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 33,
+      "protein": 0.2,
+      "fat": 0.2,
+      "carbohydrates": 7.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-2888",
+    "name": {
+      "ja": "プチパンケーキ",
+      "en": "Petit Pancakes"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 161,
+      "protein": 3.8,
+      "fat": 4.4,
+      "carbohydrates": 26.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-2110",
+    "name": {
+      "ja": "ホットアップルパイ",
+      "en": "Hot Apple Pie"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 211,
+      "protein": 2.1,
+      "fat": 10.9,
+      "carbohydrates": 26.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-1612",
+    "name": {
+      "ja": "マスタードソース",
+      "en": "Mustard Sauce"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 43,
+      "protein": 0.4,
+      "fat": 2.2,
+      "carbohydrates": 5.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-2050",
+    "name": {
+      "ja": "マックフライポテト®(L)",
+      "en": "McFry"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 517,
+      "protein": 7,
+      "fat": 25.2,
+      "carbohydrates": 66
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-2020",
+    "name": {
+      "ja": "マックフライポテト®(M)",
+      "en": "McFry"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 410,
+      "protein": 5.5,
+      "fat": 20,
+      "carbohydrates": 52.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-2010",
+    "name": {
+      "ja": "マックフライポテト®(S)",
+      "en": "McFry"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 225,
+      "protein": 3,
+      "fat": 11,
+      "carbohydrates": 28.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8614",
+    "name": {
+      "ja": "マックフルーリー® オレオ® クッキー",
+      "en": "McFlurry® with OREO® Cookie"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 235,
+      "protein": 5.8,
+      "fat": 6.8,
+      "carbohydrates": 37.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-2810",
+    "name": {
+      "ja": "マックフルーリー® 超 オレオ® クッキー",
+      "en": "McFlurry® with Cho OREO® Cookie"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 355,
+      "protein": 7.8,
+      "fat": 10.9,
+      "carbohydrates": 57.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-2201",
+    "name": {
+      "ja": "焙煎胡麻ドレッシング(カロリーハーフ)",
+      "en": "Sesame Dressing Calorie Half"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 27,
+      "protein": 0.4,
+      "fat": 1.7,
+      "carbohydrates": 2.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3605",
+    "name": {
+      "ja": "Qoo 白ぶどう(L)",
+      "en": "Qoo White Grape"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 192,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 48.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3604",
+    "name": {
+      "ja": "Qoo 白ぶどう(M)",
+      "en": "Qoo White Grape"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 149,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 37.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3603",
+    "name": {
+      "ja": "Qoo 白ぶどう(S)",
+      "en": "Qoo White Grape"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 96,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 24.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3606",
+    "name": {
+      "ja": "Qoo 白ぶどう(ジャンボ)",
+      "en": "Qoo White Grape"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 297,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 75.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8552",
+    "name": {
+      "ja": "アールグレイ アイスティー(ストレート)(L)",
+      "en": "Earlgrey Iced Tea"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 0,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8551",
+    "name": {
+      "ja": "アールグレイ アイスティー(ストレート)(M)",
+      "en": "Earlgrey Iced Tea"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 0,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8550",
+    "name": {
+      "ja": "アールグレイ アイスティー(ストレート)(S)",
+      "en": "Earlgrey Iced Tea"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 0,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8558",
+    "name": {
+      "ja": "アールグレイ アイスティー(ミルク)(L)",
+      "en": "Earlgrey Iced Tea(Milk)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 9,
+      "protein": 0.2,
+      "fat": 0.9,
+      "carbohydrates": 0.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8557",
+    "name": {
+      "ja": "アールグレイ アイスティー(ミルク)(M)",
+      "en": "Earlgrey Iced Tea(Milk)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 9,
+      "protein": 0.2,
+      "fat": 0.9,
+      "carbohydrates": 0.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8556",
+    "name": {
+      "ja": "アールグレイ アイスティー(ミルク)(S)",
+      "en": "Earlgrey Iced Tea(Milk)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 9,
+      "protein": 0.2,
+      "fat": 0.9,
+      "carbohydrates": 0.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8555",
+    "name": {
+      "ja": "アールグレイ アイスティー(レモン)(L)",
+      "en": "Earlgrey Iced Tea(Lemon)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 1,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8554",
+    "name": {
+      "ja": "アールグレイ アイスティー(レモン)(M)",
+      "en": "Earlgrey Iced Tea(Lemon)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 1,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8553",
+    "name": {
+      "ja": "アールグレイ アイスティー(レモン)(S)",
+      "en": "Earlgrey Iced Tea(Lemon)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 1,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3081",
+    "name": {
+      "ja": "アイスカフェラテ(M)",
+      "en": "Iced Café Latte"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 103,
+      "protein": 5.1,
+      "fat": 5.7,
+      "carbohydrates": 7.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3080",
+    "name": {
+      "ja": "アイスカフェラテ(S)",
+      "en": "Iced Café Latte"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 72,
+      "protein": 3.5,
+      "fat": 4,
+      "carbohydrates": 5.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3085",
+    "name": {
+      "ja": "アイスキャラメルラテ(M)",
+      "en": "Iced Caramel Latte"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 155,
+      "protein": 5.1,
+      "fat": 5.8,
+      "carbohydrates": 20.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3084",
+    "name": {
+      "ja": "アイスキャラメルラテ(S)",
+      "en": "Iced Caramel Latte"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 124,
+      "protein": 3.6,
+      "fat": 4,
+      "carbohydrates": 18.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3051",
+    "name": {
+      "ja": "カフェラテ(M)",
+      "en": "Café Latte"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 116,
+      "protein": 5.7,
+      "fat": 6.5,
+      "carbohydrates": 8.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3050",
+    "name": {
+      "ja": "カフェラテ(S)",
+      "en": "Café Latte"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 82,
+      "protein": 4,
+      "fat": 4.6,
+      "carbohydrates": 6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8004",
+    "name": {
+      "ja": "ガムシロップ",
+      "en": "Syrup"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 19,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 4.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3057",
+    "name": {
+      "ja": "キャラメルラテ(M)",
+      "en": "Caramel Latte"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 168,
+      "protein": 5.8,
+      "fat": 6.5,
+      "carbohydrates": 21.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3056",
+    "name": {
+      "ja": "キャラメルラテ(S)",
+      "en": "Caramel Latte"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 134,
+      "protein": 4.1,
+      "fat": 4.6,
+      "carbohydrates": 18.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8005",
+    "name": {
+      "ja": "コーヒーフレッシュ",
+      "en": "Creamer"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 9,
+      "protein": 0.2,
+      "fat": 0.9,
+      "carbohydrates": 0.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3272",
+    "name": {
+      "ja": "コカ・コーラ ゼロ(L)",
+      "en": "Coca-Cola® Zero Sugar"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 0,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3271",
+    "name": {
+      "ja": "コカ・コーラ ゼロ(M)",
+      "en": "Coca-Cola® Zero Sugar"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 0,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3270",
+    "name": {
+      "ja": "コカ・コーラ ゼロ(S)",
+      "en": "Coca-Cola® Zero Sugar"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 0,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3273",
+    "name": {
+      "ja": "コカ・コーラ ゼロ(ジャンボ)",
+      "en": "Coca-Cola® Zero Sugar"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 0,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3150",
+    "name": {
+      "ja": "コカ・コーラ(L)",
+      "en": "Coca Cola"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 188,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 47.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3120",
+    "name": {
+      "ja": "コカ・コーラ(M)",
+      "en": "Coca Cola"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 145,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 36.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3110",
+    "name": {
+      "ja": "コカ・コーラ(S)",
+      "en": "Coca Cola"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 94,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 23.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3160",
+    "name": {
+      "ja": "コカ・コーラ(ジャンボ)",
+      "en": "Coca Cola"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 291,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 73
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3930",
+    "name": {
+      "ja": "サントリー黒烏龍茶#濃いめ",
+      "en": "Suntory Kuro Oolong Tea#Strong"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 5,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8006",
+    "name": {
+      "ja": "シュガー",
+      "en": "Sugar"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 12,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3702",
+    "name": {
+      "ja": "スプライト(L)",
+      "en": "Sprite"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 166,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 41.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3701",
+    "name": {
+      "ja": "スプライト(M)",
+      "en": "Sprite"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 128,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 32.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3700",
+    "name": {
+      "ja": "スプライト(S)",
+      "en": "Sprite"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 83,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 20.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3703",
+    "name": {
+      "ja": "スプライト(ジャンボ)",
+      "en": "Sprite"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 257,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 64.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3405",
+    "name": {
+      "ja": "ファンタ グレープ(L)",
+      "en": "Fanta Grape"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 212,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 52.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3402",
+    "name": {
+      "ja": "ファンタ グレープ(M)",
+      "en": "Fanta Grape"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 164,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 40.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3400",
+    "name": {
+      "ja": "ファンタ グレープ(S)",
+      "en": "Fanta Grape"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 106,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 26.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3406",
+    "name": {
+      "ja": "ファンタ グレープ(ジャンボ)",
+      "en": "Fanta Grape"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 328,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 82
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3412",
+    "name": {
+      "ja": "ファンタ メロン(L)",
+      "en": "Fanta Melon"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 212,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 52.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3411",
+    "name": {
+      "ja": "ファンタ メロン(M)",
+      "en": "Fanta Melon"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 164,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 40.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3410",
+    "name": {
+      "ja": "ファンタ メロン(S)",
+      "en": "Fanta Melon"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 106,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 26.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3413",
+    "name": {
+      "ja": "ファンタ メロン(ジャンボ)",
+      "en": "Fanta Melon"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 328,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 82
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4112",
+    "name": {
+      "ja": "プレミアムローストアイスコーヒー(L)",
+      "en": "Premium Roast Ice Coffee"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 12,
+      "protein": 0.6,
+      "fat": 0,
+      "carbohydrates": 2.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4111",
+    "name": {
+      "ja": "プレミアムローストアイスコーヒー(M)",
+      "en": "Premium Roast Ice Coffee"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 9,
+      "protein": 0.5,
+      "fat": 0,
+      "carbohydrates": 1.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-4110",
+    "name": {
+      "ja": "プレミアムローストアイスコーヒー(S)",
+      "en": "Premium Roast Ice Coffee"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 6,
+      "protein": 0.3,
+      "fat": 0,
+      "carbohydrates": 1.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-5110",
+    "name": {
+      "ja": "プレミアムローストコーヒー(M)",
+      "en": "Premium Roast Coffee"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 12,
+      "protein": 0.6,
+      "fat": 0,
+      "carbohydrates": 2.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-5100",
+    "name": {
+      "ja": "プレミアムローストコーヒー(S)",
+      "en": "Premium Roast Coffee"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 7,
+      "protein": 0.4,
+      "fat": 0,
+      "carbohydrates": 1.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-5040",
+    "name": {
+      "ja": "ホットティー(ストレート)(M)",
+      "en": "Hot Tea(Straight)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 3,
+      "protein": 0.3,
+      "fat": 0,
+      "carbohydrates": 0.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-5030",
+    "name": {
+      "ja": "ホットティー(ストレート)(S)",
+      "en": "Hot Tea(Straight)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 2,
+      "protein": 0.2,
+      "fat": 0,
+      "carbohydrates": 0.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-5060",
+    "name": {
+      "ja": "ホットティー(ミルク)(M)",
+      "en": "Hot Tea(Milk)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 12,
+      "protein": 0.5,
+      "fat": 0.9,
+      "carbohydrates": 0.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-5050",
+    "name": {
+      "ja": "ホットティー(ミルク)(S)",
+      "en": "Hot Tea(Milk)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 11,
+      "protein": 0.3,
+      "fat": 0.9,
+      "carbohydrates": 0.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-5080",
+    "name": {
+      "ja": "ホットティー(レモン)(M)",
+      "en": "Hot Tea(Lemon)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 4,
+      "protein": 0.3,
+      "fat": 0,
+      "carbohydrates": 0.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-5070",
+    "name": {
+      "ja": "ホットティー(レモン)(S)",
+      "en": "Hot Tea(Lemon)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 3,
+      "protein": 0.2,
+      "fat": 0,
+      "carbohydrates": 0.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8513",
+    "name": {
+      "ja": "マックシェイク® ストロベリー(L)",
+      "en": "McShake® Strawberry"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 466,
+      "protein": 8.3,
+      "fat": 7,
+      "carbohydrates": 92.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8516",
+    "name": {
+      "ja": "マックシェイク® ストロベリー(M)",
+      "en": "McShake® Strawberry"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 375,
+      "protein": 6.8,
+      "fat": 5.7,
+      "carbohydrates": 74.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8517",
+    "name": {
+      "ja": "マックシェイク® ストロベリー(S)",
+      "en": "McShake® Strawberry"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 226,
+      "protein": 4.2,
+      "fat": 3.6,
+      "carbohydrates": 44.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8514",
+    "name": {
+      "ja": "マックシェイク® チョコレート(L)",
+      "en": "McShake® Chocolate"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 477,
+      "protein": 9.5,
+      "fat": 7.7,
+      "carbohydrates": 93.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8518",
+    "name": {
+      "ja": "マックシェイク® チョコレート(M)",
+      "en": "McShake® Chocolate"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 383,
+      "protein": 7.8,
+      "fat": 6.2,
+      "carbohydrates": 74.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8519",
+    "name": {
+      "ja": "マックシェイク® チョコレート(S)",
+      "en": "McShake® Chocolate"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 231,
+      "protein": 4.8,
+      "fat": 3.9,
+      "carbohydrates": 44.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8515",
+    "name": {
+      "ja": "マックシェイク® バニラ(L)",
+      "en": "McShake® Vanilla"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 456,
+      "protein": 8.3,
+      "fat": 6.9,
+      "carbohydrates": 90.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8520",
+    "name": {
+      "ja": "マックシェイク® バニラ(M)",
+      "en": "McShake® Vanilla"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 367,
+      "protein": 6.8,
+      "fat": 5.7,
+      "carbohydrates": 72.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8521",
+    "name": {
+      "ja": "マックシェイク® バニラ(S)",
+      "en": "McShake® Vanilla"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 222,
+      "protein": 4.2,
+      "fat": 3.6,
+      "carbohydrates": 43.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-6480",
+    "name": {
+      "ja": "マックフィズ® 沖縄県産パイン",
+      "en": "McFizz® Okinawa Pineapple"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 158,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 39.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-9056",
+    "name": {
+      "ja": "マックフロート® グレープ",
+      "en": "McFloat® Grape"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 213,
+      "protein": 2.9,
+      "fat": 2.9,
+      "carbohydrates": 43.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-9057",
+    "name": {
+      "ja": "マックフロート® コーク®",
+      "en": "McFloat® Coke®"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 200,
+      "protein": 2.8,
+      "fat": 2.9,
+      "carbohydrates": 40.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-9058",
+    "name": {
+      "ja": "マックフロート® コーヒー",
+      "en": "McFloat® Coffee"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 113,
+      "protein": 3.2,
+      "fat": 2.9,
+      "carbohydrates": 18.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-9059",
+    "name": {
+      "ja": "マックフロート® メロン",
+      "en": "McFloat® Melon"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 213,
+      "protein": 2.9,
+      "fat": 2.9,
+      "carbohydrates": 43.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-6470",
+    "name": {
+      "ja": "マックフロート® 沖縄県産パイン",
+      "en": "McFloat® Okinawa Pineapple"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 264,
+      "protein": 2.9,
+      "fat": 2.9,
+      "carbohydrates": 56.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3922",
+    "name": {
+      "ja": "ミニッツメイド アップル100",
+      "en": "Minute Maid Apple100"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 96,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 23.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3310",
+    "name": {
+      "ja": "ミニッツメイド® オレンジ(S)",
+      "en": "Minute Maid® Orange (S)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 102,
+      "protein": 1.5,
+      "fat": 0,
+      "carbohydrates": 24
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3480",
+    "name": {
+      "ja": "ミルク",
+      "en": "Milk"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 138,
+      "protein": 6.8,
+      "fat": 7.8,
+      "carbohydrates": 9.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-8003",
+    "name": {
+      "ja": "リキッドレモン",
+      "en": "Liquid Lemon"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 1,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3474",
+    "name": {
+      "ja": "爽健美茶(L)",
+      "en": "Sokenbicha"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 0,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3473",
+    "name": {
+      "ja": "爽健美茶(M)",
+      "en": "Sokenbicha"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 0,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3472",
+    "name": {
+      "ja": "爽健美茶(S)",
+      "en": "Sokenbicha"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 0,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3475",
+    "name": {
+      "ja": "爽健美茶(ジャンボ)",
+      "en": "Sokenbicha"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 0,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3802",
+    "name": {
+      "ja": "野菜生活100(L)",
+      "en": "Yasaiseikatsu100"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 156,
+      "protein": 1.1,
+      "fat": 0.6,
+      "carbohydrates": 36.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3801",
+    "name": {
+      "ja": "野菜生活100(M)",
+      "en": "Yasaiseikatsu100"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 121,
+      "protein": 0.8,
+      "fat": 0.5,
+      "carbohydrates": 28.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-3800",
+    "name": {
+      "ja": "野菜生活100(S)",
+      "en": "Yasaiseikatsu100"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 78,
+      "protein": 0.5,
+      "fat": 0.3,
+      "carbohydrates": 18.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400034",
+    "name": {
+      "ja": "アイスアメリカーノ(L)",
+      "en": "Iced Americano"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 3,
+      "protein": 0.2,
+      "fat": 0,
+      "carbohydrates": 0.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400033",
+    "name": {
+      "ja": "アイスアメリカーノ(M)",
+      "en": "Iced Americano"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 2,
+      "protein": 0.1,
+      "fat": 0,
+      "carbohydrates": 0.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40550",
+    "name": {
+      "ja": "アイスカフェモカ(L)",
+      "en": "Iced Café Mocha"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 286,
+      "protein": 8.3,
+      "fat": 12.9,
+      "carbohydrates": 34.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40540",
+    "name": {
+      "ja": "アイスカフェモカ(M)",
+      "en": "Iced Café Mocha"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 216,
+      "protein": 6.3,
+      "fat": 9.7,
+      "carbohydrates": 25.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400032",
+    "name": {
+      "ja": "アイスカフェラテ(L)",
+      "en": "Iced Café Latte(McCafé by Barista)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 106,
+      "protein": 5.2,
+      "fat": 5.9,
+      "carbohydrates": 7.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400031",
+    "name": {
+      "ja": "アイスカフェラテ(M)",
+      "en": "Iced Café Latte(McCafé by Barista)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 87,
+      "protein": 4.3,
+      "fat": 4.8,
+      "carbohydrates": 6.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40650",
+    "name": {
+      "ja": "アイスキャラメルラテ(L)",
+      "en": "Iced Caramel Latte(McCafé by Barista)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 268,
+      "protein": 5.6,
+      "fat": 10.8,
+      "carbohydrates": 37
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40640",
+    "name": {
+      "ja": "アイスキャラメルラテ(M)",
+      "en": "Iced Caramel Latte(McCafé by Barista)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 206,
+      "protein": 4.4,
+      "fat": 8.3,
+      "carbohydrates": 28.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40750",
+    "name": {
+      "ja": "アイスチョコレート(L)",
+      "en": "Iced Chocolate"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 340,
+      "protein": 9.3,
+      "fat": 13.5,
+      "carbohydrates": 45.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40740",
+    "name": {
+      "ja": "アイスチョコレート(M)",
+      "en": "Iced Chocolate"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 251,
+      "protein": 7,
+      "fat": 10.2,
+      "carbohydrates": 32.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40003",
+    "name": {
+      "ja": "アメリカーノ(M)",
+      "en": "Americano"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 2,
+      "protein": 0.1,
+      "fat": 0,
+      "carbohydrates": 0.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40002",
+    "name": {
+      "ja": "アメリカーノ(S)",
+      "en": "Americano"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 2,
+      "protein": 0.1,
+      "fat": 0,
+      "carbohydrates": 0.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400067",
+    "name": {
+      "ja": "エクストラショット",
+      "en": "Extra Shot"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 2,
+      "protein": 0.1,
+      "fat": 0,
+      "carbohydrates": 0.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400070",
+    "name": {
+      "ja": "エクストラシロップ キャラメル",
+      "en": "Extra Syrup Caramel"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 39,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 9.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40001",
+    "name": {
+      "ja": "エスプレッソ(S)",
+      "en": "Espresso"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 2,
+      "protein": 0.1,
+      "fat": 0,
+      "carbohydrates": 0.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40009",
+    "name": {
+      "ja": "カプチーノ(M)",
+      "en": "Cappuccino"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 127,
+      "protein": 6.1,
+      "fat": 6.9,
+      "carbohydrates": 9.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40008",
+    "name": {
+      "ja": "カプチーノ(S)",
+      "en": "Cappuccino"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 89,
+      "protein": 4.3,
+      "fat": 4.8,
+      "carbohydrates": 7.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400011",
+    "name": {
+      "ja": "カプチーノ(テイクアウト用)(M)",
+      "en": "Cappuccino"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 135,
+      "protein": 6.5,
+      "fat": 7.3,
+      "carbohydrates": 10.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400010",
+    "name": {
+      "ja": "カプチーノ(テイクアウト用)(S)",
+      "en": "Cappuccino"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 91,
+      "protein": 4.4,
+      "fat": 4.9,
+      "carbohydrates": 7.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-41110",
+    "name": {
+      "ja": "クッキー&クリームチョコフラッペ",
+      "en": "Cookies &amp; Cream Choco Frappe"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 332,
+      "protein": 6.5,
+      "fat": 10.8,
+      "carbohydrates": 53.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-45060",
+    "name": {
+      "ja": "トリプルチョコ&キャラメルスコーン",
+      "en": "Choco&amp;Caramel Scone"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 297,
+      "protein": 5.4,
+      "fat": 15.9,
+      "carbohydrates": 33.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40300",
+    "name": {
+      "ja": "ニトロブリューコーヒー アイスブラック",
+      "en": "Nitro Brew Coffee Ice Black"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 6,
+      "protein": 0.3,
+      "fat": 0,
+      "carbohydrates": 1.1
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40301",
+    "name": {
+      "ja": "ニトロブリューコーヒー アイスミルク",
+      "en": "Nitro Brew Coffee Ice Milk"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 73,
+      "protein": 3.6,
+      "fat": 3.9,
+      "carbohydrates": 5.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-45070",
+    "name": {
+      "ja": "プリンケーキ",
+      "en": "Pudding Cake"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 179,
+      "protein": 2.1,
+      "fat": 10.1,
+      "carbohydrates": 19.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-44530",
+    "name": {
+      "ja": "ホイップクリーム",
+      "en": "Whipped Cream"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 67,
+      "protein": 0.8,
+      "fat": 4.3,
+      "carbohydrates": 6.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400021",
+    "name": {
+      "ja": "ホットカフェモカ(M)",
+      "en": "Hot Café Mocha"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 264,
+      "protein": 9.5,
+      "fat": 9.3,
+      "carbohydrates": 35.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400020",
+    "name": {
+      "ja": "ホットカフェモカ(S)",
+      "en": "Hot Café Mocha"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 171,
+      "protein": 6.1,
+      "fat": 5.9,
+      "carbohydrates": 23.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400023",
+    "name": {
+      "ja": "ホットカフェモカ(テイクアウト用)(M)",
+      "en": "Hot Café Mocha"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 274,
+      "protein": 10,
+      "fat": 9.9,
+      "carbohydrates": 36
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400022",
+    "name": {
+      "ja": "ホットカフェモカ(テイクアウト用)(S)",
+      "en": "Hot Café Mocha"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 181,
+      "protein": 6.6,
+      "fat": 6.5,
+      "carbohydrates": 23.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40005",
+    "name": {
+      "ja": "ホットカフェラテ(M)",
+      "en": "Hot Café Latte(McCafé by Barista)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 147,
+      "protein": 7.2,
+      "fat": 8.2,
+      "carbohydrates": 10.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40004",
+    "name": {
+      "ja": "ホットカフェラテ(S)",
+      "en": "Hot Café Latte(McCafé by Barista)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 95,
+      "protein": 4.7,
+      "fat": 5.3,
+      "carbohydrates": 6.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40007",
+    "name": {
+      "ja": "ホットカフェラテ(テイクアウト用)(M)",
+      "en": "Hot Café Latte(McCafé by Barista)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 162,
+      "protein": 8,
+      "fat": 9,
+      "carbohydrates": 11.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40006",
+    "name": {
+      "ja": "ホットカフェラテ(テイクアウト用)(S)",
+      "en": "Hot Café Latte(McCafé by Barista)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 116,
+      "protein": 5.7,
+      "fat": 6.5,
+      "carbohydrates": 8.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400025",
+    "name": {
+      "ja": "ホットキャラメルラテ(M)",
+      "en": "Hot Caramel Latte(McCafé by Barista)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 195,
+      "protein": 6.6,
+      "fat": 7.5,
+      "carbohydrates": 25.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400024",
+    "name": {
+      "ja": "ホットキャラメルラテ(S)",
+      "en": "Hot Caramel Latte(McCafé by Barista)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 126,
+      "protein": 4.2,
+      "fat": 4.7,
+      "carbohydrates": 16.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400027",
+    "name": {
+      "ja": "ホットキャラメルラテ(テイクアウト用)(M)",
+      "en": "Hot Caramel Latte(McCafé by Barista)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 213,
+      "protein": 7.2,
+      "fat": 8.2,
+      "carbohydrates": 27.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400026",
+    "name": {
+      "ja": "ホットキャラメルラテ(テイクアウト用)(S)",
+      "en": "Hot Caramel Latte(McCafé by Barista)"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 152,
+      "protein": 5.2,
+      "fat": 5.9,
+      "carbohydrates": 19.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-400030",
+    "name": {
+      "ja": "ホットチョコレート(M)",
+      "en": "Hot Chocolate"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 253,
+      "protein": 8.9,
+      "fat": 8.8,
+      "carbohydrates": 34.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40010",
+    "name": {
+      "ja": "ホットチョコレート(S)",
+      "en": "Hot Chocolate"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 168,
+      "protein": 5.9,
+      "fat": 5.8,
+      "carbohydrates": 22.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40012",
+    "name": {
+      "ja": "ホットチョコレート(テイクアウト用)(M)",
+      "en": "Hot Chocolate"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 255,
+      "protein": 9,
+      "fat": 8.9,
+      "carbohydrates": 34.4
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-40011",
+    "name": {
+      "ja": "ホットチョコレート(テイクアウト用)(S)",
+      "en": "Hot Chocolate"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 168,
+      "protein": 5.9,
+      "fat": 5.8,
+      "carbohydrates": 22.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-45210",
+    "name": {
+      "ja": "マカロン チョコレート",
+      "en": "Macaron Chocolate"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 82,
+      "protein": 1.5,
+      "fat": 4.2,
+      "carbohydrates": 9.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-45200",
+    "name": {
+      "ja": "マカロン バニラ",
+      "en": "Macaron Vanilla"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 83,
+      "protein": 1.7,
+      "fat": 4.1,
+      "carbohydrates": 9.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-45230",
+    "name": {
+      "ja": "マカロン ラズベリー",
+      "en": "Macaron Raspberry"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 81,
+      "protein": 1.4,
+      "fat": 4.2,
+      "carbohydrates": 9.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-41040",
+    "name": {
+      "ja": "マンゴースムージー",
+      "en": "Mango Smoothie"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 203,
+      "protein": 0.5,
+      "fat": 0.2,
+      "carbohydrates": 49.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-45050",
+    "name": {
+      "ja": "ロールケーキ オレオ® クッキー",
+      "en": "Roll Cake with OREO® Cookie"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 269,
+      "protein": 3.8,
+      "fat": 18,
+      "carbohydrates": 23
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "mcd-jp-41120",
+    "name": {
+      "ja": "宇治抹茶フラッペ",
+      "en": "Uji Matcha Frappe"
+    },
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 262,
+      "protein": 5.3,
+      "fat": 8.9,
+      "carbohydrates": 40.5
+    },
+    "source": "bundled"
+  }
+]
