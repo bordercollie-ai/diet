@@ -82,7 +82,7 @@ body::-webkit-scrollbar {
   flex-direction: column;
   flex: 1 1 0;
   gap: 0rem;
-  height: 5rem;
+  height: 4.5rem;
   justify-content: center;
   min-width: 0;
   padding: 0.1rem 0.1rem;
@@ -93,7 +93,7 @@ body::-webkit-scrollbar {
 
 .day-strip button.selected {
   background: var(--accent);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   color: var(--accent-foreground);
 }
 
@@ -107,45 +107,6 @@ body::-webkit-scrollbar {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.day-circle {
-  align-items: center;
-  border: 3px dashed var(--muted);
-  border-radius: 50%;
-  display: flex;
-  font-weight: 600;
-  aspect-ratio: 1;
-  width: min(2.2rem, 100%);
-  justify-content: center;
-}
-
-.day-circle > span {
-  position: relative;
-  z-index: 1;
-}
-
-.day-circle.under,
-.day-circle.on-target {
-  border-color: var(--calorie-under);
-}
-
-.day-circle.over {
-  border-color: var(--calorie-over);
-}
-
-.day-circle.under,
-.day-circle.on-target,
-.day-circle.over {
-  border-style: solid;
-}
-
-.day-circle.empty {
-  border: 2px dashed var(--muted-foreground);
-}
-
-.day-circle.today {
-  border-style: solid;
 }
 
 div[role='tabpanel'] {

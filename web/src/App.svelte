@@ -447,7 +447,12 @@
     creatingMealFood = false
     temporaryMeal = entry.foodId === ''
     temporaryName = entry.foodName ?? 'Quick entry'
-    ;({ calories: temporaryCalories, protein: temporaryProtein, fat: temporaryFat, carbohydrates: temporaryCarbohydrates } = entry.nutrition)
+    ;({
+      calories: temporaryCalories,
+      protein: temporaryProtein,
+      fat: temporaryFat,
+      carbohydrates: temporaryCarbohydrates,
+    } = entry.nutrition)
     quantity = entry.quantity
     error = ''
     mealDialogOpen = true
@@ -572,7 +577,13 @@
           <Button type="button" onclick={exportBackup}>Export JSON backup</Button>
           <div class="flex flex-col gap-2">
             <Label for="backup-file">Import JSON backup</Label>
-            <Input id="backup-file" class="sr-only" type="file" accept="application/json,.json" onchange={selectBackup} />
+            <Input
+              id="backup-file"
+              class="sr-only"
+              type="file"
+              accept="application/json,.json"
+              onchange={selectBackup}
+            />
             <label
               for="backup-file"
               class="inline-flex min-h-10 cursor-pointer items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted focus-within:ring-3 focus-within:ring-ring/30"
@@ -612,6 +623,7 @@
               <button
                 type="button"
                 class:selected={date === day.iso}
+                class:font-bold={day.iso === today}
                 class:under={tone === 'under'}
                 class:on-target={tone === 'on-target'}
                 class:over={tone === 'over'}
@@ -621,8 +633,14 @@
                 onclick={() => (date = day.iso)}
               >
                 <span class="day-label">{day.label}</span>
-                <span class={`day-circle ${tone}`} class:today={day.iso === today} aria-hidden="true"
-                  ><span>{day.number}</span></span
+                <span
+                  class="flex aspect-square w-[min(2rem,100%)] items-center justify-center rounded-full border"
+                  class:border-dashed={tone === 'empty'}
+                  class:border-solid={tone !== 'empty' || day.iso === today}
+                  class:border-[var(--muted-foreground)]={tone === 'empty'}
+                  class:border-[var(--calorie-under)]={tone === 'under' || tone === 'on-target'}
+                  class:border-[var(--calorie-over)]={tone === 'over'}
+                  aria-hidden="true"><span>{day.number}</span></span
                 >
               </button>
             {/each}
@@ -649,17 +667,19 @@
           </div>
           <div class="macro-grid" aria-label="Macronutrient totals">
             <div class="macro-stat">
-              <span><HamIcon aria-hidden="true" class="size-4" /> Protein</span
-              ><strong>{Math.round(totals.protein)} / {Math.round(targets.protein)}</strong>
-            </div>
-            <div class="macro-stat">
-              <span><WheatIcon aria-hidden="true" class="size-4" /> Carbs</span
-              ><strong>{Math.round(totals.carbohydrates)} / {Math.round(targets.carbohydrates)}</strong
+              <span><HamIcon aria-hidden="true" class="size-4" /> Protein</span><strong
+                >{Math.round(totals.protein)} / {Math.round(targets.protein)}</strong
               >
             </div>
             <div class="macro-stat">
-              <span><NutIcon aria-hidden="true" class="size-4" /> Fat</span
-              ><strong>{Math.round(totals.fat)} / {Math.round(targets.fat)}</strong>
+              <span><WheatIcon aria-hidden="true" class="size-4" /> Carbs</span><strong
+                >{Math.round(totals.carbohydrates)} / {Math.round(targets.carbohydrates)}</strong
+              >
+            </div>
+            <div class="macro-stat">
+              <span><NutIcon aria-hidden="true" class="size-4" /> Fat</span><strong
+                >{Math.round(totals.fat)} / {Math.round(targets.fat)}</strong
+              >
             </div>
           </div>
         </Card.Content>
@@ -686,7 +706,9 @@
               >
                 <div class="flex items-center justify-between">
                   <span class="meal-name">{mealName}</span>
-                  <time datetime={`${entry.date}T${entry.time}`} class="text-muted-foreground">{entry.time}</time>
+                  <time datetime={`${entry.date}T${entry.time}`} class="text-muted-foreground text-sm"
+                    >{entry.time}</time
+                  >
                 </div>
                 <strong class="meal-calories">{displayNumber(entry.nutrition.calories)} kcal</strong>
                 <span class="meal-macros">
@@ -699,8 +721,9 @@
                     ><strong>{displayNumber(entry.nutrition.carbohydrates)} g</strong></span
                   >
                   <span
-                    ><span class="meal-macro-label"><NutIcon aria-hidden="true" class="size-3.5" /> Fat</span
-                    ><strong>{displayNumber(entry.nutrition.fat)} g</strong></span
+                    ><span class="meal-macro-label"><NutIcon aria-hidden="true" class="size-3.5" /> Fat</span><strong
+                      >{displayNumber(entry.nutrition.fat)} g</strong
+                    ></span
                   >
                 </span>
               </button>
@@ -878,9 +901,13 @@
             </div>
 
             <div class="bg-accent rounded-md px-4 py-3">
-              <p class="text-2xl font-bold tabular-nums text-accent-foreground">{displayNumber(targets.calories)} kcal</p>
+              <p class="text-2xl font-bold tabular-nums text-accent-foreground">
+                {displayNumber(targets.calories)} kcal
+              </p>
               <p class="text-muted-foreground text-sm">
-                {displayNumber(targets.protein)} g protein · {displayNumber(targets.fat)} g fat · {displayNumber(targets.carbohydrates)} g carbs
+                {displayNumber(targets.protein)} g protein · {displayNumber(targets.fat)} g fat · {displayNumber(
+                  targets.carbohydrates,
+                )} g carbs
               </p>
             </div>
             <Button type="submit">Save profile</Button>
@@ -894,7 +921,11 @@
     <Sheet.Content side="right" class="gap-0 data-[side=right]:w-full data-[side=right]:sm:max-w-none">
       <Sheet.Header>
         <Sheet.Title>{editingMealId ? 'Edit meal' : 'Record a meal'}</Sheet.Title>
-        <Sheet.Description>{temporaryMeal ? 'Record nutrition without saving a food.' : 'Select a food, then set its time and quantity.'}</Sheet.Description>
+        <Sheet.Description
+          >{temporaryMeal
+            ? 'Record nutrition without saving a food.'
+            : 'Select a food, then set its time and quantity.'}</Sheet.Description
+        >
       </Sheet.Header>
       <div class="flex-1 overflow-y-auto px-6 pb-6">
         <form onsubmit={addMeal} novalidate>
@@ -918,92 +949,101 @@
               </div>
               <div class="grid gap-2">
                 <Label for="temporary-carbohydrates">Carbs</Label>
-                <Input id="temporary-carbohydrates" type="number" min="0" step="0.1" bind:value={temporaryCarbohydrates} required />
+                <Input
+                  id="temporary-carbohydrates"
+                  type="number"
+                  min="0"
+                  step="0.1"
+                  bind:value={temporaryCarbohydrates}
+                  required
+                />
               </div>
             </div>
           {:else}
-          <label
-            >Food
-            <div class="flex flex-col gap-2">
-              <Input
-                class="min-w-0"
-                bind:value={foodSearch}
-                oninput={() => {
-                  selectedFoodId = ''
-                  foodResults = []
-                  creatingMealFood = false
-                  foodSearchMessage = ''
-                }}
-                onkeydown={(event) => {
-                  if (event.key !== 'Enter') return
-                  event.preventDefault()
-                  searchForFood()
-                }}
-                placeholder="Search food"
-                aria-label="Search food"
-                required
-              />
-              <Button type="button" variant="outline" onclick={searchForFood}>Search</Button>
-            </div>
-            {#if foodSearchMessage}<span role="status" class="text-muted-foreground">{foodSearchMessage}</span>{/if}
-          </label>
-          {#if foodResults.length > 0}
-            <div class="meal-list">
-              {#each foodResults as food}
-                <button
-                  type="button"
-                  class="meal-card"
-                  class:selected={selectedFoodId === food.id}
-                  onclick={() => chooseFoodResult(food.id)}
-                >
-                  <span class="meal-name">{food.name.en ?? Object.values(food.name)[0]}</span>
-                  <strong class="meal-calories">{displayNumber(food.nutrition.calories)} kcal</strong>
-                  <span class="meal-card-topline">{food.serving}</span>
-                </button>
-              {/each}
-            </div>
-          {/if}
-          {#if creatingMealFood}
-            <Button type="button" variant="outline" onclick={addFoodFromMealSearch}>Add food</Button>
-          {/if}
+            <label
+              >Food
+              <div class="flex flex-col gap-2">
+                <Input
+                  class="min-w-0"
+                  bind:value={foodSearch}
+                  oninput={() => {
+                    selectedFoodId = ''
+                    foodResults = []
+                    creatingMealFood = false
+                    foodSearchMessage = ''
+                  }}
+                  onkeydown={(event) => {
+                    if (event.key !== 'Enter') return
+                    event.preventDefault()
+                    searchForFood()
+                  }}
+                  placeholder="Search food"
+                  aria-label="Search food"
+                  required
+                />
+                <Button type="button" variant="outline" onclick={searchForFood}>Search</Button>
+              </div>
+              {#if foodSearchMessage}<span role="status" class="text-muted-foreground">{foodSearchMessage}</span>{/if}
+            </label>
+            {#if foodResults.length > 0}
+              <div class="meal-list">
+                {#each foodResults as food}
+                  <button
+                    type="button"
+                    class="meal-card"
+                    class:selected={selectedFoodId === food.id}
+                    onclick={() => chooseFoodResult(food.id)}
+                  >
+                    <span class="meal-name">{food.name.en ?? Object.values(food.name)[0]}</span>
+                    <strong class="meal-calories">{displayNumber(food.nutrition.calories)} kcal</strong>
+                    <span class="meal-card-topline">{food.serving}</span>
+                  </button>
+                {/each}
+              </div>
+            {/if}
+            {#if creatingMealFood}
+              <Button type="button" variant="outline" onclick={addFoodFromMealSearch}>Add food</Button>
+            {/if}
           {/if}
           <div class="grid gap-2">
             <Label for="meal-time">Time</Label>
             <Input id="meal-time" type="time" step="600" bind:value={time} required />
           </div>
           {#if !temporaryMeal}
-          <div class="grid gap-2">
-            <Label for="meal-quantity">Quantity</Label>
-            <div class="flex items-center gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                aria-label="Decrease quantity"
-                onclick={() => (quantity = Math.max(1, quantity - 1))}><MinusIcon aria-hidden="true" /></Button
-              >
-              <Input
-                id="meal-quantity"
-                class="text-center"
-                type="number"
-                min="1"
-                step="1"
-                bind:value={quantity}
-                required
-              />
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                aria-label="Increase quantity"
-                onclick={() => (quantity = quantity + 1)}><PlusIcon aria-hidden="true" /></Button
-              >
+            <div class="grid gap-2">
+              <Label for="meal-quantity">Quantity</Label>
+              <div class="flex items-center gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  aria-label="Decrease quantity"
+                  onclick={() => (quantity = Math.max(1, quantity - 1))}><MinusIcon aria-hidden="true" /></Button
+                >
+                <Input
+                  id="meal-quantity"
+                  class="text-center"
+                  type="number"
+                  min="1"
+                  step="1"
+                  bind:value={quantity}
+                  required
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  aria-label="Increase quantity"
+                  onclick={() => (quantity = quantity + 1)}><PlusIcon aria-hidden="true" /></Button
+                >
+              </div>
             </div>
-          </div>
           {/if}
           {#if error}<p class="text-destructive text-sm" role="alert">{error}</p>{/if}
-          <Button type="submit" variant={temporaryMeal || selectedFoodId ? 'default' : 'outline'} disabled={!temporaryMeal && !selectedFoodId}
-            >{editingMealId ? 'Update meal' : 'Add meal'}</Button
+          <Button
+            type="submit"
+            variant={temporaryMeal || selectedFoodId ? 'default' : 'outline'}
+            disabled={!temporaryMeal && !selectedFoodId}>{editingMealId ? 'Update meal' : 'Add meal'}</Button
           >
         </form>
       </div>
