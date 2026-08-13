@@ -4,7 +4,7 @@ type: implementation-plan
 status: planned
 version: "1.0"
 date: 2026-08-12
-current_phase: W6
+current_phase: W7
 ---
 
 # Web/PWA implementation plan
@@ -202,7 +202,33 @@ All Web PRD acceptance criteria pass; native HealthKit and notification work rem
 
 The core flows have a coherent, responsive visual hierarchy and remain usable with keyboard navigation, dark mode, dynamic text, and visible error states.
 
-## Web Phase W7 — bilingual UI and content completeness
+## Web Phase W7 — official food import tools
+
+**Status:** in progress (2026-08-13); depends on W6
+
+### Scope
+
+- Keep brand importers as development-time scripts outside the PWA runtime.
+- Fetch only official public pages at low frequency and emit reviewable local JSON.
+- Require reviewed Chinese mappings; never invent missing official translations.
+- Add separate importers for McDonald's Japan and later convenience stores.
+
+### Current slice
+
+- **Done (2026-08-13):** Added `scripts/import_mcdonalds_japan.py` for official Japanese nutrition and English menu pages.
+- **Done (2026-08-13):** Added source/retrieval metadata and explicit failure for missing Chinese mappings.
+- **Next:** Add a reviewed mapping file and run the importer; then add the 7-Eleven importer.
+
+### Checks
+
+- Python syntax and deterministic parsing against downloaded official HTML fixtures.
+- No runtime network dependency or access-control bypass.
+
+### Exit criteria
+
+The importer produces app-compatible food records after reviewed Chinese mappings are supplied.
+
+## Web Phase W8 — bilingual UI and content completeness
 
 **Status:** deferred; depends on W6
 

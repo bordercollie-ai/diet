@@ -6,7 +6,7 @@ version: "1.0"
 date: 2026-08-12
 ---
 
-# ADR 0002: 将 Web/PWA 作为原生方案的替代路线
+# ADR 0002: 使用 Web/PWA 作为唯一实现路线
 
 ## 背景
 
@@ -14,7 +14,7 @@ date: 2026-08-12
 
 ## 决策
 
-新增 Web/PWA 方案作为当前实现路线，保留原生 MVP 作为后续替代路线。该方案使用浏览器、IndexedDB、Service Worker 和标准文件选择/下载能力，核心记录流程完全本地化。Web 实现从独立的 Web Phase 0 开始，不与原生 Phase 0 的设备能力验证混用。
+Web/PWA 是唯一当前实现路线，不再推进原生 SwiftUI MVP。该方案使用浏览器、IndexedDB、Service Worker 和标准文件选择/下载能力，核心记录流程完全本地化。
 
 不需要支持的最低 Safari 和 Chromium 版本，尽量新的浏览器支持即可。
 

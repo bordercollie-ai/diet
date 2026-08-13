@@ -1,14 +1,16 @@
 ---
 title: "Diet App implementation plan"
 type: implementation-plan
-status: ready
+status: archived
 version: "1.0"
 date: 2026-08-12
-current_phase: 0
+current_phase: archived
 ---
 
 
-# Implementation plan
+# Implementation plan（历史 SwiftUI 路线）
+
+> Archived on 2026-08-13. Continue implementation only in `docs/implementation-plan-web.md`.
 
 This is the executable specification for agents. Read `docs/prd.md` first for product scope and the ADR for architectural rationale. Implement phases in order; do not skip a phase because a later feature appears easier.
 
@@ -242,6 +244,38 @@ Run the PRD acceptance checklist against the built app. Keep the test suite smal
 ### Exit criteria
 
 All PRD MVP acceptance criteria pass, no known data-loss path remains, and the ADR records actual toolchain/signing/HealthKit findings.
+
+## Phase 7 — official food import tools
+
+**Status:** in progress (2026-08-13); independent development tooling
+
+### Design
+
+Keep brand importers outside the app and runtime bundle. Each importer may read
+only the brand's public pages, at low request frequency, and must emit a local,
+reviewable JSON snapshot with source and retrieval date. Missing official
+translations fail explicitly rather than being guessed.
+
+### Tests/checks
+
+- Parse a saved official nutrition page deterministically.
+- Reject missing Chinese mappings.
+- Reject missing English names and empty product results.
+- Run one live import only with a reviewed Chinese mapping.
+
+### Exit criteria
+
+The McDonald's Japan importer produces app-compatible food records without
+runtime networking or access-control bypasses. Convenience-store importers can
+reuse the same output shape but are separate follow-up tools.
+
+### Handoff
+
+- **Status:** in progress.
+- **Files changed:** `scripts/import_mcdonalds_japan.py`, `docs/prd.md`, `docs/adr/0001-local-first-swiftui-app.md`, `docs/implementation-plan.md`.
+- **Checks:** static compilation and fixture parsing pending.
+- **Unresolved risks:** McDonald's Japan publishes no official Chinese menu names; a reviewed mapping is required. Product pages and table markup may change.
+- **Next ready phase:** add a reviewed mapping and run the importer; then decide whether to add the 7-Eleven importer.
 
 ## Handoff protocol
 
