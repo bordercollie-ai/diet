@@ -62,6 +62,8 @@
     foodSearchMessage = ''
     temporaryMeal = false
     step = 'search'
+    time = new Date().toTimeString().slice(0, 5)
+    quantity = 1
     error = ''
     open = true
   }
@@ -102,6 +104,7 @@
     temporaryProtein = 0
     temporaryFat = 0
     temporaryCarbohydrates = 0
+    time = new Date().toTimeString().slice(0, 5)
     error = ''
     open = true
   }

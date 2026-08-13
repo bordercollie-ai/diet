@@ -274,11 +274,13 @@ The Web PRD’s bilingual interface requirement is met without changing domain c
 - **Done (2026-08-13):** Also extracted the meal record/edit sheet into `src/pages/MealSheet.svelte`, and redesigned its food-based (non-temporary) flow from a single form into a two-step wizard: a "search" step (search input + button + results list, or an "Add food" action when there's no match) and a "detail" step (selected food's name/description/serving/macros, quantity stepper, time, and the Add/Update meal button), with a "Back to search" action. Editing an existing food-based meal now jumps straight to the detail step (the food is already known); the temporary/quick-add form is unchanged (still a single page, since the redesign request targeted food selection specifically). `MealSheet` exposes `openForNew`/`openForEdit(id)`/`openTemporary`/`notifyFoodSaved(food)` via `bind:this`.
 - **Done (2026-08-13):** `App.svelte` reduced from 1,107 to 432 lines; removed now-unused imports (`createFood`, `updateFood`, `createMealEntry`, `createTemporaryMealEntry`, `updateMealEntry`, `searchFoods`, `Card`, `Dialog`, `Sheet`, `Input`, `Label`, `Separator`, `FlameIcon`, `HamIcon`, `WheatIcon`, `NutIcon`, `PlusIcon`, `MinusIcon`) that moved into the new page components.
 
+- **Done (2026-08-14):** Fixed a state-leak bug reported after the redesign: `openForNew()` and `openTemporary()` reset every field for the search/detail wizard and the temporary form *except* `quantity` and `time`, so recording a new meal right after recording/editing another one silently kept the previous entry's quantity and time. Added a regression test first (`quantity does not carry over from a previous meal into a new "Record a meal" entry` in `web/tests/App.test.ts`), confirmed it failed against the unfixed code, then reset `time` (to the current time) and `quantity` (to `1`) in both `openForNew()` and `openTemporary()` in `web/src/pages/MealSheet.svelte`.
+
 ### Checks
 
 - `pnpm check` (svelte-check --tsgo): 0 errors, 0 warnings.
 - `pnpm build`: passed with Vite 7.3.6.
-- `pnpm test:ui` (vitest): 6 tests passed unmodified — including the two-step search-then-click-to-detail flow for both the "no match, create food" path and the McDonald's bundled-food path — confirming the redesigned flow keeps existing behavior/labels intact.
+- `pnpm test:ui` (vitest): 7 tests passed — the original 6 unmodified, plus the new quantity-reset regression test (verified failing before the fix, passing after).
 - `pnpm test` (plain `node --test tests/store.test.ts`, Node ≥23.6): 19 tests passed (domain layer untouched by this refactor).
 
 ### Exit criteria
