@@ -269,21 +269,21 @@ The Web PRD’s bilingual interface requirement is met without changing domain c
 
 ### Current slice
 
-- **Done (2026-08-13):** Extracted the four tab bodies and the food add/edit sheet into `web/src/pages/`: `SummaryPanel.svelte` (day strip, calorie ring, macro grid, meal list, meal-actions dialog, FAB buttons — now owns its own local meal-actions dialog state), `FoodsPanel.svelte`, `ProfilePanel.svelte` (profile/targets form, bindable profile and override fields), `BackupPanel.svelte`, and `FoodSheet.svelte` (food add/edit form; exposes `openForNew`/`openForEdit`/`openWithName` via `bind:this` so `App.svelte` and the still-inline meal sheet can trigger it without owning its internal state).
+- **Done (2026-08-13):** Extracted the four tab bodies and the food add/edit sheet into `web/src/pages/`: `SummaryPanel.svelte` (day strip, calorie ring, macro grid, meal list, meal-actions dialog, FAB buttons — now owns its own local meal-actions dialog state), `FoodsPanel.svelte`, `ProfilePanel.svelte` (profile/targets form, bindable profile and override fields), `BackupPanel.svelte`, and `FoodSheet.svelte` (food add/edit form; exposes `openForNew`/`openForEdit`/`openWithName` via `bind:this` so `App.svelte` and `MealSheet.svelte` can trigger it without owning its internal state).
 - **Done (2026-08-13):** Placed these under `src/pages/` rather than `src/lib/components/` — they are app-specific views/screens, not reusable UI primitives (which stay in `src/lib/components/ui/`).
-- **Done (2026-08-13):** Left the meal record/edit sheet (search food, temporary/quick-add mode, inline food creation) inline in `App.svelte`; it is tightly coupled to `date`, `creatingMealFood`, and the food-sheet cross-flow, and splitting it further would mostly move complexity rather than reduce it. Documented here as a candidate for a future slice if it grows further.
-- **Done (2026-08-13):** `App.svelte` reduced from 1,107 to 709 lines; removed now-unused imports (`createFood`, `updateFood`, `Card`, `Dialog`, `Separator`, `FlameIcon`, `HamIcon`, `WheatIcon`, `NutIcon`) that moved into the new components.
+- **Done (2026-08-13):** Also extracted the meal record/edit sheet into `src/pages/MealSheet.svelte`, and redesigned its food-based (non-temporary) flow from a single form into a two-step wizard: a "search" step (search input + button + results list, or an "Add food" action when there's no match) and a "detail" step (selected food's name/description/serving/macros, quantity stepper, time, and the Add/Update meal button), with a "Back to search" action. Editing an existing food-based meal now jumps straight to the detail step (the food is already known); the temporary/quick-add form is unchanged (still a single page, since the redesign request targeted food selection specifically). `MealSheet` exposes `openForNew`/`openForEdit(id)`/`openTemporary`/`notifyFoodSaved(food)` via `bind:this`.
+- **Done (2026-08-13):** `App.svelte` reduced from 1,107 to 432 lines; removed now-unused imports (`createFood`, `updateFood`, `createMealEntry`, `createTemporaryMealEntry`, `updateMealEntry`, `searchFoods`, `Card`, `Dialog`, `Sheet`, `Input`, `Label`, `Separator`, `FlameIcon`, `HamIcon`, `WheatIcon`, `NutIcon`, `PlusIcon`, `MinusIcon`) that moved into the new page components.
 
 ### Checks
 
 - `pnpm check` (svelte-check --tsgo): 0 errors, 0 warnings.
 - `pnpm build`: passed with Vite 7.3.6.
-- `pnpm test:ui` (vitest): 6 tests passed, unchanged assertions (DOM roles/labels), confirming behavior parity.
+- `pnpm test:ui` (vitest): 6 tests passed unmodified — including the two-step search-then-click-to-detail flow for both the "no match, create food" path and the McDonald's bundled-food path — confirming the redesigned flow keeps existing behavior/labels intact.
 - `pnpm test` (plain `node --test tests/store.test.ts`, Node ≥23.6): 19 tests passed (domain layer untouched by this refactor).
 
 ### Exit criteria
 
-`App.svelte` is a thin orchestration shell; each tab and the food-edit sheet is an independently readable component under `src/pages/`; all existing tests pass unmodified; no user-visible behavior, markup, or accessibility changes.
+`App.svelte` is a thin orchestration shell; each tab, the food-edit sheet, and the meal-record sheet are independently readable components under `src/pages/`; all existing tests pass unmodified; the meal-recording UX now separates food search from meal detail (quantity/time/record) into two steps, with all other behavior and accessibility unchanged.
 
 ## Handoff protocol
 

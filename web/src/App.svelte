@@ -1,12 +1,9 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import {
-    createMealEntry,
-    createTemporaryMealEntry,
     bundledFoods,
     dailyTotals,
     deleteMealEntry,
-    searchFoods,
     type AppData,
     type Food,
     type Profile,
@@ -15,22 +12,17 @@
     estimateTargets,
     previewBackup,
     roundForDisplay,
-    updateMealEntry,
     type ImportResult,
   } from './domain/store'
   import { createIndexedDBStore } from './storage/indexeddb'
   import { Button } from '$lib/components/ui/button'
-  import { Input } from '$lib/components/ui/input'
-  import { Label } from '$lib/components/ui/label'
-  import * as Sheet from '$lib/components/ui/sheet'
   import SummaryPanel from './pages/SummaryPanel.svelte'
   import FoodsPanel from './pages/FoodsPanel.svelte'
   import ProfilePanel from './pages/ProfilePanel.svelte'
   import BackupPanel from './pages/BackupPanel.svelte'
   import FoodSheet from './pages/FoodSheet.svelte'
+  import MealSheet from './pages/MealSheet.svelte'
   import { fade } from 'svelte/transition'
-  import PlusIcon from '@lucide/svelte/icons/plus'
-  import MinusIcon from '@lucide/svelte/icons/minus'
   import ChartColumnIcon from '@lucide/svelte/icons/chart-column'
   import AppleIcon from '@lucide/svelte/icons/apple'
   import UserIcon from '@lucide/svelte/icons/user'
@@ -56,16 +48,16 @@
   })
   let data: AppData = $state({ foods: [], mealEntries: [] })
   let date = $state(today)
-  let foodSearch = $state('')
-  let selectedFoodId = $state('')
-  let foodResults: Food[] = $state([])
-  let editingMealId = $state('')
-  let time = $state(new Date().toTimeString().slice(0, 5))
-  let quantity = $state(1)
   let foodSheet: {
     openForNew: () => void
     openForEdit: (food: Food) => void
     openWithName: (name: string) => void
+  }
+  let mealSheet: {
+    openForNew: () => void
+    openForEdit: (id: string) => void
+    openTemporary: () => void
+    notifyFoodSaved: (food: Food) => void
   }
   let profile: Profile = $state({
     age: 30,
@@ -95,15 +87,6 @@
   let backupPreview: ImportResult | null = $state(null)
   let installPrompt: BeforeInstallPromptEvent | null = $state(null)
   let installed = $state(false)
-  let mealDialogOpen = $state(false)
-  let creatingMealFood = $state(false)
-  let foodSearchMessage = $state('')
-  let temporaryMeal = $state(false)
-  let temporaryName = $state('Quick entry')
-  let temporaryCalories = $state(0)
-  let temporaryProtein = $state(0)
-  let temporaryFat = $state(0)
-  let temporaryCarbohydrates = $state(0)
   let darkMode = $state(false)
   type Tab = 'summary' | 'foods' | 'profile' | 'backup'
   const tabs: { id: Tab; label: string; icon: typeof ChartColumnIcon }[] = [
@@ -293,68 +276,11 @@
   }
 
   function handleFoodSaved(food: Food) {
-    selectedFoodId = food.id
-    if (creatingMealFood) {
-      foodSearch = food.name.en ?? foodSearch
-      creatingMealFood = false
-      foodSearchMessage = ''
-    }
+    mealSheet.notifyFoodSaved(food)
   }
 
   function handleFoodError(message: string) {
     error = message
-  }
-
-  async function addMeal(event: SubmitEvent) {
-    event.preventDefault()
-    if (temporaryMeal) {
-      try {
-        const temporary = createTemporaryMealEntry({
-          id: editingMealId || undefined,
-          date,
-          time,
-          quantity: 1,
-          foodName: temporaryName,
-          nutrition: {
-            calories: temporaryCalories,
-            protein: temporaryProtein,
-            fat: temporaryFat,
-            carbohydrates: temporaryCarbohydrates,
-          },
-        })
-        const saved = editingMealId
-          ? updateMealEntry(data, editingMealId, temporary)
-          : { ...data, mealEntries: [...data.mealEntries, temporary] }
-        await save(saved)
-        editingMealId = ''
-        temporaryMeal = false
-        mealDialogOpen = false
-      } catch (cause) {
-        error = cause instanceof Error ? cause.message : 'Unable to record calories.'
-      }
-      return
-    }
-    const food = data.foods.find((item) => item.id === selectedFoodId)
-    if (!food) {
-      error = 'Search for a food first.'
-      return
-    }
-    try {
-      const saved = editingMealId
-        ? updateMealEntry(data, editingMealId, { date, time, foodId: food.id, quantity })
-        : {
-            ...data,
-            mealEntries: [...data.mealEntries, createMealEntry({ date, time, foodId: food.id, quantity }, food)],
-          }
-      await save(saved)
-      editingMealId = ''
-      creatingMealFood = false
-      foodSearchMessage = ''
-      temporaryMeal = false
-      mealDialogOpen = false
-    } catch (cause) {
-      error = cause instanceof Error ? cause.message : 'Unable to record meal.'
-    }
   }
 
   async function removeMeal(id: string) {
@@ -388,78 +314,6 @@
 
   function startNewFood() {
     foodSheet.openForNew()
-  }
-
-  function addFoodFromMealSearch() {
-    foodSheet.openWithName(foodSearch.trim())
-  }
-
-  function editMeal(id: string) {
-    const entry = data.mealEntries.find((item) => item.id === id)
-    if (!entry) return
-    editingMealId = id
-    date = entry.date
-    time = entry.time
-    selectedFoodId = entry.foodId
-    foodSearch = data.foods.find((food) => food.id === entry.foodId)?.name.en ?? ''
-    foodResults = []
-    creatingMealFood = false
-    temporaryMeal = entry.foodId === ''
-    temporaryName = entry.foodName ?? 'Quick entry'
-    ;({
-      calories: temporaryCalories,
-      protein: temporaryProtein,
-      fat: temporaryFat,
-      carbohydrates: temporaryCarbohydrates,
-    } = entry.nutrition)
-    quantity = entry.quantity
-    error = ''
-    mealDialogOpen = true
-  }
-
-  function searchForFood() {
-    const name = foodSearch.trim()
-    if (!name) {
-      foodSearchMessage = 'Enter a food name.'
-      return
-    }
-    foodResults = searchFoods(data.foods, name)
-    selectedFoodId = ''
-    if (foodResults.length === 0) {
-      creatingMealFood = true
-      foodSearchMessage = 'No match. Add nutrition details to create it with this meal.'
-    } else {
-      creatingMealFood = false
-      foodSearchMessage = ''
-    }
-  }
-
-  function chooseFoodResult(id: string) {
-    selectedFoodId = id
-  }
-
-  function startNewMeal() {
-    editingMealId = ''
-    selectedFoodId = ''
-    foodSearch = ''
-    foodResults = []
-    creatingMealFood = false
-    temporaryMeal = false
-    foodSearchMessage = ''
-    error = ''
-    mealDialogOpen = true
-  }
-
-  function startTemporaryMeal() {
-    editingMealId = ''
-    temporaryMeal = true
-    temporaryName = 'Quick entry'
-    temporaryCalories = 0
-    temporaryProtein = 0
-    temporaryFat = 0
-    temporaryCarbohydrates = 0
-    error = ''
-    mealDialogOpen = true
   }
 
   function dayTone(iso: string) {
@@ -527,18 +381,7 @@
     {/each}
   </div>
 
-  {#if activeTab === 'backup'}
-    <BackupPanel
-      {selectedBackupName}
-      {backupPreview}
-      {installed}
-      canInstall={!!installPrompt}
-      onExport={exportBackup}
-      onSelectBackup={selectBackup}
-      onRestore={restoreBackup}
-      onInstall={installApp}
-    />
-  {:else if activeTab === 'summary'}
+  {#if activeTab === 'summary'}
     <SummaryPanel
       {data}
       {date}
@@ -551,10 +394,10 @@
       {caloriesRemaining}
       {calorieColor}
       onSelectDate={(iso) => (date = iso)}
-      onEditMeal={editMeal}
+      onEditMeal={(id) => mealSheet.openForEdit(id)}
       onDeleteMeal={removeMeal}
-      onRecordMeal={startNewMeal}
-      onQuickAdd={startTemporaryMeal}
+      onRecordMeal={() => mealSheet.openForNew()}
+      onQuickAdd={() => mealSheet.openTemporary()}
     />
   {:else if activeTab === 'foods'}
     <FoodsPanel {data} onAddFood={startNewFood} onEditFood={editFood} />
@@ -570,141 +413,20 @@
       {targets}
       onSave={saveProfile}
     />
+  {:else if activeTab === 'backup'}
+    <BackupPanel
+      {selectedBackupName}
+      {backupPreview}
+      {installed}
+      canInstall={!!installPrompt}
+      onExport={exportBackup}
+      onSelectBackup={selectBackup}
+      onRestore={restoreBackup}
+      onInstall={installApp}
+    />
   {/if}
 
-  <Sheet.Root bind:open={mealDialogOpen}>
-    <Sheet.Content side="right" class="gap-0 data-[side=right]:w-full data-[side=right]:sm:max-w-none">
-      <Sheet.Header>
-        <Sheet.Title>{editingMealId ? 'Edit meal' : 'Record a meal'}</Sheet.Title>
-        <Sheet.Description
-          >{temporaryMeal
-            ? 'Record nutrition without saving a food.'
-            : 'Select a food, then set its time and quantity.'}</Sheet.Description
-        >
-      </Sheet.Header>
-      <div class="flex-1 overflow-y-auto px-6 pb-6">
-        <form onsubmit={addMeal} novalidate>
-          {#if temporaryMeal}
-            <div class="grid gap-2">
-              <Label for="temporary-name">Name</Label>
-              <Input id="temporary-name" bind:value={temporaryName} required />
-            </div>
-            <div class="grid gap-2">
-              <Label for="temporary-calories">Calories</Label>
-              <Input id="temporary-calories" type="number" min="0" bind:value={temporaryCalories} required />
-            </div>
-            <div class="grid grid-cols-3 gap-3">
-              <div class="grid gap-2">
-                <Label for="temporary-protein">Protein</Label>
-                <Input id="temporary-protein" type="number" min="0" step="0.1" bind:value={temporaryProtein} required />
-              </div>
-              <div class="grid gap-2">
-                <Label for="temporary-fat">Fat</Label>
-                <Input id="temporary-fat" type="number" min="0" step="0.1" bind:value={temporaryFat} required />
-              </div>
-              <div class="grid gap-2">
-                <Label for="temporary-carbohydrates">Carbs</Label>
-                <Input
-                  id="temporary-carbohydrates"
-                  type="number"
-                  min="0"
-                  step="0.1"
-                  bind:value={temporaryCarbohydrates}
-                  required
-                />
-              </div>
-            </div>
-          {:else}
-            <label
-              >Food
-              <div class="flex flex-col gap-2">
-                <Input
-                  class="min-w-0"
-                  bind:value={foodSearch}
-                  oninput={() => {
-                    selectedFoodId = ''
-                    foodResults = []
-                    creatingMealFood = false
-                    foodSearchMessage = ''
-                  }}
-                  onkeydown={(event) => {
-                    if (event.key !== 'Enter') return
-                    event.preventDefault()
-                    searchForFood()
-                  }}
-                  placeholder="Search food"
-                  aria-label="Search food"
-                  required
-                />
-                <Button type="button" variant="outline" onclick={searchForFood}>Search</Button>
-              </div>
-              {#if foodSearchMessage}<span role="status" class="text-muted-foreground">{foodSearchMessage}</span>{/if}
-            </label>
-            {#if foodResults.length > 0}
-              <div class="meal-list">
-                {#each foodResults as food}
-                  <button
-                    type="button"
-                    class="meal-card"
-                    class:selected={selectedFoodId === food.id}
-                    onclick={() => chooseFoodResult(food.id)}
-                  >
-                    <span class="meal-name">{food.name.en ?? Object.values(food.name)[0]}</span>
-                    {#if food.description}<span class="meal-card-topline">{food.description}</span>{/if}
-                    <strong class="meal-calories">{displayNumber(food.nutrition.calories)} kcal</strong>
-                    <span class="meal-card-topline">{food.serving}</span>
-                  </button>
-                {/each}
-              </div>
-            {/if}
-            {#if creatingMealFood}
-              <Button type="button" variant="outline" onclick={addFoodFromMealSearch}>Add food</Button>
-            {/if}
-          {/if}
-          <div class="grid gap-2">
-            <Label for="meal-time">Time</Label>
-            <Input id="meal-time" type="time" step="600" bind:value={time} required />
-          </div>
-          {#if !temporaryMeal}
-            <div class="grid gap-2">
-              <Label for="meal-quantity">Quantity</Label>
-              <div class="flex items-center gap-2">
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="icon"
-                  aria-label="Decrease quantity"
-                  onclick={() => (quantity = Math.max(1, quantity - 1))}><MinusIcon aria-hidden="true" /></Button
-                >
-                <Input
-                  id="meal-quantity"
-                  class="text-center"
-                  type="number"
-                  min="1"
-                  step="1"
-                  bind:value={quantity}
-                  required
-                />
-                <Button
-                  type="button"
-                  variant="outline"
-                  size="icon"
-                  aria-label="Increase quantity"
-                  onclick={() => (quantity = quantity + 1)}><PlusIcon aria-hidden="true" /></Button
-                >
-              </div>
-            </div>
-          {/if}
-          {#if error}<p class="text-destructive text-sm" role="alert">{error}</p>{/if}
-          <Button
-            type="submit"
-            variant={temporaryMeal || selectedFoodId ? 'default' : 'outline'}
-            disabled={!temporaryMeal && !selectedFoodId}>{editingMealId ? 'Update meal' : 'Add meal'}</Button
-          >
-        </form>
-      </div>
-    </Sheet.Content>
-  </Sheet.Root>
+  <MealSheet bind:this={mealSheet} {data} bind:date onSave={save} onCreateFood={(name) => foodSheet.openWithName(name)} />
 
   <FoodSheet bind:this={foodSheet} {data} onSave={save} onSaved={handleFoodSaved} onError={handleFoodError} />
 </main>
