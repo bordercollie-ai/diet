@@ -1,7 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte'
   import {
-    createFood,
     createMealEntry,
     createTemporaryMealEntry,
     bundledFoods,
@@ -16,7 +15,6 @@
     estimateTargets,
     previewBackup,
     roundForDisplay,
-    updateFood,
     updateMealEntry,
     type ImportResult,
   } from './domain/store'
@@ -24,17 +22,15 @@
   import { Button } from '$lib/components/ui/button'
   import { Input } from '$lib/components/ui/input'
   import { Label } from '$lib/components/ui/label'
-  import * as Card from '$lib/components/ui/card'
-  import * as Dialog from '$lib/components/ui/dialog'
   import * as Sheet from '$lib/components/ui/sheet'
-  import { Separator } from '$lib/components/ui/separator'
+  import SummaryPanel from './pages/SummaryPanel.svelte'
+  import FoodsPanel from './pages/FoodsPanel.svelte'
+  import ProfilePanel from './pages/ProfilePanel.svelte'
+  import BackupPanel from './pages/BackupPanel.svelte'
+  import FoodSheet from './pages/FoodSheet.svelte'
   import { fade } from 'svelte/transition'
   import PlusIcon from '@lucide/svelte/icons/plus'
   import MinusIcon from '@lucide/svelte/icons/minus'
-  import FlameIcon from '@lucide/svelte/icons/flame'
-  import HamIcon from '@lucide/svelte/icons/ham'
-  import WheatIcon from '@lucide/svelte/icons/wheat'
-  import NutIcon from '@lucide/svelte/icons/nut'
   import ChartColumnIcon from '@lucide/svelte/icons/chart-column'
   import AppleIcon from '@lucide/svelte/icons/apple'
   import UserIcon from '@lucide/svelte/icons/user'
@@ -63,17 +59,14 @@
   let foodSearch = $state('')
   let selectedFoodId = $state('')
   let foodResults: Food[] = $state([])
-  let editingFoodId = $state('')
   let editingMealId = $state('')
   let time = $state(new Date().toTimeString().slice(0, 5))
   let quantity = $state(1)
-  let foodName = $state('')
-  let foodDescription = $state('')
-  let serving = $state('1 serving')
-  let calories = $state(0)
-  let protein = $state(0)
-  let fat = $state(0)
-  let carbohydrates = $state(0)
+  let foodSheet: {
+    openForNew: () => void
+    openForEdit: (food: Food) => void
+    openWithName: (name: string) => void
+  }
   let profile: Profile = $state({
     age: 30,
     sex: 'female',
@@ -102,10 +95,7 @@
   let backupPreview: ImportResult | null = $state(null)
   let installPrompt: BeforeInstallPromptEvent | null = $state(null)
   let installed = $state(false)
-  let mealActionsId = $state('')
-  let mealActionsOpen = $state(false)
   let mealDialogOpen = $state(false)
-  let foodDialogOpen = $state(false)
   let creatingMealFood = $state(false)
   let foodSearchMessage = $state('')
   let temporaryMeal = $state(false)
@@ -302,38 +292,17 @@
     }
   }
 
-  async function addFood(event: SubmitEvent) {
-    event.preventDefault()
-    try {
-      const input = {
-        name: { en: foodName },
-        description: foodDescription.trim() || undefined,
-        serving,
-        nutrition: { calories, protein, fat, carbohydrates },
-        source: 'user' as const,
-      }
-      const next = editingFoodId
-        ? updateFood(data, editingFoodId, input)
-        : { ...data, foods: [...data.foods, createFood(input)] }
-      await save(next)
-      selectedFoodId = editingFoodId || next.foods.at(-1)?.id || ''
-      editingFoodId = ''
-      foodName = ''
-      foodDescription = ''
-      serving = '1 serving'
-      calories = 0
-      protein = 0
-      fat = 0
-      carbohydrates = 0
-      foodDialogOpen = false
-      if (creatingMealFood) {
-        foodSearch = next.foods.find((item) => item.id === selectedFoodId)?.name.en ?? foodSearch
-        creatingMealFood = false
-        foodSearchMessage = ''
-      }
-    } catch (cause) {
-      error = cause instanceof Error ? cause.message : 'Unable to create food.'
+  function handleFoodSaved(food: Food) {
+    selectedFoodId = food.id
+    if (creatingMealFood) {
+      foodSearch = food.name.en ?? foodSearch
+      creatingMealFood = false
+      foodSearchMessage = ''
     }
+  }
+
+  function handleFoodError(message: string) {
+    error = message
   }
 
   async function addMeal(event: SubmitEvent) {
@@ -414,36 +383,15 @@
   function editFood(id: string) {
     const food = data.foods.find((item) => item.id === id)
     if (!food || food.source === 'bundled') return
-    editingFoodId = id
-    foodName = food.name.en ?? Object.values(food.name)[0]
-    foodDescription = food.description ?? ''
-    serving = food.serving
-    ;({ calories, protein, fat, carbohydrates } = food.nutrition)
-    foodDialogOpen = true
+    foodSheet.openForEdit(food)
   }
 
   function startNewFood() {
-    editingFoodId = ''
-    foodName = ''
-    foodDescription = ''
-    serving = '1 serving'
-    calories = 0
-    protein = 0
-    fat = 0
-    carbohydrates = 0
-    foodDialogOpen = true
+    foodSheet.openForNew()
   }
 
   function addFoodFromMealSearch() {
-    editingFoodId = ''
-    foodName = foodSearch.trim()
-    foodDescription = ''
-    serving = '1 serving'
-    calories = 0
-    protein = 0
-    fat = 0
-    carbohydrates = 0
-    foodDialogOpen = true
+    foodSheet.openWithName(foodSearch.trim())
   }
 
   function editMeal(id: string) {
@@ -479,7 +427,6 @@
     selectedFoodId = ''
     if (foodResults.length === 0) {
       creatingMealFood = true
-      foodName = name
       foodSearchMessage = 'No match. Add nutrition details to create it with this meal.'
     } else {
       creatingMealFood = false
@@ -581,352 +528,48 @@
   </div>
 
   {#if activeTab === 'backup'}
-    <div id="backup-panel" role="tabpanel" aria-labelledby="backup-tab">
-      <Card.Root>
-        <Card.Header><Card.Title id="backup-heading">Backup and install</Card.Title></Card.Header>
-        <Card.Content class="flex flex-col gap-4">
-          <Button type="button" onclick={exportBackup}>Export JSON backup</Button>
-          <div class="flex flex-col gap-2">
-            <Label for="backup-file">Import JSON backup</Label>
-            <Input
-              id="backup-file"
-              class="sr-only"
-              type="file"
-              accept="application/json,.json"
-              onchange={selectBackup}
-            />
-            <label
-              for="backup-file"
-              class="inline-flex min-h-10 cursor-pointer items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted focus-within:ring-3 focus-within:ring-ring/30"
-            >
-              Choose backup file
-            </label>
-            <p class="text-sm text-muted-foreground" aria-live="polite">
-              {selectedBackupName || 'JSON files only'}
-            </p>
-          </div>
-          {#if backupPreview}
-            <p role="status">
-              Ready to merge <strong class="font-semibold">{backupPreview.data.foods.length}</strong> foods and
-              <strong class="font-semibold">{backupPreview.data.mealEntries.length}</strong> meals.
-            </p>
-            <Button type="button" onclick={restoreBackup}>Restore backup</Button>
-          {/if}
-          {#if installed}
-            <p class="text-sm text-muted-foreground">This app is installed.</p>
-          {:else if installPrompt}
-            <Button type="button" onclick={installApp}>Install app</Button>
-          {:else}
-            <p class="text-sm text-muted-foreground">Install is available from your browser menu when supported.</p>
-          {/if}
-        </Card.Content>
-      </Card.Root>
-    </div>
+    <BackupPanel
+      {selectedBackupName}
+      {backupPreview}
+      {installed}
+      canInstall={!!installPrompt}
+      onExport={exportBackup}
+      onSelectBackup={selectBackup}
+      onRestore={restoreBackup}
+      onInstall={installApp}
+    />
   {:else if activeTab === 'summary'}
-    <div id="summary-panel" role="tabpanel" aria-labelledby="summary-tab">
-      <Card.Root>
-        <Card.Header><Card.Title id="summary-heading">Daily summary</Card.Title></Card.Header>
-        <Card.Content>
-          <div class="day-strip" aria-label="Recent days">
-            {#each recentDays as day}
-              {@const dayCalories = dailyTotals(data, day.iso).calories}
-              {@const tone = dayTones[day.iso]}
-              <button
-                type="button"
-                class:selected={date === day.iso}
-                class:font-bold={day.iso === today}
-                class:under={tone === 'under'}
-                class:on-target={tone === 'on-target'}
-                class:over={tone === 'over'}
-                class:empty={tone === 'empty'}
-                aria-pressed={date === day.iso}
-                aria-label={`${day.label} ${day.number}, ${displayNumber(dayCalories)} kcal`}
-                onclick={() => (date = day.iso)}
-              >
-                <span class="day-label">{day.label}</span>
-                <span
-                  class="flex aspect-square w-[min(2rem,100%)] items-center justify-center rounded-full border"
-                  class:border-dashed={tone === 'empty'}
-                  class:border-solid={tone !== 'empty' || day.iso === today}
-                  class:border-[var(--muted-foreground)]={tone === 'empty'}
-                  class:border-[var(--calorie-under)]={tone === 'under' || tone === 'on-target'}
-                  class:border-[var(--calorie-over)]={tone === 'over'}
-                  aria-hidden="true"><span>{day.number}</span></span
-                >
-              </button>
-            {/each}
-          </div>
-          <div
-            id="calorie-summary"
-            class="flex items-center justify-between my-4 rounded-md bg-card p-4"
-            role="img"
-            aria-label={`${displayNumber(totals.calories)} of ${displayNumber(targets.calories)} kcal, ${caloriePercent}% of target`}
-          >
-            <div class="calorie-details">
-              <strong>{displayNumber(totals.calories)} kcal</strong>
-              <span>{displayNumber(Math.abs(caloriesRemaining))} kcal {caloriesRemaining >= 0 ? 'left' : 'over'}</span>
-            </div>
-            <div
-              class="relative flex aspect-square w-full max-w-28 flex-none items-center rounded-full text-center"
-              style={`--calorie-progress: ${Math.min(caloriePercent, 100)}%; --calorie-color: ${calorieColor}; background: conic-gradient(var(--calorie-color) var(--calorie-progress), var(--muted) 0)`}
-              aria-hidden="true"
-            >
-              <div class="absolute inset-3 rounded-full bg-card flex items-center justify-center">
-                <FlameIcon aria-hidden="true" class="size-6" style={`color: ${calorieColor}`} />
-              </div>
-            </div>
-          </div>
-          <div class="macro-grid" aria-label="Macronutrient totals">
-            <div class="macro-stat">
-              <span><HamIcon aria-hidden="true" class="size-4" /> Protein</span><strong
-                >{Math.round(totals.protein)} / {Math.round(targets.protein)}</strong
-              >
-            </div>
-            <div class="macro-stat">
-              <span><WheatIcon aria-hidden="true" class="size-4" /> Carbs</span><strong
-                >{Math.round(totals.carbohydrates)} / {Math.round(targets.carbohydrates)}</strong
-              >
-            </div>
-            <div class="macro-stat">
-              <span><NutIcon aria-hidden="true" class="size-4" /> Fat</span><strong
-                >{Math.round(totals.fat)} / {Math.round(targets.fat)}</strong
-              >
-            </div>
-          </div>
-        </Card.Content>
-      </Card.Root>
-
-      <div>
-        <h2 id="entries-heading" class="font-heading text-base font-medium mb-4">Meals for {date}</h2>
-        <div>
-          <div class="meal-list">
-            {#each data.mealEntries
-              .filter((entry) => entry.date === date)
-              .sort((a, b) => a.time.localeCompare(b.time)) as entry (entry.id)}
-              {@const food = data.foods.find((item) => item.id === entry.foodId)}
-              {@const mealName = food?.name.en ?? entry.foodName ?? 'Food'}
-              <button
-                type="button"
-                class="meal-card"
-                aria-haspopup="dialog"
-                aria-label={`${entry.time}, ${mealName}, ${displayNumber(entry.nutrition.calories)} kcal. Open meal actions.`}
-                onclick={() => {
-                  mealActionsId = entry.id
-                  mealActionsOpen = true
-                }}
-              >
-                <div class="flex items-center justify-between">
-                  <span class="meal-name">{mealName}</span>
-                  <time datetime={`${entry.date}T${entry.time}`} class="text-muted-foreground text-sm"
-                    >{entry.time}</time
-                  >
-                </div>
-                <strong class="meal-calories">{displayNumber(entry.nutrition.calories)} kcal</strong>
-                <span class="meal-macros">
-                  <span
-                    ><span class="meal-macro-label"><HamIcon aria-hidden="true" class="size-3.5" /> Protein</span
-                    ><strong>{displayNumber(entry.nutrition.protein)} g</strong></span
-                  >
-                  <span
-                    ><span class="meal-macro-label"><WheatIcon aria-hidden="true" class="size-3.5" /> Carbs</span
-                    ><strong>{displayNumber(entry.nutrition.carbohydrates)} g</strong></span
-                  >
-                  <span
-                    ><span class="meal-macro-label"><NutIcon aria-hidden="true" class="size-3.5" /> Fat</span><strong
-                      >{displayNumber(entry.nutrition.fat)} g</strong
-                    ></span
-                  >
-                </span>
-              </button>
-            {:else}
-              <p>No meals recorded.</p>
-            {/each}
-          </div>
-          <Dialog.Root bind:open={mealActionsOpen}>
-            <Dialog.Content>
-              <Dialog.Header>
-                <Dialog.Title>Meal actions</Dialog.Title>
-                <Dialog.Description>Choose what to do with this meal.</Dialog.Description>
-              </Dialog.Header>
-              <Dialog.Footer>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onclick={() => {
-                    editMeal(mealActionsId)
-                    mealActionsOpen = false
-                  }}>Edit meal</Button
-                >
-                <Button
-                  type="button"
-                  variant="destructive"
-                  onclick={async () => {
-                    await removeMeal(mealActionsId)
-                    mealActionsOpen = false
-                  }}>Delete meal</Button
-                >
-              </Dialog.Footer>
-            </Dialog.Content>
-          </Dialog.Root>
-        </div>
-      </div>
-      <Button type="button" class="w-full mt-4" aria-haspopup="dialog" onclick={startNewMeal}>
-        <PlusIcon aria-hidden="true" />
-        Record a meal
-      </Button>
-      <Separator class="my-4" />
-      <Button type="button" variant="outline" class="w-full" aria-haspopup="dialog" onclick={startTemporaryMeal}>
-        Quick add
-      </Button>
-    </div>
+    <SummaryPanel
+      {data}
+      {date}
+      {today}
+      {recentDays}
+      {dayTones}
+      {totals}
+      {targets}
+      {caloriePercent}
+      {caloriesRemaining}
+      {calorieColor}
+      onSelectDate={(iso) => (date = iso)}
+      onEditMeal={editMeal}
+      onDeleteMeal={removeMeal}
+      onRecordMeal={startNewMeal}
+      onQuickAdd={startTemporaryMeal}
+    />
   {:else if activeTab === 'foods'}
-    <div id="foods-panel" role="tabpanel" aria-labelledby="foods-tab">
-      <Button type="button" class="w-full" onclick={startNewFood}>
-        <PlusIcon aria-hidden="true" />
-        Add food
-      </Button>
-
-      <div class="mt-4 grid gap-3">
-        {#each data.foods.filter((food) => food.source === 'user') as food}
-          <button
-            type="button"
-            class="w-full rounded-2xl bg-muted p-4 text-left transition-colors hover:bg-accent focus-visible:outline focus-visible:outline-ring focus-visible:outline-offset-2"
-            aria-label={`Edit ${food.name.en ?? Object.values(food.name)[0]}`}
-            onclick={() => editFood(food.id)}
-          >
-            <div class="flex items-center justify-between gap-2">
-              <span class="font-semibold">{food.name.en ?? Object.values(food.name)[0]}</span>
-              <span class="text-lg font-semibold">{displayNumber(food.nutrition.calories)} kcal</span>
-            </div>
-            {#if food.description}<span class="text-sm text-muted-foreground">{food.description}</span>{/if}
-            <span class="text-sm text-muted-foreground">{food.serving}</span>
-          </button>
-        {:else}
-          <p class="text-muted-foreground">No custom foods yet. Tap "Add food" to create one.</p>
-        {/each}
-      </div>
-    </div>
+    <FoodsPanel {data} onAddFood={startNewFood} onEditFood={editFood} />
   {:else if activeTab === 'profile'}
-    <div id="profile-panel" role="tabpanel" aria-labelledby="profile-tab">
-      <Card.Root class="overflow-visible">
-        <Card.Header><Card.Title id="profile-heading">Profile and targets</Card.Title></Card.Header>
-        <Card.Content>
-          <form class="grid gap-4" onsubmit={saveProfile}>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="grid gap-2">
-                <Label for="profile-age">Age</Label>
-                <Input id="profile-age" type="number" min="1" max="120" bind:value={profile.age} required />
-              </div>
-              <div class="grid gap-2">
-                <Label for="profile-sex">Sex</Label>
-                <select
-                  id="profile-sex"
-                  class="border-input h-9 rounded-md border bg-transparent px-3 text-sm"
-                  bind:value={profile.sex}
-                >
-                  <option value="female">Female</option>
-                  <option value="male">Male</option>
-                </select>
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="grid gap-2">
-                <Label for="profile-height">Height (cm)</Label>
-                <Input id="profile-height" type="number" min="50" max="250" bind:value={profile.heightCm} required />
-              </div>
-              <div class="grid gap-2">
-                <Label for="profile-weight">Weight (kg)</Label>
-                <Input
-                  id="profile-weight"
-                  type="number"
-                  min="10"
-                  max="500"
-                  step="0.1"
-                  bind:value={profile.weightKg}
-                  required
-                />
-              </div>
-            </div>
-            <div class="grid grid-cols-2 gap-4">
-              <div class="grid gap-2">
-                <Label for="profile-target-weight">Target weight (kg)</Label>
-                <Input
-                  id="profile-target-weight"
-                  type="number"
-                  min="10"
-                  max="500"
-                  step="0.1"
-                  bind:value={profile.targetWeightKg}
-                  required
-                />
-              </div>
-              <div class="grid gap-2">
-                <Label for="profile-target-date">Target date</Label>
-                <Input id="profile-target-date" type="date" min={today} bind:value={profile.targetDate} required />
-              </div>
-            </div>
-            <div class="grid gap-4">
-              <Label for="profile-activity">Activity</Label>
-              <select
-                id="profile-activity"
-                class="border-input h-9 rounded-md border bg-transparent px-3 text-sm"
-                bind:value={profile.activity}
-              >
-                <option value="bmrOnly">BMR only</option>
-                <option value="sedentary">Sedentary</option>
-                <option value="light">Light</option>
-                <option value="moderate">Moderate</option>
-                <option value="very">Very active</option>
-                <option value="extra">Extra active</option>
-              </select>
-            </div>
-            <div class="bg-muted flex items-baseline justify-between rounded-md px-4 py-3">
-              <span class="text-muted-foreground text-sm">Daily maintenance</span>
-              <span class="text-xl font-semibold tabular-nums">{maintenanceCalories} kcal</span>
-            </div>
-
-            <Separator />
-
-            <div class="grid grid-cols-2 gap-4">
-              <div class="grid gap-2">
-                <Label for="profile-override-calories">Calories override</Label>
-                <Input id="profile-override-calories" type="number" min="0" bind:value={overrideCalories} />
-              </div>
-              <div class="grid gap-2">
-                <Label for="profile-override-protein">Protein override</Label>
-                <Input id="profile-override-protein" type="number" min="0" step="0.1" bind:value={overrideProtein} />
-              </div>
-              <div class="grid gap-2">
-                <Label for="profile-override-fat">Fat override</Label>
-                <Input id="profile-override-fat" type="number" min="0" step="0.1" bind:value={overrideFat} />
-              </div>
-              <div class="grid gap-2">
-                <Label for="profile-override-carbs">Carbohydrates override</Label>
-                <Input
-                  id="profile-override-carbs"
-                  type="number"
-                  min="0"
-                  step="0.1"
-                  bind:value={overrideCarbohydrates}
-                />
-              </div>
-            </div>
-
-            <div class="bg-accent rounded-md px-4 py-3">
-              <p class="text-2xl font-bold tabular-nums text-accent-foreground">
-                {displayNumber(targets.calories)} kcal
-              </p>
-              <p class="text-muted-foreground text-sm">
-                {displayNumber(targets.protein)} g protein · {displayNumber(targets.fat)} g fat · {displayNumber(
-                  targets.carbohydrates,
-                )} g carbs
-              </p>
-            </div>
-            <Button type="submit">Save profile</Button>
-          </form>
-        </Card.Content>
-      </Card.Root>
-    </div>
+    <ProfilePanel
+      bind:profile
+      bind:overrideCalories
+      bind:overrideProtein
+      bind:overrideFat
+      bind:overrideCarbohydrates
+      {today}
+      {maintenanceCalories}
+      {targets}
+      onSave={saveProfile}
+    />
   {/if}
 
   <Sheet.Root bind:open={mealDialogOpen}>
@@ -1063,45 +706,5 @@
     </Sheet.Content>
   </Sheet.Root>
 
-  <Sheet.Root bind:open={foodDialogOpen}>
-    <Sheet.Content side="right" class="gap-0 data-[side=right]:w-full data-[side=right]:sm:max-w-none">
-      <Sheet.Header>
-        <Sheet.Title>{editingFoodId ? 'Edit food' : 'Add food'}</Sheet.Title>
-        <Sheet.Description>Enter the food's serving size and nutrition per serving.</Sheet.Description>
-      </Sheet.Header>
-      <div class="flex-1 overflow-y-auto px-6 pb-6">
-        <form class="grid gap-4" onsubmit={addFood}>
-          <div class="grid gap-2">
-            <Label for="food-name">Name</Label>
-            <Input id="food-name" bind:value={foodName} required />
-          </div>
-          <div class="grid gap-2">
-            <Label for="food-description">Description (e.g. brand)</Label>
-            <Input id="food-description" bind:value={foodDescription} placeholder="Optional" />
-          </div>
-          <div class="grid gap-2">
-            <Label for="food-serving">Serving</Label>
-            <Input id="food-serving" bind:value={serving} required />
-          </div>
-          <div class="grid gap-2">
-            <Label for="food-calories">Calories</Label>
-            <Input id="food-calories" type="number" min="0" bind:value={calories} required />
-          </div>
-          <div class="grid gap-2">
-            <Label for="food-protein">Protein</Label>
-            <Input id="food-protein" type="number" min="0" step="0.1" bind:value={protein} required />
-          </div>
-          <div class="grid gap-2">
-            <Label for="food-fat">Fat</Label>
-            <Input id="food-fat" type="number" min="0" step="0.1" bind:value={fat} required />
-          </div>
-          <div class="grid gap-2">
-            <Label for="food-carbohydrates">Carbohydrates</Label>
-            <Input id="food-carbohydrates" type="number" min="0" step="0.1" bind:value={carbohydrates} required />
-          </div>
-          <Button type="submit">{editingFoodId ? 'Update food' : 'Save food'}</Button>
-        </form>
-      </div>
-    </Sheet.Content>
-  </Sheet.Root>
+  <FoodSheet bind:this={foodSheet} {data} onSave={save} onSaved={handleFoodSaved} onError={handleFoodError} />
 </main>
