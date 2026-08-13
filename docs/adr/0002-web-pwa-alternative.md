@@ -2,39 +2,24 @@
 title: "将 Web/PWA 作为原生方案的替代路线"
 type: adr
 status: accepted
-version: "1.0"
+version: "1.1"
 date: 2026-08-12
+updated: 2026-08-13
 ---
 
-# ADR 0002: 将 Web/PWA 作为原生方案的替代路线
-
-## 背景
-
-原生 SwiftUI 方案能覆盖 iPhone/iPad、Mac Catalyst、通知和 HealthKit，但直接从 Xcode 安装到设备需要 Developer Mode；免费个人签名还有约 7 天限制。用户希望保留不降低设备安全性的选择。
+# ADR 0002: 使用 Web/PWA 作为唯一实现路线
 
 ## 决策
 
-新增 Web/PWA 方案作为当前实现路线，保留原生 MVP 作为后续替代路线。该方案使用浏览器、IndexedDB、Service Worker 和标准文件选择/下载能力，核心记录流程完全本地化。Web 实现从独立的 Web Phase 0 开始，不与原生 Phase 0 的设备能力验证混用。
-
-不需要支持的最低 Safari 和 Chromium 版本，尽量新的浏览器支持即可。
-
-需要 PWA 安装体验。
+Web/PWA 是唯一当前实现路线。应用使用浏览器、IndexedDB、Service Worker 和标准文件下载/选择能力，核心流程完全本地化。
 
 ## 原因
 
-- 不需要 Apple Developer 账号、证书或 Developer Mode。
-- 可覆盖 iPhone/iPad、Mac 和桌面浏览器，减少平台安装门槛。
-- IndexedDB 和 JSON 文件足以支撑本地记录与手动迁移。
+原生安装需要 Developer Mode，免费签名也有周期限制。PWA 不需要 Apple Developer 账号、证书或降低设备安全性，同时覆盖 iPhone/iPad、Mac 和桌面浏览器。
 
-## 取舍
+## 后果与约束
 
-- 浏览器无法访问 HealthKit；体重、运动和营养同步必须删除或改为手动输入。
-- 通知权限、后台执行、文件系统和安装体验因浏览器而异。
-- PWA 数据清除、浏览器迁移和隐私模式可能导致数据丢失，必须提供显式导出提醒和可靠的备份恢复。
-- App Store 分发、原生控件体验和系统健康数据整合不再是 Web 方案承诺。
-
-## 约束
-
-- 不引入账号、服务器、云同步或第三方依赖来弥补浏览器能力差异。
-- 先复用纯领域计算和备份规则；UI、存储适配和权限能力与 SwiftUI 隔离。
-- Web 方案获选后，先更新 `docs/implementation-plan-web.md`，再开始新的实现阶段。
+- 不提供 HealthKit、原生控件体验、App Store 分发或原生通知保证；体重和运动由用户手动输入。
+- 安装、通知、后台与文件体验取决于浏览器；必须提供明确的备份与恢复，提醒用户浏览器数据清除和隐私模式的风险。
+- 不以账号、服务器、云同步或第三方依赖补偿浏览器限制。
+- 领域计算和备份规则独立于 Svelte 与浏览器适配层；实现顺序以 `docs/implementation-plan-web.md` 为准。

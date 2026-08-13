@@ -10,6 +10,7 @@ If these documents conflict, stop and report the conflict; do not silently inven
 
 ## Working rules
 
+- The `web/` app uses **pnpm** (see `web/pnpm-lock.yaml`, `web/pnpm-workspace.yaml`) — always run `pnpm`, never `npm`, for install/dev/build/test/check commands there.
 - Work on one phase at a time, in the order listed in `docs/implementation-plan.md`.
 - Read the phase's design and tests before writing code.
 - Keep domain calculations independent from SwiftUI, SwiftData, HealthKit, and network code.
