@@ -139,6 +139,8 @@ export function scaleNutrition(nutrition: Nutrition, quantity: number): Nutritio
   return Object.fromEntries(Object.entries(nutrition).map(([key, value]) => [key, value * quantity])) as Nutrition;
 }
 
+export const roundForDisplay = (value: number): number => Math.round(value);
+
 export function searchFoods(foods: Food[], query: string): Food[] {
   const needle = query.trim().toLocaleLowerCase();
   if (!needle) return foods;

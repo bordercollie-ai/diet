@@ -14,6 +14,7 @@
     estimateMaintenanceCalories,
     estimateTargets,
     previewBackup,
+    roundForDisplay,
     updateFood,
     updateMealEntry,
     type ImportResult,
@@ -114,6 +115,7 @@
   }
 
   const totals = $derived(dailyTotals(data, date))
+  const displayNumber = roundForDisplay
   const profileReady = $derived(
     profile.age >= 1 &&
       profile.age <= 120 &&
@@ -546,7 +548,7 @@
                 class:over={tone === 'over'}
                 class:empty={tone === 'empty'}
                 aria-pressed={date === day.iso}
-                aria-label={`${day.label} ${day.number}, ${dayCalories} kcal`}
+                aria-label={`${day.label} ${day.number}, ${displayNumber(dayCalories)} kcal`}
                 onclick={() => (date = day.iso)}
               >
                 <span class="day-label">{day.label}</span>
@@ -560,11 +562,11 @@
             id="calorie-summary"
             class="flex items-center justify-between my-4 rounded-md bg-card p-4"
             role="img"
-            aria-label={`${totals.calories} of ${targets.calories} kcal, ${caloriePercent}% of target`}
+            aria-label={`${displayNumber(totals.calories)} of ${displayNumber(targets.calories)} kcal, ${caloriePercent}% of target`}
           >
             <div class="calorie-details">
-              <strong>{totals.calories} kcal</strong>
-              <span>{Math.abs(caloriesRemaining)} kcal {caloriesRemaining >= 0 ? 'left' : 'over'}</span>
+              <strong>{displayNumber(totals.calories)} kcal</strong>
+              <span>{displayNumber(Math.abs(caloriesRemaining))} kcal {caloriesRemaining >= 0 ? 'left' : 'over'}</span>
             </div>
             <div
               class="relative flex aspect-square w-full max-w-28 flex-none items-center rounded-full text-center"
@@ -606,7 +608,7 @@
                 type="button"
                 class="meal-card"
                 aria-haspopup="dialog"
-                aria-label={`${entry.time}, ${food?.name.en ?? 'Food'}, ${entry.nutrition.calories} kcal. Open meal actions.`}
+                aria-label={`${entry.time}, ${food?.name.en ?? 'Food'}, ${displayNumber(entry.nutrition.calories)} kcal. Open meal actions.`}
                 onclick={() => {
                   mealActionsId = entry.id
                   mealActionsOpen = true
@@ -616,19 +618,19 @@
                   <span class="meal-name">{food?.name.en ?? 'Food'}</span>
                   <time datetime={`${entry.date}T${entry.time}`} class="text-muted-foreground">{entry.time}</time>
                 </div>
-                <strong class="meal-calories">{entry.nutrition.calories} kcal</strong>
+                <strong class="meal-calories">{displayNumber(entry.nutrition.calories)} kcal</strong>
                 <span class="meal-macros">
                   <span
                     ><span class="meal-macro-label"><HamIcon aria-hidden="true" class="size-3.5" /> Protein</span
-                    ><strong>{entry.nutrition.protein} g</strong></span
+                    ><strong>{displayNumber(entry.nutrition.protein)} g</strong></span
                   >
                   <span
                     ><span class="meal-macro-label"><WheatIcon aria-hidden="true" class="size-3.5" /> Carbs</span
-                    ><strong>{entry.nutrition.carbohydrates} g</strong></span
+                    ><strong>{displayNumber(entry.nutrition.carbohydrates)} g</strong></span
                   >
                   <span
                     ><span class="meal-macro-label"><NutIcon aria-hidden="true" class="size-3.5" /> Fat</span
-                    ><strong>{entry.nutrition.fat} g</strong></span
+                    ><strong>{displayNumber(entry.nutrition.fat)} g</strong></span
                   >
                 </span>
               </button>
@@ -686,7 +688,7 @@
           >
             <div class="flex items-center justify-between gap-2">
               <span class="font-semibold">{food.name.en ?? Object.values(food.name)[0]}</span>
-              <span class="text-lg font-semibold">{food.nutrition.calories} kcal</span>
+              <span class="text-lg font-semibold">{displayNumber(food.nutrition.calories)} kcal</span>
             </div>
             <span class="text-sm text-muted-foreground">{food.serving}</span>
           </button>
@@ -802,9 +804,9 @@
             </div>
 
             <div class="bg-accent rounded-md px-4 py-3">
-              <p class="text-2xl font-bold tabular-nums text-accent-foreground">{targets.calories} kcal</p>
+              <p class="text-2xl font-bold tabular-nums text-accent-foreground">{displayNumber(targets.calories)} kcal</p>
               <p class="text-muted-foreground text-sm">
-                {targets.protein} g protein · {targets.fat} g fat · {targets.carbohydrates} g carbs
+                {displayNumber(targets.protein)} g protein · {displayNumber(targets.fat)} g fat · {displayNumber(targets.carbohydrates)} g carbs
               </p>
             </div>
             <Button type="submit">Save profile</Button>
@@ -857,7 +859,7 @@
                   onclick={() => chooseFoodResult(food.id)}
                 >
                   <span class="meal-name">{food.name.en ?? Object.values(food.name)[0]}</span>
-                  <strong class="meal-calories">{food.nutrition.calories} kcal</strong>
+                  <strong class="meal-calories">{displayNumber(food.nutrition.calories)} kcal</strong>
                   <span class="meal-card-topline">{food.serving}</span>
                 </button>
               {/each}

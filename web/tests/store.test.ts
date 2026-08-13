@@ -12,6 +12,7 @@ import {
   estimateMaintenanceCalories,
   estimateBMR,
   previewBackup,
+  roundForDisplay,
   resolveTargets,
   searchFoods,
   type AppData,
@@ -101,6 +102,31 @@ test("creates, edits, deletes, and totals scaled meal entries by date", () => {
   assert.equal(next.mealEntries[0].nutrition.calories, 260);
   assert.equal(next.mealEntries[0].time, "13:00");
   assert.deepEqual(deleteMealEntry(next, entry.id).mealEntries, []);
+});
+
+test("rounds calculated float artifacts for display without changing decimal input support", () => {
+  assert.equal(roundForDisplay(94.1999999999999), 94);
+  assert.equal(roundForDisplay(94.6), 95);
+  assert.equal(roundForDisplay(94.2), 94);
+});
+
+test("scales a decimal quantity and rounds only the displayed result", () => {
+  const item = createFood({
+    name: { en: "45 kcal snack" },
+    serving: "1 piece",
+    nutrition: { calories: 45, protein: 1.3, fat: 0.7, carbohydrates: 8.2 },
+    source: "user"
+  });
+  const entry = createMealEntry({
+    date: "2026-08-12",
+    time: "18:00",
+    foodId: item.id,
+    quantity: 1.3
+  }, item);
+
+  assert.equal(entry.nutrition.calories, 58.5);
+  assert.equal(dailyTotals({ foods: [item], mealEntries: [entry] }, "2026-08-12").calories, 58.5);
+  assert.equal(roundForDisplay(entry.nutrition.calories), 59);
 });
 
 test("invalid food and quantity data is rejected", async () => {
