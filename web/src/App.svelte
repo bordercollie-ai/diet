@@ -44,7 +44,7 @@
   const today = new Date().toISOString().slice(0, 10)
   const defaultTargetDate = (() => {
     const date = new Date()
-    date.setFullYear(date.getFullYear() + 1)
+    date.setMonth(date.getMonth() + 3)
     return date.toISOString().slice(0, 10)
   })()
   const recentDays = Array.from({ length: 7 }, (_, index) => {
