@@ -257,6 +257,34 @@ The importer produces app-compatible food records after reviewed Chinese mapping
 
 The Web PRD’s bilingual interface requirement is met without changing domain calculations, storage, backup format, or offline behavior.
 
+## Web Phase W9 — App.svelte componentization
+
+**Status:** done (2026-08-13); depends on W6
+
+### Scope
+
+- Split the 1,107-line `App.svelte` monolith (all four tab bodies plus both add/edit sheets) into focused, single-purpose components.
+- Keep `App.svelte` as the thin shell owning cross-cutting state (`data`, `date`, `profile`, targets/derived totals, backup/install, theme, tabs) and orchestration functions.
+- Preserve all existing DOM structure, `aria-*` attributes, ids, and CSS classes exactly (styling is global in `custom.css`, unaffected by the split) so behavior and accessibility are unchanged.
+
+### Current slice
+
+- **Done (2026-08-13):** Extracted the four tab bodies and the food add/edit sheet into `web/src/pages/`: `SummaryPanel.svelte` (day strip, calorie ring, macro grid, meal list, meal-actions dialog, FAB buttons — now owns its own local meal-actions dialog state), `FoodsPanel.svelte`, `ProfilePanel.svelte` (profile/targets form, bindable profile and override fields), `BackupPanel.svelte`, and `FoodSheet.svelte` (food add/edit form; exposes `openForNew`/`openForEdit`/`openWithName` via `bind:this` so `App.svelte` and the still-inline meal sheet can trigger it without owning its internal state).
+- **Done (2026-08-13):** Placed these under `src/pages/` rather than `src/lib/components/` — they are app-specific views/screens, not reusable UI primitives (which stay in `src/lib/components/ui/`).
+- **Done (2026-08-13):** Left the meal record/edit sheet (search food, temporary/quick-add mode, inline food creation) inline in `App.svelte`; it is tightly coupled to `date`, `creatingMealFood`, and the food-sheet cross-flow, and splitting it further would mostly move complexity rather than reduce it. Documented here as a candidate for a future slice if it grows further.
+- **Done (2026-08-13):** `App.svelte` reduced from 1,107 to 709 lines; removed now-unused imports (`createFood`, `updateFood`, `Card`, `Dialog`, `Separator`, `FlameIcon`, `HamIcon`, `WheatIcon`, `NutIcon`) that moved into the new components.
+
+### Checks
+
+- `pnpm check` (svelte-check --tsgo): 0 errors, 0 warnings.
+- `pnpm build`: passed with Vite 7.3.6.
+- `pnpm test:ui` (vitest): 6 tests passed, unchanged assertions (DOM roles/labels), confirming behavior parity.
+- `pnpm test` (plain `node --test tests/store.test.ts`, Node ≥23.6): 19 tests passed (domain layer untouched by this refactor).
+
+### Exit criteria
+
+`App.svelte` is a thin orchestration shell; each tab and the food-edit sheet is an independently readable component under `src/pages/`; all existing tests pass unmodified; no user-visible behavior, markup, or accessibility changes.
+
 ## Handoff protocol
 
 Before starting a phase, mark it `in progress` and read its complete section. After finishing, record status/date, files changed, tests/checks and results, unresolved risks or decisions, and the next ready Web phase.
