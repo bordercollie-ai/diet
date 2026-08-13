@@ -285,6 +285,24 @@ The Web PRD’s bilingual interface requirement is met without changing domain c
 
 `App.svelte` is a thin orchestration shell; each tab, the food-edit sheet, and the meal-record sheet are independently readable components under `src/pages/`; all existing tests pass unmodified; the meal-recording UX now separates food search from meal detail (quantity/time/record) into two steps, with all other behavior and accessibility unchanged.
 
+## Web Phase W10 — swipe to dismiss sheets (deferred idea)
+
+**Status:** deferred; depends on W9
+
+### Scope
+
+Currently the `Sheet`/`Dialog` overlays (meal sheet, food sheet, meal-actions dialog) close only via their explicit buttons, the scrim, or Esc; there's no swipe/back gesture to dismiss them. Options discussed (2026-08-13), roughly in order of fit for this project:
+
+1. **Browser back-gesture via History API (no new deps).** `history.pushState` when a sheet opens; close it on `popstate`. Gives Android edge-swipe-back and the hardware/gesture back button a working "close sheet" behavior in both browser tabs and installed PWA. Does **not** help iOS installed (standalone) PWAs, since Safari's edge-swipe-back gesture isn't available outside browser chrome.
+2. **Custom touch-drag-to-dismiss.** Hand-rolled `touchstart`/`touchmove`/`touchend` (or Pointer Events) handling on the sheet content: translate with the finger, close past a distance/velocity threshold, snap back otherwise. Works identically on iOS and Android PWA regardless of standalone mode, at the cost of custom gesture code (no existing library targets `bits-ui`'s `Sheet` specifically).
+3. **Adopt shadcn-svelte's `Drawer` (built on `vaul-svelte`).** Least code, native-feeling swipe-to-dismiss out of the box, but adds a new third-party dependency (`vaul-svelte`) and would mean migrating off `bits-ui`'s `Sheet` for the affected overlays.
+
+No decision made yet on which to implement; revisit when picked up.
+
+### Exit criteria
+
+Not started.
+
 ## Handoff protocol
 
 Before starting a phase, mark it `in progress` and read its complete section. After finishing, record status/date, files changed, tests/checks and results, unresolved risks or decisions, and the next ready Web phase.
