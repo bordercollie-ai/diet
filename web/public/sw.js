@@ -1,5 +1,5 @@
 const CACHE = "diet-shell-v3";
-const ASSETS = ["/", "/manifest.webmanifest"];
+const ASSETS = ["/diet/", "/diet/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();
@@ -23,7 +23,7 @@ self.addEventListener("fetch", (event) => {
         const copy = response.clone();
         caches.open(CACHE).then((cache) => cache.put(event.request, copy)).catch(() => {})
         return response;
-      }).catch(() => caches.match(event.request).then((cached) => cached || caches.match("/")))
+      }).catch(() => caches.match(event.request).then((cached) => cached || caches.match("/diet/")))
     );
     return;
   }
