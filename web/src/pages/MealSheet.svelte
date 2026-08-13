@@ -303,10 +303,12 @@
         </div>
       {:else if selectedFood}
         <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
-          <Button type="button" variant="ghost" class="-ml-2 w-fit justify-start" onclick={backToSearch}>
-            <ChevronLeftIcon aria-hidden="true" />
-            Back to search
-          </Button>
+          {#if !editingMealId}
+            <Button type="button" variant="ghost" class="-ml-2 w-fit justify-start" onclick={backToSearch}>
+              <ChevronLeftIcon aria-hidden="true" />
+              Back to search
+            </Button>
+          {/if}
           <div class="rounded-2xl bg-muted p-4">
             <div class="flex items-center justify-between gap-2">
               <span class="font-semibold">{selectedFood.name.en ?? Object.values(selectedFood.name)[0]}</span>
