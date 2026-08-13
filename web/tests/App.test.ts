@@ -1,0 +1,26 @@
+import { fireEvent, render, screen, waitFor } from '@testing-library/svelte'
+import { vi, test, expect } from 'vitest'
+import { createMemoryStore } from '../src/domain/store'
+import App from '../src/App.svelte'
+
+vi.mock('../src/storage/indexeddb', () => ({
+  createIndexedDBStore: () => createMemoryStore()
+}))
+
+test('records 1.4 servings of a 68 kcal food and displays rounded calories', async () => {
+  render(App)
+
+  await screen.findByText('Daily summary')
+  await fireEvent.click(screen.getByRole('button', { name: 'Record a meal' }))
+  await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: '68 kcal snack' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
+  await fireEvent.click(screen.getByRole('button', { name: 'Add food' }))
+
+  await fireEvent.input(screen.getByLabelText('Name'), { target: { value: '68 kcal snack' } })
+  await fireEvent.input(screen.getByLabelText('Calories'), { target: { value: '68' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Save food' }))
+  await fireEvent.input(screen.getByLabelText('Quantity'), { target: { value: '1.4' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Add meal' }))
+
+  await waitFor(() => expect(screen.getAllByText('95 kcal')).toHaveLength(2))
+})
