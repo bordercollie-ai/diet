@@ -24,3 +24,22 @@ test('records 1.4 servings of a 68 kcal food and displays rounded calories', asy
 
   await waitFor(() => expect(screen.getAllByText('95 kcal')).toHaveLength(2))
 })
+
+test('records a quick entry with calories and macros without creating a food', async () => {
+  render(App)
+
+  await screen.findByText('Daily summary')
+  await fireEvent.click(screen.getByRole('button', { name: 'Quick add' }))
+  await fireEvent.input(screen.getByLabelText('Name'), { target: { value: 'Dessert' } })
+  await fireEvent.input(screen.getByLabelText('Calories'), { target: { value: '250' } })
+  await fireEvent.input(screen.getByLabelText('Protein'), { target: { value: '10' } })
+  await fireEvent.input(screen.getByLabelText('Fat'), { target: { value: '5' } })
+  await fireEvent.input(screen.getByLabelText('Carbs'), { target: { value: '30' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Add meal' }))
+
+  await waitFor(() => {
+    expect(screen.getByText('Dessert')).toBeTruthy()
+    expect(screen.getAllByText('250 kcal')).toHaveLength(2)
+    expect(screen.getByText('10 g')).toBeTruthy()
+  })
+})

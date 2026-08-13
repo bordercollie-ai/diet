@@ -189,6 +189,7 @@ All Web PRD acceptance criteria pass; native HealthKit and notification work rem
 - **Done (2026-08-12):** Summary page hierarchy, compact phone tabs and macro totals, and tappable daily meal cards with a contained actions dialog.
 - **Done (2026-08-12):** Replaced the Log meal tab with a bottom-right floating action button that opens the existing meal form in a full-screen dialog; meal-card editing uses the same dialog.
 - **Done (2026-08-12):** Replaced the sheet food combobox with a search input and button; unmatched names now reveal nutrition fields and create the food and meal together.
+- **Done (2026-08-13):** Added temporary calorie entries from the meal form; they are saved as meal snapshots without entering the food library.
 - **Next:** Refine backup/install feedback.
 
 ### Checks

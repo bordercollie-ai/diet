@@ -3,6 +3,7 @@
   import {
     createFood,
     createMealEntry,
+    createTemporaryMealEntry,
     bundledFoods,
     dailyTotals,
     deleteMealEntry,
@@ -88,6 +89,7 @@
   let status = $state('Loading local data...')
   let error = $state('')
   let backupText = $state('')
+  let selectedBackupName = $state('')
   let toastMessage = $state('')
   let toastTimer: ReturnType<typeof setTimeout>
 
@@ -105,8 +107,20 @@
   let foodDialogOpen = $state(false)
   let creatingMealFood = $state(false)
   let foodSearchMessage = $state('')
+  let temporaryMeal = $state(false)
+  let temporaryName = $state('Quick entry')
+  let temporaryCalories = $state(0)
+  let temporaryProtein = $state(0)
+  let temporaryFat = $state(0)
+  let temporaryCarbohydrates = $state(0)
   let darkMode = $state(false)
   type Tab = 'summary' | 'foods' | 'profile' | 'backup'
+  const tabs: { id: Tab; label: string; icon: typeof ChartColumnIcon }[] = [
+    { id: 'summary', label: 'Summary', icon: ChartColumnIcon },
+    { id: 'foods', label: 'Foods', icon: AppleIcon },
+    { id: 'profile', label: 'Profile', icon: UserIcon },
+    { id: 'backup', label: 'Backup', icon: SaveIcon },
+  ]
   let activeTab: Tab = $state('summary')
 
   type BeforeInstallPromptEvent = Event & {
@@ -232,11 +246,13 @@
     const file = input.files?.[0]
     if (!file) return
     try {
+      selectedBackupName = file.name
       backupText = await file.text()
       backupPreview = previewBackup(backupText)
       error = ''
     } catch (cause) {
       backupText = ''
+      selectedBackupName = ''
       backupPreview = null
       error = cause instanceof Error ? cause.message : 'Unable to read backup.'
     } finally {
@@ -314,6 +330,33 @@
 
   async function addMeal(event: SubmitEvent) {
     event.preventDefault()
+    if (temporaryMeal) {
+      try {
+        const temporary = createTemporaryMealEntry({
+          id: editingMealId || undefined,
+          date,
+          time,
+          quantity: 1,
+          foodName: temporaryName,
+          nutrition: {
+            calories: temporaryCalories,
+            protein: temporaryProtein,
+            fat: temporaryFat,
+            carbohydrates: temporaryCarbohydrates,
+          },
+        })
+        const saved = editingMealId
+          ? updateMealEntry(data, editingMealId, temporary)
+          : { ...data, mealEntries: [...data.mealEntries, temporary] }
+        await save(saved)
+        editingMealId = ''
+        temporaryMeal = false
+        mealDialogOpen = false
+      } catch (cause) {
+        error = cause instanceof Error ? cause.message : 'Unable to record calories.'
+      }
+      return
+    }
     const food = data.foods.find((item) => item.id === selectedFoodId)
     if (!food) {
       error = 'Search for a food first.'
@@ -330,6 +373,7 @@
       editingMealId = ''
       creatingMealFood = false
       foodSearchMessage = ''
+      temporaryMeal = false
       mealDialogOpen = false
     } catch (cause) {
       error = cause instanceof Error ? cause.message : 'Unable to record meal.'
@@ -401,6 +445,14 @@
     foodSearch = data.foods.find((food) => food.id === entry.foodId)?.name.en ?? ''
     foodResults = []
     creatingMealFood = false
+    temporaryMeal = entry.foodId === ''
+    temporaryName = entry.foodName ?? 'Quick entry'
+    ;({
+      calories: temporaryCalories,
+      protein: temporaryProtein,
+      fat: temporaryFat,
+      carbohydrates: temporaryCarbohydrates,
+    } = entry.nutrition)
     quantity = entry.quantity
     error = ''
     mealDialogOpen = true
@@ -434,7 +486,20 @@
     foodSearch = ''
     foodResults = []
     creatingMealFood = false
+    temporaryMeal = false
     foodSearchMessage = ''
+    error = ''
+    mealDialogOpen = true
+  }
+
+  function startTemporaryMeal() {
+    editingMealId = ''
+    temporaryMeal = true
+    temporaryName = 'Quick entry'
+    temporaryCalories = 0
+    temporaryProtein = 0
+    temporaryFat = 0
+    temporaryCarbohydrates = 0
     error = ''
     mealDialogOpen = true
   }
@@ -488,7 +553,7 @@
   {/if}
 
   <div class="tabs" role="tablist" aria-label="Diet sections">
-    {#each [['summary', 'Summary', ChartColumnIcon], ['foods', 'Foods', AppleIcon], ['profile', 'Profile', UserIcon], ['backup', 'Backup', SaveIcon]] as [id, label, Icon]}
+    {#each tabs as { id, label, icon: Icon }}
       <button
         type="button"
         id={`${id}-tab`}
@@ -512,7 +577,22 @@
           <Button type="button" onclick={exportBackup}>Export JSON backup</Button>
           <div class="flex flex-col gap-2">
             <Label for="backup-file">Import JSON backup</Label>
-            <Input id="backup-file" type="file" accept="application/json,.json" onchange={selectBackup} />
+            <Input
+              id="backup-file"
+              class="sr-only"
+              type="file"
+              accept="application/json,.json"
+              onchange={selectBackup}
+            />
+            <label
+              for="backup-file"
+              class="inline-flex min-h-10 cursor-pointer items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted focus-within:ring-3 focus-within:ring-ring/30"
+            >
+              Choose backup file
+            </label>
+            <p class="text-sm text-muted-foreground" aria-live="polite">
+              {selectedBackupName || 'JSON files only'}
+            </p>
           </div>
           {#if backupPreview}
             <p role="status">
@@ -543,6 +623,7 @@
               <button
                 type="button"
                 class:selected={date === day.iso}
+                class:font-bold={day.iso === today}
                 class:under={tone === 'under'}
                 class:on-target={tone === 'on-target'}
                 class:over={tone === 'over'}
@@ -552,8 +633,14 @@
                 onclick={() => (date = day.iso)}
               >
                 <span class="day-label">{day.label}</span>
-                <span class={`day-circle ${tone}`} class:today={day.iso === today} aria-hidden="true"
-                  ><span>{day.number}</span></span
+                <span
+                  class="flex aspect-square w-[min(2rem,100%)] items-center justify-center rounded-full border"
+                  class:border-dashed={tone === 'empty'}
+                  class:border-solid={tone !== 'empty' || day.iso === today}
+                  class:border-[var(--muted-foreground)]={tone === 'empty'}
+                  class:border-[var(--calorie-under)]={tone === 'under' || tone === 'on-target'}
+                  class:border-[var(--calorie-over)]={tone === 'over'}
+                  aria-hidden="true"><span>{day.number}</span></span
                 >
               </button>
             {/each}
@@ -580,17 +667,19 @@
           </div>
           <div class="macro-grid" aria-label="Macronutrient totals">
             <div class="macro-stat">
-              <span><HamIcon aria-hidden="true" class="size-4" /> Protein</span
-              ><strong>{Math.round(totals.protein)} / {Math.round(targets.protein)}</strong>
-            </div>
-            <div class="macro-stat">
-              <span><WheatIcon aria-hidden="true" class="size-4" /> Carbs</span
-              ><strong>{Math.round(totals.carbohydrates)} / {Math.round(targets.carbohydrates)}</strong
+              <span><HamIcon aria-hidden="true" class="size-4" /> Protein</span><strong
+                >{Math.round(totals.protein)} / {Math.round(targets.protein)}</strong
               >
             </div>
             <div class="macro-stat">
-              <span><NutIcon aria-hidden="true" class="size-4" /> Fat</span
-              ><strong>{Math.round(totals.fat)} / {Math.round(targets.fat)}</strong>
+              <span><WheatIcon aria-hidden="true" class="size-4" /> Carbs</span><strong
+                >{Math.round(totals.carbohydrates)} / {Math.round(targets.carbohydrates)}</strong
+              >
+            </div>
+            <div class="macro-stat">
+              <span><NutIcon aria-hidden="true" class="size-4" /> Fat</span><strong
+                >{Math.round(totals.fat)} / {Math.round(targets.fat)}</strong
+              >
             </div>
           </div>
         </Card.Content>
@@ -604,19 +693,22 @@
               .filter((entry) => entry.date === date)
               .sort((a, b) => a.time.localeCompare(b.time)) as entry (entry.id)}
               {@const food = data.foods.find((item) => item.id === entry.foodId)}
+              {@const mealName = food?.name.en ?? entry.foodName ?? 'Food'}
               <button
                 type="button"
                 class="meal-card"
                 aria-haspopup="dialog"
-                aria-label={`${entry.time}, ${food?.name.en ?? 'Food'}, ${displayNumber(entry.nutrition.calories)} kcal. Open meal actions.`}
+                aria-label={`${entry.time}, ${mealName}, ${displayNumber(entry.nutrition.calories)} kcal. Open meal actions.`}
                 onclick={() => {
                   mealActionsId = entry.id
                   mealActionsOpen = true
                 }}
               >
                 <div class="flex items-center justify-between">
-                  <span class="meal-name">{food?.name.en ?? 'Food'}</span>
-                  <time datetime={`${entry.date}T${entry.time}`} class="text-muted-foreground">{entry.time}</time>
+                  <span class="meal-name">{mealName}</span>
+                  <time datetime={`${entry.date}T${entry.time}`} class="text-muted-foreground text-sm"
+                    >{entry.time}</time
+                  >
                 </div>
                 <strong class="meal-calories">{displayNumber(entry.nutrition.calories)} kcal</strong>
                 <span class="meal-macros">
@@ -629,8 +721,9 @@
                     ><strong>{displayNumber(entry.nutrition.carbohydrates)} g</strong></span
                   >
                   <span
-                    ><span class="meal-macro-label"><NutIcon aria-hidden="true" class="size-3.5" /> Fat</span
-                    ><strong>{displayNumber(entry.nutrition.fat)} g</strong></span
+                    ><span class="meal-macro-label"><NutIcon aria-hidden="true" class="size-3.5" /> Fat</span><strong
+                      >{displayNumber(entry.nutrition.fat)} g</strong
+                    ></span
                   >
                 </span>
               </button>
@@ -669,6 +762,10 @@
       <Button type="button" class="w-full mt-4" aria-haspopup="dialog" onclick={startNewMeal}>
         <PlusIcon aria-hidden="true" />
         Record a meal
+      </Button>
+      <Separator class="my-4" />
+      <Button type="button" variant="outline" class="w-full" aria-haspopup="dialog" onclick={startTemporaryMeal}>
+        Quick add
       </Button>
     </div>
   {:else if activeTab === 'foods'}
@@ -804,9 +901,13 @@
             </div>
 
             <div class="bg-accent rounded-md px-4 py-3">
-              <p class="text-2xl font-bold tabular-nums text-accent-foreground">{displayNumber(targets.calories)} kcal</p>
+              <p class="text-2xl font-bold tabular-nums text-accent-foreground">
+                {displayNumber(targets.calories)} kcal
+              </p>
               <p class="text-muted-foreground text-sm">
-                {displayNumber(targets.protein)} g protein · {displayNumber(targets.fat)} g fat · {displayNumber(targets.carbohydrates)} g carbs
+                {displayNumber(targets.protein)} g protein · {displayNumber(targets.fat)} g fat · {displayNumber(
+                  targets.carbohydrates,
+                )} g carbs
               </p>
             </div>
             <Button type="submit">Save profile</Button>
@@ -820,89 +921,129 @@
     <Sheet.Content side="right" class="gap-0 data-[side=right]:w-full data-[side=right]:sm:max-w-none">
       <Sheet.Header>
         <Sheet.Title>{editingMealId ? 'Edit meal' : 'Record a meal'}</Sheet.Title>
-        <Sheet.Description>Select a food, then set its time and quantity.</Sheet.Description>
+        <Sheet.Description
+          >{temporaryMeal
+            ? 'Record nutrition without saving a food.'
+            : 'Select a food, then set its time and quantity.'}</Sheet.Description
+        >
       </Sheet.Header>
       <div class="flex-1 overflow-y-auto px-6 pb-6">
         <form onsubmit={addMeal} novalidate>
-          <label
-            >Food
-            <div class="flex flex-col gap-2">
-              <Input
-                class="min-w-0"
-                bind:value={foodSearch}
-                oninput={() => {
-                  selectedFoodId = ''
-                  foodResults = []
-                  creatingMealFood = false
-                  foodSearchMessage = ''
-                }}
-                onkeydown={(event) => {
-                  if (event.key !== 'Enter') return
-                  event.preventDefault()
-                  searchForFood()
-                }}
-                placeholder="Search food"
-                aria-label="Search food"
-                required
-              />
-              <Button type="button" variant="outline" onclick={searchForFood}>Search</Button>
+          {#if temporaryMeal}
+            <div class="grid gap-2">
+              <Label for="temporary-name">Name</Label>
+              <Input id="temporary-name" bind:value={temporaryName} required />
             </div>
-            {#if foodSearchMessage}<span role="status" class="text-muted-foreground">{foodSearchMessage}</span>{/if}
-          </label>
-          {#if foodResults.length > 0}
-            <div class="meal-list">
-              {#each foodResults as food}
-                <button
-                  type="button"
-                  class="meal-card"
-                  class:selected={selectedFoodId === food.id}
-                  onclick={() => chooseFoodResult(food.id)}
-                >
-                  <span class="meal-name">{food.name.en ?? Object.values(food.name)[0]}</span>
-                  <strong class="meal-calories">{displayNumber(food.nutrition.calories)} kcal</strong>
-                  <span class="meal-card-topline">{food.serving}</span>
-                </button>
-              {/each}
+            <div class="grid gap-2">
+              <Label for="temporary-calories">Calories</Label>
+              <Input id="temporary-calories" type="number" min="0" bind:value={temporaryCalories} required />
             </div>
-          {/if}
-          {#if creatingMealFood}
-            <Button type="button" variant="outline" onclick={addFoodFromMealSearch}>Add food</Button>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="grid gap-2">
+                <Label for="temporary-protein">Protein</Label>
+                <Input id="temporary-protein" type="number" min="0" step="0.1" bind:value={temporaryProtein} required />
+              </div>
+              <div class="grid gap-2">
+                <Label for="temporary-fat">Fat</Label>
+                <Input id="temporary-fat" type="number" min="0" step="0.1" bind:value={temporaryFat} required />
+              </div>
+              <div class="grid gap-2">
+                <Label for="temporary-carbohydrates">Carbs</Label>
+                <Input
+                  id="temporary-carbohydrates"
+                  type="number"
+                  min="0"
+                  step="0.1"
+                  bind:value={temporaryCarbohydrates}
+                  required
+                />
+              </div>
+            </div>
+          {:else}
+            <label
+              >Food
+              <div class="flex flex-col gap-2">
+                <Input
+                  class="min-w-0"
+                  bind:value={foodSearch}
+                  oninput={() => {
+                    selectedFoodId = ''
+                    foodResults = []
+                    creatingMealFood = false
+                    foodSearchMessage = ''
+                  }}
+                  onkeydown={(event) => {
+                    if (event.key !== 'Enter') return
+                    event.preventDefault()
+                    searchForFood()
+                  }}
+                  placeholder="Search food"
+                  aria-label="Search food"
+                  required
+                />
+                <Button type="button" variant="outline" onclick={searchForFood}>Search</Button>
+              </div>
+              {#if foodSearchMessage}<span role="status" class="text-muted-foreground">{foodSearchMessage}</span>{/if}
+            </label>
+            {#if foodResults.length > 0}
+              <div class="meal-list">
+                {#each foodResults as food}
+                  <button
+                    type="button"
+                    class="meal-card"
+                    class:selected={selectedFoodId === food.id}
+                    onclick={() => chooseFoodResult(food.id)}
+                  >
+                    <span class="meal-name">{food.name.en ?? Object.values(food.name)[0]}</span>
+                    <strong class="meal-calories">{displayNumber(food.nutrition.calories)} kcal</strong>
+                    <span class="meal-card-topline">{food.serving}</span>
+                  </button>
+                {/each}
+              </div>
+            {/if}
+            {#if creatingMealFood}
+              <Button type="button" variant="outline" onclick={addFoodFromMealSearch}>Add food</Button>
+            {/if}
           {/if}
           <div class="grid gap-2">
             <Label for="meal-time">Time</Label>
             <Input id="meal-time" type="time" step="600" bind:value={time} required />
           </div>
-          <div class="grid gap-2">
-            <Label for="meal-quantity">Quantity</Label>
-            <div class="flex items-center gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                aria-label="Decrease quantity"
-                onclick={() => (quantity = Math.max(1, quantity - 1))}><MinusIcon aria-hidden="true" /></Button
-              >
-              <Input
-                id="meal-quantity"
-                class="text-center"
-                type="number"
-                min="1"
-                step="1"
-                bind:value={quantity}
-                required
-              />
-              <Button
-                type="button"
-                variant="outline"
-                size="icon"
-                aria-label="Increase quantity"
-                onclick={() => (quantity = quantity + 1)}><PlusIcon aria-hidden="true" /></Button
-              >
+          {#if !temporaryMeal}
+            <div class="grid gap-2">
+              <Label for="meal-quantity">Quantity</Label>
+              <div class="flex items-center gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  aria-label="Decrease quantity"
+                  onclick={() => (quantity = Math.max(1, quantity - 1))}><MinusIcon aria-hidden="true" /></Button
+                >
+                <Input
+                  id="meal-quantity"
+                  class="text-center"
+                  type="number"
+                  min="1"
+                  step="1"
+                  bind:value={quantity}
+                  required
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  aria-label="Increase quantity"
+                  onclick={() => (quantity = quantity + 1)}><PlusIcon aria-hidden="true" /></Button
+                >
+              </div>
             </div>
-          </div>
+          {/if}
           {#if error}<p class="text-destructive text-sm" role="alert">{error}</p>{/if}
-          <Button type="submit" variant={selectedFoodId ? 'default' : 'outline'} disabled={!selectedFoodId}
-            >{editingMealId ? 'Update meal' : 'Add meal'}</Button
+          <Button
+            type="submit"
+            variant={temporaryMeal || selectedFoodId ? 'default' : 'outline'}
+            disabled={!temporaryMeal && !selectedFoodId}>{editingMealId ? 'Update meal' : 'Add meal'}</Button
           >
         </form>
       </div>

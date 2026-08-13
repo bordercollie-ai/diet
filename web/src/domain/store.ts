@@ -30,6 +30,7 @@ export type MealEntry = {
   date: string;
   time: string;
   foodId: string;
+  foodName?: string;
   quantity: number;
   nutrition: Nutrition;
 };
@@ -115,7 +116,8 @@ export function validateMealEntry(entry: unknown, foods: Food[]): asserts entry 
       !/^(?:[01]\d|2[0-3]):[0-5]\d$/.test(String(value.time)) ||
       typeof value.foodId !== "string" ||
       typeof value.quantity !== "number" || !Number.isFinite(value.quantity) || value.quantity <= 0 ||
-      !validNutrition(value.nutrition)) invalid("meal entry");
+      !validNutrition(value.nutrition) ||
+      (value.foodId === "" && (typeof value.foodName !== "string" || !value.foodName.trim()))) invalid("meal entry");
 }
 
 export function validateAppData(data: unknown): asserts data is AppData {
@@ -157,6 +159,18 @@ export function createMealEntry(
   return copy(entry);
 }
 
+export function createTemporaryMealEntry(
+  input: Omit<MealEntry, "id" | "foodId" | "nutrition"> & { id?: string; foodName: string; nutrition: Nutrition }
+): MealEntry {
+  const entry = {
+    ...input,
+    id: input.id ?? crypto.randomUUID(),
+    foodId: "",
+  };
+  validateMealEntry(entry, []);
+  return copy(entry);
+}
+
 export function updateFood(data: AppData, id: string, changes: Partial<Omit<Food, "id" | "source">>): AppData {
   const food = data.foods.find((item) => item.id === id);
   if (!food) invalid("food not found");
@@ -176,11 +190,15 @@ export function deleteFood(data: AppData, id: string): AppData {
 export function updateMealEntry(
   data: AppData,
   id: string,
-  changes: Partial<Omit<MealEntry, "id" | "nutrition">>
+  changes: Partial<Omit<MealEntry, "id">>
 ): AppData {
   const entry = data.mealEntries.find((item) => item.id === id);
   if (!entry) invalid("meal entry not found");
   const next = { ...entry, ...changes };
+  if (next.foodId === "") {
+    validateMealEntry(next, []);
+    return { ...copy(data), mealEntries: data.mealEntries.map((item) => item.id === id ? copy(next) : item) };
+  }
   const food = data.foods.find((item) => item.id === next.foodId);
   if (!food) invalid("food not found");
   const updated = createMealEntry(next, food);
