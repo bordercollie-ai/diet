@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   createFood,
   createMealEntry,
+  createTemporaryMealEntry,
   createMemoryStore,
   bundledFoods,
   dailyTotals,
@@ -117,6 +118,7 @@ test("scales a decimal quantity and rounds only the displayed result", () => {
     nutrition: { calories: 45, protein: 1.3, fat: 0.7, carbohydrates: 8.2 },
     source: "user"
   });
+
   const entry = createMealEntry({
     date: "2026-08-12",
     time: "18:00",
@@ -127,6 +129,21 @@ test("scales a decimal quantity and rounds only the displayed result", () => {
   assert.equal(entry.nutrition.calories, 58.5);
   assert.equal(dailyTotals({ foods: [item], mealEntries: [entry] }, "2026-08-12").calories, 58.5);
   assert.equal(roundForDisplay(entry.nutrition.calories), 59);
+});
+
+test("records temporary calories without creating a food", () => {
+  const entry = createTemporaryMealEntry({
+    date: "2026-08-12",
+    time: "20:00",
+    quantity: 1,
+    foodName: "Untracked dessert",
+    nutrition: { calories: 250, protein: 10, fat: 5, carbohydrates: 30 }
+  });
+  assert.equal(entry.foodId, "");
+  assert.equal(entry.foodName, "Untracked dessert");
+  assert.equal(entry.nutrition.calories, 250);
+  assert.equal(entry.nutrition.protein, 10);
+  assert.deepEqual(dailyTotals({ foods: [], mealEntries: [entry] }, "2026-08-12").calories, 250);
 });
 
 test("invalid food and quantity data is rejected", async () => {

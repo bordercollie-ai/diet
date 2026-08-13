@@ -3,6 +3,7 @@
   import {
     createFood,
     createMealEntry,
+    createTemporaryMealEntry,
     bundledFoods,
     dailyTotals,
     deleteMealEntry,
@@ -88,6 +89,7 @@
   let status = $state('Loading local data...')
   let error = $state('')
   let backupText = $state('')
+  let selectedBackupName = $state('')
   let toastMessage = $state('')
   let toastTimer: ReturnType<typeof setTimeout>
 
@@ -105,8 +107,20 @@
   let foodDialogOpen = $state(false)
   let creatingMealFood = $state(false)
   let foodSearchMessage = $state('')
+  let temporaryMeal = $state(false)
+  let temporaryName = $state('Quick entry')
+  let temporaryCalories = $state(0)
+  let temporaryProtein = $state(0)
+  let temporaryFat = $state(0)
+  let temporaryCarbohydrates = $state(0)
   let darkMode = $state(false)
   type Tab = 'summary' | 'foods' | 'profile' | 'backup'
+  const tabs: { id: Tab; label: string; icon: typeof ChartColumnIcon }[] = [
+    { id: 'summary', label: 'Summary', icon: ChartColumnIcon },
+    { id: 'foods', label: 'Foods', icon: AppleIcon },
+    { id: 'profile', label: 'Profile', icon: UserIcon },
+    { id: 'backup', label: 'Backup', icon: SaveIcon },
+  ]
   let activeTab: Tab = $state('summary')
 
   type BeforeInstallPromptEvent = Event & {
@@ -232,11 +246,13 @@
     const file = input.files?.[0]
     if (!file) return
     try {
+      selectedBackupName = file.name
       backupText = await file.text()
       backupPreview = previewBackup(backupText)
       error = ''
     } catch (cause) {
       backupText = ''
+      selectedBackupName = ''
       backupPreview = null
       error = cause instanceof Error ? cause.message : 'Unable to read backup.'
     } finally {
@@ -314,6 +330,33 @@
 
   async function addMeal(event: SubmitEvent) {
     event.preventDefault()
+    if (temporaryMeal) {
+      try {
+        const temporary = createTemporaryMealEntry({
+          id: editingMealId || undefined,
+          date,
+          time,
+          quantity: 1,
+          foodName: temporaryName,
+          nutrition: {
+            calories: temporaryCalories,
+            protein: temporaryProtein,
+            fat: temporaryFat,
+            carbohydrates: temporaryCarbohydrates,
+          },
+        })
+        const saved = editingMealId
+          ? updateMealEntry(data, editingMealId, temporary)
+          : { ...data, mealEntries: [...data.mealEntries, temporary] }
+        await save(saved)
+        editingMealId = ''
+        temporaryMeal = false
+        mealDialogOpen = false
+      } catch (cause) {
+        error = cause instanceof Error ? cause.message : 'Unable to record calories.'
+      }
+      return
+    }
     const food = data.foods.find((item) => item.id === selectedFoodId)
     if (!food) {
       error = 'Search for a food first.'
@@ -330,6 +373,7 @@
       editingMealId = ''
       creatingMealFood = false
       foodSearchMessage = ''
+      temporaryMeal = false
       mealDialogOpen = false
     } catch (cause) {
       error = cause instanceof Error ? cause.message : 'Unable to record meal.'
@@ -401,6 +445,9 @@
     foodSearch = data.foods.find((food) => food.id === entry.foodId)?.name.en ?? ''
     foodResults = []
     creatingMealFood = false
+    temporaryMeal = entry.foodId === ''
+    temporaryName = entry.foodName ?? 'Quick entry'
+    ;({ calories: temporaryCalories, protein: temporaryProtein, fat: temporaryFat, carbohydrates: temporaryCarbohydrates } = entry.nutrition)
     quantity = entry.quantity
     error = ''
     mealDialogOpen = true
@@ -434,7 +481,20 @@
     foodSearch = ''
     foodResults = []
     creatingMealFood = false
+    temporaryMeal = false
     foodSearchMessage = ''
+    error = ''
+    mealDialogOpen = true
+  }
+
+  function startTemporaryMeal() {
+    editingMealId = ''
+    temporaryMeal = true
+    temporaryName = 'Quick entry'
+    temporaryCalories = 0
+    temporaryProtein = 0
+    temporaryFat = 0
+    temporaryCarbohydrates = 0
     error = ''
     mealDialogOpen = true
   }
@@ -488,7 +548,7 @@
   {/if}
 
   <div class="tabs" role="tablist" aria-label="Diet sections">
-    {#each [['summary', 'Summary', ChartColumnIcon], ['foods', 'Foods', AppleIcon], ['profile', 'Profile', UserIcon], ['backup', 'Backup', SaveIcon]] as [id, label, Icon]}
+    {#each tabs as { id, label, icon: Icon }}
       <button
         type="button"
         id={`${id}-tab`}
@@ -512,7 +572,16 @@
           <Button type="button" onclick={exportBackup}>Export JSON backup</Button>
           <div class="flex flex-col gap-2">
             <Label for="backup-file">Import JSON backup</Label>
-            <Input id="backup-file" type="file" accept="application/json,.json" onchange={selectBackup} />
+            <Input id="backup-file" class="sr-only" type="file" accept="application/json,.json" onchange={selectBackup} />
+            <label
+              for="backup-file"
+              class="inline-flex min-h-10 cursor-pointer items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted focus-within:ring-3 focus-within:ring-ring/30"
+            >
+              Choose backup file
+            </label>
+            <p class="text-sm text-muted-foreground" aria-live="polite">
+              {selectedBackupName || 'JSON files only'}
+            </p>
           </div>
           {#if backupPreview}
             <p role="status">
@@ -604,18 +673,19 @@
               .filter((entry) => entry.date === date)
               .sort((a, b) => a.time.localeCompare(b.time)) as entry (entry.id)}
               {@const food = data.foods.find((item) => item.id === entry.foodId)}
+              {@const mealName = food?.name.en ?? entry.foodName ?? 'Food'}
               <button
                 type="button"
                 class="meal-card"
                 aria-haspopup="dialog"
-                aria-label={`${entry.time}, ${food?.name.en ?? 'Food'}, ${displayNumber(entry.nutrition.calories)} kcal. Open meal actions.`}
+                aria-label={`${entry.time}, ${mealName}, ${displayNumber(entry.nutrition.calories)} kcal. Open meal actions.`}
                 onclick={() => {
                   mealActionsId = entry.id
                   mealActionsOpen = true
                 }}
               >
                 <div class="flex items-center justify-between">
-                  <span class="meal-name">{food?.name.en ?? 'Food'}</span>
+                  <span class="meal-name">{mealName}</span>
                   <time datetime={`${entry.date}T${entry.time}`} class="text-muted-foreground">{entry.time}</time>
                 </div>
                 <strong class="meal-calories">{displayNumber(entry.nutrition.calories)} kcal</strong>
@@ -669,6 +739,10 @@
       <Button type="button" class="w-full mt-4" aria-haspopup="dialog" onclick={startNewMeal}>
         <PlusIcon aria-hidden="true" />
         Record a meal
+      </Button>
+      <Separator class="my-4" />
+      <Button type="button" variant="outline" class="w-full" aria-haspopup="dialog" onclick={startTemporaryMeal}>
+        Quick add
       </Button>
     </div>
   {:else if activeTab === 'foods'}
@@ -820,10 +894,34 @@
     <Sheet.Content side="right" class="gap-0 data-[side=right]:w-full data-[side=right]:sm:max-w-none">
       <Sheet.Header>
         <Sheet.Title>{editingMealId ? 'Edit meal' : 'Record a meal'}</Sheet.Title>
-        <Sheet.Description>Select a food, then set its time and quantity.</Sheet.Description>
+        <Sheet.Description>{temporaryMeal ? 'Record nutrition without saving a food.' : 'Select a food, then set its time and quantity.'}</Sheet.Description>
       </Sheet.Header>
       <div class="flex-1 overflow-y-auto px-6 pb-6">
         <form onsubmit={addMeal} novalidate>
+          {#if temporaryMeal}
+            <div class="grid gap-2">
+              <Label for="temporary-name">Name</Label>
+              <Input id="temporary-name" bind:value={temporaryName} required />
+            </div>
+            <div class="grid gap-2">
+              <Label for="temporary-calories">Calories</Label>
+              <Input id="temporary-calories" type="number" min="0" bind:value={temporaryCalories} required />
+            </div>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="grid gap-2">
+                <Label for="temporary-protein">Protein</Label>
+                <Input id="temporary-protein" type="number" min="0" step="0.1" bind:value={temporaryProtein} required />
+              </div>
+              <div class="grid gap-2">
+                <Label for="temporary-fat">Fat</Label>
+                <Input id="temporary-fat" type="number" min="0" step="0.1" bind:value={temporaryFat} required />
+              </div>
+              <div class="grid gap-2">
+                <Label for="temporary-carbohydrates">Carbs</Label>
+                <Input id="temporary-carbohydrates" type="number" min="0" step="0.1" bind:value={temporaryCarbohydrates} required />
+              </div>
+            </div>
+          {:else}
           <label
             >Food
             <div class="flex flex-col gap-2">
@@ -868,10 +966,12 @@
           {#if creatingMealFood}
             <Button type="button" variant="outline" onclick={addFoodFromMealSearch}>Add food</Button>
           {/if}
+          {/if}
           <div class="grid gap-2">
             <Label for="meal-time">Time</Label>
             <Input id="meal-time" type="time" step="600" bind:value={time} required />
           </div>
+          {#if !temporaryMeal}
           <div class="grid gap-2">
             <Label for="meal-quantity">Quantity</Label>
             <div class="flex items-center gap-2">
@@ -900,8 +1000,9 @@
               >
             </div>
           </div>
+          {/if}
           {#if error}<p class="text-destructive text-sm" role="alert">{error}</p>{/if}
-          <Button type="submit" variant={selectedFoodId ? 'default' : 'outline'} disabled={!selectedFoodId}
+          <Button type="submit" variant={temporaryMeal || selectedFoodId ? 'default' : 'outline'} disabled={!temporaryMeal && !selectedFoodId}
             >{editingMealId ? 'Update meal' : 'Add meal'}</Button
           >
         </form>
