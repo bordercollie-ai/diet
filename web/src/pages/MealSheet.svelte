@@ -44,10 +44,19 @@
   let step: 'search' | 'detail' = $state('search')
   let foodSearch = $state('')
   let selectedFoodId = $state('')
-  let foodResults: Food[] = $state([])
-  let foodSearchMessage = $state('')
-  let creatingMealFood = $state(false)
   const selectedFood = $derived(data.foods.find((food) => food.id === selectedFoodId) ?? null)
+
+  // Filter is live on input; results are paginated on scroll rather than all rendered at once.
+  const FOOD_PAGE_SIZE = 20
+  let foodPage = $state(1)
+  const matchingFoods = $derived(searchFoods(data.foods, foodSearch))
+  const foodResults = $derived(matchingFoods.slice(0, foodPage * FOOD_PAGE_SIZE))
+  const creatingMealFood = $derived(foodSearch.trim() !== '' && matchingFoods.length === 0)
+
+  function handleResultsScroll(event: Event) {
+    const el = event.currentTarget as HTMLElement
+    if (el.scrollTop + el.clientHeight >= el.scrollHeight - 200) foodPage += 1
+  }
 
   let temporaryMeal = $state(false)
   let temporaryName = $state('other')
@@ -60,9 +69,7 @@
     editingMealId = ''
     selectedFoodId = ''
     foodSearch = ''
-    foodResults = []
-    creatingMealFood = false
-    foodSearchMessage = ''
+    foodPage = 1
     temporaryMeal = false
     step = 'search'
     time = new Date().toTimeString().slice(0, 5)
@@ -91,8 +98,7 @@
       temporaryMeal = false
       selectedFoodId = entry.foodId
       foodSearch = data.foods.find((food) => food.id === entry.foodId)?.name.en ?? ''
-      foodResults = []
-      creatingMealFood = false
+      foodPage = 1
       quantity = entry.quantity
       step = 'detail'
     }
@@ -118,26 +124,7 @@
     if (!creatingMealFood) return
     selectedFoodId = food.id
     foodSearch = food.name.en ?? foodSearch
-    creatingMealFood = false
-    foodSearchMessage = ''
     step = 'detail'
-  }
-
-  function searchForFood() {
-    const name = foodSearch.trim()
-    if (!name) {
-      foodSearchMessage = 'Enter a food name.'
-      return
-    }
-    foodResults = searchFoods(data.foods, name)
-    selectedFoodId = ''
-    if (foodResults.length === 0) {
-      creatingMealFood = true
-      foodSearchMessage = 'No match. Add nutrition details to create it with this meal.'
-    } else {
-      creatingMealFood = false
-      foodSearchMessage = ''
-    }
   }
 
   let confirmingDelete = $state(false)
@@ -207,8 +194,6 @@
           }
       await onSave(saved)
       editingMealId = ''
-      creatingMealFood = false
-      foodSearchMessage = ''
       temporaryMeal = false
       open = false
     } catch (cause) {
@@ -239,7 +224,7 @@
         {/if}
       </Sheet.Description>
     </Sheet.Header>
-    <div class="flex-1 overflow-y-auto px-6 pb-6">
+    <div class="flex-1 overflow-y-auto px-6 pb-6" onscroll={step === 'search' ? handleResultsScroll : undefined}>
       {#if temporaryMeal}
         <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
           <div class="grid gap-2">
@@ -293,32 +278,45 @@
                 bind:value={foodSearch}
                 oninput={() => {
                   selectedFoodId = ''
-                  foodResults = []
-                  creatingMealFood = false
-                  foodSearchMessage = ''
-                }}
-                onkeydown={(event) => {
-                  if (event.key !== 'Enter') return
-                  event.preventDefault()
-                  searchForFood()
+                  foodPage = 1
                 }}
                 placeholder="Search food"
                 aria-label="Search food"
                 required
               />
-              <Button type="button" variant="outline" onclick={searchForFood}>Search</Button>
+              <Button
+                type="button"
+                variant="outline"
+                onclick={() => {
+                  selectedFoodId = ''
+                  foodPage = 1
+                }}>Search</Button
+              >
             </div>
-            {#if foodSearchMessage}<span role="status" class="text-muted-foreground">{foodSearchMessage}</span>{/if}
+            {#if creatingMealFood}
+              <span role="status" class="text-muted-foreground"
+                >No match. Add nutrition details to create it with this meal.</span
+              >
+            {/if}
           </label>
           {#if foodResults.length > 0}
             <div class="meal-list">
               {#each foodResults as food}
-                <button type="button" class="meal-card" onclick={() => chooseFoodResult(food.id)}>
-                  <span class="meal-name">{food.name.en ?? Object.values(food.name)[0]}</span>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  class="h-auto w-full min-w-0 flex-col items-stretch gap-0.5 rounded-2xl p-4 text-left whitespace-normal"
+                  onclick={() => chooseFoodResult(food.id)}
+                >
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="min-w-0 truncate font-semibold">{food.name.en ?? Object.values(food.name)[0]}</span>
+                    <span class="shrink-0 font-semibold whitespace-nowrap"
+                      >{displayNumber(food.nutrition.calories)} kcal</span
+                    >
+                  </div>
                   {#if food.description}<span class="meal-card-topline">{food.description}</span>{/if}
-                  <strong class="text-xl leading-[1.1]">{displayNumber(food.nutrition.calories)} kcal</strong>
                   <span class="meal-card-topline">{food.serving}</span>
-                </button>
+                </Button>
               {/each}
             </div>
           {/if}
@@ -334,10 +332,12 @@
               Back to search
             </Button>
           {/if}
-          <div class="rounded-2xl bg-muted p-4">
-            <div class="flex items-center justify-between gap-2">
-              <span class="font-semibold">{selectedFood.name.en ?? Object.values(selectedFood.name)[0]}</span>
-              <span class="text-lg font-semibold">{displayNumber(selectedFood.nutrition.calories)} kcal</span>
+          <div class="grid gap-1">
+            <div class="flex items-start justify-between gap-4">
+              <h3 class="text-lg font-semibold">{selectedFood.name.en ?? Object.values(selectedFood.name)[0]}</h3>
+              <span class="shrink-0 text-lg font-semibold whitespace-nowrap"
+                >{displayNumber(selectedFood.nutrition.calories)} kcal</span
+              >
             </div>
             {#if selectedFood.description}
               <p class="text-sm text-muted-foreground">{selectedFood.description}</p>

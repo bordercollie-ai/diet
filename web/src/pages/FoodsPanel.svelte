@@ -26,13 +26,15 @@
     {#each data.foods.filter((food) => food.source === 'user') as food}
       <Button
         variant="secondary"
-        class="h-auto w-full flex-col items-stretch gap-0 rounded-md py-2 px-4 text-left whitespace-normal"
+        class="h-auto w-full min-w-0 flex-col items-stretch gap-0 rounded-md py-2 px-4 text-left whitespace-normal"
         aria-label={`Edit ${food.name.en ?? Object.values(food.name)[0]}`}
         onclick={() => onEditFood(food.id)}
       >
         <div class="flex items-center justify-between gap-2">
-          <span class="text-lg font-semibold">{food.name.en ?? Object.values(food.name)[0]}</span>
-          <span class="text-lg font-semibold">{displayNumber(food.nutrition.calories)} kcal</span>
+          <span class="min-w-0 truncate text-lg font-semibold">{food.name.en ?? Object.values(food.name)[0]}</span>
+          <span class="shrink-0 text-lg font-semibold whitespace-nowrap"
+            >{displayNumber(food.nutrition.calories)} kcal</span
+          >
         </div>
         {#if food.description}<span class="text-sm text-muted-foreground">{food.description}</span>{/if}
         <span class="text-sm text-muted-foreground">{food.serving}</span>

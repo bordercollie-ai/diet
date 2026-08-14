@@ -122,7 +122,7 @@
   </Card.Root>
 
   <div>
-    <hr class="my-4" />
+    <Separator class="mb-4" />
     <div>
       <div class="meal-list">
         {#each data.mealEntries
@@ -169,6 +169,5 @@
     <PlusIcon aria-hidden="true" />
     Add a meal
   </Button>
-  <Separator class="my-4" />
   <Button type="button" variant="outline" class="w-full" aria-haspopup="dialog" onclick={onQuickAdd}>Quick add</Button>
 </div>
