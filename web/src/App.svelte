@@ -332,7 +332,7 @@
 </svelte:head>
 
 <main
-  class="max-w-3xl mx-auto px-3 pt-[max(1rem,env(safe-area-inset-top))] pb-[calc(7rem+env(safe-area-inset-bottom))]"
+  class="w-full max-w-3xl mx-auto px-3 pt-[max(1rem,env(safe-area-inset-top))] pb-[calc(4rem+env(safe-area-inset-bottom))]"
 >
   <header class="flex items-center justify-between gap-4">
     <div>
@@ -419,8 +419,8 @@
   <FoodSheet bind:this={foodSheet} {data} onSave={save} onSaved={handleFoodSaved} onError={handleFoodError} />
 </main>
 
-<nav class="fixed inset-x-0 bottom-0 z-30 border-t bg-background/95 backdrop-blur pb-[env(safe-area-inset-bottom)]">
-  <div class="mx-auto flex max-w-3xl gap-0.5 px-3 py-3" role="tablist" aria-label="Diet sections">
+<nav class="fixed inset-x-0 bottom-0 z-30 border-t bg-background backdrop-blur pb-[env(safe-area-inset-bottom,0px)]">
+  <div class="mx-auto flex max-w-3xl gap-0.5 px-3 pt-1" role="tablist" aria-label="Diet sections">
     {#each tabs as { id, label, icon: Icon }}
       <Button
         id={`${id}-tab`}
@@ -428,9 +428,11 @@
         aria-selected={activeTab === id}
         aria-controls={`${id}-panel`}
         aria-label={label}
-        size="lg"
-        variant={activeTab === id ? 'secondary' : 'ghost'}
-        class="min-w-0 flex-1 rounded-lg {activeTab !== id && 'text-muted-foreground hover:bg-transparent'}"
+        size="icon-sm"
+        variant="ghost"
+        class="min-w-0 flex-1 rounded-lg hover:bg-transparent border-0 {activeTab === id
+          ? 'text-foreground'
+          : 'text-muted-foreground'}"
         onclick={() => (activeTab = id as Tab)}
       >
         <Icon aria-hidden="true" class="size-5" />
