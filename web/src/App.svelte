@@ -332,7 +332,7 @@
 </svelte:head>
 
 <main
-  class="max-w-3xl mx-auto px-3 pt-[max(1rem,env(safe-area-inset-top))] pb-[calc(2rem+env(safe-area-inset-bottom))]"
+  class="max-w-3xl mx-auto px-3 pt-[max(1rem,env(safe-area-inset-top))] pb-[calc(7rem+env(safe-area-inset-bottom))]"
 >
   <header class="flex items-center justify-between gap-4 mb-2">
     <div>
@@ -362,23 +362,6 @@
       {toastMessage}
     </div>
   {/if}
-
-  <div class="mb-4 flex gap-0.5 overflow-hidden rounded-2xl bg-muted p-1" role="tablist" aria-label="Diet sections">
-    {#each tabs as { id, label, icon: Icon }}
-      <Button
-        id={`${id}-tab`}
-        role="tab"
-        aria-selected={activeTab === id}
-        aria-controls={`${id}-panel`}
-        aria-label={label}
-        variant={activeTab === id ? 'secondary' : 'ghost'}
-        class="min-w-0 flex-1 rounded-xl {activeTab !== id && 'text-muted-foreground hover:bg-transparent'}"
-        onclick={() => (activeTab = id as Tab)}
-      >
-        <Icon aria-hidden="true" />
-      </Button>
-    {/each}
-  </div>
 
   {#if activeTab === 'summary'}
     <SummaryPanel
@@ -435,3 +418,23 @@
 
   <FoodSheet bind:this={foodSheet} {data} onSave={save} onSaved={handleFoodSaved} onError={handleFoodError} />
 </main>
+
+<nav class="fixed inset-x-0 bottom-0 z-30 border-t bg-background/95 backdrop-blur pb-[env(safe-area-inset-bottom)]">
+  <div class="mx-auto flex max-w-3xl gap-0.5 px-3 py-3" role="tablist" aria-label="Diet sections">
+    {#each tabs as { id, label, icon: Icon }}
+      <Button
+        id={`${id}-tab`}
+        role="tab"
+        aria-selected={activeTab === id}
+        aria-controls={`${id}-panel`}
+        aria-label={label}
+        size="lg"
+        variant={activeTab === id ? 'secondary' : 'ghost'}
+        class="min-w-0 flex-1 rounded-lg {activeTab !== id && 'text-muted-foreground hover:bg-transparent'}"
+        onclick={() => (activeTab = id as Tab)}
+      >
+        <Icon aria-hidden="true" class="size-5" />
+      </Button>
+    {/each}
+  </div>
+</nav>
