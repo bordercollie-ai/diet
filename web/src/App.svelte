@@ -395,7 +395,6 @@
       {calorieColor}
       onSelectDate={(iso) => (date = iso)}
       onEditMeal={(id) => mealSheet.openForEdit(id)}
-      onDeleteMeal={removeMeal}
       onRecordMeal={() => mealSheet.openForNew()}
       onQuickAdd={() => mealSheet.openTemporary()}
     />
@@ -426,7 +425,14 @@
     />
   {/if}
 
-  <MealSheet bind:this={mealSheet} {data} bind:date onSave={save} onCreateFood={(name) => foodSheet.openWithName(name)} />
+  <MealSheet
+    bind:this={mealSheet}
+    {data}
+    bind:date
+    onSave={save}
+    onCreateFood={(name) => foodSheet.openWithName(name)}
+    onDelete={removeMeal}
+  />
 
   <FoodSheet bind:this={foodSheet} {data} onSave={save} onSaved={handleFoodSaved} onError={handleFoodError} />
 </main>

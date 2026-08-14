@@ -12,6 +12,7 @@
   import { Input } from '$lib/components/ui/input'
   import { Label } from '$lib/components/ui/label'
   import * as Sheet from '$lib/components/ui/sheet'
+  import * as AlertDialog from '$lib/components/ui/alert-dialog'
   import PlusIcon from '@lucide/svelte/icons/plus'
   import MinusIcon from '@lucide/svelte/icons/minus'
   import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left'
@@ -21,11 +22,13 @@
     date = $bindable(),
     onSave,
     onCreateFood,
+    onDelete,
   }: {
     data: AppData
     date: string
     onSave: (next: AppData) => Promise<void>
     onCreateFood: (name: string) => void
+    onDelete: (id: string) => Promise<void>
   } = $props()
 
   const displayNumber = roundForDisplay
@@ -134,6 +137,20 @@
     } else {
       creatingMealFood = false
       foodSearchMessage = ''
+    }
+  }
+
+  let confirmingDelete = $state(false)
+
+  async function handleDelete() {
+    if (!editingMealId) return
+    try {
+      await onDelete(editingMealId)
+      editingMealId = ''
+      confirmingDelete = false
+      open = false
+    } catch (cause) {
+      error = cause instanceof Error ? cause.message : 'Unable to delete meal.'
     }
   }
 
@@ -260,6 +277,9 @@
           </div>
           {#if error}<p class="text-destructive text-sm" role="alert">{error}</p>{/if}
           <Button type="submit">{editingMealId ? 'Update meal' : 'Add meal'}</Button>
+          {#if editingMealId}
+            <Button type="button" variant="destructive" class="w-full" onclick={() => (confirmingDelete = true)}>Delete meal</Button>
+          {/if}
         </form>
       {:else if step === 'search'}
         <div class="grid gap-4">
@@ -361,8 +381,24 @@
           </div>
           {#if error}<p class="text-destructive text-sm" role="alert">{error}</p>{/if}
           <Button type="submit">{editingMealId ? 'Update meal' : 'Add meal'}</Button>
+          {#if editingMealId}
+            <Button type="button" variant="destructive" class="w-full" onclick={() => (confirmingDelete = true)}>Delete meal</Button>
+          {/if}
         </form>
       {/if}
     </div>
   </Sheet.Content>
 </Sheet.Root>
+
+<AlertDialog.Root bind:open={confirmingDelete}>
+  <AlertDialog.Content>
+    <AlertDialog.Header>
+      <AlertDialog.Title>Delete this meal?</AlertDialog.Title>
+      <AlertDialog.Description>This cannot be undone.</AlertDialog.Description>
+    </AlertDialog.Header>
+    <AlertDialog.Footer>
+      <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+      <AlertDialog.Action variant="destructive" onclick={handleDelete}>Delete</AlertDialog.Action>
+    </AlertDialog.Footer>
+  </AlertDialog.Content>
+</AlertDialog.Root>

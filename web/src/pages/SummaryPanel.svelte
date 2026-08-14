@@ -2,7 +2,6 @@
   import { dailyTotals, roundForDisplay, type AppData, type Nutrition } from '../domain/store'
   import { Button } from '$lib/components/ui/button'
   import * as Card from '$lib/components/ui/card'
-  import * as Dialog from '$lib/components/ui/dialog'
   import { Separator } from '$lib/components/ui/separator'
   import PlusIcon from '@lucide/svelte/icons/plus'
   import FlameIcon from '@lucide/svelte/icons/flame'
@@ -25,7 +24,6 @@
     calorieColor,
     onSelectDate,
     onEditMeal,
-    onDeleteMeal,
     onRecordMeal,
     onQuickAdd,
   }: {
@@ -41,15 +39,11 @@
     calorieColor: string
     onSelectDate: (iso: string) => void
     onEditMeal: (id: string) => void
-    onDeleteMeal: (id: string) => void | Promise<void>
     onRecordMeal: () => void
     onQuickAdd: () => void
   } = $props()
 
   const displayNumber = roundForDisplay
-
-  let mealActionsId = $state('')
-  let mealActionsOpen = $state(false)
 </script>
 
 <div id="summary-panel" role="tabpanel" aria-labelledby="summary-tab">
@@ -137,12 +131,8 @@
           <button
             type="button"
             class="meal-card"
-            aria-haspopup="dialog"
-            aria-label={`${entry.time}, ${mealName}, ${displayNumber(entry.nutrition.calories)} kcal. Open meal actions.`}
-            onclick={() => {
-              mealActionsId = entry.id
-              mealActionsOpen = true
-            }}
+            aria-label={`${entry.time}, ${mealName}, ${displayNumber(entry.nutrition.calories)} kcal. Edit meal.`}
+            onclick={() => onEditMeal(entry.id)}
           >
             <div class="flex items-center justify-between">
               <span class="meal-name">{mealName}</span>
@@ -169,32 +159,6 @@
           <p>No meals recorded.</p>
         {/each}
       </div>
-      <Dialog.Root bind:open={mealActionsOpen}>
-        <Dialog.Content>
-          <Dialog.Header>
-            <Dialog.Title>Meal actions</Dialog.Title>
-            <Dialog.Description>Choose what to do with this meal.</Dialog.Description>
-          </Dialog.Header>
-          <Dialog.Footer>
-            <Button
-              type="button"
-              variant="outline"
-              onclick={() => {
-                onEditMeal(mealActionsId)
-                mealActionsOpen = false
-              }}>Edit meal</Button
-            >
-            <Button
-              type="button"
-              variant="destructive"
-              onclick={async () => {
-                await onDeleteMeal(mealActionsId)
-                mealActionsOpen = false
-              }}>Delete meal</Button
-            >
-          </Dialog.Footer>
-        </Dialog.Content>
-      </Dialog.Root>
     </div>
   </div>
   <Button type="button" class="w-full mt-4" aria-haspopup="dialog" onclick={onRecordMeal}>
