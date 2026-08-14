@@ -30,47 +30,11 @@ body::-webkit-scrollbar {
   border: 0;
 }
 
-.tabs {
-  background: var(--muted);
-  border: 0;
-  border-radius: 1rem;
-  display: flex;
-  gap: 0.125rem;
-  margin: 0 0 1rem;
-  overflow: hidden;
-  padding: 0.25rem;
-}
-
-.tabs button {
-  align-items: center;
-  border: 0;
-  border-radius: 0.75rem;
-  background: transparent;
-  color: var(--muted-foreground);
-  display: flex;
-  flex: 1 1 0;
-  justify-content: center;
-  min-width: 0;
-  padding: 0.625rem 0.25rem;
-  white-space: nowrap;
-}
-
-.tabs button:hover,
-.tabs button:focus-visible,
-.tabs button.active {
-  color: var(--foreground);
-}
-
-.tabs button.active {
-  background: var(--card);
-  box-shadow: 0 1px 3px color-mix(in oklch, var(--foreground) 12%, transparent);
-}
-
 .day-strip {
   align-items: start;
   display: flex;
   gap: 0.25rem;
-  padding: 0.25rem 0.125rem 0.2rem;
+  padding: 0rem 0.125rem 0rem;
 }
 
 .day-strip button {
@@ -112,19 +76,6 @@ body::-webkit-scrollbar {
 div[role='tabpanel'] {
   display: grid;
   gap: 1rem;
-}
-
-.calorie-details {
-  display: grid;
-  gap: 0.25rem;
-}
-
-.calorie-details strong {
-  font-size: 1.75rem;
-}
-
-.calorie-details span {
-  color: var(--muted-foreground);
 }
 
 div[data-slot='card'] {
@@ -247,30 +198,8 @@ input[type='time'] {
   font-weight: 400;
 }
 
-.meal-calories {
-  font-size: 1.375rem;
-  line-height: 1.1;
-}
-
-.meal-macros {
-  display: grid;
-  gap: 0.5rem;
-  grid-template-columns: repeat(3, 1fr);
-  margin: 0;
-}
-
-.meal-macros > span {
-  display: grid;
-  gap: 0.125rem;
-}
-
 .meal-macro-label {
   font-size: 0.7rem;
-}
-
-.meal-macros strong {
-  font-size: 0.875rem;
-  font-weight: 400;
 }
 
 form {

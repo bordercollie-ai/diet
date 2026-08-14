@@ -53,6 +53,38 @@ test('quantity does not carry over from a previous meal into a new "Record a mea
   expect((await screen.findByLabelText('Quantity') as HTMLInputElement).value).toBe('1')
 })
 
+test('clicking a recorded meal opens edit directly, and delete asks for confirmation', async () => {
+  render(App)
+
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Record a meal' }))
+  await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: '68 kcal snack' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
+  await fireEvent.click(screen.getByRole('button', { name: 'Add food' }))
+  await fireEvent.input(screen.getByLabelText('Name'), { target: { value: '68 kcal snack' } })
+  await fireEvent.input(screen.getByLabelText('Calories'), { target: { value: '68' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Save food' }))
+  await fireEvent.click(screen.getByRole('button', { name: 'Add meal' }))
+
+  await waitFor(() => expect(screen.getAllByText('68 kcal').length).toBeGreaterThan(0))
+
+  await fireEvent.click(await screen.findByRole('button', { name: /68 kcal snack.*Edit meal\./ }))
+  expect(await screen.findByRole('button', { name: 'Update meal' })).toBeTruthy()
+
+  await fireEvent.click(screen.getByRole('button', { name: 'Delete meal' }))
+  const confirmDialog = await screen.findByRole('alertdialog')
+  await fireEvent.click(within(confirmDialog).getByRole('button', { name: 'Cancel' }))
+  await waitFor(() => expect(screen.queryByRole('alertdialog')).toBeNull())
+  expect(screen.getByRole('button', { name: /68 kcal snack.*Edit meal\./ })).toBeTruthy()
+
+  await fireEvent.click(screen.getByRole('button', { name: 'Delete meal' }))
+  const confirmDialogAgain = await screen.findByRole('alertdialog')
+  await fireEvent.click(within(confirmDialogAgain).getByRole('button', { name: 'Delete' }))
+  await waitFor(() =>
+    expect(screen.queryByRole('button', { name: /68 kcal snack.*Edit meal\./ })).toBeNull(),
+  )
+})
+
 test('records a McDonald\'s Japan meal found by its English name', async () => {
   render(App)
 
@@ -65,7 +97,7 @@ test('records a McDonald\'s Japan meal found by its English name', async () => {
 
   await waitFor(() => {
     expect(screen.getByRole('img', { name: /^524 of \d+ kcal/ })).toBeTruthy()
-    expect(screen.getByRole('button', { name: /Big Mac®, 524 kcal\. Open meal actions\./ })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /Big Mac®, 524 kcal\. Edit meal\./ })).toBeTruthy()
   })
 })
 
@@ -81,7 +113,7 @@ test('records a McDonald\'s Japan meal found by its Japanese name', async () => 
 
   await waitFor(() => {
     expect(screen.getByRole('img', { name: /^524 of \d+ kcal/ })).toBeTruthy()
-    expect(screen.getByRole('button', { name: /Big Mac®, 524 kcal\. Open meal actions\./ })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /Big Mac®, 524 kcal\. Edit meal\./ })).toBeTruthy()
   })
 })
 
