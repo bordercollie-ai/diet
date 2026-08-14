@@ -48,7 +48,6 @@
 
 <div id="summary-panel" role="tabpanel" aria-labelledby="summary-tab">
   <Card.Root>
-    <Card.Header><Card.Title id="summary-heading">Daily summary</Card.Title></Card.Header>
     <Card.Content>
       <div class="day-strip" aria-label="Recent days">
         {#each recentDays as day}
@@ -70,6 +69,7 @@
             <span
               class="flex aspect-square w-[min(2rem,100%)] items-center justify-center rounded-full border"
               class:border-dashed={tone === 'empty'}
+              class:border-2={tone !== 'empty'}
               class:border-solid={tone !== 'empty' || day.iso === today}
               class:border-[var(--muted-foreground)]={tone === 'empty'}
               class:border-[var(--calorie-under)]={tone === 'under' || tone === 'on-target'}
@@ -85,16 +85,18 @@
         role="img"
         aria-label={`${displayNumber(totals.calories)} of ${displayNumber(targets.calories)} kcal, ${caloriePercent}% of target`}
       >
-        <div class="calorie-details">
-          <strong>{displayNumber(totals.calories)} kcal</strong>
-          <span>{displayNumber(Math.abs(caloriesRemaining))} kcal {caloriesRemaining >= 0 ? 'left' : 'over'}</span>
+        <div class="flex flex-col gap-1">
+          <strong class="text-2xl">{displayNumber(totals.calories)} kcal</strong>
+          <span class="text-muted-foreground"
+            >{displayNumber(Math.abs(caloriesRemaining))} kcal {caloriesRemaining >= 0 ? 'left' : 'over'}</span
+          >
         </div>
         <div
-          class="relative flex aspect-square w-full max-w-28 flex-none items-center rounded-full text-center"
+          class="relative flex aspect-square w-full max-w-22 flex-none items-center rounded-full text-center"
           style={`--calorie-progress: ${Math.min(caloriePercent, 100)}%; --calorie-color: ${calorieColor}; background: conic-gradient(var(--calorie-color) var(--calorie-progress), var(--muted) 0)`}
           aria-hidden="true"
         >
-          <div class="absolute inset-3 rounded-full bg-card flex items-center justify-center">
+          <div class="absolute inset-2 rounded-full bg-card flex items-center justify-center">
             <FlameIcon aria-hidden="true" class="size-6" style={`color: ${calorieColor}`} />
           </div>
         </div>
@@ -120,7 +122,7 @@
   </Card.Root>
 
   <div>
-    <h2 id="entries-heading" class="font-heading text-base font-medium mb-4">Meals for {date}</h2>
+    <hr class="my-4" />
     <div>
       <div class="meal-list">
         {#each data.mealEntries
@@ -138,19 +140,21 @@
               <span class="meal-name">{mealName}</span>
               <time datetime={`${entry.date}T${entry.time}`} class="text-muted-foreground text-sm">{entry.time}</time>
             </div>
-            <strong class="meal-calories">{displayNumber(entry.nutrition.calories)} kcal</strong>
-            <span class="meal-macros">
-              <span
-                ><span class="meal-macro-label"><HamIcon aria-hidden="true" class="size-3.5" /> Protein</span
-                ><strong>{displayNumber(entry.nutrition.protein)} g</strong></span
+            <strong class="text-xl leading-[1.1]">{displayNumber(entry.nutrition.calories)} kcal</strong>
+            <span class="grid grid-cols-3 gap-2">
+              <span class="grid gap-0.5"
+                ><span class="meal-macro-label"><HamIcon aria-hidden="true" class="size-3.5" /> Protein</span><strong
+                  class="text-sm font-normal">{displayNumber(entry.nutrition.protein)} g</strong
+                ></span
               >
-              <span
-                ><span class="meal-macro-label"><WheatIcon aria-hidden="true" class="size-3.5" /> Carbs</span
-                ><strong>{displayNumber(entry.nutrition.carbohydrates)} g</strong></span
+              <span class="grid gap-0.5"
+                ><span class="meal-macro-label"><WheatIcon aria-hidden="true" class="size-3.5" /> Carbs</span><strong
+                  class="text-sm font-normal">{displayNumber(entry.nutrition.carbohydrates)} g</strong
+                ></span
               >
-              <span
+              <span class="grid gap-0.5"
                 ><span class="meal-macro-label"><NutIcon aria-hidden="true" class="size-3.5" /> Fat</span><strong
-                  >{displayNumber(entry.nutrition.fat)} g</strong
+                  class="text-sm font-normal">{displayNumber(entry.nutrition.fat)} g</strong
                 ></span
               >
             </span>
@@ -163,10 +167,8 @@
   </div>
   <Button type="button" class="w-full mt-4" aria-haspopup="dialog" onclick={onRecordMeal}>
     <PlusIcon aria-hidden="true" />
-    Record a meal
+    Add a meal
   </Button>
   <Separator class="my-4" />
-  <Button type="button" variant="outline" class="w-full" aria-haspopup="dialog" onclick={onQuickAdd}>
-    Quick add
-  </Button>
+  <Button type="button" variant="outline" class="w-full" aria-haspopup="dialog" onclick={onQuickAdd}>Quick add</Button>
 </div>

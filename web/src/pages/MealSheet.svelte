@@ -50,7 +50,7 @@
   const selectedFood = $derived(data.foods.find((food) => food.id === selectedFoodId) ?? null)
 
   let temporaryMeal = $state(false)
-  let temporaryName = $state('Quick entry')
+  let temporaryName = $state('other')
   let temporaryCalories = $state(0)
   let temporaryProtein = $state(0)
   let temporaryFat = $state(0)
@@ -80,7 +80,7 @@
     error = ''
     if (entry.foodId === '') {
       temporaryMeal = true
-      temporaryName = entry.foodName ?? 'Quick entry'
+      temporaryName = entry.foodName ?? 'other'
       ;({
         calories: temporaryCalories,
         protein: temporaryProtein,
@@ -102,7 +102,7 @@
   export function openTemporary() {
     editingMealId = ''
     temporaryMeal = true
-    temporaryName = 'Quick entry'
+    temporaryName = 'other'
     temporaryCalories = 0
     temporaryProtein = 0
     temporaryFat = 0
@@ -278,7 +278,9 @@
           {#if error}<p class="text-destructive text-sm" role="alert">{error}</p>{/if}
           <Button type="submit">{editingMealId ? 'Update meal' : 'Add meal'}</Button>
           {#if editingMealId}
-            <Button type="button" variant="destructive" class="w-full" onclick={() => (confirmingDelete = true)}>Delete meal</Button>
+            <Button type="button" variant="destructive" class="w-full" onclick={() => (confirmingDelete = true)}
+              >Delete meal</Button
+            >
           {/if}
         </form>
       {:else if step === 'search'}
@@ -314,7 +316,7 @@
                 <button type="button" class="meal-card" onclick={() => chooseFoodResult(food.id)}>
                   <span class="meal-name">{food.name.en ?? Object.values(food.name)[0]}</span>
                   {#if food.description}<span class="meal-card-topline">{food.description}</span>{/if}
-                  <strong class="meal-calories">{displayNumber(food.nutrition.calories)} kcal</strong>
+                  <strong class="text-xl leading-[1.1]">{displayNumber(food.nutrition.calories)} kcal</strong>
                   <span class="meal-card-topline">{food.serving}</span>
                 </button>
               {/each}
@@ -382,7 +384,9 @@
           {#if error}<p class="text-destructive text-sm" role="alert">{error}</p>{/if}
           <Button type="submit">{editingMealId ? 'Update meal' : 'Add meal'}</Button>
           {#if editingMealId}
-            <Button type="button" variant="destructive" class="w-full" onclick={() => (confirmingDelete = true)}>Delete meal</Button>
+            <Button type="button" variant="destructive" class="w-full" onclick={() => (confirmingDelete = true)}
+              >Delete meal</Button
+            >
           {/if}
         </form>
       {/if}

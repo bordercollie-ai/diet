@@ -1,34 +1,34 @@
 <script lang="ts">
+  import { Button } from '$lib/components/ui/button'
+  import AppleIcon from '@lucide/svelte/icons/apple'
+  import HouseIcon from '@lucide/svelte/icons/house'
+  import MoonIcon from '@lucide/svelte/icons/moon'
+  import SaveIcon from '@lucide/svelte/icons/save'
+  import SunIcon from '@lucide/svelte/icons/sun'
+  import UserIcon from '@lucide/svelte/icons/user'
   import { onMount } from 'svelte'
+  import { fade } from 'svelte/transition'
   import {
     bundledFoods,
     dailyTotals,
     deleteMealEntry,
-    type AppData,
-    type Food,
-    type Profile,
-    resolveTargets,
     estimateMaintenanceCalories,
     estimateTargets,
     previewBackup,
+    resolveTargets,
     roundForDisplay,
+    type AppData,
+    type Food,
     type ImportResult,
+    type Profile,
   } from './domain/store'
-  import { createIndexedDBStore } from './storage/indexeddb'
-  import { Button } from '$lib/components/ui/button'
-  import SummaryPanel from './pages/SummaryPanel.svelte'
-  import FoodsPanel from './pages/FoodsPanel.svelte'
-  import ProfilePanel from './pages/ProfilePanel.svelte'
   import BackupPanel from './pages/BackupPanel.svelte'
   import FoodSheet from './pages/FoodSheet.svelte'
+  import FoodsPanel from './pages/FoodsPanel.svelte'
   import MealSheet from './pages/MealSheet.svelte'
-  import { fade } from 'svelte/transition'
-  import ChartColumnIcon from '@lucide/svelte/icons/chart-column'
-  import AppleIcon from '@lucide/svelte/icons/apple'
-  import UserIcon from '@lucide/svelte/icons/user'
-  import SaveIcon from '@lucide/svelte/icons/save'
-  import SunIcon from '@lucide/svelte/icons/sun'
-  import MoonIcon from '@lucide/svelte/icons/moon'
+  import ProfilePanel from './pages/ProfilePanel.svelte'
+  import SummaryPanel from './pages/SummaryPanel.svelte'
+  import { createIndexedDBStore } from './storage/indexeddb'
 
   const store = createIndexedDBStore()
   const today = new Date().toISOString().slice(0, 10)
@@ -89,8 +89,8 @@
   let installed = $state(false)
   let darkMode = $state(false)
   type Tab = 'summary' | 'foods' | 'profile' | 'backup'
-  const tabs: { id: Tab; label: string; icon: typeof ChartColumnIcon }[] = [
-    { id: 'summary', label: 'Summary', icon: ChartColumnIcon },
+  const tabs: { id: Tab; label: string; icon: typeof HouseIcon }[] = [
+    { id: 'summary', label: 'Summary', icon: HouseIcon },
     { id: 'foods', label: 'Foods', icon: AppleIcon },
     { id: 'profile', label: 'Profile', icon: UserIcon },
     { id: 'backup', label: 'Backup', icon: SaveIcon },
@@ -103,7 +103,6 @@
   }
 
   const totals = $derived(dailyTotals(data, date))
-  const displayNumber = roundForDisplay
   const profileReady = $derived(
     profile.age >= 1 &&
       profile.age <= 120 &&
@@ -364,20 +363,20 @@
     </div>
   {/if}
 
-  <div class="tabs" role="tablist" aria-label="Diet sections">
+  <div class="mb-4 flex gap-0.5 overflow-hidden rounded-2xl bg-muted p-1" role="tablist" aria-label="Diet sections">
     {#each tabs as { id, label, icon: Icon }}
-      <button
-        type="button"
+      <Button
         id={`${id}-tab`}
         role="tab"
         aria-selected={activeTab === id}
         aria-controls={`${id}-panel`}
         aria-label={label}
-        class:active={activeTab === id}
+        variant={activeTab === id ? 'secondary' : 'ghost'}
+        class="min-w-0 flex-1 rounded-xl {activeTab !== id && 'text-muted-foreground hover:bg-transparent'}"
         onclick={() => (activeTab = id as Tab)}
       >
         <Icon aria-hidden="true" />
-      </button>
+      </Button>
     {/each}
   </div>
 
