@@ -2,8 +2,8 @@
   import { Button } from '$lib/components/ui/button'
   import AppleIcon from '@lucide/svelte/icons/apple'
   import HouseIcon from '@lucide/svelte/icons/house'
+  import MenuIcon from '@lucide/svelte/icons/menu'
   import MoonIcon from '@lucide/svelte/icons/moon'
-  import SaveIcon from '@lucide/svelte/icons/save'
   import SunIcon from '@lucide/svelte/icons/sun'
   import UserIcon from '@lucide/svelte/icons/user'
   import { onMount } from 'svelte'
@@ -93,7 +93,7 @@
     { id: 'summary', label: 'Summary', icon: HouseIcon },
     { id: 'foods', label: 'Foods', icon: AppleIcon },
     { id: 'profile', label: 'Profile', icon: UserIcon },
-    { id: 'backup', label: 'Backup', icon: SaveIcon },
+    { id: 'backup', label: 'Backup', icon: MenuIcon },
   ]
   let activeTab: Tab = $state('summary')
 
@@ -334,7 +334,7 @@
 <main
   class="max-w-3xl mx-auto px-3 pt-[max(1rem,env(safe-area-inset-top))] pb-[calc(7rem+env(safe-area-inset-bottom))]"
 >
-  <header class="flex items-center justify-between gap-4 mb-2">
+  <header class="flex items-center justify-between gap-4">
     <div>
       <h1 class="m-0 text-2xl">Diet</h1>
       <p class="sr-only" role="status" aria-live="polite">{status}</p>

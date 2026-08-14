@@ -34,7 +34,7 @@ body::-webkit-scrollbar {
   align-items: start;
   display: flex;
   gap: 0.25rem;
-  padding: 0.25rem 0.125rem 0.2rem;
+  padding: 0rem 0.125rem 0rem;
 }
 
 .day-strip button {
