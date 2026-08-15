@@ -164,7 +164,8 @@
   {
     "id": "lotte-jp-ice-05-01",
     "name": {
-      "ja": "レディーボーデン　パイント　バニラ"
+      "ja": "レディーボーデン　パイント　バニラ",
+      "en": "Lady Borden Pint Vanilla"
     },
     "serving": "470ml",
     "nutrition": {
@@ -182,7 +183,8 @@
   {
     "id": "lotte-jp-ice-05-02",
     "name": {
-      "ja": "レディーボーデン　パイント　チョコレート"
+      "ja": "レディーボーデン　パイント　チョコレート",
+      "en": "Lady Borden Pint Chocolate"
     },
     "serving": "470ml",
     "nutrition": {
@@ -200,7 +202,8 @@
   {
     "id": "lotte-jp-ice-05-03",
     "name": {
-      "ja": "レディーボーデン　パイント　ストロベリー"
+      "ja": "レディーボーデン　パイント　ストロベリー",
+      "en": "Lady Borden Pint Strawberry"
     },
     "serving": "470ml",
     "nutrition": {
@@ -218,7 +221,8 @@
   {
     "id": "lotte-jp-ice-05-04",
     "name": {
-      "ja": "レディーボーデン　パイント　グリーンティー"
+      "ja": "レディーボーデン　パイント　グリーンティー",
+      "en": "Lady Borden Pint Green Tea"
     },
     "serving": "470ml",
     "nutrition": {
@@ -236,7 +240,8 @@
   {
     "id": "lotte-jp-ice-05-08",
     "name": {
-      "ja": "レディーボーデン　マルチ　カップセレクション"
+      "ja": "レディーボーデン　マルチ　カップセレクション",
+      "en": "Lady Borden Multi Cup Selection"
     },
     "serving": "75ml",
     "nutrition": {
@@ -254,7 +259,8 @@
   {
     "id": "lotte-jp-ice-05-25",
     "name": {
-      "ja": "レディーボーデン　マルチ　アーモンドチョコレートバー"
+      "ja": "レディーボーデン　マルチ　アーモンドチョコレートバー",
+      "en": "Lady Borden Multi Almond Chocolate Bar"
     },
     "serving": "50ml",
     "nutrition": {
@@ -272,7 +278,8 @@
   {
     "id": "lotte-jp-ice-05-26",
     "name": {
-      "ja": "レディーボーデン　ミニカップ　バニラ"
+      "ja": "レディーボーデン　ミニカップ　バニラ",
+      "en": "Lady Borden Mini Cup Vanilla"
     },
     "serving": "120ml",
     "nutrition": {
@@ -290,7 +297,8 @@
   {
     "id": "lotte-jp-ice-05-28",
     "name": {
-      "ja": "レディーボーデン　ミニカップ　コーヒー"
+      "ja": "レディーボーデン　ミニカップ　コーヒー",
+      "en": "Lady Borden Mini Cup Coffee"
     },
     "serving": "120ml",
     "nutrition": {
@@ -308,7 +316,8 @@
   {
     "id": "lotte-jp-ice-05-45",
     "name": {
-      "ja": "レディーボーデン　ミニカップ　チョコレートチップ"
+      "ja": "レディーボーデン　ミニカップ　チョコレートチップ",
+      "en": "Lady Borden Mini Cup Chocolate Chip"
     },
     "serving": "120ml",
     "nutrition": {
@@ -326,7 +335,8 @@
   {
     "id": "lotte-jp-ice-05-46",
     "name": {
-      "ja": "レディーボーデン　ミニカップ　クッキー&amp;クリーム"
+      "ja": "レディーボーデン　ミニカップ　クッキー&amp;クリーム",
+      "en": "Lady Borden Mini Cup Cookies & Cream"
     },
     "serving": "120ml",
     "nutrition": {
@@ -344,7 +354,8 @@
   {
     "id": "lotte-jp-ice-05-51",
     "name": {
-      "ja": "レディーボーデン　アーモンドチョコレートバー"
+      "ja": "レディーボーデン　アーモンドチョコレートバー",
+      "en": "Lady Borden Almond Chocolate Bar"
     },
     "serving": "81ml",
     "nutrition": {
@@ -362,7 +373,8 @@
   {
     "id": "lotte-jp-ice-05-52",
     "name": {
-      "ja": "レディーボーデン　クッキークランチキャラメルバー"
+      "ja": "レディーボーデン　クッキークランチキャラメルバー",
+      "en": "Lady Borden Cookie Crunch Caramel Bar"
     },
     "serving": "81ml",
     "nutrition": {
@@ -380,7 +392,8 @@
   {
     "id": "lotte-jp-ice-05-56",
     "name": {
-      "ja": "レディーボーデン　ミニカップ　ミルクリッチ"
+      "ja": "レディーボーデン　ミニカップ　ミルクリッチ",
+      "en": "Lady Borden Mini Cup Milk Rich"
     },
     "serving": "120ml",
     "nutrition": {
@@ -398,7 +411,8 @@
   {
     "id": "lotte-jp-ice-05-58",
     "name": {
-      "ja": "レディーボーデン　ミニカップ　抹茶"
+      "ja": "レディーボーデン　ミニカップ　抹茶",
+      "en": "Lady Borden Mini Cup Matcha"
     },
     "serving": "120ml",
     "nutrition": {
@@ -416,7 +430,8 @@
   {
     "id": "lotte-jp-ice-07-01",
     "name": {
-      "ja": "クーリッシュ　バニラ＜夏期限定＞"
+      "ja": "クーリッシュ　バニラ＜夏期限定＞",
+      "en": "Coolish Vanilla (Summer Limited Edition)"
     },
     "serving": "140ml",
     "nutrition": {
@@ -434,7 +449,8 @@
   {
     "id": "lotte-jp-ice-07-21",
     "name": {
-      "ja": "クーリッシュ　ベルギーチョコレート＜夏期限定＞"
+      "ja": "クーリッシュ　ベルギーチョコレート＜夏期限定＞",
+      "en": "Coolish Belgian Chocolate (Summer Limited Edition)"
     },
     "serving": "140ml",
     "nutrition": {
@@ -452,7 +468,8 @@
   {
     "id": "lotte-jp-ice-07-31",
     "name": {
-      "ja": "クーリッシュGreen　バニラ"
+      "ja": "クーリッシュGreen　バニラ",
+      "en": "Coolish Green Vanilla"
     },
     "serving": "135ml",
     "nutrition": {
@@ -470,7 +487,8 @@
   {
     "id": "lotte-jp-ice-07-40",
     "name": {
-      "ja": "クーリッシュGreen　ストロベリー"
+      "ja": "クーリッシュGreen　ストロベリー",
+      "en": "Coolish Green Strawberry"
     },
     "serving": "135ml",
     "nutrition": {
@@ -488,7 +506,8 @@
   {
     "id": "lotte-jp-ice-07-41",
     "name": {
-      "ja": "クーリッシュマルチ　バニラ&amp;チョコレート"
+      "ja": "クーリッシュマルチ　バニラ&amp;チョコレート",
+      "en": "Coolish Multi Vanilla & Chocolate"
     },
     "serving": "80ml",
     "nutrition": {
@@ -542,7 +561,8 @@
   {
     "id": "lotte-jp-ice-07-96",
     "name": {
-      "ja": "クーリッシュ　コーラフロート"
+      "ja": "クーリッシュ　コーラフロート",
+      "en": "Coolish Cola Float"
     },
     "serving": "135ml",
     "nutrition": {
@@ -650,7 +670,8 @@
   {
     "id": "lotte-jp-ice-13-02",
     "name": {
-      "ja": "「カルピス」アイスバー　マルチ"
+      "ja": "「カルピス」アイスバー　マルチ",
+      "en": "Calpis Ice Bar Multi"
     },
     "serving": "43ml",
     "nutrition": {
@@ -758,7 +779,8 @@
   {
     "id": "lotte-jp-ice-21-02",
     "name": {
-      "ja": "ガーナチョコ&amp;クッキーサンド"
+      "ja": "ガーナチョコ&amp;クッキーサンド",
+      "en": "Ghana Choco & Cookie Sandwich"
     },
     "serving": "76ml",
     "nutrition": {
@@ -776,7 +798,8 @@
   {
     "id": "lotte-jp-ice-21-03",
     "name": {
-      "ja": "ガーナチョコ&amp;クッキーサンドマルチ"
+      "ja": "ガーナチョコ&amp;クッキーサンドマルチ",
+      "en": "Ghana Choco & Cookie Sandwich Multi"
     },
     "serving": "60ml",
     "nutrition": {
@@ -812,7 +835,8 @@
   {
     "id": "lotte-jp-ice-34-02",
     "name": {
-      "ja": "ゼロ　アイスケーキ"
+      "ja": "ゼロ　アイスケーキ",
+      "en": "Zero Ice Cake"
     },
     "serving": "44ml",
     "nutrition": {
@@ -832,7 +856,8 @@
   {
     "id": "lotte-jp-ice-34-03",
     "name": {
-      "ja": "ゼロ　ビスケットクランチチョコバー"
+      "ja": "ゼロ　ビスケットクランチチョコバー",
+      "en": "Zero Biscuit Crunch Choco Bar"
     },
     "serving": "75ml",
     "nutrition": {
@@ -872,7 +897,8 @@
   {
     "id": "lotte-jp-ice-34-11",
     "name": {
-      "ja": "ゼロ　ミニカップマカダミアナッツ"
+      "ja": "ゼロ　ミニカップマカダミアナッツ",
+      "en": "Zero Mini Cup Macadamia Nuts"
     },
     "serving": "120ml",
     "nutrition": {
@@ -912,7 +938,8 @@
   {
     "id": "lotte-jp-ice-37-01",
     "name": {
-      "ja": "クーリッシュフローズン　レモンサワー"
+      "ja": "クーリッシュフローズン　レモンサワー",
+      "en": "Coolish Frozen Lemon Sour"
     },
     "serving": "140ml",
     "nutrition": {
@@ -930,7 +957,8 @@
   {
     "id": "lotte-jp-ice-37-02",
     "name": {
-      "ja": "クーリッシュフローズン　グレフルサワー"
+      "ja": "クーリッシュフローズン　グレフルサワー",
+      "en": "Coolish Frozen Grapefruit Sour"
     },
     "serving": "140ml",
     "nutrition": {
@@ -1938,7 +1966,8 @@
   {
     "id": "lotte-jp-ice-100-65",
     "name": {
-      "ja": "ミニクーリッシュ　バニラ"
+      "ja": "ミニクーリッシュ　バニラ",
+      "en": "Mini Coolish Vanilla"
     },
     "serving": "80ml",
     "nutrition": {
@@ -2226,7 +2255,8 @@
   {
     "id": "lotte-jp-ice-100-82",
     "name": {
-      "ja": "プレミアムガーナショコラアイス"
+      "ja": "プレミアムガーナショコラアイス",
+      "en": "Premium Ghana Chocolat Ice"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -2442,7 +2472,8 @@
   {
     "id": "lotte-jp-ice-200-01",
     "name": {
-      "ja": "クーリッシュ　バニラ"
+      "ja": "クーリッシュ　バニラ",
+      "en": "Coolish Vanilla"
     },
     "serving": "140ml",
     "nutrition": {
@@ -2460,7 +2491,8 @@
   {
     "id": "lotte-jp-ice-200-02",
     "name": {
-      "ja": "クーリッシュ　ベルギーチョコレート"
+      "ja": "クーリッシュ　ベルギーチョコレート",
+      "en": "Coolish Belgian Chocolate"
     },
     "serving": "140ml",
     "nutrition": {
@@ -2532,7 +2564,8 @@
   {
     "id": "lotte-jp-ice-200-09",
     "name": {
-      "ja": "レディーボーデンアーモンドチョコレートバー"
+      "ja": "レディーボーデンアーモンドチョコレートバー",
+      "en": "Lady Borden Almond Chocolate Bar"
     },
     "serving": "83ml",
     "nutrition": {
@@ -2550,7 +2583,8 @@
   {
     "id": "lotte-jp-ice-200-10",
     "name": {
-      "ja": "レディーボーデンチョコストロベリーバー"
+      "ja": "レディーボーデンチョコストロベリーバー",
+      "en": "Lady Borden Choco Strawberry Bar"
     },
     "serving": "83ml",
     "nutrition": {
@@ -2568,7 +2602,8 @@
   {
     "id": "lotte-jp-ice-200-11",
     "name": {
-      "ja": "レディーボーデン チョコレートボール"
+      "ja": "レディーボーデン チョコレートボール",
+      "en": "Lady Borden Chocolate Ball"
     },
     "serving": "10ml",
     "nutrition": {
@@ -2586,7 +2621,8 @@
   {
     "id": "lotte-jp-ice-200-12",
     "name": {
-      "ja": "レディーボーデンクッキーサンド"
+      "ja": "レディーボーデンクッキーサンド",
+      "en": "Lady Borden Cookie Sandwich"
     },
     "serving": "75ml",
     "nutrition": {
