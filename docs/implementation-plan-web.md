@@ -69,6 +69,16 @@ All completed phases passed `pnpm check`, `pnpm build`, and their listed test su
 
 The importer emits app-compatible records with reviewed Chinese mappings, without runtime networking or access-control bypasses.
 
+## Out-of-band feature: add a custom food to today's meal from its detail view, with CI test workflow
+
+**Status:** done (2026-08-15).
+
+- **Scope:** clicking a custom food in the Foods tab now opens a "Custom food" detail/edit sheet with an "Add to today's meal" action that opens the meal sheet pre-filled with that food, defaulting the date to today. Custom foods are now listed most recently updated first.
+- **Files changed:** `web/src/domain/store.ts` (added `Food.updatedAt`, stamped by `createFood`/`updateFood`), `web/src/pages/FoodSheet.svelte` (title renamed to "Custom food", added "Add to today's meal"), `web/src/pages/MealSheet.svelte` (added `openForFood`, fixed a pre-existing bug where creating a food inline during meal search never advanced past the search step because the check ran after the new food already matched the live search), `web/src/pages/FoodsPanel.svelte` (sort by `updatedAt` desc), `web/src/App.svelte` (wiring), `web/tests/App.test.ts`, `web/tests/FoodsPanel.test.ts`, `web/tests/store.test.ts`.
+- **CI:** `.github/workflows/deploy-pages.yml` now runs a `test` job (`pnpm check`, `pnpm run test`, `pnpm run test:ui`) on push/PR to `web/**` before the existing `deploy` job (gated on `test` passing, PRs only run tests, not deploy).
+- **Checks:** `pnpm check`; `pnpm build`; 20 domain tests; 11 UI tests — all pass.
+- **Risk:** none known; the inline-food-creation fix also unblocked several previously-broken pre-existing UI tests unrelated to this feature (a stale "Record a meal" vs. "Add a meal" button-name mismatch was also corrected in tests).
+
 ## Deferred work
 
 | Phase | Scope | Exit criteria |
