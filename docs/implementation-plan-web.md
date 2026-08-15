@@ -56,14 +56,16 @@ All completed phases passed `pnpm check`, `pnpm build`, and their listed test su
 
 ### Progress and handoff
 
-- **Files changed:** `scripts/import_mcdonalds_japan.py`, `scripts/output/`, `web/src/data/mcdonalds_japan.json`, `web/src/domain/store.ts`, domain/UI tests, and `web/package.json`.
+- **Files changed:** `scripts/import_mcdonalds_japan.py`, `scripts/output/`, `web/src/data/mcdonalds_japan.json`, `web/src/data/starbucks_japan.json`, `web/src/domain/store.ts`, domain/UI tests, and `web/package.json`.
 - McDonald's Japan importer is in `scripts/import_mcdonalds_japan.py`.
 - It produced 202 unique, app-format records in `web/src/data/mcdonalds_japan.json`, also retained as a raw audit file in `scripts/output/`.
 - The dataset is bundled as immutable food data and searchable by Japanese and English names. Domain and UI coverage verifies Big Mac lookup/logging and dataset validation.
+- Starbucks Japan's nutrition calculator (menu.starbucks.co.jp) is JS/AJAX-driven and blocks automated requests (403), so there is no importer script. `web/src/data/starbucks_japan.json` is hand-curated from the official site's per-drink nutrition tables, pasted and transcribed one size/temperature at a time; each record's `serving` records the size and hot/ice shown on the official page. 16 records cover 4 drinks (Starbucks Latte, Sweet Milk Coffee, Bitter Cream Coffee, Cappuccino) across their published size/temperature combinations.
+- `Food` gained an optional `detail` field (salt, fiber, sugar, sodium, potassium, trans fat, saturated fat, caffeine) to carry Starbucks' finer-grained published nutrients without changing the core `Nutrition` totals used elsewhere (targets, daily totals).
 - Node-based tests require Node >=23.6 because they load TypeScript and JSON ESM imports directly; this minimum is recorded in `web/package.json`.
-- **Checks:** Python fixture parsing; `pnpm check`; `pnpm build`; 18 domain tests; 4 UI tests.
-- **Risk:** No reviewed Chinese mappings exist. Product-page markup can change.
-- **Next:** supply a reviewed mapping and rerun, then consider a separate 7-Eleven importer.
+- **Checks:** Python fixture parsing; `pnpm check`; `pnpm build`; 20 domain tests; 4 UI tests.
+- **Risk:** No reviewed Chinese mappings exist. Product-page markup can change. Starbucks dataset is manually transcribed (no automated re-fetch) and only covers the 4 drinks/sizes provided so far.
+- **Next:** supply a reviewed mapping and rerun McDonald's importer; add more Starbucks drinks/sizes as data is provided; consider a separate 7-Eleven importer.
 
 ### Exit criteria
 

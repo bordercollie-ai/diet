@@ -1,0 +1,417 @@
+[
+  {
+    "id": "sbux-jp-4524785000223-short-ice",
+    "name": {
+      "en": "Starbucks Latte (Short, Ice)",
+      "ja": "スターバックス ラテ（Short, Ice）"
+    },
+    "serving": "Short, Ice",
+    "nutrition": {
+      "calories": 108,
+      "protein": 6.2,
+      "fat": 5.4,
+      "carbohydrates": 9.2
+    },
+    "detail": {
+      "salt": 0.2,
+      "fiber": 0.6,
+      "sugar": 8.5,
+      "sodium": 68,
+      "potassium": 394,
+      "transFat": 0.0,
+      "saturatedFat": 3.1
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-4524785000223-tall-ice",
+    "name": {
+      "en": "Starbucks Latte (Tall, Ice)",
+      "ja": "スターバックス ラテ（Tall, Ice）"
+    },
+    "serving": "Tall, Ice",
+    "nutrition": {
+      "calories": 131,
+      "protein": 7.5,
+      "fat": 6.5,
+      "carbohydrates": 10.9
+    },
+    "detail": {
+      "salt": 0.2,
+      "fiber": 0.7,
+      "sugar": 10.3,
+      "sodium": 83,
+      "potassium": 455,
+      "transFat": 0.0,
+      "saturatedFat": 3.8,
+      "caffeine": 80
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-4524785000223-grande-ice",
+    "name": {
+      "en": "Starbucks Latte (Grande, Ice)",
+      "ja": "スターバックス ラテ（Grande, Ice）"
+    },
+    "serving": "Grande, Ice",
+    "nutrition": {
+      "calories": 169,
+      "protein": 9.7,
+      "fat": 8.2,
+      "carbohydrates": 14.6
+    },
+    "detail": {
+      "salt": 0.3,
+      "fiber": 1.1,
+      "sugar": 13.5,
+      "sodium": 105,
+      "potassium": 664,
+      "transFat": 0.0,
+      "saturatedFat": 4.8,
+      "caffeine": 160
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-4524785000223-venti-ice",
+    "name": {
+      "en": "Starbucks Latte (Venti, Ice)",
+      "ja": "スターバックス ラテ（Venti, Ice）"
+    },
+    "serving": "Venti, Ice",
+    "nutrition": {
+      "calories": 174,
+      "protein": 10.1,
+      "fat": 8.3,
+      "carbohydrates": 15.8
+    },
+    "detail": {
+      "salt": 0.3,
+      "fiber": 1.4,
+      "sugar": 14.3,
+      "sodium": 105,
+      "potassium": 789,
+      "transFat": 0.0,
+      "saturatedFat": 4.9,
+      "caffeine": 239
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-sweet-milk-coffee-short-ice",
+    "name": {
+      "en": "Sweet Milk Coffee (Short, Ice)",
+      "ja": "スイート ミルクコーヒー（Short, Ice）"
+    },
+    "serving": "Short, Ice",
+    "nutrition": {
+      "calories": 227,
+      "protein": 4.1,
+      "fat": 14.1,
+      "carbohydrates": 21.1
+    },
+    "detail": {
+      "salt": 0.2,
+      "fiber": 0.3,
+      "sugar": 20.8,
+      "sodium": 74,
+      "potassium": 261,
+      "transFat": 0.2,
+      "saturatedFat": 9.0,
+      "caffeine": 50
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-sweet-milk-coffee-tall-ice",
+    "name": {
+      "en": "Sweet Milk Coffee (Tall, Ice)",
+      "ja": "スイート ミルクコーヒー（Tall, Ice）"
+    },
+    "serving": "Tall, Ice",
+    "nutrition": {
+      "calories": 272,
+      "protein": 4.4,
+      "fat": 16.4,
+      "carbohydrates": 27.0
+    },
+    "detail": {
+      "salt": 0.2,
+      "fiber": 0.4,
+      "sugar": 26.6,
+      "sodium": 76,
+      "potassium": 345,
+      "transFat": 0.2,
+      "saturatedFat": 10.5,
+      "caffeine": 104
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-sweet-milk-coffee-grande-ice",
+    "name": {
+      "en": "Sweet Milk Coffee (Grande, Ice)",
+      "ja": "スイート ミルクコーヒー（Grande, Ice）"
+    },
+    "serving": "Grande, Ice",
+    "nutrition": {
+      "calories": 396,
+      "protein": 5.7,
+      "fat": 21.9,
+      "carbohydrates": 43.9
+    },
+    "detail": {
+      "salt": 0.3,
+      "fiber": 0.5,
+      "sugar": 43.4,
+      "sodium": 119,
+      "potassium": 437,
+      "transFat": 0.3,
+      "saturatedFat": 14.2,
+      "caffeine": 123
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-sweet-milk-coffee-venti-ice",
+    "name": {
+      "en": "Sweet Milk Coffee (Venti, Ice)",
+      "ja": "スイート ミルクコーヒー（Venti, Ice）"
+    },
+    "serving": "Venti, Ice",
+    "nutrition": {
+      "calories": 462,
+      "protein": 6.5,
+      "fat": 26.1,
+      "carbohydrates": 50.3
+    },
+    "detail": {
+      "salt": 0.3,
+      "fiber": 0.5,
+      "sugar": 49.8,
+      "sodium": 129,
+      "potassium": 496,
+      "transFat": 0.4,
+      "saturatedFat": 16.8,
+      "caffeine": 138
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-bitter-cream-coffee-short-ice",
+    "name": {
+      "en": "Bitter Cream Coffee (Short, Ice)",
+      "ja": "ビター クリーム コーヒー（Short, Ice）"
+    },
+    "serving": "Short, Ice",
+    "nutrition": {
+      "calories": 192,
+      "protein": 2.2,
+      "fat": 12.2,
+      "carbohydrates": 18.7
+    },
+    "detail": {
+      "salt": 0.1,
+      "fiber": 0.3,
+      "sugar": 18.3,
+      "sodium": 49,
+      "potassium": 214,
+      "transFat": 0.2,
+      "saturatedFat": 7.9,
+      "caffeine": 80
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-bitter-cream-coffee-tall-ice",
+    "name": {
+      "en": "Bitter Cream Coffee (Tall, Ice)",
+      "ja": "ビター クリーム コーヒー（Tall, Ice）"
+    },
+    "serving": "Tall, Ice",
+    "nutrition": {
+      "calories": 242,
+      "protein": 2.8,
+      "fat": 14.6,
+      "carbohydrates": 25.2
+    },
+    "detail": {
+      "salt": 0.1,
+      "fiber": 0.7,
+      "sugar": 24.5,
+      "sodium": 53,
+      "potassium": 350,
+      "transFat": 0.2,
+      "saturatedFat": 9.5,
+      "caffeine": 160
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-bitter-cream-coffee-grande-ice",
+    "name": {
+      "en": "Bitter Cream Coffee (Grande, Ice)",
+      "ja": "ビター クリーム コーヒー（Grande, Ice）"
+    },
+    "serving": "Grande, Ice",
+    "nutrition": {
+      "calories": 367,
+      "protein": 4.3,
+      "fat": 20.0,
+      "carbohydrates": 42.8
+    },
+    "detail": {
+      "salt": 0.2,
+      "fiber": 1.0,
+      "sugar": 41.8,
+      "sodium": 94,
+      "potassium": 532,
+      "transFat": 0.3,
+      "saturatedFat": 13.1,
+      "caffeine": 239
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-bitter-cream-coffee-venti-ice",
+    "name": {
+      "en": "Bitter Cream Coffee (Venti, Ice)",
+      "ja": "ビター クリーム コーヒー（Venti, Ice）"
+    },
+    "serving": "Venti, Ice",
+    "nutrition": {
+      "calories": 425,
+      "protein": 4.7,
+      "fat": 23.8,
+      "carbohydrates": 48.4
+    },
+    "detail": {
+      "salt": 0.3,
+      "fiber": 1.0,
+      "sugar": 47.4,
+      "sodium": 100,
+      "potassium": 551,
+      "transFat": 0.4,
+      "saturatedFat": 15.5,
+      "caffeine": 239
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-cappuccino-short-hot",
+    "name": {
+      "en": "Cappuccino (Short, Hot)",
+      "ja": "カプチーノ（Short, Hot）"
+    },
+    "serving": "Short, Hot",
+    "nutrition": {
+      "calories": 80,
+      "protein": 4.6,
+      "fat": 3.9,
+      "carbohydrates": 7.0
+    },
+    "detail": {
+      "salt": 0.1,
+      "fiber": 0.5,
+      "sugar": 6.4,
+      "sodium": 50,
+      "potassium": 321,
+      "transFat": 0.0,
+      "saturatedFat": 2.3,
+      "caffeine": 80
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-cappuccino-tall-hot",
+    "name": {
+      "en": "Cappuccino (Tall, Hot)",
+      "ja": "カプチーノ（Tall, Hot）"
+    },
+    "serving": "Tall, Hot",
+    "nutrition": {
+      "calories": 120,
+      "protein": 6.9,
+      "fat": 6.0,
+      "carbohydrates": 10.1
+    },
+    "detail": {
+      "salt": 0.2,
+      "fiber": 0.7,
+      "sugar": 9.4,
+      "sodium": 76,
+      "potassium": 426,
+      "transFat": 0.0,
+      "saturatedFat": 3.5,
+      "caffeine": 80
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-cappuccino-grande-hot",
+    "name": {
+      "en": "Cappuccino (Grande, Hot)",
+      "ja": "カプチーノ（Grande, Hot）"
+    },
+    "serving": "Grande, Hot",
+    "nutrition": {
+      "calories": 154,
+      "protein": 8.9,
+      "fat": 7.5,
+      "carbohydrates": 13.4
+    },
+    "detail": {
+      "salt": 0.2,
+      "fiber": 1.1,
+      "sugar": 12.4,
+      "sodium": 95,
+      "potassium": 625,
+      "transFat": 0.0,
+      "saturatedFat": 4.4,
+      "caffeine": 160
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  },
+  {
+    "id": "sbux-jp-cappuccino-venti-hot",
+    "name": {
+      "en": "Cappuccino (Venti, Hot)",
+      "ja": "カプチーノ（Venti, Hot）"
+    },
+    "serving": "Venti, Hot",
+    "nutrition": {
+      "calories": 195,
+      "protein": 11.3,
+      "fat": 9.4,
+      "carbohydrates": 17.4
+    },
+    "detail": {
+      "salt": 0.3,
+      "fiber": 1.5,
+      "sugar": 15.9,
+      "sodium": 119,
+      "potassium": 844,
+      "transFat": 0.0,
+      "saturatedFat": 5.5,
+      "caffeine": 239
+    },
+    "source": "bundled",
+    "description": "Starbucks Japan"
+  }
+]
