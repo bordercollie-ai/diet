@@ -6,6 +6,9 @@ import { fileURLToPath, URL } from 'node:url'
 // https://vite.dev/config/
 export default defineConfig({
   base: '/diet/',
+  define: {
+    __BUILD_TIME__: JSON.stringify(new Date().toISOString())
+  },
   plugins: [tailwindcss(), svelte()],
   resolve: {
     alias: {

@@ -75,6 +75,21 @@ The importer emits app-compatible records with reviewed Chinese mappings, withou
 | --- | --- | --- |
 | W8 | Persisted Chinese/English UI selection and complete message translation. | Both languages retain accessible core flows without changing domain/storage/backup behavior. |
 | W10 | Decide between History API, custom drag, or Drawer for sheet dismissal. | Selected gesture works without regressing sheet accessibility. |
+| W11 | Fix visible gap between the fixed bottom `<nav>` and Mobile Safari's own bottom toolbar (iPhone, non-installed tab). | No visible blank gap between navbar and Safari chrome across Safari tab and installed/standalone modes, verified on-device. |
+
+### W11 — bottom nav / Safari toolbar gap (unresolved)
+
+**Status:** deferred (2026-08-15); not blocking other phases.
+
+- **Symptom:** on iPhone Safari (regular browser tab, not added to Home Screen), a blank gap appears between the fixed bottom nav (`App.svelte`, `<nav>`) and Safari's own bottom toolbar. Reported and confirmed via on-device screenshots.
+- **Attempts tried, in order:**
+  1. Made `nav`/`main` `env(safe-area-inset-bottom)` padding conditional on `installed` (`display-mode: standalone`) so it only applies when actually installed. Did not close the gap.
+  2. Tightened nav padding/button sizes (`py-2`→`py-0`, `Button size="lg"`→`icon-sm`) to rule out oversized padding. Gap persisted.
+  3. Restructured `nav` out of `position: fixed` into a `min-h-[100dvh] flex flex-col` document-flow layout (bottom nav as a normal flex child, no `fixed`). User rejected this approach — reverted.
+  4. Reverted to `position: fixed; bottom: 0` on `nav` with unconditional `padding-bottom: env(safe-area-inset-bottom, 0px)` (the generally-recommended pattern), and `main` given matching `pb-[calc(4rem+env(safe-area-inset-bottom))]` clearance. This is the current state in `App.svelte`. Gap still not confirmed fixed by the user.
+- **Current code state:** `App.svelte` `<nav>` is `fixed inset-x-0 bottom-0` with `pb-[env(safe-area-inset-bottom,0px)]`; `<main>` has `pb-[calc(4rem+env(safe-area-inset-bottom))]`. `installed` (`$state`, driven by `matchMedia('(display-mode: standalone)')` and the `appinstalled` event) is still used elsewhere (theme/install-prompt logic around line 401) — do not remove it.
+- **Suspected cause (unconfirmed):** likely Mobile Safari's known fixed-positioning-vs-toolbar viewport quirk (fixed elements can anchor to the largest/layout viewport rather than the visual viewport while the collapsible toolbar is shown), possibly combined with how `safe-area-inset-bottom` is reported differently depending on whether Safari's own chrome is visible.
+- **Next steps for whoever picks this up:** reproduce on-device (regular Safari tab, not standalone), inspect actual computed `env(safe-area-inset-bottom)` and nav bounding box vs. visual viewport (e.g. via Safari Web Inspector over USB, or `window.visualViewport`), before trying further CSS changes. Consider `100dvh`/`interactive-widget` viewport meta options or a `window.visualViewport` resize listener as alternatives if plain CSS can't solve it.
 
 ## Handoff protocol
 

@@ -1,4 +1,4 @@
-const CACHE = "diet-shell-v3";
+const CACHE = "diet-shell-v4";
 const ASSETS = ["/diet/", "/diet/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {

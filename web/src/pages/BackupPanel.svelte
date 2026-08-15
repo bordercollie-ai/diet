@@ -58,6 +58,7 @@
       {:else}
         <p class="text-sm text-muted-foreground">Install is available from your browser menu when supported.</p>
       {/if}
+      <p class="text-xs text-muted-foreground">Build {__BUILD_TIME__}</p>
     </Card.Content>
   </Card.Root>
 </div>

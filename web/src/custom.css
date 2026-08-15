@@ -193,11 +193,6 @@ input[type='time'] {
   gap: 0.2rem;
 }
 
-.meal-name {
-  font-size: 1rem;
-  font-weight: 400;
-}
-
 .meal-macro-label {
   font-size: 0.7rem;
 }
