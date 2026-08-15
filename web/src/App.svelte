@@ -204,14 +204,37 @@
   }
 
   async function exportBackup() {
+    let filename = ''
+    let blob: Blob | undefined
     try {
-      const blob = new Blob([await store.export()], { type: 'application/json' })
+      filename = `diet-backup-${today}.json`
+      blob = new Blob([await store.export()], { type: 'application/json' })
+    } catch (cause) {
+      error = cause instanceof Error ? cause.message : 'Unable to export backup.'
+      return
+    }
+
+    const file = new File([blob], filename, { type: 'application/json' })
+    if (navigator.canShare?.({ files: [file] })) {
+      try {
+        await navigator.share({ files: [file], title: filename })
+        status = 'Backup exported.'
+        error = ''
+        return
+      } catch (cause) {
+        if (cause instanceof DOMException && cause.name === 'AbortError') return
+      }
+    }
+
+    try {
       const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url
-      link.download = `diet-backup-${today}.json`
+      link.download = filename
+      link.target = '_blank'
+      link.rel = 'noopener'
       link.click()
-      URL.revokeObjectURL(url)
+      setTimeout(() => URL.revokeObjectURL(url), 30000)
       status = 'Backup exported.'
       error = ''
     } catch (cause) {
