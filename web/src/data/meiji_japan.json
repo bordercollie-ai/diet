@@ -112,7 +112,7 @@
     "name": {
       "ja": "明治 エッセル スーパーカップ ミニ 超バニラ 80ml × 6個"
     },
-    "serving": "80ml × 6個",
+    "serving": "80ml",
     "nutrition": {
       "calories": 150,
       "protein": 2.2,
@@ -130,7 +130,7 @@
     "name": {
       "ja": "明治 エッセル スーパーカップ ミニ クッキーバニラ 80ml × 6個"
     },
-    "serving": "80ml × 6個",
+    "serving": "80ml",
     "nutrition": {
       "calories": 123,
       "protein": 1.8,
@@ -148,7 +148,7 @@
     "name": {
       "ja": "明治 エッセル スーパーカップ ミニ 抹茶・チョコクッキー 80ml × 2種 × 各3個"
     },
-    "serving": "80ml × 2種 × 各3個",
+    "serving": "80ml",
     "nutrition": {
       "calories": 121,
       "protein": 1.9,
@@ -220,7 +220,7 @@
     "name": {
       "ja": "明治うずまきソフト＜バニラ、チョコ、バニラ＆チョコ＞ 70ml × 3種 × 各2個"
     },
-    "serving": "70ml × 3種 × 各2個",
+    "serving": "70ml",
     "nutrition": {
       "calories": 82,
       "protein": 1.3,
@@ -238,7 +238,7 @@
     "name": {
       "ja": "明治 角10棒 アイスソーダ 45ml × 10本"
     },
-    "serving": "45ml × 10本",
+    "serving": "45ml",
     "nutrition": {
       "calories": 53,
       "protein": 0.3,
@@ -256,7 +256,7 @@
     "name": {
       "ja": "明治 角10棒 ラムネ ヨーグルト風味＆レモン 42ml ×2種 × 各5本"
     },
-    "serving": "42ml × 2種 × 各5本",
+    "serving": "42ml",
     "nutrition": {
       "calories": 55,
       "protein": 0.5,
@@ -274,7 +274,7 @@
     "name": {
       "ja": "明治 アーモンドチョコレートアイスバー 47ml × 6本"
     },
-    "serving": "47ml × 6本",
+    "serving": "47ml",
     "nutrition": {
       "calories": 152,
       "protein": 1.7,
@@ -292,7 +292,7 @@
     "name": {
       "ja": "明治 ピスタチオチョコレートアイスバー 47ml × 5本"
     },
-    "serving": "47ml × 5本",
+    "serving": "47ml",
     "nutrition": {
       "calories": 150,
       "protein": 1.6,
@@ -310,7 +310,7 @@
     "name": {
       "ja": "明治 宇治金時 65ml × 6本"
     },
-    "serving": "65ml × 6本",
+    "serving": "65ml",
     "nutrition": {
       "calories": 97,
       "protein": 1.5,
@@ -328,7 +328,7 @@
     "name": {
       "ja": "明治 練乳金時 65ml × 6本"
     },
-    "serving": "65ml × 6本",
+    "serving": "65ml",
     "nutrition": {
       "calories": 98,
       "protein": 1.5,
@@ -346,7 +346,7 @@
     "name": {
       "ja": "&#36795;&#xE0100;利 お濃い抹茶＜スティックマルチ＞ 40ml × 7本"
     },
-    "serving": "40ml × 7本",
+    "serving": "40ml",
     "nutrition": {
       "calories": 74,
       "protein": 1.4,
@@ -454,7 +454,7 @@
     "name": {
       "ja": "明治 チョコレート効果カカオアイス 75ml×4個"
     },
-    "serving": "75ml×4個",
+    "serving": "75ml",
     "nutrition": {
       "calories": 152,
       "protein": 1.6,
@@ -580,7 +580,7 @@
     "name": {
       "ja": "明治 Dear Milk＜マルチ＞ 73ml × 4個"
     },
-    "serving": "73ml × 4個",
+    "serving": "73ml",
     "nutrition": {
       "calories": 149,
       "protein": 2.4,

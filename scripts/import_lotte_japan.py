@@ -62,6 +62,17 @@ FIBER_RE = re.compile(r"食物繊維([\d.]+)\s*g")
 SUGAR_RE = re.compile(r"(?<!糖質)糖類([\d.]+)\s*g")
 
 
+# Multi-piece packages (e.g. "53ml×7本", "80ml×2種×3個") declare the official
+# nutrition per single piece, not per package; the serving shown should match
+# that single-piece amount, so the "×N本/個/種" multiplier is dropped.
+SERVING_MULTIPLIER_RE = re.compile(r"([\d.]+\s?(?:ml|kg|g|L))\s*[x×]", re.I)
+
+
+def simplify_serving(amount: str) -> str:
+    match = SERVING_MULTIPLIER_RE.search(amount)
+    return match.group(1).replace(" ", "") if match else amount
+
+
 def parse_nutrition(text: str) -> dict | None:
     calories = number(CALORIES_RE, text)
     protein = number(PROTEIN_RE, text)
@@ -182,7 +193,7 @@ def main() -> int:
         food = {
             "id": f"lotte-jp-ice-{brand_id}-{product_num}",
             "name": {"ja": name_ja},
-            "serving": amount,
+            "serving": simplify_serving(amount),
             "nutrition": parsed["nutrition"],
             "source": "bundled",
             "description": "Lotte Japan",

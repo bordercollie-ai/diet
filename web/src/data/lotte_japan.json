@@ -94,7 +94,7 @@
     "name": {
       "ja": "モナ王マルチ　バニラ"
     },
-    "serving": "100ml×5個",
+    "serving": "100ml",
     "nutrition": {
       "calories": 127,
       "protein": 2.3,
@@ -130,7 +130,7 @@
     "name": {
       "ja": "雪見だいふく"
     },
-    "serving": "47ml×2個",
+    "serving": "47ml",
     "nutrition": {
       "calories": 83,
       "protein": 1,
@@ -148,7 +148,7 @@
     "name": {
       "ja": "ミニ雪見だいふく"
     },
-    "serving": "30ml×9個",
+    "serving": "30ml",
     "nutrition": {
       "calories": 52,
       "protein": 0.6,
@@ -238,7 +238,7 @@
     "name": {
       "ja": "レディーボーデン　マルチ　カップセレクション"
     },
-    "serving": "バニラ75ml×2個、チョコレート75ml×2個、ストロベリー75ml×2個",
+    "serving": "75ml",
     "nutrition": {
       "calories": 114,
       "protein": 1.7,
@@ -256,7 +256,7 @@
     "name": {
       "ja": "レディーボーデン　マルチ　アーモンドチョコレートバー"
     },
-    "serving": "50ml×6本",
+    "serving": "50ml",
     "nutrition": {
       "calories": 160,
       "protein": 2.1,
@@ -490,7 +490,7 @@
     "name": {
       "ja": "クーリッシュマルチ　バニラ&amp;チョコレート"
     },
-    "serving": "80ml×2種×3個",
+    "serving": "80ml",
     "nutrition": {
       "calories": 84,
       "protein": 1.3,
@@ -508,7 +508,7 @@
     "name": {
       "ja": "クーリッシュマルチ　「カルピス」&amp;「カルピス」巨峰"
     },
-    "serving": "80ml×2種×3個",
+    "serving": "80ml",
     "nutrition": {
       "calories": 75,
       "protein": 0.9,
@@ -562,7 +562,7 @@
     "name": {
       "ja": "Doleもりだくさんフルーツ"
     },
-    "serving": "アップル 25ml×4本; グレープ 25ml×4本; ピーチ 25ml×4本; パイナップル 25ml×4本",
+    "serving": "25ml",
     "nutrition": {
       "calories": 26,
       "protein": 0,
@@ -580,7 +580,7 @@
     "name": {
       "ja": "HERSHEY'Sチョコレートアイスバー"
     },
-    "serving": "53ml×7本",
+    "serving": "53ml",
     "nutrition": {
       "calories": 125,
       "protein": 1.3,
@@ -598,7 +598,7 @@
     "name": {
       "ja": "HERSHEY'Sアーモンドチョコレートアイスバー"
     },
-    "serving": "50ml×6本",
+    "serving": "50ml",
     "nutrition": {
       "calories": 121,
       "protein": 1.4,
@@ -616,7 +616,7 @@
     "name": {
       "ja": "HERSHEY'Sクランチチョコモナカ"
     },
-    "serving": "28ml×8個",
+    "serving": "28ml",
     "nutrition": {
       "calories": 69,
       "protein": 0.8,
@@ -634,7 +634,7 @@
     "name": {
       "ja": "バニラバー北海道"
     },
-    "serving": "45ml×10本",
+    "serving": "45ml",
     "nutrition": {
       "calories": 75,
       "protein": 1.2,
@@ -652,7 +652,7 @@
     "name": {
       "ja": "「カルピス」アイスバー　マルチ"
     },
-    "serving": "43ml×10本",
+    "serving": "43ml",
     "nutrition": {
       "calories": 32,
       "protein": 0.1,
@@ -670,7 +670,7 @@
     "name": {
       "ja": "スイカ&amp;メロンバー"
     },
-    "serving": "70ml×2種×3本",
+    "serving": "70ml",
     "nutrition": {
       "calories": 63,
       "protein": 0.1,
@@ -724,7 +724,7 @@
     "name": {
       "ja": "とろ～りれん乳三昧　苺れん乳"
     },
-    "serving": "65ml×6本",
+    "serving": "65ml",
     "nutrition": {
       "calories": 74,
       "protein": 1.1,
@@ -742,7 +742,7 @@
     "name": {
       "ja": "ガーナショコラアイス＜芳醇バニラ＞"
     },
-    "serving": "55ml×6本",
+    "serving": "55ml",
     "nutrition": {
       "calories": 170,
       "protein": 1.7,
@@ -778,7 +778,7 @@
     "name": {
       "ja": "ガーナチョコ&amp;クッキーサンドマルチ"
     },
-    "serving": "60ml×4個",
+    "serving": "60ml",
     "nutrition": {
       "calories": 208,
       "protein": 2.3,
@@ -796,7 +796,7 @@
     "name": {
       "ja": "ガーナショコラアイス＜深みカカオ＞"
     },
-    "serving": "55ml×6本",
+    "serving": "55ml",
     "nutrition": {
       "calories": 165,
       "protein": 1.6,
@@ -1850,7 +1850,7 @@
     "name": {
       "ja": "アイスポーション　バニラ"
     },
-    "serving": "80ml×10個",
+    "serving": "80ml",
     "nutrition": {
       "calories": 89,
       "protein": 1.6,
@@ -1868,7 +1868,7 @@
     "name": {
       "ja": "アイスポーション　チョコレート"
     },
-    "serving": "80ml×10個",
+    "serving": "80ml",
     "nutrition": {
       "calories": 90,
       "protein": 1.9,
@@ -1886,7 +1886,7 @@
     "name": {
       "ja": "アイスポーション　とけにくいバニラ"
     },
-    "serving": "80ml×10個",
+    "serving": "80ml",
     "nutrition": {
       "calories": 96,
       "protein": 1.7,
@@ -1904,7 +1904,7 @@
     "name": {
       "ja": "ミニ雪見だいふく白"
     },
-    "serving": "30ml×9個",
+    "serving": "30ml",
     "nutrition": {
       "calories": 52,
       "protein": 0.6,
@@ -1922,7 +1922,7 @@
     "name": {
       "ja": "ミニ雪見だいふく紅"
     },
-    "serving": "30ml×9個",
+    "serving": "30ml",
     "nutrition": {
       "calories": 52,
       "protein": 0.6,
@@ -1976,7 +1976,7 @@
     "name": {
       "ja": "ひとくちアイス"
     },
-    "serving": "バニラ 10ml×10個; チョコレート 10ml×10個; ストロベリー 10ml×10個",
+    "serving": "10ml",
     "nutrition": {
       "calories": 14,
       "protein": 0.3,
@@ -1994,7 +1994,7 @@
     "name": {
       "ja": "アイスキャンディー"
     },
-    "serving": "レモンソーダ 25ml×4本; メロンソーダ 25ml×4本; ソーダ 25ml×4本; コーラ 25ml×4本",
+    "serving": "25ml",
     "nutrition": {
       "calories": 23,
       "protein": 0,
@@ -2084,7 +2084,7 @@
     "name": {
       "ja": "ミニ雪見だいふくマンゴー"
     },
-    "serving": "30ml×9個",
+    "serving": "30ml",
     "nutrition": {
       "calories": 48,
       "protein": 0.4,
@@ -2354,7 +2354,7 @@
     "name": {
       "ja": "アイスキャンディ　メロンソーダマルチ"
     },
-    "serving": "50ml×6本",
+    "serving": "50ml",
     "nutrition": {
       "calories": 43,
       "protein": 0,
@@ -2390,7 +2390,7 @@
     "name": {
       "ja": "業務用　バニラバー　マルチ"
     },
-    "serving": "45ml×10本",
+    "serving": "45ml",
     "nutrition": {
       "calories": 75,
       "protein": 1.2,
@@ -2408,7 +2408,7 @@
     "name": {
       "ja": "業務用　「カルピス」アイスバー　マルチ"
     },
-    "serving": "43ml×10本",
+    "serving": "43ml",
     "nutrition": {
       "calories": 32,
       "protein": 0.1,
@@ -2570,7 +2570,7 @@
     "name": {
       "ja": "レディーボーデン チョコレートボール"
     },
-    "serving": "10ml×5個",
+    "serving": "10ml",
     "nutrition": {
       "calories": 33,
       "protein": 0.3,

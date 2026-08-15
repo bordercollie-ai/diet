@@ -94,6 +94,17 @@ def parse_amount(html: str) -> str | None:
     return None
 
 
+# Multi-piece packages (e.g. "80ml × 6個", "45ml × 10本") declare the official
+# nutrition per single piece, not per package; the serving shown should match
+# that single-piece amount, so the "×N本/個/種" multiplier is dropped.
+SERVING_MULTIPLIER_RE = re.compile(r"([\d.]+\s?(?:ml|kg|g|L))\s*[x×]", re.I)
+
+
+def simplify_serving(amount: str) -> str:
+    match = SERVING_MULTIPLIER_RE.search(amount)
+    return match.group(1).replace(" ", "") if match else amount
+
+
 def parse_nutrition(html: str) -> dict | None:
     block = NUTRITION_BLOCK_RE.search(html)
     if not block:
@@ -176,7 +187,7 @@ def main() -> int:
         food = {
             "id": f"meiji-jp-ice-{jan}",
             "name": {"ja": name_ja},
-            "serving": amount,
+            "serving": simplify_serving(amount),
             "nutrition": parsed["nutrition"],
             "source": "bundled",
             "description": "Meiji Japan",
