@@ -81,7 +81,7 @@
       </div>
       <div
         id="calorie-summary"
-        class="flex items-center justify-between my-4 rounded-md bg-card p-4"
+        class="stat-card flex items-center justify-between my-4 rounded-md bg-card p-4"
         role="img"
         aria-label={`${displayNumber(totals.calories)} of ${displayNumber(targets.calories)} kcal, ${caloriePercent}% of target`}
       >
@@ -101,21 +101,21 @@
           </div>
         </div>
       </div>
-      <div class="macro-grid" aria-label="Macronutrient totals">
-        <div class="macro-stat">
-          <span><HamIcon aria-hidden="true" class="size-4" /> Protein</span><strong
-            >{Math.round(totals.protein)} / {Math.round(targets.protein)}</strong
-          >
+      <div class="grid grid-cols-3 gap-2" aria-label="Macronutrient totals">
+        <div class="stat-card grid gap-1 rounded-md bg-card p-2.5 text-center">
+          <span class="flex items-center justify-center gap-1 text-muted-foreground"
+            ><HamIcon aria-hidden="true" class="size-4" /> Protein</span
+          ><strong>{Math.round(totals.protein)} / {Math.round(targets.protein)}</strong>
         </div>
-        <div class="macro-stat">
-          <span><WheatIcon aria-hidden="true" class="size-4" /> Carbs</span><strong
-            >{Math.round(totals.carbohydrates)} / {Math.round(targets.carbohydrates)}</strong
-          >
+        <div class="stat-card grid gap-1 rounded-md bg-card p-2.5 text-center">
+          <span class="flex items-center justify-center gap-1 text-muted-foreground"
+            ><WheatIcon aria-hidden="true" class="size-4" /> Carbs</span
+          ><strong>{Math.round(totals.carbohydrates)} / {Math.round(targets.carbohydrates)}</strong>
         </div>
-        <div class="macro-stat">
-          <span><NutIcon aria-hidden="true" class="size-4" /> Fat</span><strong
-            >{Math.round(totals.fat)} / {Math.round(targets.fat)}</strong
-          >
+        <div class="stat-card grid gap-1 rounded-md bg-card p-2.5 text-center">
+          <span class="flex items-center justify-center gap-1 text-muted-foreground"
+            ><NutIcon aria-hidden="true" class="size-4" /> Fat</span
+          ><strong>{Math.round(totals.fat)} / {Math.round(targets.fat)}</strong>
         </div>
       </div>
     </Card.Content>
