@@ -160,6 +160,36 @@ test("finds a McDonald's Japan food by its English or Japanese name", () => {
   assert.ok(byBrand.some((item) => item.id === "mcd-jp-1210"));
 });
 
+test("bundles Starbucks Japan foods with valid, unique, read-only records", () => {
+  const starbucks = bundledFoods.filter((item) => item.id.startsWith("sbux-jp-"));
+  assert.equal(starbucks.length, 16);
+
+  const ids = new Set(starbucks.map((item) => item.id));
+  assert.equal(ids.size, starbucks.length, "no duplicate Starbucks Japan food IDs");
+
+  for (const item of starbucks) {
+    assert.doesNotThrow(() => validateFood(item), `invalid Starbucks food: ${item.id}`);
+    assert.equal(item.source, "bundled");
+    assert.ok(item.name.ja?.trim(), `missing Japanese name: ${item.id}`);
+    assert.ok(item.name.en?.trim(), `missing English name: ${item.id}`);
+    assert.equal(item.description, "Starbucks Japan", `missing brand description: ${item.id}`);
+    assert.ok(/^(Short|Tall|Grande|Venti), (Hot|Ice)$/.test(item.serving), `unexpected serving format: ${item.id}`);
+    assert.throws(() => updateFood({ foods: [item], mealEntries: [] }, item.id, { serving: "Tall, Hot" }), /read-only/);
+  }
+});
+
+test("finds a Starbucks Japan drink by its English or Japanese name across sizes", () => {
+  const byEnglish = searchFoods(bundledFoods, "Starbucks Latte");
+  const sizes = byEnglish.filter((item) => item.id.startsWith("sbux-jp-4524785000223-"));
+  assert.equal(sizes.length, 4, "expected all four Ice sizes of the Starbucks Latte");
+  assert.equal(sizes.find((item) => item.serving === "Grande, Ice")?.nutrition.calories, 169);
+  // Names embed the size/temperature so distinct sizes remain distinguishable wherever the name alone is shown.
+  assert.ok(sizes.every((item) => item.name.en?.includes(item.serving)));
+
+  const byJapanese = searchFoods(bundledFoods, "スターバックス ラテ");
+  assert.equal(byJapanese.filter((item) => item.id.startsWith("sbux-jp-4524785000223-")).length, 4);
+});
+
 test("creates, edits, deletes, and totals scaled meal entries by date", () => {
   const entry = createMealEntry({
     date: "2026-08-12",
