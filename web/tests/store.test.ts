@@ -58,6 +58,21 @@ test("stable IDs and meal nutrition snapshots survive later food edits", () => {
   assert.equal(updated.mealEntries[0].nutrition.calories, entry.nutrition.calories);
 });
 
+test("stamps updatedAt on creation and bumps it on every edit", () => {
+  const created = createFood({
+    name: { en: "Yogurt" },
+    serving: "1 cup",
+    nutrition: { calories: 100, protein: 10, fat: 2, carbohydrates: 8 },
+    source: "user"
+  });
+  assert.equal(typeof created.updatedAt, "string");
+  const olderUpdatedAt = "2020-01-01T00:00:00.000Z";
+  const backdated = { foods: [{ ...created, updatedAt: olderUpdatedAt }], mealEntries: [] };
+  const updated = updateFood(backdated, created.id, { serving: "2 cups" });
+  assert.notEqual(updated.foods[0].updatedAt, olderUpdatedAt);
+  assert.ok(new Date(updated.foods[0].updatedAt!).getTime() > new Date(olderUpdatedAt).getTime());
+});
+
 test("bundled foods cannot be edited or deleted", () => {
   const bundled = { ...data, foods: [food("bundled")] };
   assert.throws(() => updateFood(bundled, "bundled-1", { serving: "200 ml" }), /read-only/);

@@ -137,30 +137,27 @@
             onclick={() => onEditMeal(entry.id)}
           >
             <div class="flex items-center justify-between">
-              <span class="meal-name">{mealName}</span>
+              <span>{mealName}</span>
               <time datetime={`${entry.date}T${entry.time}`} class="text-muted-foreground text-sm">{entry.time}</time>
             </div>
-            <strong class="text-xl leading-[1.1]">{displayNumber(entry.nutrition.calories)} kcal</strong>
-            <span class="grid grid-cols-3 gap-2">
-              <span class="grid gap-0.5"
-                ><span class="meal-macro-label"><HamIcon aria-hidden="true" class="size-3.5" /> Protein</span><strong
-                  class="text-sm font-normal">{displayNumber(entry.nutrition.protein)} g</strong
-                ></span
-              >
-              <span class="grid gap-0.5"
-                ><span class="meal-macro-label"><WheatIcon aria-hidden="true" class="size-3.5" /> Carbs</span><strong
-                  class="text-sm font-normal">{displayNumber(entry.nutrition.carbohydrates)} g</strong
-                ></span
-              >
-              <span class="grid gap-0.5"
-                ><span class="meal-macro-label"><NutIcon aria-hidden="true" class="size-3.5" /> Fat</span><strong
-                  class="text-sm font-normal">{displayNumber(entry.nutrition.fat)} g</strong
-                ></span
-              >
+            <strong class="text-lg leading-[1.1]">{displayNumber(entry.nutrition.calories)} kcal</strong>
+            <span class="flex items-center justify-between gap-2">
+              <div class="flex items-center gap-1 text-muted-foreground">
+                <span class="text-xs"><HamIcon aria-hidden="true" class="size-4" /> </span>
+                <strong class="text-sm font-normal">{displayNumber(entry.nutrition.protein)} g</strong>
+              </div>
+              <div class="flex items-center gap-1 text-muted-foreground">
+                <span class="text-xs"><WheatIcon aria-hidden="true" class="size-4" /></span>
+                <strong class="text-sm font-normal">{displayNumber(entry.nutrition.carbohydrates)} g</strong>
+              </div>
+              <div class="flex items-center gap-1 text-muted-foreground">
+                <span class="text-xs"><NutIcon aria-hidden="true" class="size-4" /> </span>
+                <strong class="text-sm font-normal">{displayNumber(entry.nutrition.fat)} g</strong>
+              </div>
             </span>
           </button>
         {:else}
-          <p>No meals recorded.</p>
+          <p>No meals recorded today.</p>
         {/each}
       </div>
     </div>

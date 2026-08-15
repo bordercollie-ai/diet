@@ -10,6 +10,7 @@
   import { fade } from 'svelte/transition'
   import {
     bundledFoods,
+    createMealEntry,
     dailyTotals,
     deleteMealEntry,
     estimateMaintenanceCalories,
@@ -282,6 +283,19 @@
     error = message
   }
 
+  async function addFoodToMeal(food: Food) {
+    try {
+      const entry = createMealEntry(
+        { date: today, time: new Date().toTimeString().slice(0, 5), foodId: food.id, quantity: 1 },
+        food,
+      )
+      await save({ ...data, mealEntries: [...data.mealEntries, entry] })
+      showToast('Added to today\'s meal.')
+    } catch (cause) {
+      error = cause instanceof Error ? cause.message : 'Unable to add meal.'
+    }
+  }
+
   async function removeMeal(id: string) {
     await save(deleteMealEntry(data, id))
   }
@@ -416,7 +430,14 @@
     onDelete={removeMeal}
   />
 
-  <FoodSheet bind:this={foodSheet} {data} onSave={save} onSaved={handleFoodSaved} onError={handleFoodError} />
+  <FoodSheet
+    bind:this={foodSheet}
+    {data}
+    onSave={save}
+    onSaved={handleFoodSaved}
+    onError={handleFoodError}
+    onAddToMeal={addFoodToMeal}
+  />
 </main>
 
 <nav class="fixed inset-x-0 bottom-0 z-30 border-t bg-background backdrop-blur pb-[env(safe-area-inset-bottom,0px)]">
