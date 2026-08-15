@@ -53,6 +53,12 @@
   const foodResults = $derived(matchingFoods.slice(0, foodPage * FOOD_PAGE_SIZE))
   const creatingMealFood = $derived(foodSearch.trim() !== '' && matchingFoods.length === 0)
 
+  // Tracks an in-flight "Add food" request from the search step. `creatingMealFood`
+  // itself can't be used to gate notifyFoodSaved: by the time it runs, the new food
+  // is already in `data`, so `matchingFoods` matches it and `creatingMealFood` has
+  // already flipped back to false.
+  let awaitingCreatedFood = $state(false)
+
   function handleResultsScroll(event: Event) {
     const el = event.currentTarget as HTMLElement
     if (el.scrollTop + el.clientHeight >= el.scrollHeight - 200) foodPage += 1
@@ -75,6 +81,7 @@
     time = new Date().toTimeString().slice(0, 5)
     quantity = 1
     error = ''
+    awaitingCreatedFood = false
     open = true
   }
 
@@ -85,6 +92,7 @@
     date = entry.date
     time = entry.time
     error = ''
+    awaitingCreatedFood = false
     if (entry.foodId === '') {
       temporaryMeal = true
       temporaryName = entry.foodName ?? 'other'
@@ -105,6 +113,25 @@
     open = true
   }
 
+  // Opens directly to the detail step for a specific food, defaulting the date to
+  // today. Used to add a food to today's meal straight from its detail/edit view.
+  export function openForFood(foodId: string) {
+    const food = data.foods.find((item) => item.id === foodId)
+    if (!food) return
+    editingMealId = ''
+    temporaryMeal = false
+    date = new Date().toISOString().slice(0, 10)
+    selectedFoodId = food.id
+    foodSearch = food.name.en ?? Object.values(food.name)[0]
+    foodPage = 1
+    quantity = 1
+    time = new Date().toTimeString().slice(0, 5)
+    error = ''
+    awaitingCreatedFood = false
+    step = 'detail'
+    open = true
+  }
+
   export function openTemporary() {
     editingMealId = ''
     temporaryMeal = true
@@ -115,13 +142,15 @@
     temporaryCarbohydrates = 0
     time = new Date().toTimeString().slice(0, 5)
     error = ''
+    awaitingCreatedFood = false
     open = true
   }
 
   // Called after a food is created from the FoodSheet; only relevant if that
   // creation was triggered from this component's own "no match" search state.
   export function notifyFoodSaved(food: Food) {
-    if (!creatingMealFood) return
+    if (!awaitingCreatedFood) return
+    awaitingCreatedFood = false
     selectedFoodId = food.id
     foodSearch = food.name.en ?? foodSearch
     step = 'detail'
@@ -321,7 +350,14 @@
             </div>
           {/if}
           {#if creatingMealFood}
-            <Button type="button" variant="outline" onclick={() => onCreateFood(foodSearch.trim())}>Add food</Button>
+            <Button
+              type="button"
+              variant="outline"
+              onclick={() => {
+                awaitingCreatedFood = true
+                onCreateFood(foodSearch.trim())
+              }}>Add food</Button
+            >
           {/if}
         </div>
       {:else if selectedFood}

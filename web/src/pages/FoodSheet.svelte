@@ -4,17 +4,20 @@
   import { Input } from '$lib/components/ui/input'
   import { Label } from '$lib/components/ui/label'
   import * as Sheet from '$lib/components/ui/sheet'
+  import PlusIcon from '@lucide/svelte/icons/plus'
 
   let {
     data,
     onSave,
     onSaved,
     onError,
+    onAddToMeal,
   }: {
     data: AppData
     onSave: (next: AppData) => Promise<void>
     onSaved?: (food: Food) => void
     onError?: (message: string) => void
+    onAddToMeal?: (food: Food) => void
   } = $props()
 
   let open = $state(false)
@@ -52,6 +55,13 @@
     open = true
   }
 
+  function handleAddToMeal() {
+    const food = data.foods.find((item) => item.id === editingFoodId)
+    if (!food) return
+    open = false
+    onAddToMeal?.(food)
+  }
+
   export function openWithName(name: string) {
     reset()
     foodName = name
@@ -85,7 +95,7 @@
 <Sheet.Root bind:open>
   <Sheet.Content side="right" class="gap-0 data-[side=right]:w-full data-[side=right]:sm:max-w-none">
     <Sheet.Header>
-      <Sheet.Title>{editingFoodId ? 'Edit food' : 'Add food'}</Sheet.Title>
+      <Sheet.Title>{editingFoodId ? 'Custom food' : 'Add food'}</Sheet.Title>
       <Sheet.Description>Enter the food's serving size and nutrition per serving.</Sheet.Description>
     </Sheet.Header>
     <div class="flex-1 overflow-y-auto px-6 pb-6">
@@ -119,6 +129,12 @@
           <Input id="food-carbohydrates" type="number" min="0" step="0.1" bind:value={carbohydrates} required />
         </div>
         <Button type="submit">{editingFoodId ? 'Update food' : 'Save food'}</Button>
+        {#if editingFoodId}
+          <Button type="button" variant="outline" onclick={handleAddToMeal}>
+            <PlusIcon aria-hidden="true" />
+            Add to today's meal
+          </Button>
+        {/if}
       </form>
     </div>
   </Sheet.Content>

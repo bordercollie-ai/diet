@@ -29,6 +29,10 @@ export type Food = {
   serving: string;
   nutrition: Nutrition;
   source: "bundled" | "user";
+  // ISO timestamp of creation/last edit. Absent on data saved before this
+  // field existed or on bundled foods; used to sort the custom foods list by
+  // most recently updated first.
+  updatedAt?: string;
 };
 
 export type MealEntry = {
@@ -116,7 +120,8 @@ export function validateFood(food: unknown): asserts food is Food {
       typeof value.serving !== "string" || !value.serving.trim() ||
       !validNutrition(value.nutrition) ||
       (value.source !== "bundled" && value.source !== "user") ||
-      (value.description !== undefined && typeof value.description !== "string")) invalid("food");
+      (value.description !== undefined && typeof value.description !== "string") ||
+      (value.updatedAt !== undefined && typeof value.updatedAt !== "string")) invalid("food");
 }
 
 export function validateMealEntry(entry: unknown, foods: Food[]): asserts entry is MealEntry {
@@ -142,7 +147,7 @@ export function validateAppData(data: unknown): asserts data is AppData {
 }
 
 export function createFood(input: Omit<Food, "id"> & { id?: string }): Food {
-  const food = { ...input, id: input.id ?? crypto.randomUUID() };
+  const food = { ...input, id: input.id ?? crypto.randomUUID(), updatedAt: input.updatedAt ?? new Date().toISOString() };
   validateFood(food);
   return copy(food);
 }
@@ -187,7 +192,7 @@ export function updateFood(data: AppData, id: string, changes: Partial<Omit<Food
   const food = data.foods.find((item) => item.id === id);
   if (!food) invalid("food not found");
   if (food.source === "bundled") invalid("bundled food is read-only");
-  const next = { ...food, ...changes };
+  const next = { ...food, ...changes, updatedAt: new Date().toISOString() };
   validateFood(next);
   return { ...copy(data), foods: data.foods.map((item) => item.id === id ? next : item) };
 }

@@ -14,6 +14,12 @@
   } = $props()
 
   const displayNumber = roundForDisplay
+
+  const customFoods = $derived(
+    data.foods
+      .filter((food) => food.source === 'user')
+      .toSorted((a, b) => (b.updatedAt ?? '').localeCompare(a.updatedAt ?? '')),
+  )
 </script>
 
 <div id="foods-panel" role="tabpanel" aria-labelledby="foods-tab">
@@ -23,7 +29,7 @@
   </Button>
 
   <div class="mt-4 grid gap-3">
-    {#each data.foods.filter((food) => food.source === 'user') as food}
+    {#each customFoods as food}
       <Button
         variant="secondary"
         class="h-auto w-full min-w-0 flex-col items-stretch gap-0 rounded-md py-2 px-4 text-left whitespace-normal"

@@ -56,6 +56,7 @@
   let mealSheet: {
     openForNew: () => void
     openForEdit: (id: string) => void
+    openForFood: (foodId: string) => void
     openTemporary: () => void
     notifyFoodSaved: (food: Food) => void
   }
@@ -282,6 +283,10 @@
     error = message
   }
 
+  function addFoodToMeal(food: Food) {
+    mealSheet.openForFood(food.id)
+  }
+
   async function removeMeal(id: string) {
     await save(deleteMealEntry(data, id))
   }
@@ -416,7 +421,14 @@
     onDelete={removeMeal}
   />
 
-  <FoodSheet bind:this={foodSheet} {data} onSave={save} onSaved={handleFoodSaved} onError={handleFoodError} />
+  <FoodSheet
+    bind:this={foodSheet}
+    {data}
+    onSave={save}
+    onSaved={handleFoodSaved}
+    onError={handleFoodError}
+    onAddToMeal={addFoodToMeal}
+  />
 </main>
 
 <nav class="fixed inset-x-0 bottom-0 z-30 border-t bg-background backdrop-blur pb-[env(safe-area-inset-bottom,0px)]">
