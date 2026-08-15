@@ -18,3 +18,19 @@ Object.defineProperty(window, 'matchMedia', {
   value: () => ({ matches: false, addListener: () => {}, removeListener: () => {} }),
   configurable: true
 })
+
+// jsdom doesn't implement the Web Animations API; Svelte's `transition:fade`
+// (used e.g. by the toast) calls `element.animate(...)`, which would otherwise
+// throw an uncaught exception during/after any test that triggers it.
+if (typeof Element !== 'undefined' && !Element.prototype.animate) {
+  Element.prototype.animate = () =>
+    ({
+      finished: Promise.resolve(),
+      cancel: () => {},
+      play: () => {},
+      pause: () => {},
+      finish: () => {},
+      addEventListener: () => {},
+      removeEventListener: () => {}
+    }) as unknown as Animation
+}

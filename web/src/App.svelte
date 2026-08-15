@@ -10,6 +10,7 @@
   import { fade } from 'svelte/transition'
   import {
     bundledFoods,
+    createMealEntry,
     dailyTotals,
     deleteMealEntry,
     estimateMaintenanceCalories,
@@ -56,7 +57,6 @@
   let mealSheet: {
     openForNew: () => void
     openForEdit: (id: string) => void
-    openForFood: (foodId: string) => void
     openTemporary: () => void
     notifyFoodSaved: (food: Food) => void
   }
@@ -283,8 +283,17 @@
     error = message
   }
 
-  function addFoodToMeal(food: Food) {
-    mealSheet.openForFood(food.id)
+  async function addFoodToMeal(food: Food) {
+    try {
+      const entry = createMealEntry(
+        { date: today, time: new Date().toTimeString().slice(0, 5), foodId: food.id, quantity: 1 },
+        food,
+      )
+      await save({ ...data, mealEntries: [...data.mealEntries, entry] })
+      showToast('Added to today\'s meal.')
+    } catch (cause) {
+      error = cause instanceof Error ? cause.message : 'Unable to add meal.'
+    }
   }
 
   async function removeMeal(id: string) {

@@ -160,13 +160,10 @@ test('adds a custom food to today\'s meal from its detail/edit view', async () =
   await fireEvent.input(screen.getByLabelText('Calories'), { target: { value: '200' } })
   await fireEvent.click(screen.getByRole('button', { name: 'Save food' }))
 
-  // Open the food's detail/edit view and add it to today's meal from there.
+  // Open the food's detail/edit view and add it to today's meal directly — no
+  // quantity/time step, it just records one serving at the current time.
   await fireEvent.click(await screen.findByRole('button', { name: /Edit Protein Bar/ }))
   await fireEvent.click(await screen.findByRole('button', { name: "Add to today's meal" }))
-
-  // The meal sheet should open directly on the detail step, ready to record.
-  expect(await screen.findByRole('heading', { name: 'Protein Bar' })).toBeTruthy()
-  await fireEvent.click(screen.getByRole('button', { name: 'Add meal' }))
 
   // Back on the summary tab, the meal should now be recorded for today.
   await fireEvent.click(screen.getByRole('tab', { name: 'Summary' }))

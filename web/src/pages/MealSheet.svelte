@@ -113,25 +113,6 @@
     open = true
   }
 
-  // Opens directly to the detail step for a specific food, defaulting the date to
-  // today. Used to add a food to today's meal straight from its detail/edit view.
-  export function openForFood(foodId: string) {
-    const food = data.foods.find((item) => item.id === foodId)
-    if (!food) return
-    editingMealId = ''
-    temporaryMeal = false
-    date = new Date().toISOString().slice(0, 10)
-    selectedFoodId = food.id
-    foodSearch = food.name.en ?? Object.values(food.name)[0]
-    foodPage = 1
-    quantity = 1
-    time = new Date().toTimeString().slice(0, 5)
-    error = ''
-    awaitingCreatedFood = false
-    step = 'detail'
-    open = true
-  }
-
   export function openTemporary() {
     editingMealId = ''
     temporaryMeal = true
