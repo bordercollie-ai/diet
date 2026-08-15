@@ -26,7 +26,7 @@ jobs:
           cache-dependency-path: web/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
         working-directory: web
-      - run: pnpm run build -- --base=/diet/preview/
+      - run: pnpm exec vite build --base=/diet/preview/
         working-directory: web
       - name: Checkout gh-pages
         uses: actions/checkout@v7
