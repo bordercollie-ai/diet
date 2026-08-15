@@ -1,16 +1,18 @@
-name: Deploy to GitHub Pages
+name: Deploy branch preview to GitHub Pages
 
+# Manually run this from the Actions tab, choosing the branch you want to
+# preview. It publishes that branch's build under
+# https://bordercollie-ai.github.io/diet/preview/, overwriting the previous
+# preview. Serving over HTTPS is required for phone testing of APIs like
+# navigator.share.
 on:
-  push:
-    branches: [main]
-    paths: ["web/**"]
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  deploy:
+  deploy-preview:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -24,17 +26,19 @@ jobs:
           cache-dependency-path: web/pnpm-lock.yaml
       - run: pnpm install --frozen-lockfile
         working-directory: web
-      - run: pnpm run build
+      - run: pnpm run build -- --base=/diet/preview/
         working-directory: web
       - name: Checkout gh-pages
         uses: actions/checkout@v7
         with:
           ref: gh-pages
           path: gh-pages
-      - name: Publish dist, preserving preview/ deployments
+      - name: Publish preview build
         working-directory: gh-pages
         run: |
-          rsync -a --delete --exclude=.git --exclude=preview ../web/dist/ ./
+          rm -rf preview
+          mkdir -p preview
+          rsync -a ../web/dist/ preview/
           touch .nojekyll
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -43,7 +47,11 @@ jobs:
             echo "No changes to publish."
             exit 0
           fi
-          git commit -q -m "deploy: ${GITHUB_SHA}"
+          git commit -q -m "deploy preview: ${{ github.ref_name }} (${GITHUB_SHA})"
           git push "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Print preview URL
+        run: |
+          echo "Preview URL: https://bordercollie-ai.github.io/diet/preview/"
+
