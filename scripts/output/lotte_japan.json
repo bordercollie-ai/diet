@@ -1,0 +1,2658 @@
+[
+  {
+    "id": "lotte-jp-ice-01-01",
+    "name": {
+      "ja": "爽　バニラ＜夏期限定＞"
+    },
+    "serving": "190ml",
+    "nutrition": {
+      "calories": 215,
+      "protein": 3,
+      "fat": 10.6,
+      "carbohydrates": 26.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.16
+    }
+  },
+  {
+    "id": "lotte-jp-ice-01-32",
+    "name": {
+      "ja": "爽　練乳いちご＜夏期限定＞"
+    },
+    "serving": "185ml",
+    "nutrition": {
+      "calories": 130,
+      "protein": 1.6,
+      "fat": 1.1,
+      "carbohydrates": 28.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.084
+    }
+  },
+  {
+    "id": "lotte-jp-ice-01-70",
+    "name": {
+      "ja": "爽　ひんやりみかん"
+    },
+    "serving": "185ml",
+    "nutrition": {
+      "calories": 133,
+      "protein": 0,
+      "fat": 1.2,
+      "carbohydrates": 30.5
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.033
+    }
+  },
+  {
+    "id": "lotte-jp-ice-01-71",
+    "name": {
+      "ja": "爽　夏色ラムネ"
+    },
+    "serving": "185ml",
+    "nutrition": {
+      "calories": 157,
+      "protein": 0,
+      "fat": 3.2,
+      "carbohydrates": 31.9
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.035
+    }
+  },
+  {
+    "id": "lotte-jp-ice-02-01",
+    "name": {
+      "ja": "モナ王　バニラ"
+    },
+    "serving": "160ml",
+    "nutrition": {
+      "calories": 232,
+      "protein": 3.6,
+      "fat": 10.6,
+      "carbohydrates": 30.5
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.19
+    }
+  },
+  {
+    "id": "lotte-jp-ice-02-02",
+    "name": {
+      "ja": "モナ王マルチ　バニラ"
+    },
+    "serving": "100ml×5個",
+    "nutrition": {
+      "calories": 127,
+      "protein": 2.3,
+      "fat": 5.6,
+      "carbohydrates": 17
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.095
+    }
+  },
+  {
+    "id": "lotte-jp-ice-02-12",
+    "name": {
+      "ja": "モナ王＜クランキー＞"
+    },
+    "serving": "160ml",
+    "nutrition": {
+      "calories": 312,
+      "protein": 3.6,
+      "fat": 17.4,
+      "carbohydrates": 35.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.19
+    }
+  },
+  {
+    "id": "lotte-jp-ice-03-01",
+    "name": {
+      "ja": "雪見だいふく"
+    },
+    "serving": "47ml×2個",
+    "nutrition": {
+      "calories": 83,
+      "protein": 1,
+      "fat": 2.6,
+      "carbohydrates": 13.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.045
+    }
+  },
+  {
+    "id": "lotte-jp-ice-03-02",
+    "name": {
+      "ja": "ミニ雪見だいふく"
+    },
+    "serving": "30ml×9個",
+    "nutrition": {
+      "calories": 52,
+      "protein": 0.6,
+      "fat": 1.8,
+      "carbohydrates": 8.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.027
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-01",
+    "name": {
+      "ja": "レディーボーデン　パイント　バニラ"
+    },
+    "serving": "470ml",
+    "nutrition": {
+      "calories": 712,
+      "protein": 10.9,
+      "fat": 44,
+      "carbohydrates": 68.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.32
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-02",
+    "name": {
+      "ja": "レディーボーデン　パイント　チョコレート"
+    },
+    "serving": "470ml",
+    "nutrition": {
+      "calories": 750,
+      "protein": 12.4,
+      "fat": 47.3,
+      "carbohydrates": 69.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.48
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-03",
+    "name": {
+      "ja": "レディーボーデン　パイント　ストロベリー"
+    },
+    "serving": "470ml",
+    "nutrition": {
+      "calories": 612,
+      "protein": 8.7,
+      "fat": 31.9,
+      "carbohydrates": 72.5
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.25
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-04",
+    "name": {
+      "ja": "レディーボーデン　パイント　グリーンティー"
+    },
+    "serving": "470ml",
+    "nutrition": {
+      "calories": 647,
+      "protein": 10.6,
+      "fat": 37.5,
+      "carbohydrates": 66.5
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.31
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-08",
+    "name": {
+      "ja": "レディーボーデン　マルチ　カップセレクション"
+    },
+    "serving": "バニラ75ml×2個、チョコレート75ml×2個、ストロベリー75ml×2個",
+    "nutrition": {
+      "calories": 114,
+      "protein": 1.7,
+      "fat": 7,
+      "carbohydrates": 11
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.056
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-25",
+    "name": {
+      "ja": "レディーボーデン　マルチ　アーモンドチョコレートバー"
+    },
+    "serving": "50ml×6本",
+    "nutrition": {
+      "calories": 160,
+      "protein": 2.1,
+      "fat": 11.1,
+      "carbohydrates": 13
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.04
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-26",
+    "name": {
+      "ja": "レディーボーデン　ミニカップ　バニラ"
+    },
+    "serving": "120ml",
+    "nutrition": {
+      "calories": 182,
+      "protein": 2.8,
+      "fat": 11.2,
+      "carbohydrates": 17.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.082
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-28",
+    "name": {
+      "ja": "レディーボーデン　ミニカップ　コーヒー"
+    },
+    "serving": "120ml",
+    "nutrition": {
+      "calories": 177,
+      "protein": 2.9,
+      "fat": 10.6,
+      "carbohydrates": 17.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.096
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-45",
+    "name": {
+      "ja": "レディーボーデン　ミニカップ　チョコレートチップ"
+    },
+    "serving": "120ml",
+    "nutrition": {
+      "calories": 220,
+      "protein": 3.3,
+      "fat": 14.3,
+      "carbohydrates": 19.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.13
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-46",
+    "name": {
+      "ja": "レディーボーデン　ミニカップ　クッキー&amp;クリーム"
+    },
+    "serving": "120ml",
+    "nutrition": {
+      "calories": 166,
+      "protein": 3,
+      "fat": 9.1,
+      "carbohydrates": 18.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.19
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-51",
+    "name": {
+      "ja": "レディーボーデン　アーモンドチョコレートバー"
+    },
+    "serving": "81ml",
+    "nutrition": {
+      "calories": 241,
+      "protein": 3.2,
+      "fat": 16.7,
+      "carbohydrates": 19.5
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.077
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-52",
+    "name": {
+      "ja": "レディーボーデン　クッキークランチキャラメルバー"
+    },
+    "serving": "81ml",
+    "nutrition": {
+      "calories": 246,
+      "protein": 2.1,
+      "fat": 16.6,
+      "carbohydrates": 22.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.12
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-56",
+    "name": {
+      "ja": "レディーボーデン　ミニカップ　ミルクリッチ"
+    },
+    "serving": "120ml",
+    "nutrition": {
+      "calories": 178,
+      "protein": 2.8,
+      "fat": 8.6,
+      "carbohydrates": 22.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.14
+    }
+  },
+  {
+    "id": "lotte-jp-ice-05-58",
+    "name": {
+      "ja": "レディーボーデン　ミニカップ　抹茶"
+    },
+    "serving": "120ml",
+    "nutrition": {
+      "calories": 154,
+      "protein": 2.8,
+      "fat": 8.1,
+      "carbohydrates": 17.3
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.079
+    }
+  },
+  {
+    "id": "lotte-jp-ice-07-01",
+    "name": {
+      "ja": "クーリッシュ　バニラ＜夏期限定＞"
+    },
+    "serving": "140ml",
+    "nutrition": {
+      "calories": 139,
+      "protein": 2.1,
+      "fat": 6.2,
+      "carbohydrates": 18.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.11
+    }
+  },
+  {
+    "id": "lotte-jp-ice-07-21",
+    "name": {
+      "ja": "クーリッシュ　ベルギーチョコレート＜夏期限定＞"
+    },
+    "serving": "140ml",
+    "nutrition": {
+      "calories": 125,
+      "protein": 1.8,
+      "fat": 4.6,
+      "carbohydrates": 19.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.071
+    }
+  },
+  {
+    "id": "lotte-jp-ice-07-31",
+    "name": {
+      "ja": "クーリッシュGreen　バニラ"
+    },
+    "serving": "135ml",
+    "nutrition": {
+      "calories": 143,
+      "protein": 1.1,
+      "fat": 7.3,
+      "carbohydrates": 18.3
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.26
+    }
+  },
+  {
+    "id": "lotte-jp-ice-07-40",
+    "name": {
+      "ja": "クーリッシュGreen　ストロベリー"
+    },
+    "serving": "135ml",
+    "nutrition": {
+      "calories": 127,
+      "protein": 0.8,
+      "fat": 4,
+      "carbohydrates": 21.9
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.18
+    }
+  },
+  {
+    "id": "lotte-jp-ice-07-41",
+    "name": {
+      "ja": "クーリッシュマルチ　バニラ&amp;チョコレート"
+    },
+    "serving": "80ml×2種×3個",
+    "nutrition": {
+      "calories": 84,
+      "protein": 1.3,
+      "fat": 3.7,
+      "carbohydrates": 11.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.067
+    }
+  },
+  {
+    "id": "lotte-jp-ice-07-80",
+    "name": {
+      "ja": "クーリッシュマルチ　「カルピス」&amp;「カルピス」巨峰"
+    },
+    "serving": "80ml×2種×3個",
+    "nutrition": {
+      "calories": 75,
+      "protein": 0.9,
+      "fat": 2.3,
+      "carbohydrates": 12.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.051
+    }
+  },
+  {
+    "id": "lotte-jp-ice-07-95",
+    "name": {
+      "ja": "クーリッシュ　梨"
+    },
+    "serving": "135ml",
+    "nutrition": {
+      "calories": 113,
+      "protein": 0.1,
+      "fat": 2.4,
+      "carbohydrates": 22.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0086
+    }
+  },
+  {
+    "id": "lotte-jp-ice-07-96",
+    "name": {
+      "ja": "クーリッシュ　コーラフロート"
+    },
+    "serving": "135ml",
+    "nutrition": {
+      "calories": 122,
+      "protein": 0.8,
+      "fat": 4.2,
+      "carbohydrates": 20
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.048
+    }
+  },
+  {
+    "id": "lotte-jp-ice-09-01",
+    "name": {
+      "ja": "Doleもりだくさんフルーツ"
+    },
+    "serving": "アップル 25ml×4本; グレープ 25ml×4本; ピーチ 25ml×4本; パイナップル 25ml×4本",
+    "nutrition": {
+      "calories": 26,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 6.5
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0064
+    }
+  },
+  {
+    "id": "lotte-jp-ice-10-01",
+    "name": {
+      "ja": "HERSHEY'Sチョコレートアイスバー"
+    },
+    "serving": "53ml×7本",
+    "nutrition": {
+      "calories": 125,
+      "protein": 1.3,
+      "fat": 8.3,
+      "carbohydrates": 11.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.061
+    }
+  },
+  {
+    "id": "lotte-jp-ice-10-02",
+    "name": {
+      "ja": "HERSHEY'Sアーモンドチョコレートアイスバー"
+    },
+    "serving": "50ml×6本",
+    "nutrition": {
+      "calories": 121,
+      "protein": 1.4,
+      "fat": 8.2,
+      "carbohydrates": 10.3
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.049
+    }
+  },
+  {
+    "id": "lotte-jp-ice-10-03",
+    "name": {
+      "ja": "HERSHEY'Sクランチチョコモナカ"
+    },
+    "serving": "28ml×8個",
+    "nutrition": {
+      "calories": 69,
+      "protein": 0.8,
+      "fat": 4,
+      "carbohydrates": 7.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.032
+    }
+  },
+  {
+    "id": "lotte-jp-ice-11-01",
+    "name": {
+      "ja": "バニラバー北海道"
+    },
+    "serving": "45ml×10本",
+    "nutrition": {
+      "calories": 75,
+      "protein": 1.2,
+      "fat": 4.4,
+      "carbohydrates": 7.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.039
+    }
+  },
+  {
+    "id": "lotte-jp-ice-13-02",
+    "name": {
+      "ja": "「カルピス」アイスバー　マルチ"
+    },
+    "serving": "43ml×10本",
+    "nutrition": {
+      "calories": 32,
+      "protein": 0.1,
+      "fat": 0.4,
+      "carbohydrates": 7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.016
+    }
+  },
+  {
+    "id": "lotte-jp-ice-15-01",
+    "name": {
+      "ja": "スイカ&amp;メロンバー"
+    },
+    "serving": "70ml×2種×3本",
+    "nutrition": {
+      "calories": 63,
+      "protein": 0.1,
+      "fat": 0.3,
+      "carbohydrates": 15.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.037
+    }
+  },
+  {
+    "id": "lotte-jp-ice-15-03",
+    "name": {
+      "ja": "BIGスイカバー"
+    },
+    "serving": "120ml",
+    "nutrition": {
+      "calories": 112,
+      "protein": 0.1,
+      "fat": 0.8,
+      "carbohydrates": 26.3
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.064
+    }
+  },
+  {
+    "id": "lotte-jp-ice-17-05",
+    "name": {
+      "ja": "とろ～りれん乳三昧　練乳ミルク"
+    },
+    "serving": "90ml",
+    "nutrition": {
+      "calories": 159,
+      "protein": 3,
+      "fat": 7.3,
+      "carbohydrates": 20.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.15
+    }
+  },
+  {
+    "id": "lotte-jp-ice-17-06",
+    "name": {
+      "ja": "とろ～りれん乳三昧　苺れん乳"
+    },
+    "serving": "65ml×6本",
+    "nutrition": {
+      "calories": 74,
+      "protein": 1.1,
+      "fat": 1.7,
+      "carbohydrates": 13.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.07
+    }
+  },
+  {
+    "id": "lotte-jp-ice-21-01",
+    "name": {
+      "ja": "ガーナショコラアイス＜芳醇バニラ＞"
+    },
+    "serving": "55ml×6本",
+    "nutrition": {
+      "calories": 170,
+      "protein": 1.7,
+      "fat": 12,
+      "carbohydrates": 13.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.049
+    }
+  },
+  {
+    "id": "lotte-jp-ice-21-02",
+    "name": {
+      "ja": "ガーナチョコ&amp;クッキーサンド"
+    },
+    "serving": "76ml",
+    "nutrition": {
+      "calories": 259,
+      "protein": 2.9,
+      "fat": 16.8,
+      "carbohydrates": 24.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.11
+    }
+  },
+  {
+    "id": "lotte-jp-ice-21-03",
+    "name": {
+      "ja": "ガーナチョコ&amp;クッキーサンドマルチ"
+    },
+    "serving": "60ml×4個",
+    "nutrition": {
+      "calories": 208,
+      "protein": 2.3,
+      "fat": 13,
+      "carbohydrates": 20.3
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.1
+    }
+  },
+  {
+    "id": "lotte-jp-ice-21-14",
+    "name": {
+      "ja": "ガーナショコラアイス＜深みカカオ＞"
+    },
+    "serving": "55ml×6本",
+    "nutrition": {
+      "calories": 165,
+      "protein": 1.6,
+      "fat": 12.2,
+      "carbohydrates": 12.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.03
+    }
+  },
+  {
+    "id": "lotte-jp-ice-34-02",
+    "name": {
+      "ja": "ゼロ　アイスケーキ"
+    },
+    "serving": "44ml",
+    "nutrition": {
+      "calories": 104,
+      "protein": 1.6,
+      "fat": 6.8,
+      "carbohydrates": 13.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.11,
+      "fiber": 2.4,
+      "sugar": 0
+    }
+  },
+  {
+    "id": "lotte-jp-ice-34-03",
+    "name": {
+      "ja": "ゼロ　ビスケットクランチチョコバー"
+    },
+    "serving": "75ml",
+    "nutrition": {
+      "calories": 159,
+      "protein": 2,
+      "fat": 13.2,
+      "carbohydrates": 14.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.13,
+      "fiber": 2.9,
+      "sugar": 0
+    }
+  },
+  {
+    "id": "lotte-jp-ice-34-05",
+    "name": {
+      "ja": "ゼロ　ビスケットクランチチョコバー　香る焙煎抹茶"
+    },
+    "serving": "75ml",
+    "nutrition": {
+      "calories": 155,
+      "protein": 1.9,
+      "fat": 12.7,
+      "carbohydrates": 14.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.11,
+      "fiber": 2.9,
+      "sugar": 0
+    }
+  },
+  {
+    "id": "lotte-jp-ice-34-11",
+    "name": {
+      "ja": "ゼロ　ミニカップマカダミアナッツ"
+    },
+    "serving": "120ml",
+    "nutrition": {
+      "calories": 173,
+      "protein": 2.1,
+      "fat": 13.7,
+      "carbohydrates": 18.3
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.19,
+      "fiber": 4.1,
+      "sugar": 0
+    }
+  },
+  {
+    "id": "lotte-jp-ice-34-12",
+    "name": {
+      "ja": "ゼロ　ミニカップ紅茶&amp;ビスケット"
+    },
+    "serving": "120ml",
+    "nutrition": {
+      "calories": 165,
+      "protein": 2.4,
+      "fat": 11.7,
+      "carbohydrates": 21.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.21,
+      "fiber": 4.8,
+      "sugar": 0
+    }
+  },
+  {
+    "id": "lotte-jp-ice-37-01",
+    "name": {
+      "ja": "クーリッシュフローズン　レモンサワー"
+    },
+    "serving": "140ml",
+    "nutrition": {
+      "calories": 109,
+      "protein": 0.1,
+      "fat": 1.2,
+      "carbohydrates": 20.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.038
+    }
+  },
+  {
+    "id": "lotte-jp-ice-37-02",
+    "name": {
+      "ja": "クーリッシュフローズン　グレフルサワー"
+    },
+    "serving": "140ml",
+    "nutrition": {
+      "calories": 119,
+      "protein": 0.1,
+      "fat": 1.1,
+      "carbohydrates": 23.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.047
+    }
+  },
+  {
+    "id": "lotte-jp-ice-38-01",
+    "name": {
+      "ja": "アジアに恋して　黒糖烏龍ミルクティー"
+    },
+    "serving": "120ml",
+    "nutrition": {
+      "calories": 215,
+      "protein": 2.7,
+      "fat": 8.3,
+      "carbohydrates": 32.3
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.13
+    }
+  },
+  {
+    "id": "lotte-jp-ice-38-02",
+    "name": {
+      "ja": "アジアに恋して　クリーミー杏仁豆腐"
+    },
+    "serving": "120ml",
+    "nutrition": {
+      "calories": 204,
+      "protein": 2.9,
+      "fat": 9.2,
+      "carbohydrates": 27.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.11
+    }
+  },
+  {
+    "id": "lotte-jp-ice-38-03",
+    "name": {
+      "ja": "アジアに恋して　ジャスミンミルクティー"
+    },
+    "serving": "120ml",
+    "nutrition": {
+      "calories": 183,
+      "protein": 2.5,
+      "fat": 7.7,
+      "carbohydrates": 25.9
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.18
+    }
+  },
+  {
+    "id": "lotte-jp-ice-38-04",
+    "name": {
+      "ja": "アジアに恋して　マンゴーラッシー"
+    },
+    "serving": "120ml",
+    "nutrition": {
+      "calories": 169,
+      "protein": 0.9,
+      "fat": 4.3,
+      "carbohydrates": 31.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.059
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-01",
+    "name": {
+      "ja": "匠のジェラート　マダガスカルバニラ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 175,
+      "protein": 3.6,
+      "fat": 7.7,
+      "carbohydrates": 22.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.12
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-02",
+    "name": {
+      "ja": "匠のジェラート　ベルギーチョコレート"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 180,
+      "protein": 4.6,
+      "fat": 7,
+      "carbohydrates": 24.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.18
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-03",
+    "name": {
+      "ja": "匠のジェラート　石臼挽き宇治抹茶"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 157,
+      "protein": 3.6,
+      "fat": 4.4,
+      "carbohydrates": 25.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.15
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-04",
+    "name": {
+      "ja": "匠のジェラート　たっぷり果実ストロベリー"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 120,
+      "protein": 0.3,
+      "fat": 0.8,
+      "carbohydrates": 27.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0025
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-05",
+    "name": {
+      "ja": "匠のジェラート　鉄釜焙煎黒ごま"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 190,
+      "protein": 3.9,
+      "fat": 9,
+      "carbohydrates": 23.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.11
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-06",
+    "name": {
+      "ja": "匠のジェラート　一番摘み深煎りほうじ茶"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 164,
+      "protein": 3,
+      "fat": 7.4,
+      "carbohydrates": 21.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.086
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-07",
+    "name": {
+      "ja": "匠のジェラート　アルフォンソマンゴー"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 112,
+      "protein": 0.1,
+      "fat": 1.4,
+      "carbohydrates": 24.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0025
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-08",
+    "name": {
+      "ja": "匠のジェラート　マスカット・オブ・アレキサンドリア"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 116,
+      "protein": 0.2,
+      "fat": 1.3,
+      "carbohydrates": 25.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0076
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-09",
+    "name": {
+      "ja": "匠のジェラート　北海道ミルク"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 160,
+      "protein": 3.3,
+      "fat": 6.4,
+      "carbohydrates": 22.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.13
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-11",
+    "name": {
+      "ja": "匠のジェラート　北海道メロン"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 192,
+      "protein": 2.8,
+      "fat": 9.9,
+      "carbohydrates": 23
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.12
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-13",
+    "name": {
+      "ja": "匠のジェラート　沖縄塩 ミルク"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 161,
+      "protein": 3,
+      "fat": 6,
+      "carbohydrates": 23.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.49
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-15",
+    "name": {
+      "ja": "匠のジェラート　エクアドル完熟バナナ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 205,
+      "protein": 3.2,
+      "fat": 12.2,
+      "carbohydrates": 20.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.11
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-17",
+    "name": {
+      "ja": "匠のジェラート　イタリア栗薫るマロングラッセ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 201,
+      "protein": 2.9,
+      "fat": 9,
+      "carbohydrates": 27
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.15
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-19",
+    "name": {
+      "ja": "フルーツソルベ　ジューシー苺"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 106,
+      "protein": 0.2,
+      "fat": 0.6,
+      "carbohydrates": 24.9
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0025
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-20",
+    "name": {
+      "ja": "フルーツソルベ　ピール入りレモン"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 115,
+      "protein": 0.1,
+      "fat": 1.1,
+      "carbohydrates": 26.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.015
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-21",
+    "name": {
+      "ja": "フルーツソルベ　甘熟メロン"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 116,
+      "protein": 0.5,
+      "fat": 1.1,
+      "carbohydrates": 26
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.038
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-22",
+    "name": {
+      "ja": "フルーツソルベ　果肉入り白桃"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 117,
+      "protein": 0.1,
+      "fat": 1.3,
+      "carbohydrates": 26.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0051
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-23",
+    "name": {
+      "ja": "フルーツソルベ　巨峰&amp;コンコード"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 117,
+      "protein": 0.2,
+      "fat": 1.1,
+      "carbohydrates": 26.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0076
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-24",
+    "name": {
+      "ja": "フルーツソルベ　ラ・フランス"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 121,
+      "protein": 0.1,
+      "fat": 0.9,
+      "carbohydrates": 28.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.023
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-25",
+    "name": {
+      "ja": "フルーツソルベ　果肉入り国産りんご"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 117,
+      "protein": 0.1,
+      "fat": 0.9,
+      "carbohydrates": 27.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0025
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-26",
+    "name": {
+      "ja": "フルーツソルベ　ピール入り国産ゆず"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 109,
+      "protein": 0.1,
+      "fat": 0.6,
+      "carbohydrates": 25.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0025
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-27",
+    "name": {
+      "ja": "フルーツソルベ　芳醇カシス"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 119,
+      "protein": 0.2,
+      "fat": 0.7,
+      "carbohydrates": 27.9
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0025
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-28",
+    "name": {
+      "ja": "フルーツソルベ　パインミックス"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 115,
+      "protein": 0.1,
+      "fat": 1.2,
+      "carbohydrates": 25.9
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0051
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-29",
+    "name": {
+      "ja": "フルーツソルベ　柑橘ミックス"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 115,
+      "protein": 0.2,
+      "fat": 1.1,
+      "carbohydrates": 26
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.018
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-30",
+    "name": {
+      "ja": "ベーシック　濃厚プレミアムバニラ（カラメリゼテイスト）"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 240,
+      "protein": 3.9,
+      "fat": 16.4,
+      "carbohydrates": 19.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.17
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-31",
+    "name": {
+      "ja": "ベーシック　クリーミーバニラ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 189,
+      "protein": 3.5,
+      "fat": 8.7,
+      "carbohydrates": 24.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.11
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-32",
+    "name": {
+      "ja": "ベーシック　ビーンズバニラ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 209,
+      "protein": 3.7,
+      "fat": 10.4,
+      "carbohydrates": 25.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.13
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-33",
+    "name": {
+      "ja": "ベーシック　アイスクリームチョコレート"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 225,
+      "protein": 3.8,
+      "fat": 12.5,
+      "carbohydrates": 24.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.14
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-34",
+    "name": {
+      "ja": "ベーシック　アイスクリーム抹茶"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 194,
+      "protein": 3.6,
+      "fat": 9.7,
+      "carbohydrates": 23
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.1
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-35",
+    "name": {
+      "ja": "ベーシック　アイスクリームストロベリー"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 197,
+      "protein": 3,
+      "fat": 9,
+      "carbohydrates": 26.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.099
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-36",
+    "name": {
+      "ja": "ベーシック　ミルクバニラ4L"
+    },
+    "serving": "4,000ml",
+    "nutrition": {
+      "calories": 173,
+      "protein": 3.2,
+      "fat": 7.7,
+      "carbohydrates": 22.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.12
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-37",
+    "name": {
+      "ja": "ベーシック　バリューバニラ4L"
+    },
+    "serving": "4,000ml",
+    "nutrition": {
+      "calories": 185,
+      "protein": 2.6,
+      "fat": 7.7,
+      "carbohydrates": 26.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.086
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-38",
+    "name": {
+      "ja": "ベーシック　バリューチョコレート4L"
+    },
+    "serving": "4,000ml",
+    "nutrition": {
+      "calories": 162,
+      "protein": 3.6,
+      "fat": 5.9,
+      "carbohydrates": 23.5
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.15
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-39",
+    "name": {
+      "ja": "ベーシック　バリュー抹茶4L"
+    },
+    "serving": "4,000ml",
+    "nutrition": {
+      "calories": 181,
+      "protein": 2.5,
+      "fat": 8.3,
+      "carbohydrates": 24.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.14
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-40",
+    "name": {
+      "ja": "ベーシック　バリューストロベリー4L"
+    },
+    "serving": "4,000ml",
+    "nutrition": {
+      "calories": 194,
+      "protein": 2.8,
+      "fat": 8.5,
+      "carbohydrates": 26.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.089
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-42",
+    "name": {
+      "ja": "バラエティ　ガトーショコラ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 221,
+      "protein": 3.7,
+      "fat": 9.9,
+      "carbohydrates": 29.3
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.18
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-43",
+    "name": {
+      "ja": "バラエティ　いちごのショートケーキ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 220,
+      "protein": 3.2,
+      "fat": 10.9,
+      "carbohydrates": 27.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.1
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-44",
+    "name": {
+      "ja": "バラエティ　ブルーベリーのレアチーズケーキ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 210,
+      "protein": 2.9,
+      "fat": 9.3,
+      "carbohydrates": 28.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.23
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-46",
+    "name": {
+      "ja": "バラエティ　パステルマーブル"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 158,
+      "protein": 2,
+      "fat": 4.9,
+      "carbohydrates": 26.5
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.11
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-47",
+    "name": {
+      "ja": "バラエティ　ビビッドマーブル"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 116,
+      "protein": 0.8,
+      "fat": 1.9,
+      "carbohydrates": 23.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.033
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-48",
+    "name": {
+      "ja": "バラエティ　フローズンヨーグルト"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 142,
+      "protein": 4.3,
+      "fat": 3.6,
+      "carbohydrates": 23.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.18
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-50",
+    "name": {
+      "ja": "バラエティ　クッキー&amp;クリーム"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 208,
+      "protein": 3.5,
+      "fat": 6.9,
+      "carbohydrates": 33
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.24
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-51",
+    "name": {
+      "ja": "バラエティ　つぶもち黒蜜きなこ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 204,
+      "protein": 3.4,
+      "fat": 8,
+      "carbohydrates": 29.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.13
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-52",
+    "name": {
+      "ja": "バラエティ　チョコチップミント"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 228,
+      "protein": 3.1,
+      "fat": 12.1,
+      "carbohydrates": 26.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.11
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-54",
+    "name": {
+      "ja": "バラエティ　ラムネ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 116,
+      "protein": 0,
+      "fat": 1.1,
+      "carbohydrates": 26.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.16
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-55",
+    "name": {
+      "ja": "バラエティ　桜（桜葉入り）"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 207,
+      "protein": 1.6,
+      "fat": 9.6,
+      "carbohydrates": 28.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.33
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-59",
+    "name": {
+      "ja": "アイスポーション　バニラ"
+    },
+    "serving": "80ml×10個",
+    "nutrition": {
+      "calories": 89,
+      "protein": 1.6,
+      "fat": 4.4,
+      "carbohydrates": 10.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.073
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-60",
+    "name": {
+      "ja": "アイスポーション　チョコレート"
+    },
+    "serving": "80ml×10個",
+    "nutrition": {
+      "calories": 90,
+      "protein": 1.9,
+      "fat": 4.2,
+      "carbohydrates": 11.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.071
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-62",
+    "name": {
+      "ja": "アイスポーション　とけにくいバニラ"
+    },
+    "serving": "80ml×10個",
+    "nutrition": {
+      "calories": 96,
+      "protein": 1.7,
+      "fat": 4.6,
+      "carbohydrates": 11.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.097
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-63",
+    "name": {
+      "ja": "ミニ雪見だいふく白"
+    },
+    "serving": "30ml×9個",
+    "nutrition": {
+      "calories": 52,
+      "protein": 0.6,
+      "fat": 1.7,
+      "carbohydrates": 8.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.029
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-64",
+    "name": {
+      "ja": "ミニ雪見だいふく紅"
+    },
+    "serving": "30ml×9個",
+    "nutrition": {
+      "calories": 52,
+      "protein": 0.6,
+      "fat": 1.7,
+      "carbohydrates": 8.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.029
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-65",
+    "name": {
+      "ja": "ミニクーリッシュ　バニラ"
+    },
+    "serving": "80ml",
+    "nutrition": {
+      "calories": 84,
+      "protein": 1.3,
+      "fat": 3.7,
+      "carbohydrates": 11.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.067
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-66",
+    "name": {
+      "ja": "ミニクーリッシュ　ぶどう"
+    },
+    "serving": "80ml",
+    "nutrition": {
+      "calories": 75,
+      "protein": 0.1,
+      "fat": 2.4,
+      "carbohydrates": 13.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0049
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-67",
+    "name": {
+      "ja": "ひとくちアイス"
+    },
+    "serving": "バニラ 10ml×10個; チョコレート 10ml×10個; ストロベリー 10ml×10個",
+    "nutrition": {
+      "calories": 14,
+      "protein": 0.3,
+      "fat": 0.5,
+      "carbohydrates": 2.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.014
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-68",
+    "name": {
+      "ja": "アイスキャンディー"
+    },
+    "serving": "レモンソーダ 25ml×4本; メロンソーダ 25ml×4本; ソーダ 25ml×4本; コーラ 25ml×4本",
+    "nutrition": {
+      "calories": 23,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 5.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0035
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-69",
+    "name": {
+      "ja": "フローズンホイップ500"
+    },
+    "serving": "500ml",
+    "nutrition": {
+      "calories": 335,
+      "protein": 3.1,
+      "fat": 25.7,
+      "carbohydrates": 22.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.2
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-70",
+    "name": {
+      "ja": "フローズンホイップ1000"
+    },
+    "serving": "1,000ml",
+    "nutrition": {
+      "calories": 335,
+      "protein": 3.1,
+      "fat": 25.7,
+      "carbohydrates": 22.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.2
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-71",
+    "name": {
+      "ja": "小さなアイス屋さん　カスタードバニラ"
+    },
+    "serving": "1,000ml",
+    "nutrition": {
+      "calories": 202,
+      "protein": 3.4,
+      "fat": 9.8,
+      "carbohydrates": 25.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.12
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-73",
+    "name": {
+      "ja": "小さなアイス屋さん　チョコミント"
+    },
+    "serving": "1,000ml",
+    "nutrition": {
+      "calories": 231,
+      "protein": 3.2,
+      "fat": 12.5,
+      "carbohydrates": 26.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.11
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-74",
+    "name": {
+      "ja": "ミニ雪見だいふくマンゴー"
+    },
+    "serving": "30ml×9個",
+    "nutrition": {
+      "calories": 48,
+      "protein": 0.4,
+      "fat": 1.1,
+      "carbohydrates": 9.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.012
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-75",
+    "name": {
+      "ja": "フルーツソルベ　つぶつぶキウイ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 116,
+      "protein": 0.2,
+      "fat": 1.2,
+      "carbohydrates": 26.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.0051
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-76",
+    "name": {
+      "ja": "匠のジェラート　4種ミックスの芳醇ベリー"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 113,
+      "protein": 0.1,
+      "fat": 1,
+      "carbohydrates": 25.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.097
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-77",
+    "name": {
+      "ja": "バラエティ　スイートキャラメル&amp;バニラ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 197,
+      "protein": 3.2,
+      "fat": 9.4,
+      "carbohydrates": 24.9
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.17
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-78",
+    "name": {
+      "ja": "バラエティ　2種の芋タルト"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 200,
+      "protein": 3,
+      "fat": 6.8,
+      "carbohydrates": 31.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.17
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-79",
+    "name": {
+      "ja": "バラエティ　あじわいバナナミルク"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 202,
+      "protein": 3.5,
+      "fat": 11.9,
+      "carbohydrates": 20.3
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.1
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-80",
+    "name": {
+      "ja": "匠のジェラート　茶師十段監修和紅茶"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 169,
+      "protein": 3.1,
+      "fat": 4.9,
+      "carbohydrates": 28.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.094
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-81",
+    "name": {
+      "ja": "ベーシック　バリューシトラスブルー4L"
+    },
+    "serving": "4,000ml",
+    "nutrition": {
+      "calories": 132,
+      "protein": 0.1,
+      "fat": 2.2,
+      "carbohydrates": 27.9
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.097
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-82",
+    "name": {
+      "ja": "プレミアムガーナショコラアイス"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 251,
+      "protein": 4.3,
+      "fat": 14.1,
+      "carbohydrates": 26.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.17
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-83",
+    "name": {
+      "ja": "匠のジェラート　クリスプチョコチップ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 199,
+      "protein": 3.4,
+      "fat": 8.5,
+      "carbohydrates": 27.3
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.1
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-84",
+    "name": {
+      "ja": "スイカバーマーブル"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 127,
+      "protein": 0.1,
+      "fat": 1.8,
+      "carbohydrates": 27.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.043
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-85",
+    "name": {
+      "ja": "生　チョコパイ（業務用）"
+    },
+    "serving": "24個",
+    "nutrition": {
+      "calories": 259,
+      "protein": 2.6,
+      "fat": 18.7,
+      "carbohydrates": 21.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.24
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-86",
+    "name": {
+      "ja": "匠のジェラート　贅沢ピスタチオ"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 207,
+      "protein": 4.6,
+      "fat": 11,
+      "carbohydrates": 22.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.17
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-87",
+    "name": {
+      "ja": "匠のジェラート クリームチーズ～Kiri（R）使用～"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 183,
+      "protein": 3.2,
+      "fat": 9.9,
+      "carbohydrates": 20.3
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.36
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-93",
+    "name": {
+      "ja": "バラエティ　パチパチメロンソーダフロート"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 158,
+      "protein": 1.2,
+      "fat": 5.3,
+      "carbohydrates": 26.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.041
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-94",
+    "name": {
+      "ja": "アイスキャンディ　メロンソーダマルチ"
+    },
+    "serving": "50ml×6本",
+    "nutrition": {
+      "calories": 43,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 10.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.007
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-95",
+    "name": {
+      "ja": "ベーシック　バリューバニラ2L"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 184,
+      "protein": 2.6,
+      "fat": 7.7,
+      "carbohydrates": 26.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.086
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-96",
+    "name": {
+      "ja": "業務用　バニラバー　マルチ"
+    },
+    "serving": "45ml×10本",
+    "nutrition": {
+      "calories": 75,
+      "protein": 1.2,
+      "fat": 4.4,
+      "carbohydrates": 7.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.039
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-97",
+    "name": {
+      "ja": "業務用　「カルピス」アイスバー　マルチ"
+    },
+    "serving": "43ml×10本",
+    "nutrition": {
+      "calories": 32,
+      "protein": 0.1,
+      "fat": 0.4,
+      "carbohydrates": 6.9
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.015
+    }
+  },
+  {
+    "id": "lotte-jp-ice-100-98",
+    "name": {
+      "ja": "バラエティ　シャリっとカラメルのたまごプリン"
+    },
+    "serving": "2,000ml",
+    "nutrition": {
+      "calories": 186,
+      "protein": 3.9,
+      "fat": 9.7,
+      "carbohydrates": 20.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.11
+    }
+  },
+  {
+    "id": "lotte-jp-ice-200-01",
+    "name": {
+      "ja": "クーリッシュ　バニラ"
+    },
+    "serving": "140ml",
+    "nutrition": {
+      "calories": 147,
+      "protein": 2.3,
+      "fat": 6.5,
+      "carbohydrates": 19.9
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.12
+    }
+  },
+  {
+    "id": "lotte-jp-ice-200-02",
+    "name": {
+      "ja": "クーリッシュ　ベルギーチョコレート"
+    },
+    "serving": "140ml",
+    "nutrition": {
+      "calories": 134,
+      "protein": 2,
+      "fat": 5,
+      "carbohydrates": 20.3
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.077
+    }
+  },
+  {
+    "id": "lotte-jp-ice-200-04",
+    "name": {
+      "ja": "モナ王　バニラ"
+    },
+    "serving": "100ml",
+    "nutrition": {
+      "calories": 127,
+      "protein": 2.3,
+      "fat": 5.6,
+      "carbohydrates": 17
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.093
+    }
+  },
+  {
+    "id": "lotte-jp-ice-200-05",
+    "name": {
+      "ja": "モナ王　粒入りあずき"
+    },
+    "serving": "100ml",
+    "nutrition": {
+      "calories": 158,
+      "protein": 3.2,
+      "fat": 5,
+      "carbohydrates": 25
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.18
+    }
+  },
+  {
+    "id": "lotte-jp-ice-200-08",
+    "name": {
+      "ja": "クランキーアイスバー"
+    },
+    "serving": "95ml",
+    "nutrition": {
+      "calories": 245,
+      "protein": 2.4,
+      "fat": 17,
+      "carbohydrates": 20.4
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.11
+    }
+  },
+  {
+    "id": "lotte-jp-ice-200-09",
+    "name": {
+      "ja": "レディーボーデンアーモンドチョコレートバー"
+    },
+    "serving": "83ml",
+    "nutrition": {
+      "calories": 243,
+      "protein": 3,
+      "fat": 16.4,
+      "carbohydrates": 20.9
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.058
+    }
+  },
+  {
+    "id": "lotte-jp-ice-200-10",
+    "name": {
+      "ja": "レディーボーデンチョコストロベリーバー"
+    },
+    "serving": "83ml",
+    "nutrition": {
+      "calories": 228,
+      "protein": 2.6,
+      "fat": 15.4,
+      "carbohydrates": 19.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.06
+    }
+  },
+  {
+    "id": "lotte-jp-ice-200-11",
+    "name": {
+      "ja": "レディーボーデン チョコレートボール"
+    },
+    "serving": "10ml×5個",
+    "nutrition": {
+      "calories": 33,
+      "protein": 0.3,
+      "fat": 2.4,
+      "carbohydrates": 2.6
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.011
+    }
+  },
+  {
+    "id": "lotte-jp-ice-200-12",
+    "name": {
+      "ja": "レディーボーデンクッキーサンド"
+    },
+    "serving": "75ml",
+    "nutrition": {
+      "calories": 243,
+      "protein": 3,
+      "fat": 10.1,
+      "carbohydrates": 35.1
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.27
+    }
+  },
+  {
+    "id": "lotte-jp-ice-200-14",
+    "name": {
+      "ja": "モナ王　いちごオレ"
+    },
+    "serving": "100ml",
+    "nutrition": {
+      "calories": 139,
+      "protein": 2.3,
+      "fat": 6.1,
+      "carbohydrates": 18.7
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.094
+    }
+  },
+  {
+    "id": "lotte-jp-ice-200-15",
+    "name": {
+      "ja": "モナ王　チョコチップチョコ"
+    },
+    "serving": "100ml",
+    "nutrition": {
+      "calories": 148,
+      "protein": 2.1,
+      "fat": 6.5,
+      "carbohydrates": 20.2
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.072
+    }
+  },
+  {
+    "id": "lotte-jp-ice-200-16",
+    "name": {
+      "ja": "クーリッシュ×「カルピス」白桃"
+    },
+    "serving": "135ml",
+    "nutrition": {
+      "calories": 125,
+      "protein": 1.2,
+      "fat": 3.7,
+      "carbohydrates": 21.8
+    },
+    "source": "bundled",
+    "description": "Lotte Japan",
+    "detail": {
+      "salt": 0.047
+    }
+  }
+]

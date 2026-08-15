@@ -1,0 +1,1331 @@
+{
+  "retrievedAt": "2026-08-15",
+  "sources": {
+    "category": "https://www.lotte.co.jp/products/catalogue/ice/"
+  },
+  "products": [
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/01/detail01.html",
+      "brandId": "01",
+      "productNum": "01",
+      "nameJa": "爽　バニラ＜夏期限定＞",
+      "brandJa": "爽",
+      "amount": "190ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー215kcal<br>たんぱく質3.0g<br>脂質10.6g<br>炭水化物26.7g<br>食塩相当量0.16g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/01/detail32.html",
+      "brandId": "01",
+      "productNum": "32",
+      "nameJa": "爽　練乳いちご＜夏期限定＞",
+      "brandJa": "爽",
+      "amount": "185ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー130kcal<br>たんぱく質1.6g<br>脂質1.1g<br>炭水化物28.4g<br>食塩相当量0.084g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/01/detail70.html",
+      "brandId": "01",
+      "productNum": "70",
+      "nameJa": "爽　ひんやりみかん",
+      "brandJa": "爽",
+      "amount": "185ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー133kcal<br>たんぱく質0g<br>脂質1.2g<br>炭水化物30.5g<br>食塩相当量0.033g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/01/detail71.html",
+      "brandId": "01",
+      "productNum": "71",
+      "nameJa": "爽　夏色ラムネ",
+      "brandJa": "爽",
+      "amount": "185ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー157kcal<br>たんぱく質0g<br>脂質3.2g<br>炭水化物31.9g<br>食塩相当量0.035g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/02/detail01.html",
+      "brandId": "02",
+      "productNum": "01",
+      "nameJa": "モナ王　バニラ",
+      "brandJa": "モナ王",
+      "amount": "160ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー232kcal<br>たんぱく質3.6g<br>脂質10.6g<br>炭水化物30.5g<br>食塩相当量0.19g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/02/detail02.html",
+      "brandId": "02",
+      "productNum": "02",
+      "nameJa": "モナ王マルチ　バニラ",
+      "brandJa": "モナ王",
+      "amount": "100ml×5個",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー127kcal<br>たんぱく質2.3g<br>脂質5.6g<br>炭水化物17.0g<br>食塩相当量0.095g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/02/detail12.html",
+      "brandId": "02",
+      "productNum": "12",
+      "nameJa": "モナ王＜クランキー＞",
+      "brandJa": "モナ王",
+      "amount": "160ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー312kcal<br>たんぱく質3.6g<br>脂質17.4g<br>炭水化物35.1g<br>食塩相当量0.19g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/03/detail01.html",
+      "brandId": "03",
+      "productNum": "01",
+      "nameJa": "雪見だいふく",
+      "brandJa": "雪見だいふく",
+      "amount": "47ml×2個",
+      "nutritionRaw": "栄養成分表示 各1個当り：<br>エネルギー83kcal<br>たんぱく質1.0g<br>脂質2.6g<br>炭水化物13.8g<br>食塩相当量0.045g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/03/detail02.html",
+      "brandId": "03",
+      "productNum": "02",
+      "nameJa": "ミニ雪見だいふく",
+      "brandJa": "雪見だいふく",
+      "amount": "30ml×9個",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー52kcal<br>たんぱく質0.6g<br>脂質1.8g<br>炭水化物8.4g<br>食塩相当量0.027g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail01.html",
+      "brandId": "05",
+      "productNum": "01",
+      "nameJa": "レディーボーデン　パイント　バニラ",
+      "brandJa": "レディーボーデン",
+      "amount": "470ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー712kcal<br>たんぱく質10.9g<br>脂質44.0g<br>炭水化物68.2g<br>食塩相当量0.32g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail02.html",
+      "brandId": "05",
+      "productNum": "02",
+      "nameJa": "レディーボーデン　パイント　チョコレート",
+      "brandJa": "レディーボーデン",
+      "amount": "470ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー750kcal<br>たんぱく質12.4g<br>脂質47.3g<br>炭水化物69.1g<br>食塩相当量0.48g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail03.html",
+      "brandId": "05",
+      "productNum": "03",
+      "nameJa": "レディーボーデン　パイント　ストロベリー",
+      "brandJa": "レディーボーデン",
+      "amount": "470ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー612kcal<br>たんぱく質8.7g<br>脂質31.9g<br>炭水化物72.5g<br>食塩相当量0.25g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail04.html",
+      "brandId": "05",
+      "productNum": "04",
+      "nameJa": "レディーボーデン　パイント　グリーンティー",
+      "brandJa": "レディーボーデン",
+      "amount": "470ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー647kcal<br>たんぱく質10.6g<br>脂質37.5g<br>炭水化物66.5g<br>食塩相当量0.31g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail08.html",
+      "brandId": "05",
+      "productNum": "08",
+      "nameJa": "レディーボーデン　マルチ　カップセレクション",
+      "brandJa": "レディーボーデン",
+      "amount": "バニラ75ml×2個、チョコレート75ml×2個、ストロベリー75ml×2個",
+      "nutritionRaw": "＜バニラ＞栄養成分表示 1個当り：<br>エネルギー114kcal<br>たんぱく質1.7g<br>脂質7.0g<br>炭水化物11.0g<br>食塩相当量0.056g<br><br>＜チョコレート＞栄養成分表示 1個当り：<br>エネルギー120kcal<br>たんぱく質2.0g<br>脂質7.4g<br>炭水化物11.2g<br>食塩相当量0.08g<br><br>＜ストロベリー＞栄養成分表示 1個当り：<br>エネルギー97kcal<br>たんぱく質1.4g<br>脂質5.0g<br>炭水化物11.7g<br>食塩相当量0.044g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail25.html",
+      "brandId": "05",
+      "productNum": "25",
+      "nameJa": "レディーボーデン　マルチ　アーモンドチョコレートバー",
+      "brandJa": "レディーボーデン",
+      "amount": "50ml×6本",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー160kcal<br>たんぱく質2.1g<br>脂質11.1g<br>炭水化物13.0g<br>食塩相当量0.04g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail26.html",
+      "brandId": "05",
+      "productNum": "26",
+      "nameJa": "レディーボーデン　ミニカップ　バニラ",
+      "brandJa": "レディーボーデン",
+      "amount": "120ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー182kcal<br>たんぱく質2.8g<br>脂質11.2g<br>炭水化物17.4g<br>食塩相当量0.082g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail28.html",
+      "brandId": "05",
+      "productNum": "28",
+      "nameJa": "レディーボーデン　ミニカップ　コーヒー",
+      "brandJa": "レディーボーデン",
+      "amount": "120ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー177kcal<br>たんぱく質2.9g<br>脂質10.6g<br>炭水化物17.6g<br>食塩相当量0.096g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail45.html",
+      "brandId": "05",
+      "productNum": "45",
+      "nameJa": "レディーボーデン　ミニカップ　チョコレートチップ",
+      "brandJa": "レディーボーデン",
+      "amount": "120ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー220kcal<br>たんぱく質3.3g<br>脂質14.3g<br>炭水化物19.2g<br>食塩相当量0.13g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail46.html",
+      "brandId": "05",
+      "productNum": "46",
+      "nameJa": "レディーボーデン　ミニカップ　クッキー&amp;クリーム",
+      "brandJa": "レディーボーデン",
+      "amount": "120ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー166kcal<br>たんぱく質3.0g<br>脂質9.1g<br>炭水化物18.1g<br>食塩相当量0.19g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail51.html",
+      "brandId": "05",
+      "productNum": "51",
+      "nameJa": "レディーボーデン　アーモンドチョコレートバー",
+      "brandJa": "レディーボーデン",
+      "amount": "81ml",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー241kcal<br>たんぱく質3.2g<br>脂質16.7g<br>炭水化物19.5g<br>食塩相当量0.077g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail52.html",
+      "brandId": "05",
+      "productNum": "52",
+      "nameJa": "レディーボーデン　クッキークランチキャラメルバー",
+      "brandJa": "レディーボーデン",
+      "amount": "81ml",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー246kcal<br>たんぱく質2.1g<br>脂質16.6g<br>炭水化物22.1g<br>食塩相当量0.12g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail56.html",
+      "brandId": "05",
+      "productNum": "56",
+      "nameJa": "レディーボーデン　ミニカップ　ミルクリッチ",
+      "brandJa": "レディーボーデン",
+      "amount": "120ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー178kcal<br>たんぱく質2.8g<br>脂質8.6g<br>炭水化物22.2g<br>食塩相当量0.14g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/05/detail58.html",
+      "brandId": "05",
+      "productNum": "58",
+      "nameJa": "レディーボーデン　ミニカップ　抹茶",
+      "brandJa": "レディーボーデン",
+      "amount": "120ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー154kcal<br>たんぱく質2.8g<br>脂質8.1g<br>炭水化物17.3g<br>食塩相当量0.079g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/07/detail01.html",
+      "brandId": "07",
+      "productNum": "01",
+      "nameJa": "クーリッシュ　バニラ＜夏期限定＞",
+      "brandJa": "クーリッシュ",
+      "amount": "140ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー139kcal<br>たんぱく質2.1g<br>脂質6.2g<br>炭水化物18.6g<br>食塩相当量0.11g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/07/detail21.html",
+      "brandId": "07",
+      "productNum": "21",
+      "nameJa": "クーリッシュ　ベルギーチョコレート＜夏期限定＞",
+      "brandJa": "クーリッシュ",
+      "amount": "140ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー125kcal<br>たんぱく質1.8g<br>脂質4.6g<br>炭水化物19.1g<br>食塩相当量0.071g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/07/detail31.html",
+      "brandId": "07",
+      "productNum": "31",
+      "nameJa": "クーリッシュGreen　バニラ",
+      "brandJa": "クーリッシュ",
+      "amount": "135ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー143kcal<br>たんぱく質1.1g<br>脂質7.3g<br>炭水化物18.3g<br>食塩相当量0.26g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/07/detail40.html",
+      "brandId": "07",
+      "productNum": "40",
+      "nameJa": "クーリッシュGreen　ストロベリー",
+      "brandJa": "クーリッシュ",
+      "amount": "135ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー127kcal<br>たんぱく質0.8g<br>脂質4.0g<br>炭水化物21.9g<br>食塩相当量0.18g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/07/detail41.html",
+      "brandId": "07",
+      "productNum": "41",
+      "nameJa": "クーリッシュマルチ　バニラ&amp;チョコレート",
+      "brandJa": "クーリッシュ",
+      "amount": "80ml×2種×3個",
+      "nutritionRaw": "＜バニラ＞栄養成分表示 1個当り：<br>エネルギー84kcal<br>たんぱく質1.3g<br>脂質3.7g<br>炭水化物11.4g<br>食塩相当量0.067g<br><br>＜チョコレート＞栄養成分表示 1個当り：<br>エネルギー78kcal<br>たんぱく質0.9g<br>脂質2.8g<br>炭水化物12.4g<br>食塩相当量0.062g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/07/detail80.html",
+      "brandId": "07",
+      "productNum": "80",
+      "nameJa": "クーリッシュマルチ　「カルピス」&amp;「カルピス」巨峰",
+      "brandJa": "クーリッシュ",
+      "amount": "80ml×2種×3個",
+      "nutritionRaw": "＜カルピス＞栄養成分表示 1個当り：<br>エネルギー75kcal<br>たんぱく質0.9g<br>脂質2.3g<br>炭水化物12.7g<br>食塩相当量0.051g<br><br>＜カルピス巨峰＞栄養成分表示 1個当り：<br>エネルギー75kcal<br>たんぱく質0.7g<br>脂質2.3g<br>炭水化物12.8g<br>食塩相当量0.028g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/07/detail95.html",
+      "brandId": "07",
+      "productNum": "95",
+      "nameJa": "クーリッシュ　梨",
+      "brandJa": "クーリッシュ",
+      "amount": "135ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー113kcal<br>たんぱく質0.1g<br>脂質2.4g<br>炭水化物22.7g<br>食塩相当量0.0086g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/07/detail96.html",
+      "brandId": "07",
+      "productNum": "96",
+      "nameJa": "クーリッシュ　コーラフロート",
+      "brandJa": "クーリッシュ",
+      "amount": "135ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー122kcal<br>たんぱく質0.8g<br>脂質4.2g<br>炭水化物20.0g<br>食塩相当量0.048g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/09/detail01.html",
+      "brandId": "09",
+      "productNum": "01",
+      "nameJa": "Doleもりだくさんフルーツ",
+      "brandJa": "Dole",
+      "amount": "アップル 25ml×4本; グレープ 25ml×4本; ピーチ 25ml×4本; パイナップル 25ml×4本",
+      "nutritionRaw": "＜アップル＞栄養成分表示 1本当り：<br>エネルギー26kcal<br>たんぱく質0g<br>脂質0g<br>炭水化物6.5g<br>食塩相当量0.0064g<br><br>＜グレープ＞栄養成分表示 1本当り：<br>エネルギー24kcal<br>たんぱく質0g<br>脂質0g<br>炭水化物6.0g<br>食塩相当量0.0035g<br><br>＜ピーチ＞栄養成分表示 1本当り：<br>エネルギー24cal<br>たんぱく質0g<br>脂質0g<br>炭水化物6.0g<br>食塩相当量0.014g<br><br>＜パイナップル＞栄養成分表示 1本当り：<br>エネルギー25kcal<br>たんぱく質0g<br>脂質0g<br>炭水化物6.3g<br>食塩相当量0.0028g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/10/detail01.html",
+      "brandId": "10",
+      "productNum": "01",
+      "nameJa": "HERSHEY'Sチョコレートアイスバー",
+      "brandJa": "HERSHEY’S",
+      "amount": "53ml×7本",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー125kcal<br>たんぱく質1.3g<br>脂質8.3g<br>炭水化物11.2g<br>食塩相当量0.061g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/10/detail02.html",
+      "brandId": "10",
+      "productNum": "02",
+      "nameJa": "HERSHEY'Sアーモンドチョコレートアイスバー",
+      "brandJa": "HERSHEY’S",
+      "amount": "50ml×6本",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー121kcal<br>たんぱく質1.4g<br>脂質8.2g<br>炭水化物10.3g<br>食塩相当量0.049g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/10/detail03.html",
+      "brandId": "10",
+      "productNum": "03",
+      "nameJa": "HERSHEY'Sクランチチョコモナカ",
+      "brandJa": "HERSHEY’S",
+      "amount": "28ml×8個",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー69kcal<br>たんぱく質0.8g<br>脂質4.0g<br>炭水化物7.4g<br>食塩相当量0.032g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/11/detail01.html",
+      "brandId": "11",
+      "productNum": "01",
+      "nameJa": "バニラバー北海道",
+      "brandJa": "バニラバー",
+      "amount": "45ml×10本",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー75kcal<br>たんぱく質1.2g<br>脂質4.4g<br>炭水化物7.7g<br>食塩相当量0.039g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/13/detail02.html",
+      "brandId": "13",
+      "productNum": "02",
+      "nameJa": "「カルピス」アイスバー　マルチ",
+      "brandJa": "「カルピス」ブランドシリーズ",
+      "amount": "43ml×10本",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー32kcal<br>たんぱく質0.1g<br>脂質0.4g<br>炭水化物7.0g<br>食塩相当量0.016g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/15/detail01.html",
+      "brandId": "15",
+      "productNum": "01",
+      "nameJa": "スイカ&amp;メロンバー",
+      "brandJa": "スイカバー",
+      "amount": "70ml×2種×3本",
+      "nutritionRaw": "＜スイカ＞栄養成分表示 1本当り：<br>エネルギー63kcal<br>たんぱく質0.1g<br>脂質0.3g<br>炭水化物15.1g<br>食塩相当量0.037g<br><br>＜メロン＞栄養成分表示 1本当り：<br>エネルギー69kcal<br>たんぱく質0.1g<br>脂質0.3g<br>炭水化物16.4g<br>食塩相当量0.041g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/15/detail03.html",
+      "brandId": "15",
+      "productNum": "03",
+      "nameJa": "BIGスイカバー",
+      "brandJa": "スイカバー",
+      "amount": "120ml",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー112kcal<br>たんぱく質0.1g<br>脂質0.8g<br>炭水化物26.3g<br>食塩相当量0.064g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/17/detail05.html",
+      "brandId": "17",
+      "productNum": "05",
+      "nameJa": "とろ～りれん乳三昧　練乳ミルク",
+      "brandJa": "とろ～りれん乳三昧",
+      "amount": "90ml",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー159kcal<br>たんぱく質3.0g<br>脂質7.3g<br>炭水化物20.4g<br>食塩相当量0.15g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/17/detail06.html",
+      "brandId": "17",
+      "productNum": "06",
+      "nameJa": "とろ～りれん乳三昧　苺れん乳",
+      "brandJa": "とろ～りれん乳三昧",
+      "amount": "65ml×6本",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー74kcal<br>たんぱく質1.1g<br>脂質1.7g<br>炭水化物13.7g<br>食塩相当量0.07g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/21/detail01.html",
+      "brandId": "21",
+      "productNum": "01",
+      "nameJa": "ガーナショコラアイス＜芳醇バニラ＞",
+      "brandJa": "ガーナアイス",
+      "amount": "55ml×6本",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー170kcal<br>たんぱく質1.7g<br>脂質12.0g<br>炭水化物13.7g<br>食塩相当量0.049g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/21/detail02.html",
+      "brandId": "21",
+      "productNum": "02",
+      "nameJa": "ガーナチョコ&amp;クッキーサンド",
+      "brandJa": "ガーナアイス",
+      "amount": "76ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー259kcal<br>たんぱく質2.9g<br>脂質16.8g<br>炭水化物24.2g<br>食塩相当量0.11g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/21/detail03.html",
+      "brandId": "21",
+      "productNum": "03",
+      "nameJa": "ガーナチョコ&amp;クッキーサンドマルチ",
+      "brandJa": "ガーナアイス",
+      "amount": "60ml×4個",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー208kcal<br>たんぱく質2.3g<br>脂質13.0g<br>炭水化物20.3g<br>食塩相当量0.1g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/21/detail14.html",
+      "brandId": "21",
+      "productNum": "14",
+      "nameJa": "ガーナショコラアイス＜深みカカオ＞",
+      "brandJa": "ガーナアイス",
+      "amount": "55ml×6本",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー165kcal<br>たんぱく質1.6g<br>脂質12.2g<br>炭水化物12.1g<br>食塩相当量0.03g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/34/detail02.html",
+      "brandId": "34",
+      "productNum": "02",
+      "nameJa": "ゼロ　アイスケーキ",
+      "brandJa": "ゼロ",
+      "amount": "44ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー104kcal<br>たんぱく質1.6g<br>脂質6.8g<br>炭水化物13.6g<br>　糖質11.2g<br>　　糖類0g<br>　食物繊維2.4g<br>食塩相当量0.11g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/34/detail03.html",
+      "brandId": "34",
+      "productNum": "03",
+      "nameJa": "ゼロ　ビスケットクランチチョコバー",
+      "brandJa": "ゼロ",
+      "amount": "75ml",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー159kcal<br>たんぱく質2.0g<br>脂質13.2g<br>炭水化物14.6g<br>　糖質11.6g<br>　　糖類0g<br>　食物繊維2.9g<br>食塩相当量0.13g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/34/detail05.html",
+      "brandId": "34",
+      "productNum": "05",
+      "nameJa": "ゼロ　ビスケットクランチチョコバー　香る焙煎抹茶",
+      "brandJa": "ゼロ",
+      "amount": "75ml",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー155kcal<br>たんぱく質1.9g<br>脂質12.7g<br>炭水化物14.6g<br>　糖質11.7g<br>　　糖類0g<br>　食物繊維2.9g<br>食塩相当量0.11g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/34/detail11.html",
+      "brandId": "34",
+      "productNum": "11",
+      "nameJa": "ゼロ　ミニカップマカダミアナッツ",
+      "brandJa": "ゼロ",
+      "amount": "120ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー173kcal<br>たんぱく質2.1g<br>脂質13.7g<br>炭水化物18.3g<br>　糖質14.2g<br>　　糖類0g<br>　食物繊維4.1g<br>食塩相当量0.19g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/34/detail12.html",
+      "brandId": "34",
+      "productNum": "12",
+      "nameJa": "ゼロ　ミニカップ紅茶&amp;ビスケット",
+      "brandJa": "ゼロ",
+      "amount": "120ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー165kcal<br>たんぱく質2.4g<br>脂質11.7g<br>炭水化物21.4g<br>　糖質16.6g<br>　　糖類0g<br>　食物繊維4.8g<br>食塩相当量0.21g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/37/detail01.html",
+      "brandId": "37",
+      "productNum": "01",
+      "nameJa": "クーリッシュフローズン　レモンサワー",
+      "brandJa": "クーリッシュフローズンサワー",
+      "amount": "140ml",
+      "nutritionRaw": "栄養成分表示 1個（140ml）当り：<br>エネルギー109kcal<br>たんぱく質0.1g<br>脂質1.2g<br>炭水化物20.4g<br>食塩相当量0.038g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/37/detail02.html",
+      "brandId": "37",
+      "productNum": "02",
+      "nameJa": "クーリッシュフローズン　グレフルサワー",
+      "brandJa": "クーリッシュフローズンサワー",
+      "amount": "140ml",
+      "nutritionRaw": "栄養成分表示 1個（140ml）当り：<br>エネルギー119kcal<br>たんぱく質0.1g<br>脂質1.1g<br>炭水化物23.2g<br>食塩相当量0.047g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/38/detail01.html",
+      "brandId": "38",
+      "productNum": "01",
+      "nameJa": "アジアに恋して　黒糖烏龍ミルクティー",
+      "brandJa": "アジアに恋して",
+      "amount": "120ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー215kcal<br>たんぱく質2.7g<br>脂質8.3g<br>炭水化物32.3g<br>食塩相当量0.13g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/38/detail02.html",
+      "brandId": "38",
+      "productNum": "02",
+      "nameJa": "アジアに恋して　クリーミー杏仁豆腐",
+      "brandJa": "アジアに恋して",
+      "amount": "120ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー204kcal<br>たんぱく質2.9g<br>脂質9.2g<br>炭水化物27.4g<br>食塩相当量0.11g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/38/detail03.html",
+      "brandId": "38",
+      "productNum": "03",
+      "nameJa": "アジアに恋して　ジャスミンミルクティー",
+      "brandJa": "アジアに恋して",
+      "amount": "120ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー183kcal<br>たんぱく質2.5g<br>脂質7.7g<br>炭水化物25.9g<br>食塩相当量0.18g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/38/detail04.html",
+      "brandId": "38",
+      "productNum": "04",
+      "nameJa": "アジアに恋して　マンゴーラッシー",
+      "brandJa": "アジアに恋して",
+      "amount": "120ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー169kcal<br>たんぱく質0.9g<br>脂質4.3g<br>炭水化物31.7g<br>食塩相当量0.059g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail01.html",
+      "brandId": "100",
+      "productNum": "01",
+      "nameJa": "匠のジェラート　マダガスカルバニラ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー175kcal<br>たんぱく質3.6g<br>脂質7.7g<br>炭水化物22.7g<br>食塩相当量0.12g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail02.html",
+      "brandId": "100",
+      "productNum": "02",
+      "nameJa": "匠のジェラート　ベルギーチョコレート",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー180kcal<br>たんぱく質4.6g<br>脂質7.0g<br>炭水化物24.7g<br>食塩相当量0.18g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail03.html",
+      "brandId": "100",
+      "productNum": "03",
+      "nameJa": "匠のジェラート　石臼挽き宇治抹茶",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー157kcal<br>たんぱく質3.6g<br>脂質4.4g<br>炭水化物25.8g<br>食塩相当量0.15g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail04.html",
+      "brandId": "100",
+      "productNum": "04",
+      "nameJa": "匠のジェラート　たっぷり果実ストロベリー",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー120kcal<br>たんぱく質0.3g<br>脂質0.8g<br>炭水化物27.8g<br>食塩相当量0.0025g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail05.html",
+      "brandId": "100",
+      "productNum": "05",
+      "nameJa": "匠のジェラート　鉄釜焙煎黒ごま",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー190kcal<br>たんぱく質3.9g<br>脂質9.0g<br>炭水化物23.4g<br>食塩相当量0.11g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail06.html",
+      "brandId": "100",
+      "productNum": "06",
+      "nameJa": "匠のジェラート　一番摘み深煎りほうじ茶",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー164kcal<br>たんぱく質3.0g<br>脂質7.4g<br>炭水化物21.4g<br>食塩相当量0.086g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail07.html",
+      "brandId": "100",
+      "productNum": "07",
+      "nameJa": "匠のジェラート　アルフォンソマンゴー",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー112kcal<br>たんぱく質0.1g<br>脂質1.4g<br>炭水化物24.8g<br>食塩相当量0.0025g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail08.html",
+      "brandId": "100",
+      "productNum": "08",
+      "nameJa": "匠のジェラート　マスカット・オブ・アレキサンドリア",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー116kcal<br>たんぱく質0.2g<br>脂質1.3g<br>炭水化物25.8g<br>食塩相当量0.0076g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail09.html",
+      "brandId": "100",
+      "productNum": "09",
+      "nameJa": "匠のジェラート　北海道ミルク",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー160kcal<br>たんぱく質3.3g<br>脂質6.4g<br>炭水化物22.2g<br>食塩相当量0.13g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail11.html",
+      "brandId": "100",
+      "productNum": "11",
+      "nameJa": "匠のジェラート　北海道メロン",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー192kcal<br>たんぱく質2.8g<br>脂質9.9g<br>炭水化物23.0g<br>食塩相当量0.12g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail13.html",
+      "brandId": "100",
+      "productNum": "13",
+      "nameJa": "匠のジェラート　沖縄塩 ミルク",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー161kcal<br>たんぱく質3.0g<br>脂質6.0g<br>炭水化物23.8g<br>食塩相当量0.49g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail15.html",
+      "brandId": "100",
+      "productNum": "15",
+      "nameJa": "匠のジェラート　エクアドル完熟バナナ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー205kcal<br>たんぱく質3.2g<br>脂質12.2g<br>炭水化物20.7g<br>食塩相当量0.11g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail17.html",
+      "brandId": "100",
+      "productNum": "17",
+      "nameJa": "匠のジェラート　イタリア栗薫るマロングラッセ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー201kcal<br>たんぱく質2.9g<br>脂質9.0g<br>炭水化物27.0g<br>食塩相当量0.15g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail19.html",
+      "brandId": "100",
+      "productNum": "19",
+      "nameJa": "フルーツソルベ　ジューシー苺",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー106kcal<br>たんぱく質0.2g<br>脂質0.6g<br>炭水化物24.9g<br>食塩相当量0.0025g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail20.html",
+      "brandId": "100",
+      "productNum": "20",
+      "nameJa": "フルーツソルベ　ピール入りレモン",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー115kcal<br>たんぱく質0.1g<br>脂質1.1g<br>炭水化物26.2g<br>食塩相当量0.015g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail21.html",
+      "brandId": "100",
+      "productNum": "21",
+      "nameJa": "フルーツソルベ　甘熟メロン",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー116kcal<br>たんぱく質0.5g<br>脂質1.1g<br>炭水化物26.0g<br>食塩相当量0.038g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail22.html",
+      "brandId": "100",
+      "productNum": "22",
+      "nameJa": "フルーツソルベ　果肉入り白桃",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー117kcal<br>たんぱく質0.1g<br>脂質1.3g<br>炭水化物26.1g<br>食塩相当量0.0051g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail23.html",
+      "brandId": "100",
+      "productNum": "23",
+      "nameJa": "フルーツソルベ　巨峰&amp;コンコード",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー117kcal<br>たんぱく質0.2g<br>脂質1.1g<br>炭水化物26.6g<br>食塩相当量0.0076g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail24.html",
+      "brandId": "100",
+      "productNum": "24",
+      "nameJa": "フルーツソルベ　ラ・フランス",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー121kcal<br>たんぱく質0.1g<br>脂質0.9g<br>炭水化物28.2g<br>食塩相当量0.023g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail25.html",
+      "brandId": "100",
+      "productNum": "25",
+      "nameJa": "フルーツソルベ　果肉入り国産りんご",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー117kcal<br>たんぱく質0.1g<br>脂質0.9g<br>炭水化物27.2g<br>食塩相当量0.0025g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail26.html",
+      "brandId": "100",
+      "productNum": "26",
+      "nameJa": "フルーツソルベ　ピール入り国産ゆず",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー109kcal<br>たんぱく質0.1g<br>脂質0.6g<br>炭水化物25.8g<br>食塩相当量0.0025g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail27.html",
+      "brandId": "100",
+      "productNum": "27",
+      "nameJa": "フルーツソルベ　芳醇カシス",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー119kcal<br>たんぱく質0.2g<br>脂質0.7g<br>炭水化物27.9g<br>食塩相当量0.0025g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail28.html",
+      "brandId": "100",
+      "productNum": "28",
+      "nameJa": "フルーツソルベ　パインミックス",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー115kcal<br>たんぱく質0.1g<br>脂質1.2g<br>炭水化物25.9g<br>食塩相当量0.0051g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail29.html",
+      "brandId": "100",
+      "productNum": "29",
+      "nameJa": "フルーツソルベ　柑橘ミックス",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー115kcal<br>たんぱく質0.2g<br>脂質1.1g<br>炭水化物26.0g<br>食塩相当量0.018g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail30.html",
+      "brandId": "100",
+      "productNum": "30",
+      "nameJa": "ベーシック　濃厚プレミアムバニラ（カラメリゼテイスト）",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー240kcal<br>たんぱく質3.9g<br>脂質16.4g<br>炭水化物19.2g<br>食塩相当量0.17g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail31.html",
+      "brandId": "100",
+      "productNum": "31",
+      "nameJa": "ベーシック　クリーミーバニラ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー189kcal<br>たんぱく質3.5g<br>脂質8.7g<br>炭水化物24.2g<br>食塩相当量0.11g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail32.html",
+      "brandId": "100",
+      "productNum": "32",
+      "nameJa": "ベーシック　ビーンズバニラ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー209kcal<br>たんぱく質3.7g<br>脂質10.4g<br>炭水化物25.1g<br>食塩相当量0.13g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail33.html",
+      "brandId": "100",
+      "productNum": "33",
+      "nameJa": "ベーシック　アイスクリームチョコレート",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー225kcal<br>たんぱく質3.8g<br>脂質12.5g<br>炭水化物24.4g<br>食塩相当量0.14g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail34.html",
+      "brandId": "100",
+      "productNum": "34",
+      "nameJa": "ベーシック　アイスクリーム抹茶",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー194kcal<br>たんぱく質3.6g<br>脂質9.7g<br>炭水化物23.0g<br>食塩相当量0.1g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail35.html",
+      "brandId": "100",
+      "productNum": "35",
+      "nameJa": "ベーシック　アイスクリームストロベリー",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー197kcal<br>たんぱく質3.0g<br>脂質9.0g<br>炭水化物26.1g<br>食塩相当量0.099g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail36.html",
+      "brandId": "100",
+      "productNum": "36",
+      "nameJa": "ベーシック　ミルクバニラ4L",
+      "brandJa": "業務用アイス",
+      "amount": "4,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー173kcal<br>たんぱく質3.2g<br>脂質7.7g<br>炭水化物22.8g<br>食塩相当量0.12g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail37.html",
+      "brandId": "100",
+      "productNum": "37",
+      "nameJa": "ベーシック　バリューバニラ4L",
+      "brandJa": "業務用アイス",
+      "amount": "4,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー185kcal<br>たんぱく質2.6g<br>脂質7.7g<br>炭水化物26.2g<br>食塩相当量0.086g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail38.html",
+      "brandId": "100",
+      "productNum": "38",
+      "nameJa": "ベーシック　バリューチョコレート4L",
+      "brandJa": "業務用アイス",
+      "amount": "4,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー162kcal<br>たんぱく質3.6g<br>脂質5.9g<br>炭水化物23.5g<br>食塩相当量0.15g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail39.html",
+      "brandId": "100",
+      "productNum": "39",
+      "nameJa": "ベーシック　バリュー抹茶4L",
+      "brandJa": "業務用アイス",
+      "amount": "4,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー181kcal<br>たんぱく質2.5g<br>脂質8.3g<br>炭水化物24.1g<br>食塩相当量0.14g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail40.html",
+      "brandId": "100",
+      "productNum": "40",
+      "nameJa": "ベーシック　バリューストロベリー4L",
+      "brandJa": "業務用アイス",
+      "amount": "4,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー194kcal<br>たんぱく質2.8g<br>脂質8.5g<br>炭水化物26.6g<br>食塩相当量0.089g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail42.html",
+      "brandId": "100",
+      "productNum": "42",
+      "nameJa": "バラエティ　ガトーショコラ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー221kcal<br>たんぱく質3.7g<br>脂質9.9g<br>炭水化物29.3g<br>食塩相当量0.18g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail43.html",
+      "brandId": "100",
+      "productNum": "43",
+      "nameJa": "バラエティ　いちごのショートケーキ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー220kcal<br>たんぱく質3.2g<br>脂質10.9g<br>炭水化物27.2g<br>食塩相当量0.1g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail44.html",
+      "brandId": "100",
+      "productNum": "44",
+      "nameJa": "バラエティ　ブルーベリーのレアチーズケーキ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー210kcal<br>たんぱく質2.9g<br>脂質9.3g<br>炭水化物28.6g<br>食塩相当量0.23g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail46.html",
+      "brandId": "100",
+      "productNum": "46",
+      "nameJa": "バラエティ　パステルマーブル",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー158kcal<br>たんぱく質2.0g<br>脂質4.9g<br>炭水化物26.5g<br>食塩相当量0.11g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail47.html",
+      "brandId": "100",
+      "productNum": "47",
+      "nameJa": "バラエティ　ビビッドマーブル",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー116kcal<br>たんぱく質0.8g<br>脂質1.9g<br>炭水化物23.8g<br>食塩相当量0.033g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail48.html",
+      "brandId": "100",
+      "productNum": "48",
+      "nameJa": "バラエティ　フローズンヨーグルト",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー142kcal<br>たんぱく質4.3g<br>脂質3.6g<br>炭水化物23.1g<br>食塩相当量0.18g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail50.html",
+      "brandId": "100",
+      "productNum": "50",
+      "nameJa": "バラエティ　クッキー&amp;クリーム",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー208kcal<br>たんぱく質3.5g<br>脂質6.9g<br>炭水化物33.0g<br>食塩相当量0.24g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail51.html",
+      "brandId": "100",
+      "productNum": "51",
+      "nameJa": "バラエティ　つぶもち黒蜜きなこ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー204kcal<br>たんぱく質3.4g<br>脂質8.0g<br>炭水化物29.7g<br>食塩相当量0.13g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail52.html",
+      "brandId": "100",
+      "productNum": "52",
+      "nameJa": "バラエティ　チョコチップミント",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー228kcal<br>たんぱく質3.1g<br>脂質12.1g<br>炭水化物26.6g<br>食塩相当量0.11g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail54.html",
+      "brandId": "100",
+      "productNum": "54",
+      "nameJa": "バラエティ　ラムネ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー116kcal<br>たんぱく質0g<br>脂質1.1g<br>炭水化物26.6g<br>食塩相当量0.16g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail55.html",
+      "brandId": "100",
+      "productNum": "55",
+      "nameJa": "バラエティ　桜（桜葉入り）",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー207kcal<br>たんぱく質1.6g<br>脂質9.6g<br>炭水化物28.6g<br>食塩相当量0.33g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail59.html",
+      "brandId": "100",
+      "productNum": "59",
+      "nameJa": "アイスポーション　バニラ",
+      "brandJa": "業務用アイス",
+      "amount": "80ml×10個",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー89kcal<br>たんぱく質1.6g<br>脂質4.4g<br>炭水化物10.6g<br>食塩相当量0.073g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail60.html",
+      "brandId": "100",
+      "productNum": "60",
+      "nameJa": "アイスポーション　チョコレート",
+      "brandJa": "業務用アイス",
+      "amount": "80ml×10個",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー90kcal<br>たんぱく質1.9g<br>脂質4.2g<br>炭水化物11.2g<br>食塩相当量0.071g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail62.html",
+      "brandId": "100",
+      "productNum": "62",
+      "nameJa": "アイスポーション　とけにくいバニラ",
+      "brandJa": "業務用アイス",
+      "amount": "80ml×10個",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー96kcal<br>たんぱく質1.7g<br>脂質4.6g<br>炭水化物11.8g<br>食塩相当量0.097g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail63.html",
+      "brandId": "100",
+      "productNum": "63",
+      "nameJa": "ミニ雪見だいふく白",
+      "brandJa": "業務用アイス",
+      "amount": "30ml×9個",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー52kcal<br>たんぱく質0.6g<br>脂質1.7g<br>炭水化物8.4g<br>食塩相当量0.029g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail64.html",
+      "brandId": "100",
+      "productNum": "64",
+      "nameJa": "ミニ雪見だいふく紅",
+      "brandJa": "業務用アイス",
+      "amount": "30ml×9個",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー52kcal<br>たんぱく質0.6g<br>脂質1.7g<br>炭水化物8.4g<br>食塩相当量0.029g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail65.html",
+      "brandId": "100",
+      "productNum": "65",
+      "nameJa": "ミニクーリッシュ　バニラ",
+      "brandJa": "業務用アイス",
+      "amount": "80ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー84kcal<br>たんぱく質1.3g<br>脂質3.7g<br>炭水化物11.4g<br>食塩相当量0.067g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail66.html",
+      "brandId": "100",
+      "productNum": "66",
+      "nameJa": "ミニクーリッシュ　ぶどう",
+      "brandJa": "業務用アイス",
+      "amount": "80ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー75kcal<br>たんぱく質0.1g<br>脂質2.4g<br>炭水化物13.4g<br>食塩相当量0.0049g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail67.html",
+      "brandId": "100",
+      "productNum": "67",
+      "nameJa": "ひとくちアイス",
+      "brandJa": "業務用アイス",
+      "amount": "バニラ 10ml×10個; チョコレート 10ml×10個; ストロベリー 10ml×10個",
+      "nutritionRaw": "＜バニラ＞栄養成分表示 1個当り：<br>エネルギー14kcal<br>たんぱく質0.3g<br>脂質0.5g<br>炭水化物2.1g<br>食塩相当量0.014g<br><br>＜チョコレート＞栄養成分表示 1個当り：<br>エネルギー13kcal<br>たんぱく質0.3g<br>脂質0.4g<br>炭水化物2.2g<br>食塩相当量0.015g<br><br>＜ストロベリー＞栄養成分表示 1個当り：<br>エネルギー11kcal<br>たんぱく質0g<br>脂質0.1g<br>炭水化物2.4g<br>食塩相当量0.00053g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail68.html",
+      "brandId": "100",
+      "productNum": "68",
+      "nameJa": "アイスキャンディー",
+      "brandJa": "業務用アイス",
+      "amount": "レモンソーダ 25ml×4本; メロンソーダ 25ml×4本; ソーダ 25ml×4本; コーラ 25ml×4本",
+      "nutritionRaw": "＜レモンソーダ＞栄養成分表示 1本当り：<br>エネルギー23kcal<br>たんぱく質0g<br>脂質0g<br>炭水化物5.6g<br>食塩相当量0.0035g<br><br>＜メロンソーダ＞栄養成分表示 1本当り：<br>エネルギー22kcal<br>たんぱく質0g<br>脂質0g<br>炭水化物5.5g<br>食塩相当量0.0035g<br><br>＜ソーダ＞栄養成分表示 1本当り：<br>エネルギー22kcal<br>たんぱく質0g<br>脂質0g<br>炭水化物5.6g<br>食塩相当量0.027g<br><br>＜コーラ＞栄養成分表示 1本当り：<br>エネルギー21kcal<br>たんぱく質0g<br>脂質0g<br>炭水化物5.2g<br>食塩相当量0.0049g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail69.html",
+      "brandId": "100",
+      "productNum": "69",
+      "nameJa": "フローズンホイップ500",
+      "brandJa": "業務用アイス",
+      "amount": "500ml",
+      "nutritionRaw": "栄養成分表示 100g当たり：<br>エネルギー335kcal<br>たんぱく質3.1g<br>脂質25.7g<br>炭水化物22.8g<br>食塩相当量0.2g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail70.html",
+      "brandId": "100",
+      "productNum": "70",
+      "nameJa": "フローズンホイップ1000",
+      "brandJa": "業務用アイス",
+      "amount": "1,000ml",
+      "nutritionRaw": "栄養成分表示 100g当たり：<br>エネルギー335kcal<br>たんぱく質3.1g<br>脂質25.7g<br>炭水化物22.8g<br>食塩相当量0.2g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail71.html",
+      "brandId": "100",
+      "productNum": "71",
+      "nameJa": "小さなアイス屋さん　カスタードバニラ",
+      "brandJa": "業務用アイス",
+      "amount": "1,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー202kcal<br>たんぱく質3.4g<br>脂質9.8g<br>炭水化物25.1g<br>食塩相当量0.12g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail73.html",
+      "brandId": "100",
+      "productNum": "73",
+      "nameJa": "小さなアイス屋さん　チョコミント",
+      "brandJa": "業務用アイス",
+      "amount": "1,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー231kcal<br>たんぱく質3.2g<br>脂質12.5g<br>炭水化物26.4g<br>食塩相当量0.11g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail74.html",
+      "brandId": "100",
+      "productNum": "74",
+      "nameJa": "ミニ雪見だいふくマンゴー",
+      "brandJa": "業務用アイス",
+      "amount": "30ml×9個",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー48kcal<br>たんぱく質0.4g<br>脂質1.1g<br>炭水化物9.2g<br>食塩相当量0.012g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail75.html",
+      "brandId": "100",
+      "productNum": "75",
+      "nameJa": "フルーツソルベ　つぶつぶキウイ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー116kcal<br>たんぱく質0.2g<br>脂質1.2g<br>炭水化物26.1g<br>食塩相当量0.0051g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail76.html",
+      "brandId": "100",
+      "productNum": "76",
+      "nameJa": "匠のジェラート　4種ミックスの芳醇ベリー",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー113kcal<br>たんぱく質0.1g<br>脂質1.0g<br>炭水化物25.8g<br>食塩相当量0.097g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail77.html",
+      "brandId": "100",
+      "productNum": "77",
+      "nameJa": "バラエティ　スイートキャラメル&amp;バニラ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー197kcal<br>たんぱく質3.2g<br>脂質9.4g<br>炭水化物24.9g<br>食塩相当量0.17g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail78.html",
+      "brandId": "100",
+      "productNum": "78",
+      "nameJa": "バラエティ　2種の芋タルト",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー200kcal<br>たんぱく質3.0g<br>脂質6.8g<br>炭水化物31.6g<br>食塩相当量0.17g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail79.html",
+      "brandId": "100",
+      "productNum": "79",
+      "nameJa": "バラエティ　あじわいバナナミルク",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー202kcal<br>たんぱく質3.5g<br>脂質11.9g<br>炭水化物20.3g<br>食塩相当量0.1g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail80.html",
+      "brandId": "100",
+      "productNum": "80",
+      "nameJa": "匠のジェラート　茶師十段監修和紅茶",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー169kcal<br>たんぱく質3.1g<br>脂質4.9g<br>炭水化物28.2g<br>食塩相当量0.094g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail81.html",
+      "brandId": "100",
+      "productNum": "81",
+      "nameJa": "ベーシック　バリューシトラスブルー4L",
+      "brandJa": "業務用アイス",
+      "amount": "4,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー132kcal<br>たんぱく質0.1g<br>脂質2.2g<br>炭水化物27.9g<br>食塩相当量0.097g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail82.html",
+      "brandId": "100",
+      "productNum": "82",
+      "nameJa": "プレミアムガーナショコラアイス",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー251kcal<br>たんぱく質4.3g<br>脂質14.1g<br>炭水化物26.8g<br>食塩相当量0.17g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail83.html",
+      "brandId": "100",
+      "productNum": "83",
+      "nameJa": "匠のジェラート　クリスプチョコチップ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー199kcal<br>たんぱく質3.4g<br>脂質8.5g<br>炭水化物27.3g<br>食塩相当量0.1g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail84.html",
+      "brandId": "100",
+      "productNum": "84",
+      "nameJa": "スイカバーマーブル",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー127kcal<br>たんぱく質0.1g<br>脂質1.8g<br>炭水化物27.7g<br>食塩相当量0.043g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail85.html",
+      "brandId": "100",
+      "productNum": "85",
+      "nameJa": "生　チョコパイ（業務用）",
+      "brandJa": "業務用アイス",
+      "amount": "24個",
+      "nutritionRaw": "栄養成分表示 1個（標準59g）当り：<br>エネルギー259kcal<br>たんぱく質2.6g<br>脂質18.7g<br>炭水化物21.4g<br>食塩相当量0.24g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail86.html",
+      "brandId": "100",
+      "productNum": "86",
+      "nameJa": "匠のジェラート　贅沢ピスタチオ",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー207kcal<br>たんぱく質4.6g<br>脂質11.0g<br>炭水化物22.4g<br>食塩相当量0.17g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail87.html",
+      "brandId": "100",
+      "productNum": "87",
+      "nameJa": "匠のジェラート クリームチーズ～Kiri（R）使用～",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー183kcal<br>たんぱく質3.2g<br>脂質9.9g<br>炭水化物20.3g<br>食塩相当量0.36g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail93.html",
+      "brandId": "100",
+      "productNum": "93",
+      "nameJa": "バラエティ　パチパチメロンソーダフロート",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー158kcal<br>たんぱく質1.2g<br>脂質5.3g<br>炭水化物26.4g<br>食塩相当量0.041g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail94.html",
+      "brandId": "100",
+      "productNum": "94",
+      "nameJa": "アイスキャンディ　メロンソーダマルチ",
+      "brandJa": "業務用アイス",
+      "amount": "50ml×6本",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー43kcal<br>たんぱく質0g<br>脂質0g<br>炭水化物10.8g<br>食塩相当量0.007g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail95.html",
+      "brandId": "100",
+      "productNum": "95",
+      "nameJa": "ベーシック　バリューバニラ2L",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー184kcal<br>たんぱく質2.6g<br>脂質7.7g<br>炭水化物26.1g<br>食塩相当量0.086g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail96.html",
+      "brandId": "100",
+      "productNum": "96",
+      "nameJa": "業務用　バニラバー　マルチ",
+      "brandJa": "業務用アイス",
+      "amount": "45ml×10本",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー75kcal<br>たんぱく質1.2g<br>脂質4.4g<br>炭水化物7.7g<br>食塩相当量0.039g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail97.html",
+      "brandId": "100",
+      "productNum": "97",
+      "nameJa": "業務用　「カルピス」アイスバー　マルチ",
+      "brandJa": "業務用アイス",
+      "amount": "43ml×10本",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー32kcal<br>たんぱく質0.1g<br>脂質0.4g<br>炭水化物6.9g<br>食塩相当量0.015g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/100/detail98.html",
+      "brandId": "100",
+      "productNum": "98",
+      "nameJa": "バラエティ　シャリっとカラメルのたまごプリン",
+      "brandJa": "業務用アイス",
+      "amount": "2,000ml",
+      "nutritionRaw": "栄養成分表示 100g当り：<br>エネルギー186kcal<br>たんぱく質3.9g<br>脂質9.7g<br>炭水化物20.7g<br>食塩相当量0.11g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/200/detail01.html",
+      "brandId": "200",
+      "productNum": "01",
+      "nameJa": "クーリッシュ　バニラ",
+      "brandJa": "自動販売機取扱い商品",
+      "amount": "140ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー147kcal<br>たんぱく質2.3g<br>脂質6.5g<br>炭水化物19.9g<br>食塩相当量0.12g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/200/detail02.html",
+      "brandId": "200",
+      "productNum": "02",
+      "nameJa": "クーリッシュ　ベルギーチョコレート",
+      "brandJa": "自動販売機取扱い商品",
+      "amount": "140ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー134kcal<br>たんぱく質2.0g<br>脂質5.0g<br>炭水化物20.3g<br>食塩相当量0.077g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/200/detail04.html",
+      "brandId": "200",
+      "productNum": "04",
+      "nameJa": "モナ王　バニラ",
+      "brandJa": "自動販売機取扱い商品",
+      "amount": "100ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー127kcal<br>たんぱく質2.3g<br>脂質5.6g<br>炭水化物17.0g<br>食塩相当量0.093g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/200/detail05.html",
+      "brandId": "200",
+      "productNum": "05",
+      "nameJa": "モナ王　粒入りあずき",
+      "brandJa": "自動販売機取扱い商品",
+      "amount": "100ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー158kcal<br>たんぱく質3.2g<br>脂質5.0g<br>炭水化物25.0g<br>食塩相当量0.18g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/200/detail08.html",
+      "brandId": "200",
+      "productNum": "08",
+      "nameJa": "クランキーアイスバー",
+      "brandJa": "自動販売機取扱い商品",
+      "amount": "95ml",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー245kcal<br>たんぱく質2.4g<br>脂質17.0g<br>炭水化物20.4g<br>食塩相当量0.11g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/200/detail09.html",
+      "brandId": "200",
+      "productNum": "09",
+      "nameJa": "レディーボーデンアーモンドチョコレートバー",
+      "brandJa": "自動販売機取扱い商品",
+      "amount": "83ml",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー243kcal<br>たんぱく質3.0g<br>脂質16.4g<br>炭水化物20.9g<br>食塩相当量0.058g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/200/detail10.html",
+      "brandId": "200",
+      "productNum": "10",
+      "nameJa": "レディーボーデンチョコストロベリーバー",
+      "brandJa": "自動販売機取扱い商品",
+      "amount": "83ml",
+      "nutritionRaw": "栄養成分表示 1本当り：<br>エネルギー228kcal<br>たんぱく質2.6g<br>脂質15.4g<br>炭水化物19.7g<br>食塩相当量0.06g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/200/detail11.html",
+      "brandId": "200",
+      "productNum": "11",
+      "nameJa": "レディーボーデン チョコレートボール",
+      "brandJa": "自動販売機取扱い商品",
+      "amount": "10ml×5個",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー33kcal<br>たんぱく質0.3g<br>脂質2.4g<br>炭水化物2.6g<br>食塩相当量0.011g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/200/detail12.html",
+      "brandId": "200",
+      "productNum": "12",
+      "nameJa": "レディーボーデンクッキーサンド",
+      "brandJa": "自動販売機取扱い商品",
+      "amount": "75ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー243kcal<br>たんぱく質3.0g<br>脂質10.1g<br>炭水化物35.1g<br>食塩相当量0.27g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/200/detail14.html",
+      "brandId": "200",
+      "productNum": "14",
+      "nameJa": "モナ王　いちごオレ",
+      "brandJa": "自動販売機取扱い商品",
+      "amount": "100ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー139kcal<br>たんぱく質2.3g<br>脂質6.1g<br>炭水化物18.7g<br>食塩相当量0.094g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/200/detail15.html",
+      "brandId": "200",
+      "productNum": "15",
+      "nameJa": "モナ王　チョコチップチョコ",
+      "brandJa": "自動販売機取扱い商品",
+      "amount": "100ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー148kcal<br>たんぱく質2.1g<br>脂質6.5g<br>炭水化物20.2g<br>食塩相当量0.072g"
+    },
+    {
+      "url": "https://www.lotte.co.jp/products/catalogue/ice/200/detail16.html",
+      "brandId": "200",
+      "productNum": "16",
+      "nameJa": "クーリッシュ×「カルピス」白桃",
+      "brandJa": "自動販売機取扱い商品",
+      "amount": "135ml",
+      "nutritionRaw": "栄養成分表示 1個当り：<br>エネルギー125kcal<br>たんぱく質1.2g<br>脂質3.7g<br>炭水化物21.8g<br>食塩相当量0.047g"
+    }
+  ]
+}
