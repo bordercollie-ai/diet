@@ -1,0 +1,257 @@
+[
+  {
+    "id": "bundled-rice-ball",
+    "name": { "en": "Rice ball", "ja": "おにぎり", "zh": "饭团" },
+    "serving": "1 piece",
+    "nutrition": { "calories": 180, "protein": 4, "fat": 1, "carbohydrates": 38 },
+    "source": "bundled"
+  },
+  {
+    "id": "bundled-milk",
+    "name": { "en": "Milk", "ja": "牛乳", "zh": "牛奶" },
+    "serving": "200 ml",
+    "nutrition": { "calories": 134, "protein": 6.6, "fat": 7.6, "carbohydrates": 9.6 },
+    "source": "bundled"
+  },
+  {
+    "id": "icecream_shirokuma_multipack_1",
+    "name": {
+      "ja": "白くま マルチパック 55ml×6本",
+      "en": "Shirokuma Multipack 55mlx6",
+      "zh": "白熊 多包裝 55mlx6"
+    },
+    "serving": "55ml",
+    "nutrition": {
+      "calories": 61,
+      "protein": 1.1,
+      "fat": 1.4,
+      "carbohydrates": 11.1
+    },
+    "source": "bundled",
+    "description": "センタン",
+    "detail": {
+      "salt": 0.048
+    }
+  },
+  {
+    "id": "raw-chicken-breast",
+    "name": {
+      "en": "Chicken breast (raw, skinless)",
+      "ja": "鶏むね肉（皮なし・生）",
+      "zh": "鸡胸肉（去皮・生）"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 165,
+      "protein": 31,
+      "fat": 3.6,
+      "carbohydrates": 0
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-chicken-thigh-skinless",
+    "name": {
+      "en": "Chicken thigh (raw, skinless)",
+      "ja": "鶏もも肉（皮なし・生）",
+      "zh": "鸡腿肉（去皮・生）"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 121,
+      "protein": 20.1,
+      "fat": 3.8,
+      "carbohydrates": 0
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-beef-lean",
+    "name": {
+      "en": "Beef (raw, lean)",
+      "ja": "牛肉（赤身・生）",
+      "zh": "牛肉（瘦・生）"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 137,
+      "protein": 22.2,
+      "fat": 5,
+      "carbohydrates": 0
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-pork-lean",
+    "name": {
+      "en": "Pork (raw, lean)",
+      "ja": "豚肉（赤身・生）",
+      "zh": "猪肉（瘦・生）"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 143,
+      "protein": 21.9,
+      "fat": 5.4,
+      "carbohydrates": 0
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-egg",
+    "name": {
+      "en": "Egg (raw)",
+      "ja": "卵（生）",
+      "zh": "鸡蛋（生）"
+    },
+    "serving": "1 piece (50g)",
+    "nutrition": {
+      "calories": 78,
+      "protein": 6.5,
+      "fat": 5.5,
+      "carbohydrates": 0.6
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-white-rice-cooked",
+    "name": {
+      "en": "White rice (cooked)",
+      "ja": "ご飯（白米・炊飯後）",
+      "zh": "白米饭（熟）"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 130,
+      "protein": 2.7,
+      "fat": 0.3,
+      "carbohydrates": 28
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-banana",
+    "name": {
+      "en": "Banana",
+      "ja": "バナナ",
+      "zh": "香蕉"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 89,
+      "protein": 1.1,
+      "fat": 0.3,
+      "carbohydrates": 22.8
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-apple",
+    "name": {
+      "en": "Apple",
+      "ja": "りんご",
+      "zh": "苹果"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 52,
+      "protein": 0.3,
+      "fat": 0.2,
+      "carbohydrates": 13.8
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-broccoli",
+    "name": {
+      "en": "Broccoli (raw)",
+      "ja": "ブロッコリー（生）",
+      "zh": "西兰花（生）"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 34,
+      "protein": 2.8,
+      "fat": 0.4,
+      "carbohydrates": 6.6
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-tofu-firm",
+    "name": {
+      "en": "Tofu (firm)",
+      "ja": "豆腐（木綿）",
+      "zh": "豆腐（老）"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 76,
+      "protein": 8,
+      "fat": 4.8,
+      "carbohydrates": 1.9
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-salmon",
+    "name": {
+      "en": "Salmon (raw)",
+      "ja": "鮭（生）",
+      "zh": "三文鱼（生）"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 208,
+      "protein": 20,
+      "fat": 13,
+      "carbohydrates": 0
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-oats-dry",
+    "name": {
+      "en": "Oats (dry)",
+      "ja": "オートミール（乾燥）",
+      "zh": "燕麦片（干）"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 389,
+      "protein": 16.9,
+      "fat": 6.9,
+      "carbohydrates": 66.3
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-sweet-potato",
+    "name": {
+      "en": "Sweet potato (raw)",
+      "ja": "さつまいも（生）",
+      "zh": "红薯（生）"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 86,
+      "protein": 1.6,
+      "fat": 0.1,
+      "carbohydrates": 20.1
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  }
+]

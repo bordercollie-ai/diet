@@ -2,6 +2,7 @@ import mcdonaldsJapanFoods from "../data/mcdonalds_japan.json" with { type: "jso
 import starbucksJapanFoods from "../data/starbucks_japan.json" with { type: "json" };
 import lotteJapanFoods from "../data/lotte_japan.json" with { type: "json" };
 import meijiJapanFoods from "../data/meiji_japan.json" with { type: "json" };
+import manualFoods from "../data/food.json" with { type: "json" };
 
 export type Nutrition = {
   calories: number;
@@ -102,25 +103,14 @@ export type Store = {
 // Japan's official ice cream ("アイス") product catalogue; do not hand-edit,
 // re-run the importer instead. Meiji does not publish official English or
 // Chinese names, so only the Japanese name is recorded.
+// manualFoods is hand-curated (not scraped) in web/src/data/food.json for
+// bundled foods not covered by an importer; edit that file directly.
 export const bundledFoods: Food[] = [
-  {
-    id: "bundled-rice-ball",
-    name: { en: "Rice ball", ja: "おにぎり", zh: "饭团" },
-    serving: "1 piece",
-    nutrition: { calories: 180, protein: 4, fat: 1, carbohydrates: 38 },
-    source: "bundled"
-  },
-  {
-    id: "bundled-milk",
-    name: { en: "Milk", ja: "牛乳", zh: "牛奶" },
-    serving: "200 ml",
-    nutrition: { calories: 134, protein: 6.6, fat: 7.6, carbohydrates: 9.6 },
-    source: "bundled"
-  },
   ...(mcdonaldsJapanFoods as Food[]),
   ...(starbucksJapanFoods as Food[]),
   ...(lotteJapanFoods as Food[]),
-  ...(meijiJapanFoods as Food[])
+  ...(meijiJapanFoods as Food[]),
+  ...(manualFoods as Food[])
 ];
 
 const SCHEMA_VERSION = 1 as const;
