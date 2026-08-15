@@ -1,0 +1,533 @@
+{
+  "retrievedAt": "2026-08-15",
+  "sources": {
+    "category": "https://www.meiji.co.jp/products/icecream/"
+  },
+  "products": [
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705125308.html",
+      "jan": "4902705125308",
+      "nameJa": "明治 エッセル スーパーカップ 超バニラ 200ml",
+      "amount": "200ml",
+      "nutrition": {
+        "calories": 374,
+        "protein": 5.6,
+        "fat": 23.4,
+        "carbohydrates": 35.3
+      },
+      "detail": {
+        "salt": 0.22
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705125315.html",
+      "jan": "4902705125315",
+      "nameJa": "明治 エッセル スーパーカップ チョコクッキー 200ml",
+      "amount": "200ml",
+      "nutrition": {
+        "calories": 298,
+        "protein": 4.8,
+        "fat": 15.3,
+        "carbohydrates": 35.2
+      },
+      "detail": {
+        "salt": 0.25
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705099326.html",
+      "jan": "4902705099326",
+      "nameJa": "明治 エッセル スーパーカップ ストロベリーチョコ 200ml",
+      "amount": "200ml",
+      "nutrition": {
+        "calories": 316,
+        "protein": 3.9,
+        "fat": 17.5,
+        "carbohydrates": 35.7
+      },
+      "detail": {
+        "salt": 0.15
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705099609.html",
+      "jan": "4902705099609",
+      "nameJa": "明治 エッセル スーパーカップ チョコミント 200ml",
+      "amount": "200ml",
+      "nutrition": {
+        "calories": 341,
+        "protein": 4.1,
+        "fat": 19.4,
+        "carbohydrates": 37.4
+      },
+      "detail": {
+        "salt": 0.13
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705125322.html",
+      "jan": "4902705125322",
+      "nameJa": "明治 エッセル スーパーカップ 抹茶 200ml",
+      "amount": "200ml",
+      "nutrition": {
+        "calories": 301,
+        "protein": 4.8,
+        "fat": 15.7,
+        "carbohydrates": 35.2
+      },
+      "detail": {
+        "salt": 0.17
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705130906.html",
+      "jan": "4902705130906",
+      "nameJa": "明治 エッセル スーパーカップ ブルーベリーのレアチーズ 200ml",
+      "amount": "200ml",
+      "nutrition": {
+        "calories": 283,
+        "protein": 3.7,
+        "fat": 14.9,
+        "carbohydrates": 33.6
+      },
+      "detail": {
+        "salt": 0.21
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705080010.html",
+      "jan": "4902705080010",
+      "nameJa": "明治 エッセル スーパーカップ ミニ 超バニラ 80ml × 6個",
+      "amount": "80ml × 6個",
+      "nutrition": {
+        "calories": 150,
+        "protein": 2.2,
+        "fat": 9.4,
+        "carbohydrates": 14.1
+      },
+      "detail": {
+        "salt": 0.088
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705080072.html",
+      "jan": "4902705080072",
+      "nameJa": "明治 エッセル スーパーカップ ミニ クッキーバニラ 80ml × 6個",
+      "amount": "80ml × 6個",
+      "nutrition": {
+        "calories": 123,
+        "protein": 1.8,
+        "fat": 6.4,
+        "carbohydrates": 14.5
+      },
+      "detail": {
+        "salt": 0.097
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705080263.html",
+      "jan": "4902705080263",
+      "nameJa": "明治 エッセル スーパーカップ ミニ 抹茶・チョコクッキー 80ml × 2種 × 各3個",
+      "amount": "80ml × 2種 × 各3個",
+      "nutrition": {
+        "calories": 121,
+        "protein": 1.9,
+        "fat": 6.3,
+        "carbohydrates": 14.1
+      },
+      "detail": {
+        "salt": 0.067
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705130890.html",
+      "jan": "4902705130890",
+      "nameJa": "明治 エッセル スーパーカップ 大人ラベル とことん珈琲 172ml",
+      "amount": "172ml",
+      "nutrition": {
+        "calories": 251,
+        "protein": 3.1,
+        "fat": 11.6,
+        "carbohydrates": 33.5
+      },
+      "detail": {
+        "salt": 0.14
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705124073.html",
+      "jan": "4902705124073",
+      "nameJa": "明治 チョコレートアイス パフェ 185ml",
+      "amount": "185ml",
+      "nutrition": {
+        "calories": 225,
+        "protein": 4.1,
+        "fat": 9.8,
+        "carbohydrates": 30.2
+      },
+      "detail": {
+        "salt": 0.2
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705130630.html",
+      "jan": "4902705130630",
+      "nameJa": "明治 ストロベリー＆チョコアイス パフェ 185ml",
+      "amount": "185ml",
+      "nutrition": {
+        "calories": 227,
+        "protein": 2.9,
+        "fat": 11,
+        "carbohydrates": 29.1
+      },
+      "detail": {
+        "salt": 0.13
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705121126.html",
+      "jan": "4902705121126",
+      "nameJa": "明治うずまきソフト＜バニラ、チョコ、バニラ＆チョコ＞ 70ml × 3種 × 各2個",
+      "amount": "70ml × 3種 × 各2個",
+      "nutrition": {
+        "calories": 82,
+        "protein": 1.3,
+        "fat": 4.2,
+        "carbohydrates": 9.7
+      },
+      "detail": {
+        "salt": 0.069
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705011939.html",
+      "jan": "4902705011939",
+      "nameJa": "明治 角10棒 アイスソーダ 45ml × 10本",
+      "amount": "45ml × 10本",
+      "nutrition": {
+        "calories": 53,
+        "protein": 0.3,
+        "fat": 1,
+        "carbohydrates": 10.7
+      },
+      "detail": {
+        "salt": 0.022
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705036697.html",
+      "jan": "4902705036697",
+      "nameJa": "明治 角10棒 ラムネ ヨーグルト風味＆レモン 42ml ×2種 × 各5本",
+      "amount": "42ml × 2種 × 各5本",
+      "nutrition": {
+        "calories": 55,
+        "protein": 0.5,
+        "fat": 1.7,
+        "carbohydrates": 9.4
+      },
+      "detail": {
+        "salt": 0.033
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705015487.html",
+      "jan": "4902705015487",
+      "nameJa": "明治 アーモンドチョコレートアイスバー 47ml × 6本",
+      "amount": "47ml × 6本",
+      "nutrition": {
+        "calories": 152,
+        "protein": 1.7,
+        "fat": 10.7,
+        "carbohydrates": 12.2
+      },
+      "detail": {
+        "salt": 0.036
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705029392.html",
+      "jan": "4902705029392",
+      "nameJa": "明治 ピスタチオチョコレートアイスバー 47ml × 5本",
+      "amount": "47ml × 5本",
+      "nutrition": {
+        "calories": 150,
+        "protein": 1.6,
+        "fat": 10.6,
+        "carbohydrates": 12
+      },
+      "detail": {
+        "salt": 0.035
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705111479.html",
+      "jan": "4902705111479",
+      "nameJa": "明治 宇治金時 65ml × 6本",
+      "amount": "65ml × 6本",
+      "nutrition": {
+        "calories": 97,
+        "protein": 1.5,
+        "fat": 2.2,
+        "carbohydrates": 17.9
+      },
+      "detail": {
+        "salt": 0.048
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705111486.html",
+      "jan": "4902705111486",
+      "nameJa": "明治 練乳金時 65ml × 6本",
+      "amount": "65ml × 6本",
+      "nutrition": {
+        "calories": 98,
+        "protein": 1.5,
+        "fat": 2.2,
+        "carbohydrates": 18.1
+      },
+      "detail": {
+        "salt": 0.048
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705128453.html",
+      "jan": "4902705128453",
+      "nameJa": "&#36795;&#xE0100;利 お濃い抹茶＜スティックマルチ＞ 40ml × 7本",
+      "amount": "40ml × 7本",
+      "nutrition": {
+        "calories": 74,
+        "protein": 1.4,
+        "fat": 4.1,
+        "carbohydrates": 7.8
+      },
+      "detail": {
+        "salt": 0.036
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705128446.html",
+      "jan": "4902705128446",
+      "nameJa": "&#36795;&#xE0100;利 お濃い抹茶 チョコレート＆クランチ 90ml",
+      "amount": "90ml",
+      "nutrition": {
+        "calories": 222,
+        "protein": 2.6,
+        "fat": 13.1,
+        "carbohydrates": 23.3
+      },
+      "detail": {
+        "salt": 0.081
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705128354.html",
+      "jan": "4902705128354",
+      "nameJa": "&#36795;&#xE0100;利 お濃い抹茶フラッペ 160ml",
+      "amount": "160ml",
+      "nutrition": {
+        "calories": 134,
+        "protein": 2.4,
+        "fat": 4.4,
+        "carbohydrates": 21.3
+      },
+      "detail": {
+        "salt": 0.084
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705077744.html",
+      "jan": "4902705077744",
+      "nameJa": "明治 ファミリア＜Familia＞ バニラ 2000ml",
+      "amount": "2000ml",
+      "nutrition": {
+        "calories": 193,
+        "protein": 3,
+        "fat": 8.6,
+        "carbohydrates": 26
+      },
+      "detail": {
+        "salt": 0.097
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705077751.html",
+      "jan": "4902705077751",
+      "nameJa": "明治 ファミリア＜Familia＞ バニラ＆チョコ 2000ml",
+      "amount": "2000ml",
+      "nutrition": {
+        "calories": 191,
+        "protein": 3.4,
+        "fat": 8.9,
+        "carbohydrates": 24.3
+      },
+      "detail": {
+        "salt": 0.11
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705096622.html",
+      "jan": "4902705096622",
+      "nameJa": "明治 The Premium バニラ 200ml",
+      "amount": "200ml",
+      "nutrition": {
+        "calories": 431,
+        "protein": 6.6,
+        "fat": 30.7,
+        "carbohydrates": 32.1
+      },
+      "detail": {
+        "salt": 0.21
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705096349.html",
+      "jan": "4902705096349",
+      "nameJa": "明治 チョコレート効果カカオアイス 75ml×4個",
+      "amount": "75ml×4個",
+      "nutrition": {
+        "calories": 152,
+        "protein": 1.6,
+        "fat": 7.3,
+        "carbohydrates": 19.9
+      },
+      "detail": {
+        "salt": 0.0072
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705049833.html",
+      "jan": "4902705049833",
+      "nameJa": "明治 ブルガリア フローズンヨーグルトデザート 85ml",
+      "amount": "85ml",
+      "nutrition": {
+        "calories": 99,
+        "protein": 2.3,
+        "fat": 2.6,
+        "carbohydrates": 16.6
+      },
+      "detail": {
+        "salt": 0.073
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705130050.html",
+      "jan": "4902705130050",
+      "nameJa": "明治 ブルガリア フローズンヨーグルトデザート マスカット 80ml",
+      "amount": "80ml",
+      "nutrition": {
+        "calories": 94,
+        "protein": 2.1,
+        "fat": 2.5,
+        "carbohydrates": 15.7
+      },
+      "detail": {
+        "salt": 0.068
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705128224.html",
+      "jan": "4902705128224",
+      "nameJa": "明治 ブルガリア フローズンヨーグルトデザート 塩レモン 85ml",
+      "amount": "85ml",
+      "nutrition": {
+        "calories": 102,
+        "protein": 2.3,
+        "fat": 2.7,
+        "carbohydrates": 17.1
+      },
+      "detail": {
+        "salt": 0.089
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705130043.html",
+      "jan": "4902705130043",
+      "nameJa": "明治 ブルガリア フローズンヨーグルトデザート 白桃 80ml",
+      "amount": "80ml",
+      "nutrition": {
+        "calories": 93,
+        "protein": 2.1,
+        "fat": 2.5,
+        "carbohydrates": 15.6
+      },
+      "detail": {
+        "salt": 0.068
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705130036.html",
+      "jan": "4902705130036",
+      "nameJa": "明治 ブルガリア フローズンヨーグルトデザート 濃い苺 80ml",
+      "amount": "80ml",
+      "nutrition": {
+        "calories": 103,
+        "protein": 2.1,
+        "fat": 2.3,
+        "carbohydrates": 18.5
+      },
+      "detail": {
+        "salt": 0.066
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705080386.html",
+      "jan": "4902705080386",
+      "nameJa": "明治 Dear Milk 130ml",
+      "amount": "130ml",
+      "nutrition": {
+        "calories": 265,
+        "protein": 4.3,
+        "fat": 19.1,
+        "carbohydrates": 18.9
+      },
+      "detail": {
+        "salt": 0.13
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705129771.html",
+      "jan": "4902705129771",
+      "nameJa": "明治 Dear Milk＜マルチ＞ 73ml × 4個",
+      "amount": "73ml × 4個",
+      "nutrition": {
+        "calories": 149,
+        "protein": 2.4,
+        "fat": 10.8,
+        "carbohydrates": 10.6
+      },
+      "detail": {
+        "salt": 0.073
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705130920.html",
+      "jan": "4902705130920",
+      "nameJa": "明治 Dear Milk 涼み 130ml",
+      "amount": "130ml",
+      "nutrition": {
+        "calories": 219,
+        "protein": 5.7,
+        "fat": 11.2,
+        "carbohydrates": 23.8
+      },
+      "detail": {
+        "salt": 0.18
+      }
+    },
+    {
+      "url": "https://www.meiji.co.jp/products/icecream/4902705131989.html",
+      "jan": "4902705131989",
+      "nameJa": "明治 メロンソーダ喫茶風 メロン＆バニラ 185ml",
+      "amount": "185ml",
+      "nutrition": {
+        "calories": 140,
+        "protein": 0.6,
+        "fat": 4.6,
+        "carbohydrates": 24.1
+      },
+      "detail": {
+        "salt": 0.056
+      }
+    }
+  ]
+}
