@@ -215,3 +215,17 @@ test('opens Calendar from the menu page, jumps to a day, returns to calendar, an
 
   await screen.findByRole('tabpanel', { name: 'Menu' })
 })
+
+test('opens Profile from the menu page and returns via the back button', async () => {
+  render(App)
+
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await fireEvent.click(screen.getByRole('tab', { name: 'Menu' }))
+  await screen.findByRole('tabpanel', { name: 'Menu' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Profile' }))
+
+  await screen.findByRole('tabpanel', { name: 'Profile and targets' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Menu' }))
+
+  await screen.findByRole('tabpanel', { name: 'Menu' })
+})

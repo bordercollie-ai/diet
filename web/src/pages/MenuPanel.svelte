@@ -3,10 +3,12 @@
   import CalendarDaysIcon from '@lucide/svelte/icons/calendar-days'
   import ChevronRightIcon from '@lucide/svelte/icons/chevron-right'
   import DownloadIcon from '@lucide/svelte/icons/download'
+  import UserIcon from '@lucide/svelte/icons/user'
 
-  let { onSelect }: { onSelect: (page: 'calendar' | 'backup') => void } = $props()
+  let { onSelect }: { onSelect: (page: 'profile' | 'calendar' | 'backup') => void } = $props()
 
-  const items: { id: 'calendar' | 'backup'; label: string; icon: typeof CalendarDaysIcon }[] = [
+  const items: { id: 'profile' | 'calendar' | 'backup'; label: string; icon: typeof CalendarDaysIcon }[] = [
+    { id: 'profile', label: 'Profile', icon: UserIcon },
     { id: 'calendar', label: 'Calendar', icon: CalendarDaysIcon },
     { id: 'backup', label: 'Export', icon: DownloadIcon },
   ]

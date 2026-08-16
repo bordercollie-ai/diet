@@ -5,7 +5,6 @@
   import MenuIcon from '@lucide/svelte/icons/menu'
   import MoonIcon from '@lucide/svelte/icons/moon'
   import SunIcon from '@lucide/svelte/icons/sun'
-  import UserIcon from '@lucide/svelte/icons/user'
   import { onMount } from 'svelte'
   import { fade } from 'svelte/transition'
   import {
@@ -97,14 +96,13 @@
   const tabs: { id: Tab; label: string; icon: typeof HouseIcon }[] = [
     { id: 'summary', label: 'Summary', icon: HouseIcon },
     { id: 'foods', label: 'Foods', icon: AppleIcon },
-    { id: 'profile', label: 'Profile', icon: UserIcon },
     { id: 'menu', label: 'Menu', icon: MenuIcon },
   ]
   let activeTab: Tab = $state('summary')
   // ponytail: remembers only "came from calendar"; cleared by any other nav, no history stack needed.
   let returnToCalendar = $state(false)
 
-  function openMenuPage(page: 'calendar' | 'backup') {
+  function openMenuPage(page: 'profile' | 'calendar' | 'backup') {
     activeTab = page
   }
 
@@ -413,6 +411,7 @@
   {:else if activeTab === 'foods'}
     <FoodsPanel {data} onAddFood={startNewFood} onEditFood={editFood} />
   {:else if activeTab === 'profile'}
+    <BackButton label="Menu" onclick={() => (activeTab = 'menu')} />
     <ProfilePanel
       bind:profile
       bind:overrideCalories
@@ -466,7 +465,7 @@
   <div class="mx-auto flex max-w-3xl gap-0.5 px-3 pt-2" role="tablist" aria-label="Diet sections">
     {#each tabs as { id, label, icon: Icon }}
       {@const selected =
-        id === 'menu' ? activeTab === 'menu' || activeTab === 'calendar' || activeTab === 'backup' : activeTab === id}
+        id === 'menu' ? activeTab === 'menu' || activeTab === 'profile' || activeTab === 'calendar' || activeTab === 'backup' : activeTab === id}
       <Button
         id={`${id}-tab`}
         role="tab"
