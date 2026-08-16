@@ -1,9 +1,8 @@
 <script lang="ts">
-  import { dailyTotals, roundForDisplay, type AppData, type Nutrition } from '../domain/store'
-  import { Button } from '$lib/components/ui/button'
+  import { roundForDisplay, type AppData, type Nutrition } from '../domain/store'
   import * as Card from '$lib/components/ui/card'
   import { Separator } from '$lib/components/ui/separator'
-  import PlusIcon from '@lucide/svelte/icons/plus'
+  import DayStrip from './DayStrip.svelte'
   import FlameIcon from '@lucide/svelte/icons/flame'
   import HamIcon from '@lucide/svelte/icons/ham'
   import WheatIcon from '@lucide/svelte/icons/wheat'
@@ -17,6 +16,7 @@
     today,
     recentDays,
     dayTones,
+    showDayStrip = true,
     totals,
     targets,
     caloriePercent,
@@ -24,14 +24,13 @@
     calorieColor,
     onSelectDate,
     onEditMeal,
-    onRecordMeal,
-    onQuickAdd,
   }: {
     data: AppData
     date: string
     today: string
     recentDays: Day[]
     dayTones: Record<string, string>
+    showDayStrip?: boolean
     totals: Nutrition
     targets: Nutrition
     caloriePercent: number
@@ -39,46 +38,28 @@
     calorieColor: string
     onSelectDate: (iso: string) => void
     onEditMeal: (id: string) => void
-    onRecordMeal: () => void
-    onQuickAdd: () => void
   } = $props()
 
   const displayNumber = roundForDisplay
+  // ponytail: macro alert threshold (120%) is intentionally looser than the calorie tone's 110%; own constant, not reused.
+  const isOverMacro = (amount: number, target: number) => target > 0 && amount / target > 1.2
 </script>
 
 <div id="summary-panel" role="tabpanel" aria-labelledby="summary-tab">
   <Card.Root>
     <Card.Content>
-      <div class="day-strip" aria-label="Recent days">
-        {#each recentDays as day}
-          {@const dayCalories = dailyTotals(data, day.iso).calories}
-          {@const tone = dayTones[day.iso]}
-          <button
-            type="button"
-            class:selected={date === day.iso}
-            class:font-bold={day.iso === today}
-            class:under={tone === 'under'}
-            class:on-target={tone === 'on-target'}
-            class:over={tone === 'over'}
-            class:empty={tone === 'empty'}
-            aria-pressed={date === day.iso}
-            aria-label={`${day.label} ${day.number}, ${displayNumber(dayCalories)} kcal`}
-            onclick={() => onSelectDate(day.iso)}
-          >
-            <span class="day-label">{day.label}</span>
-            <span
-              class="flex aspect-square w-[min(2rem,100%)] items-center justify-center rounded-full border"
-              class:border-dashed={tone === 'empty'}
-              class:border-2={tone !== 'empty'}
-              class:border-solid={tone !== 'empty' || day.iso === today}
-              class:border-[var(--muted-foreground)]={tone === 'empty'}
-              class:border-[var(--calorie-under)]={tone === 'under' || tone === 'on-target'}
-              class:border-[var(--calorie-over)]={tone === 'over'}
-              aria-hidden="true"><span>{day.number}</span></span
-            >
-          </button>
-        {/each}
-      </div>
+      {#if showDayStrip}
+        <DayStrip {data} {date} {today} {recentDays} {dayTones} {onSelectDate} />
+      {:else}
+        <p class="text-center font-medium mb-3">
+          {new Date(`${date}T12:00:00`).toLocaleDateString(undefined, {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric',
+          })}
+        </p>
+      {/if}
       <div
         id="calorie-summary"
         class="stat-card flex items-center justify-between my-4 rounded-md bg-card p-4"
@@ -105,17 +86,24 @@
         <div class="stat-card grid gap-1 rounded-md bg-card p-2.5 text-center">
           <span class="flex items-center justify-center gap-1 text-muted-foreground"
             ><HamIcon aria-hidden="true" class="size-4" /> Protein</span
-          ><strong>{Math.round(totals.protein)} / {Math.round(targets.protein)}</strong>
+          ><strong class:text-[var(--macro-over)]={isOverMacro(totals.protein, targets.protein)}
+            >{Math.round(totals.protein)} / {Math.round(targets.protein)}</strong
+          >
         </div>
         <div class="stat-card grid gap-1 rounded-md bg-card p-2.5 text-center">
           <span class="flex items-center justify-center gap-1 text-muted-foreground"
             ><WheatIcon aria-hidden="true" class="size-4" /> Carbs</span
-          ><strong>{Math.round(totals.carbohydrates)} / {Math.round(targets.carbohydrates)}</strong>
+          ><strong
+            class:text-[var(--macro-over)]={isOverMacro(totals.carbohydrates, targets.carbohydrates)}
+            >{Math.round(totals.carbohydrates)} / {Math.round(targets.carbohydrates)}</strong
+          >
         </div>
         <div class="stat-card grid gap-1 rounded-md bg-card p-2.5 text-center">
           <span class="flex items-center justify-center gap-1 text-muted-foreground"
             ><NutIcon aria-hidden="true" class="size-4" /> Fat</span
-          ><strong>{Math.round(totals.fat)} / {Math.round(targets.fat)}</strong>
+          ><strong class:text-[var(--macro-over)]={isOverMacro(totals.fat, targets.fat)}
+            >{Math.round(totals.fat)} / {Math.round(targets.fat)}</strong
+          >
         </div>
       </div>
     </Card.Content>
@@ -162,9 +150,4 @@
       </div>
     </div>
   </div>
-  <Button type="button" class="w-full mt-4" aria-haspopup="dialog" onclick={onRecordMeal}>
-    <PlusIcon aria-hidden="true" />
-    Add a meal
-  </Button>
-  <Button type="button" variant="outline" class="w-full" aria-haspopup="dialog" onclick={onQuickAdd}>Quick add</Button>
 </div>

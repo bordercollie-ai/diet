@@ -28,6 +28,8 @@
 
   --calorie-over: #dc2626;
 
+  --macro-over: #ea580c;
+
   --foreground: oklch(0.141 0.005 285.823);
 
   --card: oklch(1 0 0);
@@ -98,6 +100,8 @@
   --calorie-under: #4ade80;
 
   --calorie-over: #f87171;
+
+  --macro-over: #fb923c;
 
   --foreground: oklch(0.985 0 0);
 

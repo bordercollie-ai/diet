@@ -83,6 +83,16 @@ The importer emits app-compatible records with reviewed Chinese mappings, withou
 - **Checks:** `pnpm check`; `pnpm build`; 20 domain tests; 11 UI tests — all pass, exit code 0.
 - **Risk:** none known; the inline-food-creation fix also unblocked several previously-broken pre-existing UI tests unrelated to this feature (a stale "Record a meal" vs. "Add a meal" button-name mismatch was also corrected in tests).
 
+## Out-of-band feature: Calendar page + real menu page on the 4th nav tab, consistent iOS-style back buttons
+
+**Status:** done (2026-08-16).
+
+- **Scope:** the 4th bottom-nav tab (`MenuIcon`) opens a dedicated `MenuPanel` list page (iOS Settings-style rows) with "Calendar" and "Export" (the prior Backup panel, unchanged). Selecting an item navigates to that page. `CalendarPanel.svelte` shows a month grid, each day tinted by that day's calorie status (same tone logic as the Summary 7-day strip); tapping a day jumps to Summary for that date. All pages reached through this feature (Calendar, Export/Backup, and Summary-when-arrived-from-Calendar) now show a shared top-left `BackButton` (chevron + previous page's name, iOS convention) instead of the earlier ad hoc bottom-of-card link/popover.
+- **Files changed:** `web/src/domain/store.ts` (extracted the tone-from-calories branch shared by the Summary strip and the calendar into `calorieTone()`), `web/src/App.svelte` (tab type gained `'menu' | 'calendar'`, 4th nav tab now opens the `menu` page directly (no popover), `returnToCalendar` state + `BackButton` on Summary, `BackButton` on Calendar/Backup pages returning to Menu), `web/src/pages/MenuPanel.svelte` (new), `web/src/pages/CalendarPanel.svelte` (new), `web/src/pages/BackButton.svelte` (new, shared), `web/src/pages/BackupPanel.svelte` (`aria-labelledby` now points at its own heading instead of a nav tab id that no longer exists), `web/tests/App.test.ts` (menu→calendar→day→back→menu coverage).
+- **Checks:** `pnpm check` (0 errors, 1 pre-existing informational warning: `CalendarPanel` intentionally captures `today`'s initial value once so the calendar opens on the current month); `pnpm build`; `pnpm test` (22 domain tests); `pnpm run test:ui` (12 UI tests) — all pass. Dropped the `Popover`/`bits-ui` UI import from the bundle (unused now), JS bundle shrank ~55KB.
+- **Risk:** none known. Export/Backup behavior is unchanged, only reachable via the new Menu page. The iOS-style back button was applied only to the pages this feature touches (Menu, Calendar, Backup, Summary-from-Calendar), per instruction — other pages (Foods, Profile, meal/food sheets) are untouched.
+- **Skipped:** persisting the selected calendar month across reloads, a dedicated calendar route/URL, and multi-level back history beyond the single "came from calendar" flag — add if users need deep-linking or multi-hop navigation.
+
 ## Deferred work
 
 | Phase | Scope | Exit criteria |

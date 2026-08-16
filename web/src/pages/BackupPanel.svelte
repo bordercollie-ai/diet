@@ -26,7 +26,7 @@
   } = $props()
 </script>
 
-<div id="backup-panel" role="tabpanel" aria-labelledby="backup-tab">
+<div id="backup-panel" role="tabpanel" aria-labelledby="backup-heading">
   <Card.Root>
     <Card.Header><Card.Title id="backup-heading">Backup and install</Card.Title></Card.Header>
     <Card.Content class="flex flex-col gap-4">

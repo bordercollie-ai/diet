@@ -1,0 +1,54 @@
+<script lang="ts">
+  import { dailyTotals, roundForDisplay, type AppData } from '../domain/store'
+
+  type Day = { iso: string; label: string; number: number }
+
+  let {
+    data,
+    date,
+    today,
+    recentDays,
+    dayTones,
+    onSelectDate,
+  }: {
+    data: AppData
+    date: string
+    today: string
+    recentDays: Day[]
+    dayTones: Record<string, string>
+    onSelectDate: (iso: string) => void
+  } = $props()
+
+  const displayNumber = roundForDisplay
+</script>
+
+<div class="day-strip" aria-label="Recent days">
+  {#each recentDays as day}
+    {@const dayCalories = dailyTotals(data, day.iso).calories}
+    {@const tone = dayTones[day.iso]}
+    <button
+      type="button"
+      class:selected={date === day.iso}
+      class:font-bold={day.iso === today}
+      class:under={tone === 'under'}
+      class:on-target={tone === 'on-target'}
+      class:over={tone === 'over'}
+      class:empty={tone === 'empty'}
+      aria-pressed={date === day.iso}
+      aria-label={`${day.label} ${day.number}, ${displayNumber(dayCalories)} kcal`}
+      onclick={() => onSelectDate(day.iso)}
+    >
+      <span class="day-label">{day.label}</span>
+      <span
+        class="flex aspect-square w-[min(2rem,100%)] items-center justify-center rounded-full border"
+        class:border-dashed={tone === 'empty'}
+        class:border-2={tone !== 'empty'}
+        class:border-solid={tone !== 'empty' || day.iso === today}
+        class:border-[var(--muted-foreground)]={tone === 'empty'}
+        class:border-[var(--calorie-under)]={tone === 'under' || tone === 'on-target'}
+        class:border-[var(--calorie-over)]={tone === 'over'}
+        aria-hidden="true"><span>{day.number}</span></span
+      >
+    </button>
+  {/each}
+</div>

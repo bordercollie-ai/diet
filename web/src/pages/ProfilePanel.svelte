@@ -31,7 +31,7 @@
   const displayNumber = roundForDisplay
 </script>
 
-<div id="profile-panel" role="tabpanel" aria-labelledby="profile-tab">
+<div id="profile-panel" role="tabpanel" aria-labelledby="profile-heading">
   <Card.Root class="overflow-visible">
     <Card.Header><Card.Title id="profile-heading">Profile and targets</Card.Title></Card.Header>
     <Card.Content>

@@ -1,15 +1,18 @@
 <script lang="ts">
   import { Button } from '$lib/components/ui/button'
+  import { Popover, PopoverContent, PopoverTrigger } from '$lib/components/ui/popover'
   import AppleIcon from '@lucide/svelte/icons/apple'
   import HouseIcon from '@lucide/svelte/icons/house'
   import MenuIcon from '@lucide/svelte/icons/menu'
   import MoonIcon from '@lucide/svelte/icons/moon'
+  import PlusIcon from '@lucide/svelte/icons/plus'
   import SunIcon from '@lucide/svelte/icons/sun'
-  import UserIcon from '@lucide/svelte/icons/user'
+  import ZapIcon from '@lucide/svelte/icons/zap'
   import { onMount } from 'svelte'
   import { fade } from 'svelte/transition'
   import {
     bundledFoods,
+    calorieTone,
     createMealEntry,
     dailyTotals,
     deleteMealEntry,
@@ -23,10 +26,13 @@
     type ImportResult,
     type Profile,
   } from './domain/store'
+  import BackButton from '$lib/components/back-button.svelte'
   import BackupPanel from './pages/BackupPanel.svelte'
+  import CalendarPanel from './pages/CalendarPanel.svelte'
   import FoodSheet from './pages/FoodSheet.svelte'
   import FoodsPanel from './pages/FoodsPanel.svelte'
   import MealSheet from './pages/MealSheet.svelte'
+  import MenuPanel from './pages/MenuPanel.svelte'
   import ProfilePanel from './pages/ProfilePanel.svelte'
   import SummaryPanel from './pages/SummaryPanel.svelte'
   import { createIndexedDBStore } from './storage/indexeddb'
@@ -49,6 +55,8 @@
   })
   let data: AppData = $state({ foods: [], mealEntries: [] })
   let date = $state(today)
+  // ponytail: separate state so picking a day on the calendar never leaks into the Home tab's date, and vice versa.
+  let calendarDate = $state(today)
   let foodSheet: {
     openForNew: () => void
     openForEdit: (food: Food) => void
@@ -89,21 +97,49 @@
   let installPrompt: BeforeInstallPromptEvent | null = $state(null)
   let installed = $state(false)
   let darkMode = $state(false)
-  type Tab = 'summary' | 'foods' | 'profile' | 'backup'
+  type Tab = 'summary' | 'foods' | 'profile' | 'menu' | 'calendar' | 'backup'
   const tabs: { id: Tab; label: string; icon: typeof HouseIcon }[] = [
     { id: 'summary', label: 'Summary', icon: HouseIcon },
     { id: 'foods', label: 'Foods', icon: AppleIcon },
-    { id: 'profile', label: 'Profile', icon: UserIcon },
-    { id: 'backup', label: 'Backup', icon: MenuIcon },
+    { id: 'menu', label: 'Menu', icon: MenuIcon },
   ]
   let activeTab: Tab = $state('summary')
+  let addMealMenuOpen = $state(false)
+
+  function recordMeal() {
+    addMealMenuOpen = false
+    mealSheet.openForNew()
+  }
+
+  function quickAddMeal() {
+    addMealMenuOpen = false
+    mealSheet.openTemporary()
+  }
+  // ponytail: remembers only "came from calendar"; cleared by any other nav, no history stack needed.
+  let returnToCalendar = $state(false)
+
+  function openMenuPage(page: 'profile' | 'calendar' | 'backup') {
+    activeTab = page
+  }
+
+  function goToSummaryFromCalendar(iso: string) {
+    calendarDate = iso
+    activeTab = 'summary'
+    returnToCalendar = true
+  }
+
+  function selectTab(tab: Tab) {
+    activeTab = tab
+    returnToCalendar = false
+  }
 
   type BeforeInstallPromptEvent = Event & {
     prompt: () => Promise<void>
     userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
   }
 
-  const totals = $derived(dailyTotals(data, date))
+  const summaryDate = $derived(returnToCalendar ? calendarDate : date)
+  const totals = $derived(dailyTotals(data, summaryDate))
   const profileReady = $derived(
     profile.age >= 1 &&
       profile.age <= 120 &&
@@ -123,17 +159,7 @@
   const calorieRatio = $derived(targets.calories > 0 ? totals.calories / targets.calories : 0)
   const caloriePercent = $derived(Math.round(calorieRatio * 100))
   const caloriesRemaining = $derived(targets.calories - totals.calories)
-  const calorieTone = $derived(
-    totals.calories === 0
-      ? 'empty'
-      : targets.calories === 0
-        ? 'unavailable'
-        : calorieRatio < 0.9
-          ? 'under'
-          : calorieRatio < 1.1
-            ? 'on-target'
-            : 'over',
-  )
+  const todayCalorieTone = $derived(calorieTone(totals.calories, targets.calories))
   const calorieColor = $derived(
     {
       under: 'var(--calorie-under)',
@@ -141,7 +167,7 @@
       over: 'var(--calorie-over)',
       empty: 'var(--primary)',
       unavailable: 'var(--muted-foreground)',
-    }[calorieTone],
+    }[todayCalorieTone],
   )
 
   onMount(async () => {
@@ -290,7 +316,7 @@
         food,
       )
       await save({ ...data, mealEntries: [...data.mealEntries, entry] })
-      showToast('Added to today\'s meal.')
+      showToast("Added to today's meal.")
     } catch (cause) {
       error = cause instanceof Error ? cause.message : 'Unable to add meal.'
     }
@@ -330,11 +356,7 @@
   }
 
   function dayTone(iso: string) {
-    const dayCalories = dailyTotals(data, iso).calories
-    if (dayCalories === 0) return 'empty'
-    if (targets.calories === 0) return 'unavailable'
-    const ratio = dayCalories / targets.calories
-    return ratio < 0.9 ? 'under' : ratio < 1.1 ? 'on-target' : 'over'
+    return calorieTone(dailyTotals(data, iso).calories, targets.calories)
   }
   const dayTones = $derived(Object.fromEntries(recentDays.map((day) => [day.iso, dayTone(day.iso)])))
 </script>
@@ -378,12 +400,22 @@
   {/if}
 
   {#if activeTab === 'summary'}
+    {#if returnToCalendar}
+      <BackButton
+        label="Calendar"
+        onclick={() => {
+          activeTab = 'calendar'
+          returnToCalendar = false
+        }}
+      />
+    {/if}
     <SummaryPanel
       {data}
-      {date}
+      date={summaryDate}
       {today}
       {recentDays}
       {dayTones}
+      showDayStrip={!returnToCalendar}
       {totals}
       {targets}
       {caloriePercent}
@@ -391,12 +423,11 @@
       {calorieColor}
       onSelectDate={(iso) => (date = iso)}
       onEditMeal={(id) => mealSheet.openForEdit(id)}
-      onRecordMeal={() => mealSheet.openForNew()}
-      onQuickAdd={() => mealSheet.openTemporary()}
     />
   {:else if activeTab === 'foods'}
     <FoodsPanel {data} onAddFood={startNewFood} onEditFood={editFood} />
   {:else if activeTab === 'profile'}
+    <BackButton label="Menu" onclick={() => (activeTab = 'menu')} />
     <ProfilePanel
       bind:profile
       bind:overrideCalories
@@ -408,7 +439,13 @@
       {targets}
       onSave={saveProfile}
     />
+  {:else if activeTab === 'menu'}
+    <MenuPanel onSelect={openMenuPage} />
+  {:else if activeTab === 'calendar'}
+    <BackButton label="Menu" onclick={() => (activeTab = 'menu')} />
+    <CalendarPanel {data} {today} {targets} onSelectDate={goToSummaryFromCalendar} />
   {:else if activeTab === 'backup'}
+    <BackButton label="Menu" onclick={() => (activeTab = 'menu')} />
     <BackupPanel
       {selectedBackupName}
       {backupPreview}
@@ -425,6 +462,7 @@
     bind:this={mealSheet}
     {data}
     bind:date
+    {today}
     onSave={save}
     onCreateFood={(name) => foodSheet.openWithName(name)}
     onDelete={removeMeal}
@@ -441,20 +479,46 @@
 </main>
 
 <nav class="fixed inset-x-0 bottom-0 z-30 border-t bg-background backdrop-blur pb-[env(safe-area-inset-bottom,0px)]">
-  <div class="mx-auto flex max-w-3xl gap-0.5 px-3 pt-1" role="tablist" aria-label="Diet sections">
+  <div class="mx-auto flex max-w-3xl items-center gap-2 px-3 pt-2" role="tablist" aria-label="Diet sections">
+    <Popover bind:open={addMealMenuOpen}>
+      <PopoverTrigger>
+        {#snippet child({ props })}
+          <button
+            {...props}
+            type="button"
+            aria-label="Add meal options"
+            class="flex min-w-0 flex-1 items-center justify-center rounded-sm bg-foreground py-2 text-background transition-transform active:scale-95"
+          >
+            <PlusIcon aria-hidden="true" class="size-5" />
+          </button>
+        {/snippet}
+      </PopoverTrigger>
+      <PopoverContent align="start" side="top" class="w-56">
+        <Button type="button" variant="ghost" class="justify-start gap-2" onclick={recordMeal}>
+          <PlusIcon aria-hidden="true" class="size-4" /> Add a meal
+        </Button>
+        <Button type="button" variant="ghost" class="justify-start gap-2" onclick={quickAddMeal}>
+          <ZapIcon aria-hidden="true" class="size-4" /> Quick add
+        </Button>
+      </PopoverContent>
+    </Popover>
     {#each tabs as { id, label, icon: Icon }}
+      {@const selected =
+        id === 'menu'
+          ? activeTab === 'menu' || activeTab === 'profile' || activeTab === 'calendar' || activeTab === 'backup'
+          : activeTab === id}
       <Button
         id={`${id}-tab`}
         role="tab"
-        aria-selected={activeTab === id}
+        aria-selected={selected}
         aria-controls={`${id}-panel`}
         aria-label={label}
         size="icon-sm"
         variant="ghost"
-        class="min-w-0 flex-1 rounded-lg hover:bg-transparent border-0 {activeTab === id
+        class="min-w-0 flex-1 rounded-lg hover:bg-transparent border-0 {selected
           ? 'text-foreground'
           : 'text-muted-foreground'}"
-        onclick={() => (activeTab = id as Tab)}
+        onclick={() => selectTab(id)}
       >
         <Icon aria-hidden="true" class="size-5" />
       </Button>
