@@ -27,6 +27,30 @@ test('swiping right over empty page space below short content still triggers bac
   expect(onBack).toHaveBeenCalledOnce()
 })
 
+test('swiping a stacked (topmost) sheet does not also trigger an older sheet underneath', async () => {
+  const outerBack = vi.fn()
+  const innerBack = vi.fn()
+  const outer = document.createElement('div')
+  document.body.appendChild(outer)
+  const inner = document.createElement('div')
+  document.body.appendChild(inner)
+  const { swipeBack } = await import('../src/lib/actions/swipe-back')
+  const outerAction = swipeBack(outer, outerBack)
+  const innerAction = swipeBack(inner, innerBack)
+
+  dispatchTouch(document.body, 'touchstart', 10, 50)
+  dispatchTouch(document.body, 'touchmove', 200, 50)
+  dispatchTouch(document.body, 'touchend', 200, 50)
+
+  expect(innerBack).toHaveBeenCalledOnce()
+  expect(outerBack).not.toHaveBeenCalled()
+
+  innerAction.destroy()
+  outerAction.destroy()
+  outer.remove()
+  inner.remove()
+})
+
 test('the previous screen stays mounted underneath so dragging reveals real content', () => {
   const { getByText } = render(SwipeLayerHarness, { props: { onBack: vi.fn() } })
 

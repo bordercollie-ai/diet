@@ -14,50 +14,68 @@ function normalize(params: SwipeBackParams) {
     : { onBack: params.onBack, drag: params.drag ?? true }
 }
 
-export function swipeBack(node: HTMLElement, params: SwipeBackParams) {
-  let { onBack, drag } = normalize(params)
-  let startX = 0
-  let startY = 0
-  let tracking = false
+// ponytail: stacked overlays (e.g. FoodSheet opened on top of MealSheet) each mount
+// their own swipeBack. Every instance used to listen on window independently, so one
+// swipe fired every active instance's onBack, not just the topmost sheet's — closing
+// sheets underneath too. A single shared stack lets only the last-mounted (topmost)
+// instance react; older instances just sit inert until they're back on top.
+type Layer = { node: HTMLElement; onBack: () => void; drag: boolean }
+const stack: Layer[] = []
+let startX = 0
+let startY = 0
+let tracking = false
 
-  function start(event: TouchEvent) {
-    const touch = event.touches[0]
-    startX = touch.clientX
-    startY = touch.clientY
-    tracking = true
-    node.style.transition = 'none'
-  }
+function start(event: TouchEvent) {
+  const touch = event.touches[0]
+  startX = touch.clientX
+  startY = touch.clientY
+  tracking = true
+  const top = stack.at(-1)
+  if (top) top.node.style.transition = 'none'
+}
 
-  function move(event: TouchEvent) {
-    if (!tracking || !drag) return
-    const touch = event.touches[0]
-    const dx = touch.clientX - startX
-    const dy = touch.clientY - startY
-    if (Math.abs(dy) > Math.abs(dx)) return
-    node.style.transform = dx > 0 ? `translateX(${dx}px)` : ''
-  }
+function move(event: TouchEvent) {
+  const top = stack.at(-1)
+  if (!tracking || !top?.drag) return
+  const touch = event.touches[0]
+  const dx = touch.clientX - startX
+  const dy = touch.clientY - startY
+  if (Math.abs(dy) > Math.abs(dx)) return
+  top.node.style.transform = dx > 0 ? `translateX(${dx}px)` : ''
+}
 
-  function end(event: TouchEvent) {
-    if (!tracking) return
-    tracking = false
-    node.style.transition = ''
-    node.style.transform = ''
-    const dx = event.changedTouches[0].clientX - startX
-    if (dx > THRESHOLD_PX) onBack()
-  }
+function end(event: TouchEvent) {
+  if (!tracking) return
+  tracking = false
+  const top = stack.at(-1)
+  if (!top) return
+  top.node.style.transition = ''
+  top.node.style.transform = ''
+  const dx = event.changedTouches[0].clientX - startX
+  if (dx > THRESHOLD_PX) top.onBack()
+}
 
+let listening = false
+function ensureListening() {
+  if (listening) return
+  listening = true
   window.addEventListener('touchstart', start, { passive: true })
   window.addEventListener('touchmove', move, { passive: true })
   window.addEventListener('touchend', end)
+}
+
+export function swipeBack(node: HTMLElement, params: SwipeBackParams) {
+  ensureListening()
+  const layer: Layer = { node, ...normalize(params) }
+  stack.push(layer)
 
   return {
     update(next: SwipeBackParams) {
-      ;({ onBack, drag } = normalize(next))
+      Object.assign(layer, normalize(next))
     },
     destroy() {
-      window.removeEventListener('touchstart', start)
-      window.removeEventListener('touchmove', move)
-      window.removeEventListener('touchend', end)
+      const index = stack.indexOf(layer)
+      if (index !== -1) stack.splice(index, 1)
     },
   }
 }

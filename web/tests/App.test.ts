@@ -32,6 +32,26 @@ test('records 1.4 servings of a 68 kcal food and displays rounded calories', asy
   await waitFor(() => expect(screen.getAllByText('95 kcal')).toHaveLength(2))
 })
 
+test('clearing a nutrition field falls back to 0 instead of blocking the save', async () => {
+  render(App)
+
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await openAddMealMenu()
+  await fireEvent.click(screen.getByRole('button', { name: 'Add a meal' }))
+  await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: 'zero cal water' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
+  await fireEvent.click(screen.getByRole('button', { name: 'Add food' }))
+
+  await fireEvent.input(screen.getByLabelText('Name'), { target: { value: 'zero cal water' } })
+  await fireEvent.input(screen.getByLabelText('Calories'), { target: { value: '68' } })
+  // Clearing the field back to empty (e.g. to retype it) must not leave the form stuck.
+  await fireEvent.input(screen.getByLabelText('Calories'), { target: { value: '' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Save food' }))
+  await fireEvent.click(screen.getByRole('button', { name: 'Add meal' }))
+
+  await waitFor(() => expect(screen.getAllByText('0 kcal')).toHaveLength(2))
+})
+
 test('quantity does not carry over from a previous meal into a new "Add a meal" entry', async () => {
   render(App)
 

@@ -171,7 +171,6 @@
     selectedFoodId = ''
   }
 
-
   async function handleDelete() {
     if (!editingMealId) return
     try {
@@ -253,7 +252,7 @@
 {/snippet}
 
 {#snippet screenHeader(title: string, description: string, control: Snippet)}
-  <div class="flex items-start justify-between gap-4 p-6 pb-0">
+  <div class="flex items-start justify-between gap-4 py-6 px-3 pb-0">
     <div class="flex flex-col gap-1.5">
       <h2 class="font-heading text-base font-medium text-foreground">{title}</h2>
       <p class="text-sm text-muted-foreground">{description}</p>
@@ -269,7 +268,7 @@
       'Record nutrition without saving a food.',
       closeControl,
     )}
-    <div class="flex-1 overflow-y-auto px-6 pb-6">
+    <div class="flex-1 overflow-y-auto px-3 pb-6">
       <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
         <div class="grid gap-2">
           <Label for="temporary-name">Name</Label>
@@ -277,16 +276,36 @@
         </div>
         <div class="grid gap-2">
           <Label for="temporary-calories">Calories</Label>
-          <Input id="temporary-calories" type="number" min="0" bind:value={temporaryCalories} required />
+          <Input
+            id="temporary-calories"
+            type="number"
+            min="0"
+            value={temporaryCalories}
+            oninput={(e) => (temporaryCalories = e.currentTarget.valueAsNumber || 0)}
+          />
         </div>
         <div class="grid grid-cols-3 gap-3">
           <div class="grid gap-2">
             <Label for="temporary-protein">Protein</Label>
-            <Input id="temporary-protein" type="number" min="0" step="0.1" bind:value={temporaryProtein} required />
+            <Input
+              id="temporary-protein"
+              type="number"
+              min="0"
+              step="0.1"
+              value={temporaryProtein}
+              oninput={(e) => (temporaryProtein = e.currentTarget.valueAsNumber || 0)}
+            />
           </div>
           <div class="grid gap-2">
             <Label for="temporary-fat">Fat</Label>
-            <Input id="temporary-fat" type="number" min="0" step="0.1" bind:value={temporaryFat} required />
+            <Input
+              id="temporary-fat"
+              type="number"
+              min="0"
+              step="0.1"
+              value={temporaryFat}
+              oninput={(e) => (temporaryFat = e.currentTarget.valueAsNumber || 0)}
+            />
           </div>
           <div class="grid gap-2">
             <Label for="temporary-carbohydrates">Carbs</Label>
@@ -295,8 +314,8 @@
               type="number"
               min="0"
               step="0.1"
-              bind:value={temporaryCarbohydrates}
-              required
+              value={temporaryCarbohydrates}
+              oninput={(e) => (temporaryCarbohydrates = e.currentTarget.valueAsNumber || 0)}
             />
           </div>
         </div>
@@ -324,42 +343,35 @@
 
 {#snippet searchScreen()}
   <div class="flex h-full flex-col bg-popover">
-    {@render screenHeader(
-      editingMealId ? 'Edit meal' : 'Record a meal',
-      'Search for a food to record.',
-      closeControl,
-    )}
-    <div class="flex-1 overflow-y-auto px-6 pb-6" onscroll={handleResultsScroll}>
+    {@render screenHeader(editingMealId ? 'Edit meal' : 'Record a meal', 'Search for a food to record.', closeControl)}
+    <div class="flex-1 overflow-y-auto px-3 pb-6" onscroll={handleResultsScroll}>
       <div class="grid gap-4">
-        <label
-          >Food
-          <div class="flex flex-col gap-2">
-            <Input
-              class="min-w-0"
-              bind:value={foodSearch}
-              oninput={() => {
-                selectedFoodId = ''
-                foodPage = 1
-              }}
-              placeholder="Search food"
-              aria-label="Search food"
-              required
-            />
-            <Button
-              type="button"
-              variant="outline"
-              onclick={() => {
-                selectedFoodId = ''
-                foodPage = 1
-              }}>Search</Button
-            >
-          </div>
-          {#if creatingMealFood}
-            <span role="status" class="text-muted-foreground"
-              >No match. Add nutrition details to create it with this meal.</span
-            >
-          {/if}
-        </label>
+        <div class="flex flex-col gap-2 py-2">
+          <Input
+            class="min-w-0"
+            bind:value={foodSearch}
+            oninput={() => {
+              selectedFoodId = ''
+              foodPage = 1
+            }}
+            placeholder="Search food"
+            aria-label="Search food"
+            required
+          />
+          <Button
+            type="button"
+            variant="outline"
+            onclick={() => {
+              selectedFoodId = ''
+              foodPage = 1
+            }}>Search</Button
+          >
+        </div>
+        {#if creatingMealFood}
+          <span role="status" class="text-muted-foreground"
+            >No match. Add nutrition details to create it with this meal.</span
+          >
+        {/if}
         {#if foodResults.length > 0}
           <div class="meal-list">
             {#each foodResults as food}
@@ -403,7 +415,7 @@
       'Set the time and quantity for this meal.',
       control,
     )}
-    <div class="flex-1 overflow-y-auto px-6 pb-6">
+    <div class="flex-1 overflow-y-auto px-3 py-6">
       {#if selectedFood}
         <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
           <div class="grid gap-1">
