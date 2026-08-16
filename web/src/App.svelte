@@ -10,6 +10,7 @@
   import { fade } from 'svelte/transition'
   import {
     bundledFoods,
+    calorieTone,
     createMealEntry,
     dailyTotals,
     deleteMealEntry,
@@ -23,10 +24,13 @@
     type ImportResult,
     type Profile,
   } from './domain/store'
+  import BackButton from '$lib/components/back-button.svelte'
   import BackupPanel from './pages/BackupPanel.svelte'
+  import CalendarPanel from './pages/CalendarPanel.svelte'
   import FoodSheet from './pages/FoodSheet.svelte'
   import FoodsPanel from './pages/FoodsPanel.svelte'
   import MealSheet from './pages/MealSheet.svelte'
+  import MenuPanel from './pages/MenuPanel.svelte'
   import ProfilePanel from './pages/ProfilePanel.svelte'
   import SummaryPanel from './pages/SummaryPanel.svelte'
   import { createIndexedDBStore } from './storage/indexeddb'
@@ -89,14 +93,31 @@
   let installPrompt: BeforeInstallPromptEvent | null = $state(null)
   let installed = $state(false)
   let darkMode = $state(false)
-  type Tab = 'summary' | 'foods' | 'profile' | 'backup'
+  type Tab = 'summary' | 'foods' | 'profile' | 'menu' | 'calendar' | 'backup'
   const tabs: { id: Tab; label: string; icon: typeof HouseIcon }[] = [
     { id: 'summary', label: 'Summary', icon: HouseIcon },
     { id: 'foods', label: 'Foods', icon: AppleIcon },
     { id: 'profile', label: 'Profile', icon: UserIcon },
-    { id: 'backup', label: 'Backup', icon: MenuIcon },
+    { id: 'menu', label: 'Menu', icon: MenuIcon },
   ]
   let activeTab: Tab = $state('summary')
+  // ponytail: remembers only "came from calendar"; cleared by any other nav, no history stack needed.
+  let returnToCalendar = $state(false)
+
+  function openMenuPage(page: 'calendar' | 'backup') {
+    activeTab = page
+  }
+
+  function goToSummaryFromCalendar(iso: string) {
+    date = iso
+    activeTab = 'summary'
+    returnToCalendar = true
+  }
+
+  function selectTab(tab: Tab) {
+    activeTab = tab
+    returnToCalendar = false
+  }
 
   type BeforeInstallPromptEvent = Event & {
     prompt: () => Promise<void>
@@ -123,17 +144,7 @@
   const calorieRatio = $derived(targets.calories > 0 ? totals.calories / targets.calories : 0)
   const caloriePercent = $derived(Math.round(calorieRatio * 100))
   const caloriesRemaining = $derived(targets.calories - totals.calories)
-  const calorieTone = $derived(
-    totals.calories === 0
-      ? 'empty'
-      : targets.calories === 0
-        ? 'unavailable'
-        : calorieRatio < 0.9
-          ? 'under'
-          : calorieRatio < 1.1
-            ? 'on-target'
-            : 'over',
-  )
+  const todayCalorieTone = $derived(calorieTone(totals.calories, targets.calories))
   const calorieColor = $derived(
     {
       under: 'var(--calorie-under)',
@@ -141,7 +152,7 @@
       over: 'var(--calorie-over)',
       empty: 'var(--primary)',
       unavailable: 'var(--muted-foreground)',
-    }[calorieTone],
+    }[todayCalorieTone],
   )
 
   onMount(async () => {
@@ -330,11 +341,7 @@
   }
 
   function dayTone(iso: string) {
-    const dayCalories = dailyTotals(data, iso).calories
-    if (dayCalories === 0) return 'empty'
-    if (targets.calories === 0) return 'unavailable'
-    const ratio = dayCalories / targets.calories
-    return ratio < 0.9 ? 'under' : ratio < 1.1 ? 'on-target' : 'over'
+    return calorieTone(dailyTotals(data, iso).calories, targets.calories)
   }
   const dayTones = $derived(Object.fromEntries(recentDays.map((day) => [day.iso, dayTone(day.iso)])))
 </script>
@@ -378,6 +385,15 @@
   {/if}
 
   {#if activeTab === 'summary'}
+    {#if returnToCalendar}
+      <BackButton
+        label="Calendar"
+        onclick={() => {
+          activeTab = 'calendar'
+          returnToCalendar = false
+        }}
+      />
+    {/if}
     <SummaryPanel
       {data}
       {date}
@@ -408,7 +424,13 @@
       {targets}
       onSave={saveProfile}
     />
+  {:else if activeTab === 'menu'}
+    <MenuPanel onSelect={openMenuPage} />
+  {:else if activeTab === 'calendar'}
+    <BackButton label="Menu" onclick={() => (activeTab = 'menu')} />
+    <CalendarPanel {data} {today} {targets} onSelectDate={goToSummaryFromCalendar} />
   {:else if activeTab === 'backup'}
+    <BackButton label="Menu" onclick={() => (activeTab = 'menu')} />
     <BackupPanel
       {selectedBackupName}
       {backupPreview}
@@ -443,18 +465,17 @@
 <nav class="fixed inset-x-0 bottom-0 z-30 border-t bg-background backdrop-blur pb-[env(safe-area-inset-bottom,0px)]">
   <div class="mx-auto flex max-w-3xl gap-0.5 px-3 pt-1" role="tablist" aria-label="Diet sections">
     {#each tabs as { id, label, icon: Icon }}
+      {@const selected = id === 'menu' ? activeTab === 'menu' || activeTab === 'calendar' || activeTab === 'backup' : activeTab === id}
       <Button
         id={`${id}-tab`}
         role="tab"
-        aria-selected={activeTab === id}
+        aria-selected={selected}
         aria-controls={`${id}-panel`}
         aria-label={label}
         size="icon-sm"
         variant="ghost"
-        class="min-w-0 flex-1 rounded-lg hover:bg-transparent border-0 {activeTab === id
-          ? 'text-foreground'
-          : 'text-muted-foreground'}"
-        onclick={() => (activeTab = id as Tab)}
+        class="min-w-0 flex-1 rounded-lg hover:bg-transparent border-0 {selected ? 'text-foreground' : 'text-muted-foreground'}"
+        onclick={() => selectTab(id)}
       >
         <Icon aria-hidden="true" class="size-5" />
       </Button>

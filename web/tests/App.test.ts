@@ -194,3 +194,24 @@ test('refreshes a bundled food saved before the description field existed, so it
 
   await waitFor(() => expect(screen.getAllByText("McDonald's Japan").length).toBeGreaterThan(0))
 })
+
+test('opens Calendar from the menu page, jumps to a day, returns to calendar, and can back out to the menu', async () => {
+  render(App)
+
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await fireEvent.click(screen.getByRole('tab', { name: 'Menu' }))
+  await screen.findByRole('tabpanel', { name: 'Menu' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Calendar' }))
+
+  const calendarPanel = await screen.findByRole('tabpanel', { name: 'Calendar' })
+  const today = new Date().toISOString().slice(0, 10)
+  await fireEvent.click(within(calendarPanel).getByRole('button', { name: new RegExp(`^${today}`) }))
+
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Calendar' }))
+
+  await screen.findByRole('tabpanel', { name: 'Calendar' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Menu' }))
+
+  await screen.findByRole('tabpanel', { name: 'Menu' })
+})

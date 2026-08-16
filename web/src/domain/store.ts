@@ -260,6 +260,15 @@ export function dailyTotals(data: AppData, date: string): Nutrition {
     }), { calories: 0, protein: 0, fat: 0, carbohydrates: 0 });
 }
 
+export type CalorieTone = "empty" | "unavailable" | "under" | "on-target" | "over";
+
+export function calorieTone(dayCalories: number, targetCalories: number): CalorieTone {
+  if (dayCalories === 0) return "empty";
+  if (targetCalories === 0) return "unavailable";
+  const ratio = dayCalories / targetCalories;
+  return ratio < 0.9 ? "under" : ratio < 1.1 ? "on-target" : "over";
+}
+
 const ACTIVITY_MULTIPLIERS = {
   bmrOnly: 1,
   sedentary: 1.2,
