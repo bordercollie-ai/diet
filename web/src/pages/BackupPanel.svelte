@@ -59,7 +59,6 @@
       {:else}
         <p class="text-sm text-muted-foreground">{t('installFromBrowserMenu')}</p>
       {/if}
-      <p class="text-xs text-muted-foreground">{t('build')} {__BUILD_TIME__}</p>
     </Card.Content>
   </Card.Root>
 </div>

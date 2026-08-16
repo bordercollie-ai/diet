@@ -5,6 +5,7 @@
   import ChevronRightIcon from '@lucide/svelte/icons/chevron-right'
   import DownloadIcon from '@lucide/svelte/icons/download'
   import GlobeIcon from '@lucide/svelte/icons/globe'
+  import InfoIcon from '@lucide/svelte/icons/info'
   import MonitorIcon from '@lucide/svelte/icons/monitor'
   import UserIcon from '@lucide/svelte/icons/user'
   import type { ThemePreference } from '../domain/store'
@@ -17,17 +18,18 @@
     language,
     onLanguageChange,
   }: {
-    onSelect: (page: 'profile' | 'calendar' | 'backup') => void
+    onSelect: (page: 'profile' | 'calendar' | 'backup' | 'about') => void
     themePreference: ThemePreference
     onThemeChange: (preference: ThemePreference) => void
     language: Language
     onLanguageChange: (language: Language) => void
   } = $props()
 
-  const items: { id: 'profile' | 'calendar' | 'backup'; labelKey: string; icon: typeof CalendarDaysIcon }[] = [
+  const items: { id: 'profile' | 'calendar' | 'backup' | 'about'; labelKey: string; icon: typeof CalendarDaysIcon }[] = [
     { id: 'profile', labelKey: 'profile', icon: UserIcon },
     { id: 'calendar', labelKey: 'calendar', icon: CalendarDaysIcon },
     { id: 'backup', labelKey: 'export', icon: DownloadIcon },
+    { id: 'about', labelKey: 'about', icon: InfoIcon },
   ]
 
   const themeOptions: { value: ThemePreference; labelKey: string }[] = [
