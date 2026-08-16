@@ -244,15 +244,28 @@
   async function exportBackup() {
     try {
       const blob = new Blob([await store.export()], { type: 'application/json' })
+      const filename = `diet-backup-${today}.json`
+      const file = new File([blob], filename, { type: 'application/json' })
+
+      // ponytail: native share sheet when supported (iOS/Android/desktop PWA), falls back to
+      // anchor download for browsers without Web Share Level 2 (e.g. desktop Firefox/Safari).
+      if (navigator.canShare?.({ files: [file] })) {
+        await navigator.share({ files: [file], title: filename })
+        status = translate('backupExported')
+        error = ''
+        return
+      }
+
       const url = URL.createObjectURL(blob)
       const link = document.createElement('a')
       link.href = url
-      link.download = `diet-backup-${today}.json`
+      link.download = filename
       link.click()
       URL.revokeObjectURL(url)
       status = translate('backupExported')
       error = ''
     } catch (cause) {
+      if (cause instanceof DOMException && cause.name === 'AbortError') return
       error = cause instanceof Error ? cause.message : translate('unableExportBackup')
     }
   }

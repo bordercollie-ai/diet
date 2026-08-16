@@ -296,3 +296,40 @@ test('opens Profile from the menu page and returns via the back button', async (
 
   await screen.findByRole('tabpanel', { name: 'Menu' })
 })
+
+test('exports backup via native share when Web Share API supports files', async () => {
+  const share = vi.fn().mockResolvedValue(undefined)
+  const canShare = vi.fn().mockReturnValue(true)
+  Object.assign(navigator, { share, canShare })
+
+  render(App)
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await fireEvent.click(screen.getByRole('tab', { name: 'Menu' }))
+  await fireEvent.click(screen.getByRole('button', { name: 'Export' }))
+  await fireEvent.click(screen.getByRole('button', { name: 'Export JSON backup' }))
+
+  await waitFor(() => expect(share).toHaveBeenCalledTimes(1))
+  const call = share.mock.calls[0][0]
+  expect(call.files[0].name).toMatch(/^diet-backup-.*\.json$/)
+  Reflect.deleteProperty(navigator, 'share')
+  Reflect.deleteProperty(navigator, 'canShare')
+})
+
+test('falls back to anchor download when Web Share API is unavailable', async () => {
+  const click = vi.fn()
+  const anchor = { click, href: '', download: '' } as unknown as HTMLAnchorElement
+  const realCreateElement = document.createElement.bind(document)
+  const createElementSpy = vi.spyOn(document, 'createElement').mockImplementation((tag: string) =>
+    tag === 'a' ? anchor : realCreateElement(tag)
+  )
+
+  render(App)
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await fireEvent.click(screen.getByRole('tab', { name: 'Menu' }))
+  await fireEvent.click(screen.getByRole('button', { name: 'Export' }))
+  await fireEvent.click(screen.getByRole('button', { name: 'Export JSON backup' }))
+
+  await waitFor(() => expect(click).toHaveBeenCalledTimes(1))
+  expect(anchor.download).toMatch(/^diet-backup-.*\.json$/)
+  createElementSpy.mockRestore()
+})
