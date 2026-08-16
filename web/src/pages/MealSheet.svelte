@@ -13,6 +13,7 @@
   import { Label } from '$lib/components/ui/label'
   import * as AlertDialog from '$lib/components/ui/alert-dialog'
   import { swipeBack } from '$lib/actions/swipe-back'
+  import NavCircleButton from '$lib/components/nav-circle-button.svelte'
   import PlusIcon from '@lucide/svelte/icons/plus'
   import MinusIcon from '@lucide/svelte/icons/minus'
   import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left'
@@ -143,6 +144,7 @@
   }
 
   let confirmingDelete = $state(false)
+  let pageLayerRef: HTMLDivElement | undefined = $state()
 
   // ponytail: plain fixed-page overlay instead of a dialog primitive — this page
   // always covers the full viewport, so there's no focus trap / outside-click
@@ -154,6 +156,20 @@
   function close() {
     open = false
   }
+
+  // The detail step reached from search (not from editing an existing meal) has
+  // its own "back" destination — the search step — instead of closing the sheet.
+  // Plain function (not $derived) — tsgo mis-narrows the 'detail' literal comparison
+  // when it lives in a module-level $derived here.
+  function showingSearchDetail() {
+    return !temporaryMeal && step === 'detail' && !editingMealId
+  }
+
+  function backToSearch() {
+    step = 'search'
+    selectedFoodId = ''
+  }
+
 
   async function handleDelete() {
     if (!editingMealId) return
@@ -170,11 +186,6 @@
   function chooseFoodResult(id: string) {
     selectedFoodId = id
     step = 'detail'
-  }
-
-  function backToSearch() {
-    step = 'search'
-    selectedFoodId = ''
   }
 
   async function handleSubmit(event: SubmitEvent) {
@@ -244,35 +255,41 @@
         : editingMealId
           ? 'Edit meal'
           : 'Record a meal'}
-    use:swipeBack={close}
+    use:swipeBack={{
+      onBack: showingSearchDetail() ? backToSearch : close,
+      dragTarget: showingSearchDetail() ? pageLayerRef : undefined,
+    }}
   >
-    <div class="flex items-start justify-between gap-4 p-6 pb-0">
-      <div class="flex flex-col gap-1.5">
-        <h2 class="font-heading text-base font-medium text-foreground">
-          {#if temporaryMeal}
-            {editingMealId ? 'Edit meal' : 'Quick add'}
-          {:else if step === 'detail'}
-            {editingMealId ? 'Edit meal' : 'Meal details'}
-          {:else}
-            {editingMealId ? 'Edit meal' : 'Record a meal'}
-          {/if}
-        </h2>
-        <p class="text-sm text-muted-foreground">
-          {#if temporaryMeal}
-            Record nutrition without saving a food.
-          {:else if step === 'detail'}
-            Set the time and quantity, then record the meal.
-          {:else}
-            Search for a food to record.
-          {/if}
-        </p>
+    <div bind:this={pageLayerRef} class="flex min-h-0 flex-1 flex-col bg-popover">
+      <div class="flex items-start justify-between gap-4 p-6 pb-0">
+        <div class="flex flex-col gap-1.5">
+          <h2 class="font-heading text-base font-medium text-foreground">
+            {#if temporaryMeal}
+              {editingMealId ? 'Edit meal' : 'Quick add'}
+            {:else if step === 'detail'}
+              {editingMealId ? 'Edit meal' : 'Meal details'}
+            {:else}
+              {editingMealId ? 'Edit meal' : 'Record a meal'}
+            {/if}
+          </h2>
+          <p class="text-sm text-muted-foreground">
+            {#if temporaryMeal}
+              Record nutrition without saving a food.
+            {:else if step === 'detail'}
+              Set the time and quantity for this meal.
+            {:else}
+              Search for a food to record.
+            {/if}
+          </p>
+        </div>
+        {#if !showingSearchDetail()}
+          <NavCircleButton label="Close" onclick={close}>
+            <XIcon aria-hidden="true" class="size-5" />
+          </NavCircleButton>
+        {/if}
       </div>
-      <Button variant="ghost" size="icon-sm" class="bg-secondary" aria-label="Close" onclick={close}>
-        <XIcon aria-hidden="true" />
-      </Button>
-    </div>
-    <div class="flex-1 overflow-y-auto px-6 pb-6" onscroll={step === 'search' ? handleResultsScroll : undefined}>
-      {#if temporaryMeal}
+      <div class="flex-1 overflow-y-auto px-6 pb-6" onscroll={step === 'search' ? handleResultsScroll : undefined}>
+        {#if temporaryMeal}
         <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
           <div class="grid gap-2">
             <Label for="temporary-name">Name</Label>
@@ -386,11 +403,10 @@
         </div>
       {:else if selectedFood}
         <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
-          {#if !editingMealId}
-            <Button type="button" variant="ghost" class="w-full justify-start" onclick={backToSearch}>
-              <ChevronLeftIcon aria-hidden="true" />
-              Back to search
-            </Button>
+          {#if showingSearchDetail()}
+            <NavCircleButton label="Back to search" onclick={backToSearch}>
+              <ChevronLeftIcon aria-hidden="true" class="size-5" />
+            </NavCircleButton>
           {/if}
           <div class="grid gap-1">
             <div class="flex items-start justify-between gap-4">
@@ -457,6 +473,7 @@
           {/if}
         </form>
       {/if}
+    </div>
     </div>
   </div>
 {/if}

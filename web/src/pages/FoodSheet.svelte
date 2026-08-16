@@ -4,6 +4,7 @@
   import { Input } from '$lib/components/ui/input'
   import { Label } from '$lib/components/ui/label'
   import { swipeBack } from '$lib/actions/swipe-back'
+  import NavCircleButton from '$lib/components/nav-circle-button.svelte'
   import PlusIcon from '@lucide/svelte/icons/plus'
   import XIcon from '@lucide/svelte/icons/x'
 
@@ -119,9 +120,9 @@
         </h2>
         <p class="text-sm text-muted-foreground">Enter the food's serving size and nutrition per serving.</p>
       </div>
-      <Button variant="ghost" size="icon-sm" class="bg-secondary" aria-label="Close" onclick={close}>
-        <XIcon aria-hidden="true" />
-      </Button>
+      <NavCircleButton label="Close" onclick={close}>
+        <XIcon aria-hidden="true" class="size-5" />
+      </NavCircleButton>
     </div>
     <div class="flex-1 overflow-y-auto px-6 pb-6">
       <form class="grid gap-4" onsubmit={handleSubmit}>
