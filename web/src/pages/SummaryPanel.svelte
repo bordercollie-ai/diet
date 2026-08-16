@@ -1,9 +1,7 @@
 <script lang="ts">
   import { dailyTotals, roundForDisplay, type AppData, type Nutrition } from '../domain/store'
-  import { Button } from '$lib/components/ui/button'
   import * as Card from '$lib/components/ui/card'
   import { Separator } from '$lib/components/ui/separator'
-  import PlusIcon from '@lucide/svelte/icons/plus'
   import FlameIcon from '@lucide/svelte/icons/flame'
   import HamIcon from '@lucide/svelte/icons/ham'
   import WheatIcon from '@lucide/svelte/icons/wheat'
@@ -24,8 +22,6 @@
     calorieColor,
     onSelectDate,
     onEditMeal,
-    onRecordMeal,
-    onQuickAdd,
   }: {
     data: AppData
     date: string
@@ -39,8 +35,6 @@
     calorieColor: string
     onSelectDate: (iso: string) => void
     onEditMeal: (id: string) => void
-    onRecordMeal: () => void
-    onQuickAdd: () => void
   } = $props()
 
   const displayNumber = roundForDisplay
@@ -162,9 +156,4 @@
       </div>
     </div>
   </div>
-  <Button type="button" class="w-full mt-4" aria-haspopup="dialog" onclick={onRecordMeal}>
-    <PlusIcon aria-hidden="true" />
-    Add a meal
-  </Button>
-  <Button type="button" variant="outline" class="w-full" aria-haspopup="dialog" onclick={onQuickAdd}>Quick add</Button>
 </div>

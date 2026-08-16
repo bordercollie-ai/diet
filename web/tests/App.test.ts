@@ -4,6 +4,11 @@ import { createMemoryStore, type AppData } from '../src/domain/store'
 import App from '../src/App.svelte'
 
 let storeOverride: AppData | undefined
+
+async function openAddMealMenu() {
+  await fireEvent.click(screen.getByRole('button', { name: 'Add meal options' }))
+}
+
 vi.mock('../src/storage/indexeddb', () => ({
   createIndexedDBStore: () => createMemoryStore(storeOverride)
 }))
@@ -12,6 +17,7 @@ test('records 1.4 servings of a 68 kcal food and displays rounded calories', asy
   render(App)
 
   await screen.findByRole('tabpanel', { name: 'Summary' })
+  await openAddMealMenu()
   await fireEvent.click(screen.getByRole('button', { name: 'Add a meal' }))
   await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: '68 kcal snack' } })
   await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
@@ -30,6 +36,7 @@ test('quantity does not carry over from a previous meal into a new "Add a meal" 
   render(App)
 
   await screen.findByRole('tabpanel', { name: 'Summary' })
+  await openAddMealMenu()
   await fireEvent.click(screen.getByRole('button', { name: 'Add a meal' }))
   await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: '68 kcal snack' } })
   await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
@@ -44,6 +51,7 @@ test('quantity does not carry over from a previous meal into a new "Add a meal" 
   await waitFor(() => expect(screen.getAllByText('95 kcal')).toHaveLength(2))
 
   // Record a second, unrelated meal of the same food and confirm quantity resets to 1.
+  await openAddMealMenu()
   await fireEvent.click(screen.getByRole('button', { name: 'Add a meal' }))
   await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: '68 kcal snack' } })
   await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
@@ -57,6 +65,7 @@ test('clicking a recorded meal opens edit directly, and delete asks for confirma
   render(App)
 
   await screen.findByRole('tabpanel', { name: 'Summary' })
+  await openAddMealMenu()
   await fireEvent.click(screen.getByRole('button', { name: 'Add a meal' }))
   await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: '68 kcal snack' } })
   await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
@@ -89,6 +98,7 @@ test('records a McDonald\'s Japan meal found by its English name', async () => {
   render(App)
 
   await screen.findByRole('tabpanel', { name: 'Summary' })
+  await openAddMealMenu()
   await fireEvent.click(screen.getByRole('button', { name: 'Add a meal' }))
   await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: 'Big Mac' } })
   await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
@@ -105,6 +115,7 @@ test('records a McDonald\'s Japan meal found by its Japanese name', async () => 
   render(App)
 
   await screen.findByRole('tabpanel', { name: 'Summary' })
+  await openAddMealMenu()
   await fireEvent.click(screen.getByRole('button', { name: 'Add a meal' }))
   await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: 'ビッグマック' } })
   await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
@@ -121,6 +132,7 @@ test('records a quick entry with calories and macros without creating a food', a
   render(App)
 
   await screen.findByRole('tabpanel', { name: 'Summary' })
+  await openAddMealMenu()
   await fireEvent.click(screen.getByRole('button', { name: 'Quick add' }))
   await fireEvent.input(screen.getByLabelText('Name'), { target: { value: 'Dessert' } })
   await fireEvent.input(screen.getByLabelText('Calories'), { target: { value: '250' } })
@@ -141,6 +153,7 @@ test("shows a bundled food's brand/description in the Add a meal search results"
   render(App)
 
   await screen.findByRole('tabpanel', { name: 'Summary' })
+  await openAddMealMenu()
   await fireEvent.click(screen.getByRole('button', { name: 'Add a meal' }))
   await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: 'Big Mac' } })
   await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
@@ -188,6 +201,7 @@ test('refreshes a bundled food saved before the description field existed, so it
   render(App)
 
   await screen.findByRole('tabpanel', { name: 'Summary' })
+  await openAddMealMenu()
   await fireEvent.click(screen.getByRole('button', { name: 'Add a meal' }))
   await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: 'Big Mac' } })
   await fireEvent.click(screen.getByRole('button', { name: 'Search' }))

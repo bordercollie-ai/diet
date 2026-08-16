@@ -20,12 +20,14 @@
   let {
     data,
     date = $bindable(),
+    today,
     onSave,
     onCreateFood,
     onDelete,
   }: {
     data: AppData
     date: string
+    today: string
     onSave: (next: AppData) => Promise<void>
     onCreateFood: (name: string) => void
     onDelete: (id: string) => Promise<void>
@@ -78,6 +80,7 @@
     foodPage = 1
     temporaryMeal = false
     step = 'search'
+    date = today
     time = new Date().toTimeString().slice(0, 5)
     quantity = 1
     error = ''
@@ -121,6 +124,7 @@
     temporaryProtein = 0
     temporaryFat = 0
     temporaryCarbohydrates = 0
+    date = today
     time = new Date().toTimeString().slice(0, 5)
     error = ''
     awaitingCreatedFood = false
@@ -266,9 +270,15 @@
               />
             </div>
           </div>
-          <div class="grid gap-2">
-            <Label for="meal-time">Time</Label>
-            <Input id="meal-time" type="time" step="600" bind:value={time} required />
+          <div class="grid grid-cols-2 gap-3">
+            <div class="grid gap-2">
+              <Label for="meal-date">Date</Label>
+              <Input id="meal-date" type="date" max={today} bind:value={date} required />
+            </div>
+            <div class="grid gap-2">
+              <Label for="meal-time">Time</Label>
+              <Input id="meal-time" type="time" step="600" bind:value={time} required />
+            </div>
           </div>
           {#if error}<p class="text-destructive text-sm" role="alert">{error}</p>{/if}
           <Button type="submit">{editingMealId ? 'Update meal' : 'Add meal'}</Button>
@@ -366,10 +376,7 @@
               <span>{displayNumber(selectedFood.nutrition.carbohydrates)} g carbs</span>
             </p>
           </div>
-          <div class="grid gap-2">
-            <Label for="meal-time">Time</Label>
-            <Input id="meal-time" type="time" step="600" bind:value={time} required />
-          </div>
+
           <div class="grid gap-2">
             <Label for="meal-quantity">Quantity</Label>
             <div class="flex items-center gap-2">
@@ -396,6 +403,16 @@
                 aria-label="Increase quantity"
                 onclick={() => (quantity = quantity + 1)}><PlusIcon aria-hidden="true" /></Button
               >
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="grid gap-2">
+              <Label for="meal-date">Date</Label>
+              <Input id="meal-date" type="date" max={today} bind:value={date} required />
+            </div>
+            <div class="grid gap-2">
+              <Label for="meal-time">Time</Label>
+              <Input id="meal-time" type="time" step="600" bind:value={time} required />
             </div>
           </div>
           {#if error}<p class="text-destructive text-sm" role="alert">{error}</p>{/if}
