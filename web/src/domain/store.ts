@@ -22,6 +22,7 @@ export type NutritionDetail = {
   transFat?: number;
   saturatedFat?: number;
   caffeine?: number;
+  cholesterol?: number;
 };
 
 export type Profile = {
