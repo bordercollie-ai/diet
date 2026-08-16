@@ -13,7 +13,7 @@
   <div class="absolute inset-0" inert>
     {@render back()}
   </div>
-  <div class="absolute inset-0 bg-popover" use:swipeBack={onBack}>
+  <div class="absolute inset-0 bg-popover [touch-action:pan-y]" use:swipeBack={onBack}>
     {@render front()}
   </div>
 </div>

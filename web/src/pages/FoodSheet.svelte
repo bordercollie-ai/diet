@@ -107,7 +107,7 @@
 
 {#if open}
   <div
-    class="fixed inset-0 z-50 flex flex-col bg-popover text-sm text-popover-foreground"
+    class="fixed inset-0 z-50 flex flex-col bg-popover text-sm text-popover-foreground [touch-action:pan-y]"
     role="dialog"
     aria-modal="true"
     aria-label={editingFoodId ? 'Custom food' : 'Add food'}

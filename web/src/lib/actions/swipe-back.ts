@@ -24,12 +24,19 @@ const stack: Layer[] = []
 let startX = 0
 let startY = 0
 let tracking = false
+// Direction is decided once, a few pixels into the gesture, then stuck with —
+// re-checking dx vs dy on every touchmove let a single jittery sample flip us
+// from "horizontal drag" to "let it scroll" mid-swipe, so a native vertical
+// scroll/bounce would sneak in underneath an otherwise-horizontal swipe.
+const LOCK_THRESHOLD_PX = 10
+let locked: 'x' | 'y' | null = null
 
 function start(event: TouchEvent) {
   const touch = event.touches[0]
   startX = touch.clientX
   startY = touch.clientY
   tracking = true
+  locked = null
   const top = stack.at(-1)
   if (top) top.node.style.transition = 'none'
 }
@@ -40,7 +47,14 @@ function move(event: TouchEvent) {
   const touch = event.touches[0]
   const dx = touch.clientX - startX
   const dy = touch.clientY - startY
-  if (Math.abs(dy) > Math.abs(dx)) return
+  if (locked === null) {
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < LOCK_THRESHOLD_PX) return
+    locked = Math.abs(dy) > Math.abs(dx) ? 'y' : 'x'
+  }
+  if (locked === 'y') return
+  // Horizontal drag wins: stop the page from also scrolling/bouncing vertically
+  // in parallel with our translateX drag.
+  event.preventDefault()
   top.node.style.transform = dx > 0 ? `translateX(${dx}px)` : ''
 }
 
@@ -60,7 +74,7 @@ function ensureListening() {
   if (listening) return
   listening = true
   window.addEventListener('touchstart', start, { passive: true })
-  window.addEventListener('touchmove', move, { passive: true })
+  window.addEventListener('touchmove', move, { passive: false })
   window.addEventListener('touchend', end)
 }
 
