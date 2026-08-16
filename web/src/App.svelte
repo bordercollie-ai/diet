@@ -4,9 +4,7 @@
   import AppleIcon from '@lucide/svelte/icons/apple'
   import HouseIcon from '@lucide/svelte/icons/house'
   import MenuIcon from '@lucide/svelte/icons/menu'
-  import MoonIcon from '@lucide/svelte/icons/moon'
   import PlusIcon from '@lucide/svelte/icons/plus'
-  import SunIcon from '@lucide/svelte/icons/sun'
   import ZapIcon from '@lucide/svelte/icons/zap'
   import { onMount, type Snippet } from 'svelte'
   import { fade } from 'svelte/transition'
@@ -18,6 +16,7 @@
     deleteMealEntry,
     estimateMaintenanceCalories,
     estimateTargets,
+    resolveDarkMode,
     previewBackup,
     resolveTargets,
     roundForDisplay,
@@ -25,6 +24,7 @@
     type Food,
     type ImportResult,
     type Profile,
+    type ThemePreference,
   } from './domain/store'
   import BackButton from '$lib/components/back-button.svelte'
   import SwipeLayer from '$lib/components/swipe-layer.svelte'
@@ -97,7 +97,12 @@
   let backupPreview: ImportResult | null = $state(null)
   let installPrompt: BeforeInstallPromptEvent | null = $state(null)
   let installed = $state(false)
-  let darkMode = $state(false)
+  let themePreference: ThemePreference = $state('system')
+  let systemPrefersDark = $state(false)
+  const darkMode = $derived(resolveDarkMode(themePreference, systemPrefersDark))
+  $effect(() => {
+    document.documentElement.classList.toggle('dark', darkMode)
+  })
   type Tab = 'summary' | 'foods' | 'profile' | 'menu' | 'calendar' | 'backup'
   const tabs: { id: Tab; label: string; icon: typeof HouseIcon }[] = [
     { id: 'summary', label: 'Summary', icon: HouseIcon },
@@ -172,10 +177,11 @@
   )
 
   onMount(async () => {
-    darkMode =
-      localStorage.getItem('diet-theme') === 'dark' ||
-      (!localStorage.getItem('diet-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    document.documentElement.classList.toggle('dark', darkMode)
+    const storedTheme = localStorage.getItem('diet-theme')
+    themePreference = storedTheme === 'dark' || storedTheme === 'light' ? storedTheme : 'system'
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
+    systemPrefersDark = media.matches
+    media.addEventListener('change', (event) => (systemPrefersDark = event.matches))
     installed = window.matchMedia('(display-mode: standalone)').matches
     window.addEventListener('beforeinstallprompt', (event) => {
       event.preventDefault()
@@ -225,10 +231,9 @@
     }
   })
 
-  function toggleTheme() {
-    darkMode = !darkMode
-    document.documentElement.classList.toggle('dark', darkMode)
-    localStorage.setItem('diet-theme', darkMode ? 'dark' : 'light')
+  function setTheme(preference: ThemePreference) {
+    themePreference = preference
+    localStorage.setItem('diet-theme', preference)
   }
 
   async function exportBackup() {
@@ -381,17 +386,6 @@
       <h1 class="m-0 text-2xl">Diet</h1>
       <p class="sr-only" role="status" aria-live="polite">{status}</p>
     </div>
-    <Button
-      type="button"
-      variant="ghost"
-      size="icon"
-      aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-      title={darkMode ? 'Light mode' : 'Dark mode'}
-      aria-pressed={darkMode}
-      onclick={toggleTheme}
-    >
-      {#if darkMode}<SunIcon aria-hidden="true" />{:else}<MoonIcon aria-hidden="true" />{/if}
-    </Button>
   </header>
   {#if error}<p class="text-destructive" role="alert">{error}</p>{/if}
 
@@ -406,7 +400,7 @@
   {/if}
 
   {#snippet menuScreen()}
-    <MenuPanel onSelect={openMenuPage} />
+    <MenuPanel onSelect={openMenuPage} {themePreference} onThemeChange={setTheme} />
   {/snippet}
 
   {#snippet calendarScreen()}

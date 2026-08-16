@@ -15,7 +15,7 @@ const localStorageMock = {
 Object.defineProperty(globalThis, 'localStorage', { value: localStorageMock, configurable: true })
 Object.defineProperty(window, 'localStorage', { value: localStorageMock, configurable: true })
 Object.defineProperty(window, 'matchMedia', {
-  value: () => ({ matches: false, addListener: () => {}, removeListener: () => {} }),
+  value: () => ({ matches: false, addListener: () => {}, removeListener: () => {}, addEventListener: () => {}, removeEventListener: () => {} }),
   configurable: true
 })
 

@@ -14,6 +14,7 @@ import {
   estimateBMR,
   previewBackup,
   roundForDisplay,
+  resolveDarkMode,
   resolveTargets,
   searchFoods,
   type AppData,
@@ -328,4 +329,11 @@ test("imports by ID, replacing matches and preserving unrelated records", async 
   assert.equal(imported.mealEntries.find((item) => item.id === "meal-1")?.quantity, 3);
   assert.ok(imported.foods.some((item) => item.id === "extra-food"));
   assert.ok(imported.mealEntries.some((item) => item.id === "extra-meal"));
+});
+
+test("resolves dark mode from explicit preference or system when set to system", () => {
+  assert.equal(resolveDarkMode("light", true), false);
+  assert.equal(resolveDarkMode("dark", false), true);
+  assert.equal(resolveDarkMode("system", true), true);
+  assert.equal(resolveDarkMode("system", false), false);
 });

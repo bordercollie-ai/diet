@@ -260,6 +260,12 @@ export function dailyTotals(data: AppData, date: string): Nutrition {
     }), { calories: 0, protein: 0, fat: 0, carbohydrates: 0 });
 }
 
+export type ThemePreference = "light" | "dark" | "system";
+
+export function resolveDarkMode(preference: ThemePreference, systemPrefersDark: boolean): boolean {
+  return preference === "system" ? systemPrefersDark : preference === "dark";
+}
+
 export type CalorieTone = "empty" | "unavailable" | "under" | "on-target" | "over";
 
 export function calorieTone(dayCalories: number, targetCalories: number): CalorieTone {
