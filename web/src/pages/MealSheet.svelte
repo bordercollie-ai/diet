@@ -11,11 +11,12 @@
   import { Button } from '$lib/components/ui/button'
   import { Input } from '$lib/components/ui/input'
   import { Label } from '$lib/components/ui/label'
-  import * as Sheet from '$lib/components/ui/sheet'
   import * as AlertDialog from '$lib/components/ui/alert-dialog'
+  import { swipeBack } from '$lib/actions/swipe-back'
   import PlusIcon from '@lucide/svelte/icons/plus'
   import MinusIcon from '@lucide/svelte/icons/minus'
   import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left'
+  import XIcon from '@lucide/svelte/icons/x'
 
   let {
     data,
@@ -143,6 +144,17 @@
 
   let confirmingDelete = $state(false)
 
+  // ponytail: plain fixed-page overlay instead of a dialog primitive — this page
+  // always covers the full viewport, so there's no focus trap / outside-click
+  // surface to manage, just a scroll lock while it's open.
+  $effect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+  })
+
+  function close() {
+    open = false
+  }
+
   async function handleDelete() {
     if (!editingMealId) return
     try {
@@ -216,28 +228,49 @@
   }
 </script>
 
-<Sheet.Root bind:open>
-  <Sheet.Content side="right" class="gap-0 data-[side=right]:w-full data-[side=right]:sm:max-w-none">
-    <Sheet.Header>
-      <Sheet.Title>
-        {#if temporaryMeal}
-          {editingMealId ? 'Edit meal' : 'Quick add'}
-        {:else if step === 'detail'}
-          {editingMealId ? 'Edit meal' : 'Meal details'}
-        {:else}
-          {editingMealId ? 'Edit meal' : 'Record a meal'}
-        {/if}
-      </Sheet.Title>
-      <Sheet.Description>
-        {#if temporaryMeal}
-          Record nutrition without saving a food.
-        {:else if step === 'detail'}
-          Set the time and quantity, then record the meal.
-        {:else}
-          Search for a food to record.
-        {/if}
-      </Sheet.Description>
-    </Sheet.Header>
+{#if open}
+  <div
+    class="fixed inset-0 z-50 flex flex-col bg-popover text-sm text-popover-foreground"
+    role="dialog"
+    aria-modal="true"
+    aria-label={temporaryMeal
+      ? editingMealId
+        ? 'Edit meal'
+        : 'Quick add'
+      : step === 'detail'
+        ? editingMealId
+          ? 'Edit meal'
+          : 'Meal details'
+        : editingMealId
+          ? 'Edit meal'
+          : 'Record a meal'}
+    use:swipeBack={close}
+  >
+    <div class="flex items-start justify-between gap-4 p-6 pb-0">
+      <div class="flex flex-col gap-1.5">
+        <h2 class="font-heading text-base font-medium text-foreground">
+          {#if temporaryMeal}
+            {editingMealId ? 'Edit meal' : 'Quick add'}
+          {:else if step === 'detail'}
+            {editingMealId ? 'Edit meal' : 'Meal details'}
+          {:else}
+            {editingMealId ? 'Edit meal' : 'Record a meal'}
+          {/if}
+        </h2>
+        <p class="text-sm text-muted-foreground">
+          {#if temporaryMeal}
+            Record nutrition without saving a food.
+          {:else if step === 'detail'}
+            Set the time and quantity, then record the meal.
+          {:else}
+            Search for a food to record.
+          {/if}
+        </p>
+      </div>
+      <Button variant="ghost" size="icon-sm" class="bg-secondary" aria-label="Close" onclick={close}>
+        <XIcon aria-hidden="true" />
+      </Button>
+    </div>
     <div class="flex-1 overflow-y-auto px-6 pb-6" onscroll={step === 'search' ? handleResultsScroll : undefined}>
       {#if temporaryMeal}
         <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
@@ -425,8 +458,8 @@
         </form>
       {/if}
     </div>
-  </Sheet.Content>
-</Sheet.Root>
+  </div>
+{/if}
 
 <AlertDialog.Root bind:open={confirmingDelete}>
   <AlertDialog.Content>

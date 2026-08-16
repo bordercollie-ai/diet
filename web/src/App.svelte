@@ -400,6 +400,23 @@
   {/if}
 
   {#if activeTab === 'summary'}
+    {#snippet summaryPanel()}
+      <SummaryPanel
+        {data}
+        date={summaryDate}
+        {today}
+        {recentDays}
+        {dayTones}
+        showDayStrip={!returnToCalendar}
+        {totals}
+        {targets}
+        {caloriePercent}
+        {caloriesRemaining}
+        {calorieColor}
+        onSelectDate={(iso) => (date = iso)}
+        onEditMeal={(id) => mealSheet.openForEdit(id)}
+      />
+    {/snippet}
     {#if returnToCalendar}
       <BackButton
         label="Calendar"
@@ -407,55 +424,47 @@
           activeTab = 'calendar'
           returnToCalendar = false
         }}
-      />
+      >
+        {@render summaryPanel()}
+      </BackButton>
+    {:else}
+      {@render summaryPanel()}
     {/if}
-    <SummaryPanel
-      {data}
-      date={summaryDate}
-      {today}
-      {recentDays}
-      {dayTones}
-      showDayStrip={!returnToCalendar}
-      {totals}
-      {targets}
-      {caloriePercent}
-      {caloriesRemaining}
-      {calorieColor}
-      onSelectDate={(iso) => (date = iso)}
-      onEditMeal={(id) => mealSheet.openForEdit(id)}
-    />
   {:else if activeTab === 'foods'}
     <FoodsPanel {data} onAddFood={startNewFood} onEditFood={editFood} />
   {:else if activeTab === 'profile'}
-    <BackButton label="Menu" onclick={() => (activeTab = 'menu')} />
-    <ProfilePanel
-      bind:profile
-      bind:overrideCalories
-      bind:overrideProtein
-      bind:overrideFat
-      bind:overrideCarbohydrates
-      {today}
-      {maintenanceCalories}
-      {targets}
-      onSave={saveProfile}
-    />
+    <BackButton label="Menu" onclick={() => (activeTab = 'menu')}>
+      <ProfilePanel
+        bind:profile
+        bind:overrideCalories
+        bind:overrideProtein
+        bind:overrideFat
+        bind:overrideCarbohydrates
+        {today}
+        {maintenanceCalories}
+        {targets}
+        onSave={saveProfile}
+      />
+    </BackButton>
   {:else if activeTab === 'menu'}
     <MenuPanel onSelect={openMenuPage} />
   {:else if activeTab === 'calendar'}
-    <BackButton label="Menu" onclick={() => (activeTab = 'menu')} />
-    <CalendarPanel {data} {today} {targets} onSelectDate={goToSummaryFromCalendar} />
+    <BackButton label="Menu" onclick={() => (activeTab = 'menu')}>
+      <CalendarPanel {data} {today} {targets} onSelectDate={goToSummaryFromCalendar} />
+    </BackButton>
   {:else if activeTab === 'backup'}
-    <BackButton label="Menu" onclick={() => (activeTab = 'menu')} />
-    <BackupPanel
-      {selectedBackupName}
-      {backupPreview}
-      {installed}
-      canInstall={!!installPrompt}
-      onExport={exportBackup}
-      onSelectBackup={selectBackup}
-      onRestore={restoreBackup}
-      onInstall={installApp}
-    />
+    <BackButton label="Menu" onclick={() => (activeTab = 'menu')}>
+      <BackupPanel
+        {selectedBackupName}
+        {backupPreview}
+        {installed}
+        canInstall={!!installPrompt}
+        onExport={exportBackup}
+        onSelectBackup={selectBackup}
+        onRestore={restoreBackup}
+        onInstall={installApp}
+      />
+    </BackButton>
   {/if}
 
   <MealSheet

@@ -3,8 +3,9 @@
   import { Button } from '$lib/components/ui/button'
   import { Input } from '$lib/components/ui/input'
   import { Label } from '$lib/components/ui/label'
-  import * as Sheet from '$lib/components/ui/sheet'
+  import { swipeBack } from '$lib/actions/swipe-back'
   import PlusIcon from '@lucide/svelte/icons/plus'
+  import XIcon from '@lucide/svelte/icons/x'
 
   let {
     data,
@@ -29,6 +30,17 @@
   let protein = $state(0)
   let fat = $state(0)
   let carbohydrates = $state(0)
+
+  // ponytail: plain fixed-page overlay instead of a dialog primitive — this page
+  // always covers the full viewport, so there's no focus trap / outside-click
+  // surface to manage, just a scroll lock while it's open.
+  $effect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+  })
+
+  function close() {
+    open = false
+  }
 
   function reset() {
     editingFoodId = ''
@@ -92,12 +104,25 @@
   }
 </script>
 
-<Sheet.Root bind:open>
-  <Sheet.Content side="right" class="gap-0 data-[side=right]:w-full data-[side=right]:sm:max-w-none">
-    <Sheet.Header>
-      <Sheet.Title>{editingFoodId ? 'Custom food' : 'Add food'}</Sheet.Title>
-      <Sheet.Description>Enter the food's serving size and nutrition per serving.</Sheet.Description>
-    </Sheet.Header>
+{#if open}
+  <div
+    class="fixed inset-0 z-50 flex flex-col bg-popover text-sm text-popover-foreground"
+    role="dialog"
+    aria-modal="true"
+    aria-label={editingFoodId ? 'Custom food' : 'Add food'}
+    use:swipeBack={close}
+  >
+    <div class="flex items-start justify-between gap-4 p-6 pb-0">
+      <div class="flex flex-col gap-1.5">
+        <h2 class="font-heading text-base font-medium text-foreground">
+          {editingFoodId ? 'Custom food' : 'Add food'}
+        </h2>
+        <p class="text-sm text-muted-foreground">Enter the food's serving size and nutrition per serving.</p>
+      </div>
+      <Button variant="ghost" size="icon-sm" class="bg-secondary" aria-label="Close" onclick={close}>
+        <XIcon aria-hidden="true" />
+      </Button>
+    </div>
     <div class="flex-1 overflow-y-auto px-6 pb-6">
       <form class="grid gap-4" onsubmit={handleSubmit}>
         <div class="grid gap-2">
@@ -137,5 +162,5 @@
         {/if}
       </form>
     </div>
-  </Sheet.Content>
-</Sheet.Root>
+  </div>
+{/if}
