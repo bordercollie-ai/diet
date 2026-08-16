@@ -27,6 +27,7 @@
   } from './domain/store'
   import BackButton from '$lib/components/back-button.svelte'
   import SwipeLayer from '$lib/components/swipe-layer.svelte'
+  import AboutPanel from './pages/AboutPanel.svelte'
   import BackupPanel from './pages/BackupPanel.svelte'
   import CalendarPanel from './pages/CalendarPanel.svelte'
   import FoodSheet from './pages/FoodSheet.svelte'
@@ -103,7 +104,7 @@
   $effect(() => {
     document.documentElement.classList.toggle('dark', darkMode)
   })
-  type Tab = 'summary' | 'foods' | 'profile' | 'menu' | 'calendar' | 'backup'
+  type Tab = 'summary' | 'foods' | 'profile' | 'menu' | 'calendar' | 'backup' | 'about'
   const tabs: { id: Tab; labelKey: string; icon: typeof HouseIcon }[] = [
     { id: 'summary', labelKey: 'summary', icon: HouseIcon },
     { id: 'foods', labelKey: 'foods', icon: AppleIcon },
@@ -124,7 +125,7 @@
   // ponytail: remembers only "came from calendar"; cleared by any other nav, no history stack needed.
   let returnToCalendar = $state(false)
 
-  function openMenuPage(page: 'profile' | 'calendar' | 'backup') {
+  function openMenuPage(page: 'profile' | 'calendar' | 'backup' | 'about') {
     activeTab = page
   }
 
@@ -472,7 +473,7 @@
     {/if}
   {:else if activeTab === 'foods'}
     <FoodsPanel {data} onAddFood={startNewFood} onEditFood={editFood} />
-  {:else if activeTab === 'profile' || activeTab === 'calendar' || activeTab === 'backup'}
+  {:else if activeTab === 'profile' || activeTab === 'calendar' || activeTab === 'backup' || activeTab === 'about'}
     <div class="fixed inset-0 z-40 bg-background">
       <SwipeLayer onBack={() => (activeTab = 'menu')}>
         {#snippet back()}
@@ -495,7 +496,7 @@
                 />
               {:else if activeTab === 'calendar'}
                 {@render calendarScreen()}
-              {:else}
+              {:else if activeTab === 'backup'}
                 <BackupPanel
                   {selectedBackupName}
                   {backupPreview}
@@ -506,6 +507,8 @@
                   onRestore={restoreBackup}
                   onInstall={installApp}
                 />
+              {:else}
+                <AboutPanel />
               {/if}
             </BackButton>
           {/snippet}
@@ -564,7 +567,7 @@
     {#each tabs as { id, labelKey, icon: Icon }}
       {@const selected =
         id === 'menu'
-          ? activeTab === 'menu' || activeTab === 'profile' || activeTab === 'calendar' || activeTab === 'backup'
+          ? activeTab === 'menu' || activeTab === 'profile' || activeTab === 'calendar' || activeTab === 'backup' || activeTab === 'about'
           : activeTab === id}
       <Button
         id={`${id}-tab`}
