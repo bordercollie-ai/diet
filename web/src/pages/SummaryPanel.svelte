@@ -41,6 +41,8 @@
   } = $props()
 
   const displayNumber = roundForDisplay
+  // ponytail: macro alert threshold (120%) is intentionally looser than the calorie tone's 110%; own constant, not reused.
+  const isOverMacro = (amount: number, target: number) => target > 0 && amount / target > 1.2
 </script>
 
 <div id="summary-panel" role="tabpanel" aria-labelledby="summary-tab">
@@ -84,17 +86,24 @@
         <div class="stat-card grid gap-1 rounded-md bg-card p-2.5 text-center">
           <span class="flex items-center justify-center gap-1 text-muted-foreground"
             ><HamIcon aria-hidden="true" class="size-4" /> Protein</span
-          ><strong>{Math.round(totals.protein)} / {Math.round(targets.protein)}</strong>
+          ><strong class:text-[var(--macro-over)]={isOverMacro(totals.protein, targets.protein)}
+            >{Math.round(totals.protein)} / {Math.round(targets.protein)}</strong
+          >
         </div>
         <div class="stat-card grid gap-1 rounded-md bg-card p-2.5 text-center">
           <span class="flex items-center justify-center gap-1 text-muted-foreground"
             ><WheatIcon aria-hidden="true" class="size-4" /> Carbs</span
-          ><strong>{Math.round(totals.carbohydrates)} / {Math.round(targets.carbohydrates)}</strong>
+          ><strong
+            class:text-[var(--macro-over)]={isOverMacro(totals.carbohydrates, targets.carbohydrates)}
+            >{Math.round(totals.carbohydrates)} / {Math.round(targets.carbohydrates)}</strong
+          >
         </div>
         <div class="stat-card grid gap-1 rounded-md bg-card p-2.5 text-center">
           <span class="flex items-center justify-center gap-1 text-muted-foreground"
             ><NutIcon aria-hidden="true" class="size-4" /> Fat</span
-          ><strong>{Math.round(totals.fat)} / {Math.round(targets.fat)}</strong>
+          ><strong class:text-[var(--macro-over)]={isOverMacro(totals.fat, targets.fat)}
+            >{Math.round(totals.fat)} / {Math.round(targets.fat)}</strong
+          >
         </div>
       </div>
     </Card.Content>

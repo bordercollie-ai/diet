@@ -78,7 +78,7 @@
               {@const tone = calorieTone(dailyTotals(data, iso).calories, targets.calories)}
               <button
                 type="button"
-                class="aspect-square rounded-md border-2 text-sm flex items-center justify-center"
+                class="aspect-square rounded-full border-2 text-sm flex items-center justify-center"
                 class:font-bold={iso === today}
                 class:border-transparent={tone === 'empty'}
                 class:border-[var(--muted-foreground)]={tone === 'unavailable'}
