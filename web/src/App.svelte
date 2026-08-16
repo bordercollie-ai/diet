@@ -381,7 +381,7 @@
 <main
   class="w-full max-w-3xl mx-auto px-3 pt-[max(1rem,env(safe-area-inset-top))] pb-[calc(4rem+env(safe-area-inset-bottom))]"
 >
-  <header class="flex items-center justify-between gap-4">
+  <header class="flex items-center justify-between gap-4 border-b pb-3 mb-3">
     <div>
       <h1 class="m-0 text-2xl">Diet</h1>
       <p class="sr-only" role="status" aria-live="polite">{status}</p>
