@@ -489,7 +489,7 @@
 
 {#if open}
   <div
-    class="fixed inset-0 z-50 text-sm text-popover-foreground"
+    class="fixed inset-0 z-50 text-sm text-popover-foreground [touch-action:pan-y]"
     role="dialog"
     aria-modal="true"
     aria-label={temporaryMeal
