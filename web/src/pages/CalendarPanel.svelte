@@ -4,6 +4,7 @@
   import * as Card from '$lib/components/ui/card'
   import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left'
   import ChevronRightIcon from '@lucide/svelte/icons/chevron-right'
+  import { untrack } from 'svelte'
 
   let {
     data,
@@ -17,11 +18,15 @@
     onSelectDate: (iso: string) => void
   } = $props()
 
-  const initial = today.split('-').map(Number)
+  // ponytail: calendar opens on today's month once and then navigates independently;
+  // untrack marks that as deliberate, not a missed reactivity case.
+  const initial = untrack(() => today.split('-').map(Number))
   let year = $state(initial[0])
   let month = $state(initial[1] - 1) // 0-indexed
 
-  const monthLabel = $derived(new Date(year, month, 1).toLocaleDateString(undefined, { month: 'long', year: 'numeric' }))
+  const monthLabel = $derived(
+    new Date(year, month, 1).toLocaleDateString(undefined, { month: 'long', year: 'numeric' }),
+  )
   const weeks = $derived.by(() => {
     const firstOfMonth = new Date(year, month, 1)
     const leadingBlanks = (firstOfMonth.getDay() + 6) % 7 // Monday-first
@@ -47,7 +52,13 @@
   <Card.Root>
     <Card.Content>
       <div class="flex items-center justify-between mb-3">
-        <Button type="button" variant="ghost" size="icon-sm" aria-label="Previous month" onclick={() => changeMonth(-1)}>
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-sm"
+          aria-label="Previous month"
+          onclick={() => changeMonth(-1)}
+        >
           <ChevronLeftIcon aria-hidden="true" />
         </Button>
         <strong>{monthLabel}</strong>
@@ -60,18 +71,17 @@
           <span>{label}</span>
         {/each}
       </div>
-      <div class="grid grid-cols-7 gap-1" role="grid" aria-label="Calendar">
+      <div class="grid grid-cols-7 gap-3" role="grid" aria-label="Calendar">
         {#each weeks as week}
           {#each week as iso}
             {#if iso}
               {@const tone = calorieTone(dailyTotals(data, iso).calories, targets.calories)}
               <button
                 type="button"
-                class="aspect-square rounded-md border text-sm flex items-center justify-center"
+                class="aspect-square rounded-md border-2 text-sm flex items-center justify-center"
                 class:font-bold={iso === today}
-                class:border-dashed={tone === 'empty'}
-                class:border-2={tone !== 'empty'}
-                class:border-[var(--muted-foreground)]={tone === 'empty' || tone === 'unavailable'}
+                class:border-transparent={tone === 'empty'}
+                class:border-[var(--muted-foreground)]={tone === 'unavailable'}
                 class:border-[var(--calorie-under)]={tone === 'under' || tone === 'on-target'}
                 class:border-[var(--calorie-over)]={tone === 'over'}
                 aria-label={`${iso}${iso === today ? ', today' : ''}`}

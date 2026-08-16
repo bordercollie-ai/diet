@@ -301,7 +301,7 @@
         food,
       )
       await save({ ...data, mealEntries: [...data.mealEntries, entry] })
-      showToast('Added to today\'s meal.')
+      showToast("Added to today's meal.")
     } catch (cause) {
       error = cause instanceof Error ? cause.message : 'Unable to add meal.'
     }
@@ -463,9 +463,10 @@
 </main>
 
 <nav class="fixed inset-x-0 bottom-0 z-30 border-t bg-background backdrop-blur pb-[env(safe-area-inset-bottom,0px)]">
-  <div class="mx-auto flex max-w-3xl gap-0.5 px-3 pt-1" role="tablist" aria-label="Diet sections">
+  <div class="mx-auto flex max-w-3xl gap-0.5 px-3 pt-2" role="tablist" aria-label="Diet sections">
     {#each tabs as { id, label, icon: Icon }}
-      {@const selected = id === 'menu' ? activeTab === 'menu' || activeTab === 'calendar' || activeTab === 'backup' : activeTab === id}
+      {@const selected =
+        id === 'menu' ? activeTab === 'menu' || activeTab === 'calendar' || activeTab === 'backup' : activeTab === id}
       <Button
         id={`${id}-tab`}
         role="tab"
@@ -474,7 +475,9 @@
         aria-label={label}
         size="icon-sm"
         variant="ghost"
-        class="min-w-0 flex-1 rounded-lg hover:bg-transparent border-0 {selected ? 'text-foreground' : 'text-muted-foreground'}"
+        class="min-w-0 flex-1 rounded-lg hover:bg-transparent border-0 {selected
+          ? 'text-foreground'
+          : 'text-muted-foreground'}"
         onclick={() => selectTab(id)}
       >
         <Icon aria-hidden="true" class="size-5" />
