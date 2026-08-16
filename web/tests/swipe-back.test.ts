@@ -1,6 +1,6 @@
 import { render } from '@testing-library/svelte'
 import { test, expect, vi } from 'vitest'
-import BackButton from '../src/lib/components/back-button.svelte'
+import SwipeLayerHarness from './fixtures/swipe-layer-harness.svelte'
 
 function dispatchTouch(target: EventTarget, type: string, x: number, y: number) {
   const event = new Event(type, { bubbles: true, cancelable: true }) as unknown as TouchEvent
@@ -14,7 +14,7 @@ function dispatchTouch(target: EventTarget, type: string, x: number, y: number) 
 
 test('swiping right over empty page space below short content still triggers back', async () => {
   const onBack = vi.fn()
-  render(BackButton, { props: { onclick: onBack } })
+  render(SwipeLayerHarness, { props: { onBack } })
 
   // The rendered content is short, so this touch point is below the wrapper's own
   // box — i.e. it lands on an ancestor (document.body here), not a descendant of
@@ -25,4 +25,13 @@ test('swiping right over empty page space below short content still triggers bac
   dispatchTouch(document.body, 'touchend', 200, 900)
 
   expect(onBack).toHaveBeenCalledOnce()
+})
+
+test('the previous screen stays mounted underneath so dragging reveals real content', () => {
+  const { getByText } = render(SwipeLayerHarness, { props: { onBack: vi.fn() } })
+
+  // Both layers must be in the DOM at once — this is what makes the drag a real
+  // reveal instead of a transform trick over blank space.
+  expect(getByText('Back content')).toBeTruthy()
+  expect(getByText('Front content')).toBeTruthy()
 })
