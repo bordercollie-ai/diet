@@ -17,6 +17,9 @@
     @apply font-sans;
     font-size: 18px;
     touch-action: manipulation;
+    /* Stops Chrome's own edge-swipe "back" gesture (the blue circled-arrow
+       affordance) from firing alongside our custom swipeBack drag. */
+    overscroll-behavior-x: none;
   }
 }
 

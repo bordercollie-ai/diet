@@ -8,7 +8,7 @@
   import PlusIcon from '@lucide/svelte/icons/plus'
   import SunIcon from '@lucide/svelte/icons/sun'
   import ZapIcon from '@lucide/svelte/icons/zap'
-  import { onMount } from 'svelte'
+  import { onMount, type Snippet } from 'svelte'
   import { fade } from 'svelte/transition'
   import {
     bundledFoods,
@@ -27,6 +27,7 @@
     type Profile,
   } from './domain/store'
   import BackButton from '$lib/components/back-button.svelte'
+  import SwipeLayer from '$lib/components/swipe-layer.svelte'
   import BackupPanel from './pages/BackupPanel.svelte'
   import CalendarPanel from './pages/CalendarPanel.svelte'
   import FoodSheet from './pages/FoodSheet.svelte'
@@ -359,6 +360,11 @@
     return calorieTone(dailyTotals(data, iso).calories, targets.calories)
   }
   const dayTones = $derived(Object.fromEntries(recentDays.map((day) => [day.iso, dayTone(day.iso)])))
+
+  function returnFromSummaryToCalendar() {
+    activeTab = 'calendar'
+    returnToCalendar = false
+  }
 </script>
 
 <svelte:head>
@@ -399,63 +405,104 @@
     </div>
   {/if}
 
+  {#snippet menuScreen()}
+    <MenuPanel onSelect={openMenuPage} />
+  {/snippet}
+
+  {#snippet calendarScreen()}
+    <CalendarPanel {data} {today} {targets} onSelectDate={goToSummaryFromCalendar} />
+  {/snippet}
+
+  {#snippet overlayPage(content: Snippet)}
+    <div
+      class="h-full overflow-y-auto px-3 pt-[max(1rem,env(safe-area-inset-top))] pb-[calc(4rem+env(safe-area-inset-bottom))]"
+    >
+      {@render content()}
+    </div>
+  {/snippet}
+
   {#if activeTab === 'summary'}
-    {#if returnToCalendar}
-      <BackButton
-        label="Calendar"
-        onclick={() => {
-          activeTab = 'calendar'
-          returnToCalendar = false
-        }}
+    {#snippet summaryPanel()}
+      <SummaryPanel
+        {data}
+        date={summaryDate}
+        {today}
+        {recentDays}
+        {dayTones}
+        showDayStrip={!returnToCalendar}
+        {totals}
+        {targets}
+        {caloriePercent}
+        {caloriesRemaining}
+        {calorieColor}
+        onSelectDate={(iso) => (date = iso)}
+        onEditMeal={(id) => mealSheet.openForEdit(id)}
       />
+    {/snippet}
+    {#if returnToCalendar}
+      <div class="fixed inset-0 z-40 bg-background">
+        <SwipeLayer onBack={returnFromSummaryToCalendar}>
+          {#snippet back()}
+            {@render overlayPage(calendarScreen)}
+          {/snippet}
+          {#snippet front()}
+            {#snippet summaryWithBack()}
+              <BackButton label="Calendar" onclick={returnFromSummaryToCalendar}>
+                {@render summaryPanel()}
+              </BackButton>
+            {/snippet}
+            {@render overlayPage(summaryWithBack)}
+          {/snippet}
+        </SwipeLayer>
+      </div>
+    {:else}
+      {@render summaryPanel()}
     {/if}
-    <SummaryPanel
-      {data}
-      date={summaryDate}
-      {today}
-      {recentDays}
-      {dayTones}
-      showDayStrip={!returnToCalendar}
-      {totals}
-      {targets}
-      {caloriePercent}
-      {caloriesRemaining}
-      {calorieColor}
-      onSelectDate={(iso) => (date = iso)}
-      onEditMeal={(id) => mealSheet.openForEdit(id)}
-    />
   {:else if activeTab === 'foods'}
     <FoodsPanel {data} onAddFood={startNewFood} onEditFood={editFood} />
-  {:else if activeTab === 'profile'}
-    <BackButton label="Menu" onclick={() => (activeTab = 'menu')} />
-    <ProfilePanel
-      bind:profile
-      bind:overrideCalories
-      bind:overrideProtein
-      bind:overrideFat
-      bind:overrideCarbohydrates
-      {today}
-      {maintenanceCalories}
-      {targets}
-      onSave={saveProfile}
-    />
+  {:else if activeTab === 'profile' || activeTab === 'calendar' || activeTab === 'backup'}
+    <div class="fixed inset-0 z-40 bg-background">
+      <SwipeLayer onBack={() => (activeTab = 'menu')}>
+        {#snippet back()}
+          {@render overlayPage(menuScreen)}
+        {/snippet}
+        {#snippet front()}
+          {#snippet activePanel()}
+            <BackButton label="Menu" onclick={() => (activeTab = 'menu')}>
+              {#if activeTab === 'profile'}
+                <ProfilePanel
+                  bind:profile
+                  bind:overrideCalories
+                  bind:overrideProtein
+                  bind:overrideFat
+                  bind:overrideCarbohydrates
+                  {today}
+                  {maintenanceCalories}
+                  {targets}
+                  onSave={saveProfile}
+                />
+              {:else if activeTab === 'calendar'}
+                {@render calendarScreen()}
+              {:else}
+                <BackupPanel
+                  {selectedBackupName}
+                  {backupPreview}
+                  {installed}
+                  canInstall={!!installPrompt}
+                  onExport={exportBackup}
+                  onSelectBackup={selectBackup}
+                  onRestore={restoreBackup}
+                  onInstall={installApp}
+                />
+              {/if}
+            </BackButton>
+          {/snippet}
+          {@render overlayPage(activePanel)}
+        {/snippet}
+      </SwipeLayer>
+    </div>
   {:else if activeTab === 'menu'}
-    <MenuPanel onSelect={openMenuPage} />
-  {:else if activeTab === 'calendar'}
-    <BackButton label="Menu" onclick={() => (activeTab = 'menu')} />
-    <CalendarPanel {data} {today} {targets} onSelectDate={goToSummaryFromCalendar} />
-  {:else if activeTab === 'backup'}
-    <BackButton label="Menu" onclick={() => (activeTab = 'menu')} />
-    <BackupPanel
-      {selectedBackupName}
-      {backupPreview}
-      {installed}
-      canInstall={!!installPrompt}
-      onExport={exportBackup}
-      onSelectBackup={selectBackup}
-      onRestore={restoreBackup}
-      onInstall={installApp}
-    />
+    {@render menuScreen()}
   {/if}
 
   <MealSheet

@@ -11,11 +11,15 @@
   import { Button } from '$lib/components/ui/button'
   import { Input } from '$lib/components/ui/input'
   import { Label } from '$lib/components/ui/label'
-  import * as Sheet from '$lib/components/ui/sheet'
   import * as AlertDialog from '$lib/components/ui/alert-dialog'
+  import { swipeBack } from '$lib/actions/swipe-back'
+  import NavCircleButton from '$lib/components/nav-circle-button.svelte'
+  import SwipeLayer from '$lib/components/swipe-layer.svelte'
   import PlusIcon from '@lucide/svelte/icons/plus'
   import MinusIcon from '@lucide/svelte/icons/minus'
   import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left'
+  import XIcon from '@lucide/svelte/icons/x'
+  import type { Snippet } from 'svelte'
 
   let {
     data,
@@ -143,6 +147,30 @@
 
   let confirmingDelete = $state(false)
 
+  // ponytail: plain fixed-page overlay instead of a dialog primitive — this page
+  // always covers the full viewport, so there's no focus trap / outside-click
+  // surface to manage, just a scroll lock while it's open.
+  $effect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+  })
+
+  function close() {
+    open = false
+  }
+
+  // The detail step reached from search (not from editing an existing meal) has
+  // its own "back" destination — the search step — instead of closing the sheet.
+  // Plain function (not $derived) — tsgo mis-narrows the 'detail' literal comparison
+  // when it lives in a module-level $derived here.
+  function showingSearchDetail() {
+    return !temporaryMeal && step === 'detail' && !editingMealId
+  }
+
+  function backToSearch() {
+    step = 'search'
+    selectedFoodId = ''
+  }
+
   async function handleDelete() {
     if (!editingMealId) return
     try {
@@ -158,11 +186,6 @@
   function chooseFoodResult(id: string) {
     selectedFoodId = id
     step = 'detail'
-  }
-
-  function backToSearch() {
-    step = 'search'
-    selectedFoodId = ''
   }
 
   async function handleSubmit(event: SubmitEvent) {
@@ -216,149 +239,185 @@
   }
 </script>
 
-<Sheet.Root bind:open>
-  <Sheet.Content side="right" class="gap-0 data-[side=right]:w-full data-[side=right]:sm:max-w-none">
-    <Sheet.Header>
-      <Sheet.Title>
-        {#if temporaryMeal}
-          {editingMealId ? 'Edit meal' : 'Quick add'}
-        {:else if step === 'detail'}
-          {editingMealId ? 'Edit meal' : 'Meal details'}
-        {:else}
-          {editingMealId ? 'Edit meal' : 'Record a meal'}
-        {/if}
-      </Sheet.Title>
-      <Sheet.Description>
-        {#if temporaryMeal}
-          Record nutrition without saving a food.
-        {:else if step === 'detail'}
-          Set the time and quantity, then record the meal.
-        {:else}
-          Search for a food to record.
-        {/if}
-      </Sheet.Description>
-    </Sheet.Header>
-    <div class="flex-1 overflow-y-auto px-6 pb-6" onscroll={step === 'search' ? handleResultsScroll : undefined}>
-      {#if temporaryMeal}
-        <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
+{#snippet closeControl()}
+  <NavCircleButton label="Close" onclick={close}>
+    <XIcon aria-hidden="true" class="size-5" />
+  </NavCircleButton>
+{/snippet}
+
+{#snippet backToSearchControl()}
+  <NavCircleButton label="Back to search" onclick={backToSearch}>
+    <ChevronLeftIcon aria-hidden="true" class="size-5" />
+  </NavCircleButton>
+{/snippet}
+
+{#snippet screenHeader(title: string, description: string, control: Snippet)}
+  <div class="flex items-start justify-between gap-4 py-6 px-3 pb-0">
+    <div class="flex flex-col gap-1.5">
+      <h2 class="font-heading text-base font-medium text-foreground">{title}</h2>
+      <p class="text-sm text-muted-foreground">{description}</p>
+    </div>
+    {@render control()}
+  </div>
+{/snippet}
+
+{#snippet temporaryScreen()}
+  <div class="flex h-full flex-col bg-popover">
+    {@render screenHeader(
+      editingMealId ? 'Edit meal' : 'Quick add',
+      'Record nutrition without saving a food.',
+      closeControl,
+    )}
+    <div class="flex-1 overflow-y-auto px-3 pb-6">
+      <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
+        <div class="grid gap-2">
+          <Label for="temporary-name">Name</Label>
+          <Input id="temporary-name" bind:value={temporaryName} required />
+        </div>
+        <div class="grid gap-2">
+          <Label for="temporary-calories">Calories</Label>
+          <Input
+            id="temporary-calories"
+            type="number"
+            min="0"
+            value={temporaryCalories}
+            oninput={(e) => (temporaryCalories = e.currentTarget.valueAsNumber || 0)}
+          />
+        </div>
+        <div class="grid grid-cols-3 gap-3">
           <div class="grid gap-2">
-            <Label for="temporary-name">Name</Label>
-            <Input id="temporary-name" bind:value={temporaryName} required />
+            <Label for="temporary-protein">Protein</Label>
+            <Input
+              id="temporary-protein"
+              type="number"
+              min="0"
+              step="0.1"
+              value={temporaryProtein}
+              oninput={(e) => (temporaryProtein = e.currentTarget.valueAsNumber || 0)}
+            />
           </div>
           <div class="grid gap-2">
-            <Label for="temporary-calories">Calories</Label>
-            <Input id="temporary-calories" type="number" min="0" bind:value={temporaryCalories} required />
+            <Label for="temporary-fat">Fat</Label>
+            <Input
+              id="temporary-fat"
+              type="number"
+              min="0"
+              step="0.1"
+              value={temporaryFat}
+              oninput={(e) => (temporaryFat = e.currentTarget.valueAsNumber || 0)}
+            />
           </div>
-          <div class="grid grid-cols-3 gap-3">
-            <div class="grid gap-2">
-              <Label for="temporary-protein">Protein</Label>
-              <Input id="temporary-protein" type="number" min="0" step="0.1" bind:value={temporaryProtein} required />
-            </div>
-            <div class="grid gap-2">
-              <Label for="temporary-fat">Fat</Label>
-              <Input id="temporary-fat" type="number" min="0" step="0.1" bind:value={temporaryFat} required />
-            </div>
-            <div class="grid gap-2">
-              <Label for="temporary-carbohydrates">Carbs</Label>
-              <Input
-                id="temporary-carbohydrates"
-                type="number"
-                min="0"
-                step="0.1"
-                bind:value={temporaryCarbohydrates}
-                required
-              />
-            </div>
+          <div class="grid gap-2">
+            <Label for="temporary-carbohydrates">Carbs</Label>
+            <Input
+              id="temporary-carbohydrates"
+              type="number"
+              min="0"
+              step="0.1"
+              value={temporaryCarbohydrates}
+              oninput={(e) => (temporaryCarbohydrates = e.currentTarget.valueAsNumber || 0)}
+            />
           </div>
-          <div class="grid grid-cols-2 gap-3">
-            <div class="grid gap-2">
-              <Label for="meal-date">Date</Label>
-              <Input id="meal-date" type="date" max={today} bind:value={date} required />
-            </div>
-            <div class="grid gap-2">
-              <Label for="meal-time">Time</Label>
-              <Input id="meal-time" type="time" step="600" bind:value={time} required />
-            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="grid gap-2">
+            <Label for="meal-date">Date</Label>
+            <Input id="meal-date" type="date" max={today} bind:value={date} required />
           </div>
-          {#if error}<p class="text-destructive text-sm" role="alert">{error}</p>{/if}
-          <Button type="submit">{editingMealId ? 'Update meal' : 'Add meal'}</Button>
-          {#if editingMealId}
-            <Button type="button" variant="destructive" class="w-full" onclick={() => (confirmingDelete = true)}
-              >Delete meal</Button
-            >
-          {/if}
-        </form>
-      {:else if step === 'search'}
-        <div class="grid gap-4">
-          <label
-            >Food
-            <div class="flex flex-col gap-2">
-              <Input
-                class="min-w-0"
-                bind:value={foodSearch}
-                oninput={() => {
-                  selectedFoodId = ''
-                  foodPage = 1
-                }}
-                placeholder="Search food"
-                aria-label="Search food"
-                required
-              />
+          <div class="grid gap-2">
+            <Label for="meal-time">Time</Label>
+            <Input id="meal-time" type="time" step="600" bind:value={time} required />
+          </div>
+        </div>
+        {#if error}<p class="text-destructive text-sm" role="alert">{error}</p>{/if}
+        <Button type="submit">{editingMealId ? 'Update meal' : 'Add meal'}</Button>
+        {#if editingMealId}
+          <Button type="button" variant="destructive" class="w-full" onclick={() => (confirmingDelete = true)}
+            >Delete meal</Button
+          >
+        {/if}
+      </form>
+    </div>
+  </div>
+{/snippet}
+
+{#snippet searchScreen()}
+  <div class="flex h-full flex-col bg-popover">
+    {@render screenHeader(editingMealId ? 'Edit meal' : 'Record a meal', 'Search for a food to record.', closeControl)}
+    <div class="flex-1 overflow-y-auto px-3 pb-6" onscroll={handleResultsScroll}>
+      <div class="grid gap-4">
+        <div class="flex flex-col gap-2 py-2">
+          <Input
+            class="min-w-0"
+            bind:value={foodSearch}
+            oninput={() => {
+              selectedFoodId = ''
+              foodPage = 1
+            }}
+            placeholder="Search food"
+            aria-label="Search food"
+            required
+          />
+          <Button
+            type="button"
+            variant="outline"
+            onclick={() => {
+              selectedFoodId = ''
+              foodPage = 1
+            }}>Search</Button
+          >
+        </div>
+        {#if creatingMealFood}
+          <span role="status" class="text-muted-foreground"
+            >No match. Add nutrition details to create it with this meal.</span
+          >
+        {/if}
+        {#if foodResults.length > 0}
+          <div class="meal-list">
+            {#each foodResults as food}
               <Button
                 type="button"
-                variant="outline"
-                onclick={() => {
-                  selectedFoodId = ''
-                  foodPage = 1
-                }}>Search</Button
+                variant="secondary"
+                class="h-auto w-full min-w-0 flex-col items-stretch gap-0.5 rounded-2xl p-4 text-left whitespace-normal"
+                onclick={() => chooseFoodResult(food.id)}
               >
-            </div>
-            {#if creatingMealFood}
-              <span role="status" class="text-muted-foreground"
-                >No match. Add nutrition details to create it with this meal.</span
-              >
-            {/if}
-          </label>
-          {#if foodResults.length > 0}
-            <div class="meal-list">
-              {#each foodResults as food}
-                <Button
-                  type="button"
-                  variant="secondary"
-                  class="h-auto w-full min-w-0 flex-col items-stretch gap-0.5 rounded-2xl p-4 text-left whitespace-normal"
-                  onclick={() => chooseFoodResult(food.id)}
-                >
-                  <div class="flex items-center justify-between gap-2">
-                    <span class="min-w-0 truncate font-semibold">{food.name.en ?? Object.values(food.name)[0]}</span>
-                    <span class="shrink-0 font-semibold whitespace-nowrap"
-                      >{displayNumber(food.nutrition.calories)} kcal</span
-                    >
-                  </div>
-                  {#if food.description}<span class="meal-card-topline">{food.description}</span>{/if}
-                  <span class="meal-card-topline">{food.serving}</span>
-                </Button>
-              {/each}
-            </div>
-          {/if}
-          {#if creatingMealFood}
-            <Button
-              type="button"
-              variant="outline"
-              onclick={() => {
-                awaitingCreatedFood = true
-                onCreateFood(foodSearch.trim())
-              }}>Add food</Button
-            >
-          {/if}
-        </div>
-      {:else if selectedFood}
+                <div class="flex items-center justify-between gap-2">
+                  <span class="min-w-0 truncate font-semibold">{food.name.en ?? Object.values(food.name)[0]}</span>
+                  <span class="shrink-0 font-semibold whitespace-nowrap"
+                    >{displayNumber(food.nutrition.calories)} kcal</span
+                  >
+                </div>
+                {#if food.description}<span class="meal-card-topline">{food.description}</span>{/if}
+                <span class="meal-card-topline">{food.serving}</span>
+              </Button>
+            {/each}
+          </div>
+        {/if}
+        {#if creatingMealFood}
+          <Button
+            type="button"
+            variant="outline"
+            onclick={() => {
+              awaitingCreatedFood = true
+              onCreateFood(foodSearch.trim())
+            }}>Add food</Button
+          >
+        {/if}
+      </div>
+    </div>
+  </div>
+{/snippet}
+
+{#snippet detailScreen(control: Snippet)}
+  <div class="flex h-full flex-col bg-popover">
+    {@render screenHeader(
+      editingMealId ? 'Edit meal' : 'Meal details',
+      'Set the time and quantity for this meal.',
+      control,
+    )}
+    <div class="flex-1 overflow-y-auto px-3 py-6">
+      {#if selectedFood}
         <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
-          {#if !editingMealId}
-            <Button type="button" variant="ghost" class="w-full justify-start" onclick={backToSearch}>
-              <ChevronLeftIcon aria-hidden="true" />
-              Back to search
-            </Button>
-          {/if}
           <div class="grid gap-1">
             <div class="flex items-start justify-between gap-4">
               <h3 class="text-lg font-semibold">{selectedFood.name.en ?? Object.values(selectedFood.name)[0]}</h3>
@@ -425,8 +484,45 @@
         </form>
       {/if}
     </div>
-  </Sheet.Content>
-</Sheet.Root>
+  </div>
+{/snippet}
+
+{#if open}
+  <div
+    class="fixed inset-0 z-50 text-sm text-popover-foreground"
+    role="dialog"
+    aria-modal="true"
+    aria-label={temporaryMeal
+      ? editingMealId
+        ? 'Edit meal'
+        : 'Quick add'
+      : step === 'detail'
+        ? editingMealId
+          ? 'Edit meal'
+          : 'Meal details'
+        : editingMealId
+          ? 'Edit meal'
+          : 'Record a meal'}
+    use:swipeBack={{ onBack: showingSearchDetail() ? () => {} : close, drag: !showingSearchDetail() }}
+  >
+    {#if temporaryMeal}
+      {@render temporaryScreen()}
+    {:else if showingSearchDetail()}
+      <SwipeLayer onBack={backToSearch}>
+        {#snippet back()}
+          {@render searchScreen()}
+        {/snippet}
+        {#snippet front()}
+          {@render detailScreen(backToSearchControl)}
+        {/snippet}
+      </SwipeLayer>
+    {:else if step === 'search'}
+      {@render searchScreen()}
+    {:else if selectedFood}
+      {@render detailScreen(closeControl)}
+    {/if}
+  </div>
+{/if}
 
 <AlertDialog.Root bind:open={confirmingDelete}>
   <AlertDialog.Content>
