@@ -255,6 +255,219 @@
     "description": "Generic reference (USDA)"
   },
   {
+    "id": "raw-olive-oil",
+    "name": {
+      "en": "Olive oil",
+      "ja": "オリーブオイル",
+      "zh": "橄榄油"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 884,
+      "protein": 0,
+      "fat": 100,
+      "carbohydrates": 0
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-vegetable-oil",
+    "name": {
+      "en": "Vegetable oil",
+      "ja": "サラダ油",
+      "zh": "食用油"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 884,
+      "protein": 0,
+      "fat": 100,
+      "carbohydrates": 0
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-butter",
+    "name": {
+      "en": "Butter",
+      "ja": "バター",
+      "zh": "黄油"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 717,
+      "protein": 0.9,
+      "fat": 81.1,
+      "carbohydrates": 0.1
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-natto",
+    "name": {
+      "en": "Natto",
+      "ja": "納豆",
+      "zh": "纳豆"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 200,
+      "protein": 16.5,
+      "fat": 10,
+      "carbohydrates": 12.1
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-spinach",
+    "name": {
+      "en": "Spinach (raw)",
+      "ja": "ほうれん草（生）",
+      "zh": "菠菜（生）"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 23,
+      "protein": 2.9,
+      "fat": 0.4,
+      "carbohydrates": 3.6
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-avocado",
+    "name": {
+      "en": "Avocado",
+      "ja": "アボカド",
+      "zh": "牛油果"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 160,
+      "protein": 2,
+      "fat": 14.7,
+      "carbohydrates": 8.5
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-almonds",
+    "name": {
+      "en": "Almonds",
+      "ja": "アーモンド",
+      "zh": "杏仁"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 579,
+      "protein": 21.2,
+      "fat": 49.9,
+      "carbohydrates": 21.6
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-lettuce",
+    "name": {
+      "en": "Lettuce",
+      "ja": "レタス",
+      "zh": "生菜"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 15,
+      "protein": 1.4,
+      "fat": 0.2,
+      "carbohydrates": 2.9
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-carrot",
+    "name": {
+      "en": "Carrot",
+      "ja": "にんじん",
+      "zh": "胡萝卜"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 41,
+      "protein": 0.9,
+      "fat": 0.2,
+      "carbohydrates": 9.6
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-potato",
+    "name": {
+      "en": "Potato (raw)",
+      "ja": "じゃがいも（生）",
+      "zh": "土豆（生）"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 77,
+      "protein": 2,
+      "fat": 0.1,
+      "carbohydrates": 17.5
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "raw-tomato",
+    "name": {
+      "en": "Tomato",
+      "ja": "トマト",
+      "zh": "番茄"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 18,
+      "protein": 0.9,
+      "fat": 0.2,
+      "carbohydrates": 3.9
+    },
+    "source": "bundled",
+    "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "optimum-nutrition-gold-standard-whey-chocolate",
+    "name": {
+      "en": "ON Gold Standard Whey (Chocolate)",
+      "ja": "ON ゴールドスタンダード ホエイ（チョコ）",
+      "zh": "ON 金标乳清蛋白粉（巧克力）"
+    },
+    "serving": "1 scoop (30.4g)",
+    "nutrition": {
+      "calories": 120,
+      "protein": 24,
+      "fat": 1,
+      "carbohydrates": 3
+    },
+    "source": "bundled",
+    "description": "Optimum Nutrition (official label)",
+    "detail": {
+      "salt": 0.33,
+      "sodium": 130,
+      "potassium": 190,
+      "fiber": 1,
+      "sugar": 1,
+      "saturatedFat": 0.5,
+      "cholesterol": 30
+    }
+  },
+  {
     "id": "yamazaki-jp-lunchpack-peanut",
     "name": {
       "ja": "ランチパック ピーナッツ"
