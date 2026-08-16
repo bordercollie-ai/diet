@@ -253,5 +253,68 @@
     },
     "source": "bundled",
     "description": "Generic reference (USDA)"
+  },
+  {
+    "id": "yamazaki-jp-lunchpack-peanut",
+    "name": {
+      "ja": "ランチパック ピーナッツ"
+    },
+    "serving": "1個",
+    "nutrition": {
+      "calories": 173,
+      "protein": 4.2,
+      "fat": 7.6,
+      "carbohydrates": 21.9
+    },
+    "source": "bundled",
+    "description": "Yamazaki Japan",
+    "detail": {
+      "salt": 0.4,
+      "saturatedFat": 2.4,
+      "transFat": 0.2,
+      "cholesterol": 0
+    }
+  },
+  {
+    "id": "yamazaki-jp-lunchpack-tamago",
+    "name": {
+      "ja": "ランチパック たまご"
+    },
+    "serving": "1個",
+    "nutrition": {
+      "calories": 151,
+      "protein": 4.3,
+      "fat": 8.2,
+      "carbohydrates": 14.9
+    },
+    "source": "bundled",
+    "description": "Yamazaki Japan",
+    "detail": {
+      "salt": 0.8,
+      "saturatedFat": 1.2,
+      "transFat": 0.1,
+      "cholesterol": 9
+    }
+  },
+  {
+    "id": "yamazaki-jp-lunchpack-tuna-mayonnaise",
+    "name": {
+      "ja": "ランチパック ツナマヨネーズ"
+    },
+    "serving": "1個",
+    "nutrition": {
+      "calories": 154,
+      "protein": 4.9,
+      "fat": 8.5,
+      "carbohydrates": 14.5
+    },
+    "source": "bundled",
+    "description": "Yamazaki Japan",
+    "detail": {
+      "salt": 0.7,
+      "saturatedFat": 1.3,
+      "transFat": 0,
+      "cholesterol": 8
+    }
   }
 ]

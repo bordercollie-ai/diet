@@ -2,7 +2,7 @@
   {
     "id": "lotte-jp-ice-01-01",
     "name": {
-      "ja": "爽　バニラ＜夏期限定＞"
+      "ja": "爽 バニラ＜夏期限定＞"
     },
     "serving": "190ml",
     "nutrition": {
@@ -20,7 +20,7 @@
   {
     "id": "lotte-jp-ice-01-32",
     "name": {
-      "ja": "爽　練乳いちご＜夏期限定＞"
+      "ja": "爽 練乳いちご＜夏期限定＞"
     },
     "serving": "185ml",
     "nutrition": {
@@ -38,7 +38,7 @@
   {
     "id": "lotte-jp-ice-01-70",
     "name": {
-      "ja": "爽　ひんやりみかん"
+      "ja": "爽 ひんやりみかん"
     },
     "serving": "185ml",
     "nutrition": {
@@ -56,7 +56,7 @@
   {
     "id": "lotte-jp-ice-01-71",
     "name": {
-      "ja": "爽　夏色ラムネ"
+      "ja": "爽 夏色ラムネ"
     },
     "serving": "185ml",
     "nutrition": {
@@ -74,7 +74,7 @@
   {
     "id": "lotte-jp-ice-02-01",
     "name": {
-      "ja": "モナ王　バニラ"
+      "ja": "モナ王 バニラ"
     },
     "serving": "160ml",
     "nutrition": {
@@ -92,7 +92,7 @@
   {
     "id": "lotte-jp-ice-02-02",
     "name": {
-      "ja": "モナ王マルチ　バニラ"
+      "ja": "モナ王マルチ バニラ"
     },
     "serving": "100ml",
     "nutrition": {
@@ -164,7 +164,7 @@
   {
     "id": "lotte-jp-ice-05-01",
     "name": {
-      "ja": "レディーボーデン　パイント　バニラ",
+      "ja": "レディーボーデン パイント バニラ",
       "en": "Lady Borden Pint Vanilla"
     },
     "serving": "470ml",
@@ -183,7 +183,7 @@
   {
     "id": "lotte-jp-ice-05-02",
     "name": {
-      "ja": "レディーボーデン　パイント　チョコレート",
+      "ja": "レディーボーデン パイント チョコレート",
       "en": "Lady Borden Pint Chocolate"
     },
     "serving": "470ml",
@@ -202,7 +202,7 @@
   {
     "id": "lotte-jp-ice-05-03",
     "name": {
-      "ja": "レディーボーデン　パイント　ストロベリー",
+      "ja": "レディーボーデン パイント ストロベリー",
       "en": "Lady Borden Pint Strawberry"
     },
     "serving": "470ml",
@@ -221,7 +221,7 @@
   {
     "id": "lotte-jp-ice-05-04",
     "name": {
-      "ja": "レディーボーデン　パイント　グリーンティー",
+      "ja": "レディーボーデン パイント グリーンティー",
       "en": "Lady Borden Pint Green Tea"
     },
     "serving": "470ml",
@@ -240,7 +240,7 @@
   {
     "id": "lotte-jp-ice-05-08",
     "name": {
-      "ja": "レディーボーデン　マルチ　カップセレクション",
+      "ja": "レディーボーデン マルチ カップセレクション",
       "en": "Lady Borden Multi Cup Selection"
     },
     "serving": "75ml",
@@ -259,7 +259,7 @@
   {
     "id": "lotte-jp-ice-05-25",
     "name": {
-      "ja": "レディーボーデン　マルチ　アーモンドチョコレートバー",
+      "ja": "レディーボーデン マルチ アーモンドチョコレートバー",
       "en": "Lady Borden Multi Almond Chocolate Bar"
     },
     "serving": "50ml",
@@ -278,7 +278,7 @@
   {
     "id": "lotte-jp-ice-05-26",
     "name": {
-      "ja": "レディーボーデン　ミニカップ　バニラ",
+      "ja": "レディーボーデン ミニカップ バニラ",
       "en": "Lady Borden Mini Cup Vanilla"
     },
     "serving": "120ml",
@@ -297,7 +297,7 @@
   {
     "id": "lotte-jp-ice-05-28",
     "name": {
-      "ja": "レディーボーデン　ミニカップ　コーヒー",
+      "ja": "レディーボーデン ミニカップ コーヒー",
       "en": "Lady Borden Mini Cup Coffee"
     },
     "serving": "120ml",
@@ -316,7 +316,7 @@
   {
     "id": "lotte-jp-ice-05-45",
     "name": {
-      "ja": "レディーボーデン　ミニカップ　チョコレートチップ",
+      "ja": "レディーボーデン ミニカップ チョコレートチップ",
       "en": "Lady Borden Mini Cup Chocolate Chip"
     },
     "serving": "120ml",
@@ -335,7 +335,7 @@
   {
     "id": "lotte-jp-ice-05-46",
     "name": {
-      "ja": "レディーボーデン　ミニカップ　クッキー&amp;クリーム",
+      "ja": "レディーボーデン ミニカップ クッキー&amp;クリーム",
       "en": "Lady Borden Mini Cup Cookies & Cream"
     },
     "serving": "120ml",
@@ -354,7 +354,7 @@
   {
     "id": "lotte-jp-ice-05-51",
     "name": {
-      "ja": "レディーボーデン　アーモンドチョコレートバー",
+      "ja": "レディーボーデン アーモンドチョコレートバー",
       "en": "Lady Borden Almond Chocolate Bar"
     },
     "serving": "81ml",
@@ -373,7 +373,7 @@
   {
     "id": "lotte-jp-ice-05-52",
     "name": {
-      "ja": "レディーボーデン　クッキークランチキャラメルバー",
+      "ja": "レディーボーデン クッキークランチキャラメルバー",
       "en": "Lady Borden Cookie Crunch Caramel Bar"
     },
     "serving": "81ml",
@@ -392,7 +392,7 @@
   {
     "id": "lotte-jp-ice-05-56",
     "name": {
-      "ja": "レディーボーデン　ミニカップ　ミルクリッチ",
+      "ja": "レディーボーデン ミニカップ ミルクリッチ",
       "en": "Lady Borden Mini Cup Milk Rich"
     },
     "serving": "120ml",
@@ -411,7 +411,7 @@
   {
     "id": "lotte-jp-ice-05-58",
     "name": {
-      "ja": "レディーボーデン　ミニカップ　抹茶",
+      "ja": "レディーボーデン ミニカップ 抹茶",
       "en": "Lady Borden Mini Cup Matcha"
     },
     "serving": "120ml",
@@ -430,7 +430,7 @@
   {
     "id": "lotte-jp-ice-07-01",
     "name": {
-      "ja": "クーリッシュ　バニラ＜夏期限定＞",
+      "ja": "クーリッシュ バニラ＜夏期限定＞",
       "en": "Coolish Vanilla (Summer Limited Edition)"
     },
     "serving": "140ml",
@@ -449,7 +449,7 @@
   {
     "id": "lotte-jp-ice-07-21",
     "name": {
-      "ja": "クーリッシュ　ベルギーチョコレート＜夏期限定＞",
+      "ja": "クーリッシュ ベルギーチョコレート＜夏期限定＞",
       "en": "Coolish Belgian Chocolate (Summer Limited Edition)"
     },
     "serving": "140ml",
@@ -468,7 +468,7 @@
   {
     "id": "lotte-jp-ice-07-31",
     "name": {
-      "ja": "クーリッシュGreen　バニラ",
+      "ja": "クーリッシュGreen バニラ",
       "en": "Coolish Green Vanilla"
     },
     "serving": "135ml",
@@ -487,7 +487,7 @@
   {
     "id": "lotte-jp-ice-07-40",
     "name": {
-      "ja": "クーリッシュGreen　ストロベリー",
+      "ja": "クーリッシュGreen ストロベリー",
       "en": "Coolish Green Strawberry"
     },
     "serving": "135ml",
@@ -506,7 +506,7 @@
   {
     "id": "lotte-jp-ice-07-41",
     "name": {
-      "ja": "クーリッシュマルチ　バニラ&amp;チョコレート",
+      "ja": "クーリッシュマルチ バニラ&amp;チョコレート",
       "en": "Coolish Multi Vanilla & Chocolate"
     },
     "serving": "80ml",
@@ -525,7 +525,7 @@
   {
     "id": "lotte-jp-ice-07-80",
     "name": {
-      "ja": "クーリッシュマルチ　「カルピス」&amp;「カルピス」巨峰"
+      "ja": "クーリッシュマルチ 「カルピス」&amp;「カルピス」巨峰"
     },
     "serving": "80ml",
     "nutrition": {
@@ -543,7 +543,7 @@
   {
     "id": "lotte-jp-ice-07-95",
     "name": {
-      "ja": "クーリッシュ　梨"
+      "ja": "クーリッシュ 梨"
     },
     "serving": "135ml",
     "nutrition": {
@@ -561,7 +561,7 @@
   {
     "id": "lotte-jp-ice-07-96",
     "name": {
-      "ja": "クーリッシュ　コーラフロート",
+      "ja": "クーリッシュ コーラフロート",
       "en": "Coolish Cola Float"
     },
     "serving": "135ml",
@@ -670,7 +670,7 @@
   {
     "id": "lotte-jp-ice-13-02",
     "name": {
-      "ja": "「カルピス」アイスバー　マルチ",
+      "ja": "「カルピス」アイスバー マルチ",
       "en": "Calpis Ice Bar Multi"
     },
     "serving": "43ml",
@@ -725,7 +725,7 @@
   {
     "id": "lotte-jp-ice-17-05",
     "name": {
-      "ja": "とろ～りれん乳三昧　練乳ミルク"
+      "ja": "とろ～りれん乳三昧 練乳ミルク"
     },
     "serving": "90ml",
     "nutrition": {
@@ -743,7 +743,7 @@
   {
     "id": "lotte-jp-ice-17-06",
     "name": {
-      "ja": "とろ～りれん乳三昧　苺れん乳"
+      "ja": "とろ～りれん乳三昧 苺れん乳"
     },
     "serving": "65ml",
     "nutrition": {
@@ -835,7 +835,7 @@
   {
     "id": "lotte-jp-ice-34-02",
     "name": {
-      "ja": "ゼロ　アイスケーキ",
+      "ja": "ゼロ アイスケーキ",
       "en": "Zero Ice Cake"
     },
     "serving": "44ml",
@@ -856,7 +856,7 @@
   {
     "id": "lotte-jp-ice-34-03",
     "name": {
-      "ja": "ゼロ　ビスケットクランチチョコバー",
+      "ja": "ゼロ ビスケットクランチチョコバー",
       "en": "Zero Biscuit Crunch Choco Bar"
     },
     "serving": "75ml",
@@ -877,7 +877,7 @@
   {
     "id": "lotte-jp-ice-34-05",
     "name": {
-      "ja": "ゼロ　ビスケットクランチチョコバー　香る焙煎抹茶"
+      "ja": "ゼロ ビスケットクランチチョコバー 香る焙煎抹茶"
     },
     "serving": "75ml",
     "nutrition": {
@@ -897,7 +897,7 @@
   {
     "id": "lotte-jp-ice-34-11",
     "name": {
-      "ja": "ゼロ　ミニカップマカダミアナッツ",
+      "ja": "ゼロ ミニカップマカダミアナッツ",
       "en": "Zero Mini Cup Macadamia Nuts"
     },
     "serving": "120ml",
@@ -918,7 +918,7 @@
   {
     "id": "lotte-jp-ice-34-12",
     "name": {
-      "ja": "ゼロ　ミニカップ紅茶&amp;ビスケット"
+      "ja": "ゼロ ミニカップ紅茶&amp;ビスケット"
     },
     "serving": "120ml",
     "nutrition": {
@@ -938,7 +938,7 @@
   {
     "id": "lotte-jp-ice-37-01",
     "name": {
-      "ja": "クーリッシュフローズン　レモンサワー",
+      "ja": "クーリッシュフローズン レモンサワー",
       "en": "Coolish Frozen Lemon Sour"
     },
     "serving": "140ml",
@@ -957,7 +957,7 @@
   {
     "id": "lotte-jp-ice-37-02",
     "name": {
-      "ja": "クーリッシュフローズン　グレフルサワー",
+      "ja": "クーリッシュフローズン グレフルサワー",
       "en": "Coolish Frozen Grapefruit Sour"
     },
     "serving": "140ml",
@@ -976,7 +976,7 @@
   {
     "id": "lotte-jp-ice-38-01",
     "name": {
-      "ja": "アジアに恋して　黒糖烏龍ミルクティー"
+      "ja": "アジアに恋して 黒糖烏龍ミルクティー"
     },
     "serving": "120ml",
     "nutrition": {
@@ -994,7 +994,7 @@
   {
     "id": "lotte-jp-ice-38-02",
     "name": {
-      "ja": "アジアに恋して　クリーミー杏仁豆腐"
+      "ja": "アジアに恋して クリーミー杏仁豆腐"
     },
     "serving": "120ml",
     "nutrition": {
@@ -1012,7 +1012,7 @@
   {
     "id": "lotte-jp-ice-38-03",
     "name": {
-      "ja": "アジアに恋して　ジャスミンミルクティー"
+      "ja": "アジアに恋して ジャスミンミルクティー"
     },
     "serving": "120ml",
     "nutrition": {
@@ -1030,7 +1030,7 @@
   {
     "id": "lotte-jp-ice-38-04",
     "name": {
-      "ja": "アジアに恋して　マンゴーラッシー"
+      "ja": "アジアに恋して マンゴーラッシー"
     },
     "serving": "120ml",
     "nutrition": {
@@ -1048,7 +1048,7 @@
   {
     "id": "lotte-jp-ice-100-01",
     "name": {
-      "ja": "匠のジェラート　マダガスカルバニラ"
+      "ja": "匠のジェラート マダガスカルバニラ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1066,7 +1066,7 @@
   {
     "id": "lotte-jp-ice-100-02",
     "name": {
-      "ja": "匠のジェラート　ベルギーチョコレート"
+      "ja": "匠のジェラート ベルギーチョコレート"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1084,7 +1084,7 @@
   {
     "id": "lotte-jp-ice-100-03",
     "name": {
-      "ja": "匠のジェラート　石臼挽き宇治抹茶"
+      "ja": "匠のジェラート 石臼挽き宇治抹茶"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1102,7 +1102,7 @@
   {
     "id": "lotte-jp-ice-100-04",
     "name": {
-      "ja": "匠のジェラート　たっぷり果実ストロベリー"
+      "ja": "匠のジェラート たっぷり果実ストロベリー"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1120,7 +1120,7 @@
   {
     "id": "lotte-jp-ice-100-05",
     "name": {
-      "ja": "匠のジェラート　鉄釜焙煎黒ごま"
+      "ja": "匠のジェラート 鉄釜焙煎黒ごま"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1138,7 +1138,7 @@
   {
     "id": "lotte-jp-ice-100-06",
     "name": {
-      "ja": "匠のジェラート　一番摘み深煎りほうじ茶"
+      "ja": "匠のジェラート 一番摘み深煎りほうじ茶"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1156,7 +1156,7 @@
   {
     "id": "lotte-jp-ice-100-07",
     "name": {
-      "ja": "匠のジェラート　アルフォンソマンゴー"
+      "ja": "匠のジェラート アルフォンソマンゴー"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1174,7 +1174,7 @@
   {
     "id": "lotte-jp-ice-100-08",
     "name": {
-      "ja": "匠のジェラート　マスカット・オブ・アレキサンドリア"
+      "ja": "匠のジェラート マスカット・オブ・アレキサンドリア"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1192,7 +1192,7 @@
   {
     "id": "lotte-jp-ice-100-09",
     "name": {
-      "ja": "匠のジェラート　北海道ミルク"
+      "ja": "匠のジェラート 北海道ミルク"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1210,7 +1210,7 @@
   {
     "id": "lotte-jp-ice-100-11",
     "name": {
-      "ja": "匠のジェラート　北海道メロン"
+      "ja": "匠のジェラート 北海道メロン"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1228,7 +1228,7 @@
   {
     "id": "lotte-jp-ice-100-13",
     "name": {
-      "ja": "匠のジェラート　沖縄塩 ミルク"
+      "ja": "匠のジェラート 沖縄塩 ミルク"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1246,7 +1246,7 @@
   {
     "id": "lotte-jp-ice-100-15",
     "name": {
-      "ja": "匠のジェラート　エクアドル完熟バナナ"
+      "ja": "匠のジェラート エクアドル完熟バナナ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1264,7 +1264,7 @@
   {
     "id": "lotte-jp-ice-100-17",
     "name": {
-      "ja": "匠のジェラート　イタリア栗薫るマロングラッセ"
+      "ja": "匠のジェラート イタリア栗薫るマロングラッセ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1282,7 +1282,7 @@
   {
     "id": "lotte-jp-ice-100-19",
     "name": {
-      "ja": "フルーツソルベ　ジューシー苺"
+      "ja": "フルーツソルベ ジューシー苺"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1300,7 +1300,7 @@
   {
     "id": "lotte-jp-ice-100-20",
     "name": {
-      "ja": "フルーツソルベ　ピール入りレモン"
+      "ja": "フルーツソルベ ピール入りレモン"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1318,7 +1318,7 @@
   {
     "id": "lotte-jp-ice-100-21",
     "name": {
-      "ja": "フルーツソルベ　甘熟メロン"
+      "ja": "フルーツソルベ 甘熟メロン"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1336,7 +1336,7 @@
   {
     "id": "lotte-jp-ice-100-22",
     "name": {
-      "ja": "フルーツソルベ　果肉入り白桃"
+      "ja": "フルーツソルベ 果肉入り白桃"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1354,7 +1354,7 @@
   {
     "id": "lotte-jp-ice-100-23",
     "name": {
-      "ja": "フルーツソルベ　巨峰&amp;コンコード"
+      "ja": "フルーツソルベ 巨峰&amp;コンコード"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1372,7 +1372,7 @@
   {
     "id": "lotte-jp-ice-100-24",
     "name": {
-      "ja": "フルーツソルベ　ラ・フランス"
+      "ja": "フルーツソルベ ラ・フランス"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1390,7 +1390,7 @@
   {
     "id": "lotte-jp-ice-100-25",
     "name": {
-      "ja": "フルーツソルベ　果肉入り国産りんご"
+      "ja": "フルーツソルベ 果肉入り国産りんご"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1408,7 +1408,7 @@
   {
     "id": "lotte-jp-ice-100-26",
     "name": {
-      "ja": "フルーツソルベ　ピール入り国産ゆず"
+      "ja": "フルーツソルベ ピール入り国産ゆず"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1426,7 +1426,7 @@
   {
     "id": "lotte-jp-ice-100-27",
     "name": {
-      "ja": "フルーツソルベ　芳醇カシス"
+      "ja": "フルーツソルベ 芳醇カシス"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1444,7 +1444,7 @@
   {
     "id": "lotte-jp-ice-100-28",
     "name": {
-      "ja": "フルーツソルベ　パインミックス"
+      "ja": "フルーツソルベ パインミックス"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1462,7 +1462,7 @@
   {
     "id": "lotte-jp-ice-100-29",
     "name": {
-      "ja": "フルーツソルベ　柑橘ミックス"
+      "ja": "フルーツソルベ 柑橘ミックス"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1480,7 +1480,7 @@
   {
     "id": "lotte-jp-ice-100-30",
     "name": {
-      "ja": "ベーシック　濃厚プレミアムバニラ（カラメリゼテイスト）"
+      "ja": "ベーシック 濃厚プレミアムバニラ（カラメリゼテイスト）"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1498,7 +1498,7 @@
   {
     "id": "lotte-jp-ice-100-31",
     "name": {
-      "ja": "ベーシック　クリーミーバニラ"
+      "ja": "ベーシック クリーミーバニラ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1516,7 +1516,7 @@
   {
     "id": "lotte-jp-ice-100-32",
     "name": {
-      "ja": "ベーシック　ビーンズバニラ"
+      "ja": "ベーシック ビーンズバニラ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1534,7 +1534,7 @@
   {
     "id": "lotte-jp-ice-100-33",
     "name": {
-      "ja": "ベーシック　アイスクリームチョコレート"
+      "ja": "ベーシック アイスクリームチョコレート"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1552,7 +1552,7 @@
   {
     "id": "lotte-jp-ice-100-34",
     "name": {
-      "ja": "ベーシック　アイスクリーム抹茶"
+      "ja": "ベーシック アイスクリーム抹茶"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1570,7 +1570,7 @@
   {
     "id": "lotte-jp-ice-100-35",
     "name": {
-      "ja": "ベーシック　アイスクリームストロベリー"
+      "ja": "ベーシック アイスクリームストロベリー"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1588,7 +1588,7 @@
   {
     "id": "lotte-jp-ice-100-36",
     "name": {
-      "ja": "ベーシック　ミルクバニラ4L"
+      "ja": "ベーシック ミルクバニラ4L"
     },
     "serving": "4,000ml",
     "nutrition": {
@@ -1606,7 +1606,7 @@
   {
     "id": "lotte-jp-ice-100-37",
     "name": {
-      "ja": "ベーシック　バリューバニラ4L"
+      "ja": "ベーシック バリューバニラ4L"
     },
     "serving": "4,000ml",
     "nutrition": {
@@ -1624,7 +1624,7 @@
   {
     "id": "lotte-jp-ice-100-38",
     "name": {
-      "ja": "ベーシック　バリューチョコレート4L"
+      "ja": "ベーシック バリューチョコレート4L"
     },
     "serving": "4,000ml",
     "nutrition": {
@@ -1642,7 +1642,7 @@
   {
     "id": "lotte-jp-ice-100-39",
     "name": {
-      "ja": "ベーシック　バリュー抹茶4L"
+      "ja": "ベーシック バリュー抹茶4L"
     },
     "serving": "4,000ml",
     "nutrition": {
@@ -1660,7 +1660,7 @@
   {
     "id": "lotte-jp-ice-100-40",
     "name": {
-      "ja": "ベーシック　バリューストロベリー4L"
+      "ja": "ベーシック バリューストロベリー4L"
     },
     "serving": "4,000ml",
     "nutrition": {
@@ -1678,7 +1678,7 @@
   {
     "id": "lotte-jp-ice-100-42",
     "name": {
-      "ja": "バラエティ　ガトーショコラ"
+      "ja": "バラエティ ガトーショコラ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1696,7 +1696,7 @@
   {
     "id": "lotte-jp-ice-100-43",
     "name": {
-      "ja": "バラエティ　いちごのショートケーキ"
+      "ja": "バラエティ いちごのショートケーキ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1714,7 +1714,7 @@
   {
     "id": "lotte-jp-ice-100-44",
     "name": {
-      "ja": "バラエティ　ブルーベリーのレアチーズケーキ"
+      "ja": "バラエティ ブルーベリーのレアチーズケーキ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1732,7 +1732,7 @@
   {
     "id": "lotte-jp-ice-100-46",
     "name": {
-      "ja": "バラエティ　パステルマーブル"
+      "ja": "バラエティ パステルマーブル"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1750,7 +1750,7 @@
   {
     "id": "lotte-jp-ice-100-47",
     "name": {
-      "ja": "バラエティ　ビビッドマーブル"
+      "ja": "バラエティ ビビッドマーブル"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1768,7 +1768,7 @@
   {
     "id": "lotte-jp-ice-100-48",
     "name": {
-      "ja": "バラエティ　フローズンヨーグルト"
+      "ja": "バラエティ フローズンヨーグルト"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1786,7 +1786,7 @@
   {
     "id": "lotte-jp-ice-100-50",
     "name": {
-      "ja": "バラエティ　クッキー&amp;クリーム"
+      "ja": "バラエティ クッキー&amp;クリーム"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1804,7 +1804,7 @@
   {
     "id": "lotte-jp-ice-100-51",
     "name": {
-      "ja": "バラエティ　つぶもち黒蜜きなこ"
+      "ja": "バラエティ つぶもち黒蜜きなこ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1822,7 +1822,7 @@
   {
     "id": "lotte-jp-ice-100-52",
     "name": {
-      "ja": "バラエティ　チョコチップミント"
+      "ja": "バラエティ チョコチップミント"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1840,7 +1840,7 @@
   {
     "id": "lotte-jp-ice-100-54",
     "name": {
-      "ja": "バラエティ　ラムネ"
+      "ja": "バラエティ ラムネ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1858,7 +1858,7 @@
   {
     "id": "lotte-jp-ice-100-55",
     "name": {
-      "ja": "バラエティ　桜（桜葉入り）"
+      "ja": "バラエティ 桜（桜葉入り）"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -1876,7 +1876,7 @@
   {
     "id": "lotte-jp-ice-100-59",
     "name": {
-      "ja": "アイスポーション　バニラ"
+      "ja": "アイスポーション バニラ"
     },
     "serving": "80ml",
     "nutrition": {
@@ -1894,7 +1894,7 @@
   {
     "id": "lotte-jp-ice-100-60",
     "name": {
-      "ja": "アイスポーション　チョコレート"
+      "ja": "アイスポーション チョコレート"
     },
     "serving": "80ml",
     "nutrition": {
@@ -1912,7 +1912,7 @@
   {
     "id": "lotte-jp-ice-100-62",
     "name": {
-      "ja": "アイスポーション　とけにくいバニラ"
+      "ja": "アイスポーション とけにくいバニラ"
     },
     "serving": "80ml",
     "nutrition": {
@@ -1966,7 +1966,7 @@
   {
     "id": "lotte-jp-ice-100-65",
     "name": {
-      "ja": "ミニクーリッシュ　バニラ",
+      "ja": "ミニクーリッシュ バニラ",
       "en": "Mini Coolish Vanilla"
     },
     "serving": "80ml",
@@ -1985,7 +1985,7 @@
   {
     "id": "lotte-jp-ice-100-66",
     "name": {
-      "ja": "ミニクーリッシュ　ぶどう"
+      "ja": "ミニクーリッシュ ぶどう"
     },
     "serving": "80ml",
     "nutrition": {
@@ -2075,7 +2075,7 @@
   {
     "id": "lotte-jp-ice-100-71",
     "name": {
-      "ja": "小さなアイス屋さん　カスタードバニラ"
+      "ja": "小さなアイス屋さん カスタードバニラ"
     },
     "serving": "1,000ml",
     "nutrition": {
@@ -2093,7 +2093,7 @@
   {
     "id": "lotte-jp-ice-100-73",
     "name": {
-      "ja": "小さなアイス屋さん　チョコミント"
+      "ja": "小さなアイス屋さん チョコミント"
     },
     "serving": "1,000ml",
     "nutrition": {
@@ -2129,7 +2129,7 @@
   {
     "id": "lotte-jp-ice-100-75",
     "name": {
-      "ja": "フルーツソルベ　つぶつぶキウイ"
+      "ja": "フルーツソルベ つぶつぶキウイ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -2147,7 +2147,7 @@
   {
     "id": "lotte-jp-ice-100-76",
     "name": {
-      "ja": "匠のジェラート　4種ミックスの芳醇ベリー"
+      "ja": "匠のジェラート 4種ミックスの芳醇ベリー"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -2165,7 +2165,7 @@
   {
     "id": "lotte-jp-ice-100-77",
     "name": {
-      "ja": "バラエティ　スイートキャラメル&amp;バニラ"
+      "ja": "バラエティ スイートキャラメル&amp;バニラ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -2183,7 +2183,7 @@
   {
     "id": "lotte-jp-ice-100-78",
     "name": {
-      "ja": "バラエティ　2種の芋タルト"
+      "ja": "バラエティ 2種の芋タルト"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -2201,7 +2201,7 @@
   {
     "id": "lotte-jp-ice-100-79",
     "name": {
-      "ja": "バラエティ　あじわいバナナミルク"
+      "ja": "バラエティ あじわいバナナミルク"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -2219,7 +2219,7 @@
   {
     "id": "lotte-jp-ice-100-80",
     "name": {
-      "ja": "匠のジェラート　茶師十段監修和紅茶"
+      "ja": "匠のジェラート 茶師十段監修和紅茶"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -2237,7 +2237,7 @@
   {
     "id": "lotte-jp-ice-100-81",
     "name": {
-      "ja": "ベーシック　バリューシトラスブルー4L"
+      "ja": "ベーシック バリューシトラスブルー4L"
     },
     "serving": "4,000ml",
     "nutrition": {
@@ -2274,7 +2274,7 @@
   {
     "id": "lotte-jp-ice-100-83",
     "name": {
-      "ja": "匠のジェラート　クリスプチョコチップ"
+      "ja": "匠のジェラート クリスプチョコチップ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -2310,7 +2310,7 @@
   {
     "id": "lotte-jp-ice-100-85",
     "name": {
-      "ja": "生　チョコパイ（業務用）"
+      "ja": "生 チョコパイ（業務用）"
     },
     "serving": "24個",
     "nutrition": {
@@ -2328,7 +2328,7 @@
   {
     "id": "lotte-jp-ice-100-86",
     "name": {
-      "ja": "匠のジェラート　贅沢ピスタチオ"
+      "ja": "匠のジェラート 贅沢ピスタチオ"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -2364,7 +2364,7 @@
   {
     "id": "lotte-jp-ice-100-93",
     "name": {
-      "ja": "バラエティ　パチパチメロンソーダフロート"
+      "ja": "バラエティ パチパチメロンソーダフロート"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -2382,7 +2382,7 @@
   {
     "id": "lotte-jp-ice-100-94",
     "name": {
-      "ja": "アイスキャンディ　メロンソーダマルチ"
+      "ja": "アイスキャンディ メロンソーダマルチ"
     },
     "serving": "50ml",
     "nutrition": {
@@ -2400,7 +2400,7 @@
   {
     "id": "lotte-jp-ice-100-95",
     "name": {
-      "ja": "ベーシック　バリューバニラ2L"
+      "ja": "ベーシック バリューバニラ2L"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -2418,7 +2418,7 @@
   {
     "id": "lotte-jp-ice-100-96",
     "name": {
-      "ja": "業務用　バニラバー　マルチ"
+      "ja": "業務用 バニラバー マルチ"
     },
     "serving": "45ml",
     "nutrition": {
@@ -2436,7 +2436,7 @@
   {
     "id": "lotte-jp-ice-100-97",
     "name": {
-      "ja": "業務用　「カルピス」アイスバー　マルチ"
+      "ja": "業務用 「カルピス」アイスバー マルチ"
     },
     "serving": "43ml",
     "nutrition": {
@@ -2454,7 +2454,7 @@
   {
     "id": "lotte-jp-ice-100-98",
     "name": {
-      "ja": "バラエティ　シャリっとカラメルのたまごプリン"
+      "ja": "バラエティ シャリっとカラメルのたまごプリン"
     },
     "serving": "2,000ml",
     "nutrition": {
@@ -2472,7 +2472,7 @@
   {
     "id": "lotte-jp-ice-200-01",
     "name": {
-      "ja": "クーリッシュ　バニラ",
+      "ja": "クーリッシュ バニラ",
       "en": "Coolish Vanilla"
     },
     "serving": "140ml",
@@ -2491,7 +2491,7 @@
   {
     "id": "lotte-jp-ice-200-02",
     "name": {
-      "ja": "クーリッシュ　ベルギーチョコレート",
+      "ja": "クーリッシュ ベルギーチョコレート",
       "en": "Coolish Belgian Chocolate"
     },
     "serving": "140ml",
@@ -2510,7 +2510,7 @@
   {
     "id": "lotte-jp-ice-200-04",
     "name": {
-      "ja": "モナ王　バニラ"
+      "ja": "モナ王 バニラ"
     },
     "serving": "100ml",
     "nutrition": {
@@ -2528,7 +2528,7 @@
   {
     "id": "lotte-jp-ice-200-05",
     "name": {
-      "ja": "モナ王　粒入りあずき"
+      "ja": "モナ王 粒入りあずき"
     },
     "serving": "100ml",
     "nutrition": {
@@ -2640,7 +2640,7 @@
   {
     "id": "lotte-jp-ice-200-14",
     "name": {
-      "ja": "モナ王　いちごオレ"
+      "ja": "モナ王 いちごオレ"
     },
     "serving": "100ml",
     "nutrition": {
@@ -2658,7 +2658,7 @@
   {
     "id": "lotte-jp-ice-200-15",
     "name": {
-      "ja": "モナ王　チョコチップチョコ"
+      "ja": "モナ王 チョコチップチョコ"
     },
     "serving": "100ml",
     "nutrition": {
