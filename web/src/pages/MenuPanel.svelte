@@ -4,63 +4,90 @@
   import CalendarDaysIcon from '@lucide/svelte/icons/calendar-days'
   import ChevronRightIcon from '@lucide/svelte/icons/chevron-right'
   import DownloadIcon from '@lucide/svelte/icons/download'
+  import GlobeIcon from '@lucide/svelte/icons/globe'
   import MonitorIcon from '@lucide/svelte/icons/monitor'
   import UserIcon from '@lucide/svelte/icons/user'
   import type { ThemePreference } from '../domain/store'
+  import { t, type Language } from '../lib/i18n.svelte'
 
   let {
     onSelect,
     themePreference,
     onThemeChange,
+    language,
+    onLanguageChange,
   }: {
     onSelect: (page: 'profile' | 'calendar' | 'backup') => void
     themePreference: ThemePreference
     onThemeChange: (preference: ThemePreference) => void
+    language: Language
+    onLanguageChange: (language: Language) => void
   } = $props()
 
-  const items: { id: 'profile' | 'calendar' | 'backup'; label: string; icon: typeof CalendarDaysIcon }[] = [
-    { id: 'profile', label: 'Profile', icon: UserIcon },
-    { id: 'calendar', label: 'Calendar', icon: CalendarDaysIcon },
-    { id: 'backup', label: 'Export', icon: DownloadIcon },
+  const items: { id: 'profile' | 'calendar' | 'backup'; labelKey: string; icon: typeof CalendarDaysIcon }[] = [
+    { id: 'profile', labelKey: 'profile', icon: UserIcon },
+    { id: 'calendar', labelKey: 'calendar', icon: CalendarDaysIcon },
+    { id: 'backup', labelKey: 'export', icon: DownloadIcon },
   ]
 
-  const themeOptions: { value: ThemePreference; label: string }[] = [
-    { value: 'light', label: 'Light' },
-    { value: 'dark', label: 'Dark' },
-    { value: 'system', label: 'System' },
+  const themeOptions: { value: ThemePreference; labelKey: string }[] = [
+    { value: 'light', labelKey: 'light' },
+    { value: 'dark', labelKey: 'dark' },
+    { value: 'system', labelKey: 'system' },
   ]
-  const themeLabel = $derived(themeOptions.find((option) => option.value === themePreference)?.label ?? 'System')
+  const languageOptions: { value: Language; labelKey: string }[] = [
+    { value: 'en', labelKey: 'english' },
+    { value: 'zh', labelKey: 'chinese' },
+    { value: 'ja', labelKey: 'japanese' },
+  ]
+
+  const themeLabel = $derived(t(themeOptions.find((option) => option.value === themePreference)?.labelKey ?? 'system'))
+  const languageLabel = $derived(t(languageOptions.find((option) => option.value === language)?.labelKey ?? 'english'))
 </script>
 
 <div id="menu-panel" role="tabpanel" aria-labelledby="menu-tab">
   <Card.Root class="p-0 overflow-hidden">
     <Card.Content class="p-0">
       <div class="flex h-14 w-full items-center gap-3 px-4">
+        <GlobeIcon aria-hidden="true" class="size-5 text-muted-foreground" />
+        <span class="flex-1 text-lg">{t('language')}</span>
+        <Select.Root type="single" value={language} onValueChange={(value) => value && onLanguageChange(value as Language)}>
+          <Select.Trigger aria-label={t('language')} class="border-input h-9 rounded-md border bg-transparent px-3 text-sm">
+            {languageLabel}
+          </Select.Trigger>
+          <Select.Content class="rounded-md">
+            {#each languageOptions as option}
+              <Select.Item value={option.value} label={t(option.labelKey)} class="rounded-sm" />
+            {/each}
+          </Select.Content>
+        </Select.Root>
+      </div>
+      <div class="flex h-14 w-full items-center gap-3 px-4 border-t">
         <MonitorIcon aria-hidden="true" class="size-5 text-muted-foreground" />
-        <span class="flex-1 text-lg">Appearance</span>
+        <span class="flex-1 text-lg">{t('appearance')}</span>
         <Select.Root
           type="single"
           value={themePreference}
           onValueChange={(value) => value && onThemeChange(value as ThemePreference)}
         >
-          <Select.Trigger aria-label="Theme" class="border-input h-9 rounded-md border bg-transparent px-3 text-sm">
+          <Select.Trigger aria-label={t('theme')} class="border-input h-9 rounded-md border bg-transparent px-3 text-sm">
             {themeLabel}
           </Select.Trigger>
           <Select.Content class="rounded-md">
             {#each themeOptions as option}
-              <Select.Item value={option.value} label={option.label} class="rounded-sm" />
+              <Select.Item value={option.value} label={t(option.labelKey)} class="rounded-sm" />
             {/each}
           </Select.Content>
         </Select.Root>
       </div>
-      {#each items as { id, label, icon: Icon }}
+      {#each items as { id, labelKey, icon: Icon }}
         <button
           type="button"
           class="flex h-14 w-full items-center gap-3 px-4 text-left border-t"
           onclick={() => onSelect(id)}
         >
           <Icon aria-hidden="true" class="size-5 text-muted-foreground" />
-          <span class="flex-1 text-lg">{label}</span>
+          <span class="flex-1 text-lg">{t(labelKey)}</span>
           <ChevronRightIcon aria-hidden="true" class="size-4 text-muted-foreground" />
         </button>
       {/each}

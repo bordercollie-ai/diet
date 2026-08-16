@@ -93,11 +93,20 @@ The importer emits app-compatible records with reviewed Chinese mappings, withou
 - **Risk:** none known. Export/Backup behavior is unchanged, only reachable via the new Menu page. The iOS-style back button was applied only to the pages this feature touches (Menu, Calendar, Backup, Summary-from-Calendar), per instruction — other pages (Foods, Profile, meal/food sheets) are untouched.
 - **Skipped:** persisting the selected calendar month across reloads, a dedicated calendar route/URL, and multi-level back history beyond the single "came from calendar" flag — add if users need deep-linking or multi-hop navigation.
 
+## Out-of-band feature: Menu language switch + full app UI translation (EN / 中文 / 日本語)
+
+**Status:** done (2026-08-16).
+
+- **Scope:** added a new Language row to `MenuPanel` beside Appearance, with English / 中文 / 日本語 options persisted in `localStorage` (`diet-language`). All user-facing strings in `App.svelte` and `src/pages/*.svelte` now read from a tiny hand-rolled `src/lib/i18n.svelte.ts` dictionary with English fallback, and date labels/month names follow the selected app language. Default language falls back to the OS locale (`navigator.language` 2-letter prefix) only when no language has been chosen yet; an explicit menu pick always wins thereafter. Food names (`Food.name`, a `Record<string, string>` keyed by source language, not every food has every key) are now shown via a shared `foodName()` helper that picks the current app language, falling back to English, then Japanese, then whatever name exists — applied everywhere a food name is rendered (Foods list, meal search/detail, food edit sheet, Summary meal rows).
+- **Files changed:** `docs/prd.md`, `docs/prd-web.md`, `docs/implementation-plan-web.md`, `web/src/lib/i18n.svelte.ts`, `web/src/App.svelte`, `web/src/pages/{BackupPanel,CalendarPanel,DayStrip,FoodSheet,FoodsPanel,MealSheet,MenuPanel,ProfilePanel,SummaryPanel}.svelte`.
+- **Checks:** `pnpm check`; `pnpm build`; `pnpm test`; `pnpm run test:ui` — all pass. Final counts: 23 domain tests and 18 UI tests.
+- **Risk:** no automated translation-quality review; new UI strings must be added to the dictionary manually or they will fall back to English. Food records without a name in the selected language silently fall back (English, then Japanese, then first available) rather than showing a per-food "missing translation" indicator.
+- **Skipped:** RTL/layout mirroring, ICU/pluralization/interpolation tooling, and translation-key linting.
+
 ## Deferred work
 
 | Phase | Scope | Exit criteria |
 | --- | --- | --- |
-| W8 | Persisted Chinese/English UI selection and complete message translation. | Both languages retain accessible core flows without changing domain/storage/backup behavior. |
 | W10 | Decide between History API, custom drag, or Drawer for sheet dismissal. | Selected gesture works without regressing sheet accessibility. |
 | W11 | Fix visible gap between the fixed bottom `<nav>` and Mobile Safari's own bottom toolbar (iPhone, non-installed tab). | No visible blank gap between navbar and Safari chrome across Safari tab and installed/standalone modes, verified on-device. |
 

@@ -7,8 +7,9 @@
   import HamIcon from '@lucide/svelte/icons/ham'
   import WheatIcon from '@lucide/svelte/icons/wheat'
   import NutIcon from '@lucide/svelte/icons/nut'
+  import { foodName, formatDate, t } from '../lib/i18n.svelte'
 
-  type Day = { iso: string; label: string; number: number }
+  type Day = { iso: string; number: number }
 
   let {
     data,
@@ -52,7 +53,7 @@
         <DayStrip {data} {date} {today} {recentDays} {dayTones} {onSelectDate} />
       {:else}
         <p class="text-center font-medium mb-3">
-          {new Date(`${date}T12:00:00`).toLocaleDateString(undefined, {
+          {formatDate(date, {
             weekday: 'long',
             month: 'long',
             day: 'numeric',
@@ -64,12 +65,12 @@
         id="calorie-summary"
         class="stat-card flex items-center justify-between my-4 rounded-md bg-card p-4"
         role="img"
-        aria-label={`${displayNumber(totals.calories)} of ${displayNumber(targets.calories)} kcal, ${caloriePercent}% of target`}
+        aria-label={`${displayNumber(totals.calories)} ${t('of')} ${displayNumber(targets.calories)} kcal, ${caloriePercent}% ${t('ofTarget')}`}
       >
         <div class="flex flex-col gap-1">
           <strong class="text-2xl">{displayNumber(totals.calories)} kcal</strong>
           <span class="text-muted-foreground"
-            >{displayNumber(Math.abs(caloriesRemaining))} kcal {caloriesRemaining >= 0 ? 'left' : 'over'}</span
+            >{displayNumber(Math.abs(caloriesRemaining))} kcal {caloriesRemaining >= 0 ? t('caloriesLeft') : t('caloriesOver')}</span
           >
         </div>
         <div
@@ -82,17 +83,17 @@
           </div>
         </div>
       </div>
-      <div class="grid grid-cols-3 gap-2" aria-label="Macronutrient totals">
+      <div class="grid grid-cols-3 gap-2" aria-label={t('macronutrientTotals')}>
         <div class="stat-card grid gap-1 rounded-md bg-card p-2.5 text-center">
           <span class="flex items-center justify-center gap-1 text-muted-foreground"
-            ><HamIcon aria-hidden="true" class="size-4" /> Protein</span
+            ><HamIcon aria-hidden="true" class="size-4" /> {t('proteinShort')}</span
           ><strong class:text-[var(--macro-over)]={isOverMacro(totals.protein, targets.protein)}
             >{Math.round(totals.protein)} / {Math.round(targets.protein)}</strong
           >
         </div>
         <div class="stat-card grid gap-1 rounded-md bg-card p-2.5 text-center">
           <span class="flex items-center justify-center gap-1 text-muted-foreground"
-            ><WheatIcon aria-hidden="true" class="size-4" /> Carbs</span
+            ><WheatIcon aria-hidden="true" class="size-4" /> {t('carbs')}</span
           ><strong
             class:text-[var(--macro-over)]={isOverMacro(totals.carbohydrates, targets.carbohydrates)}
             >{Math.round(totals.carbohydrates)} / {Math.round(targets.carbohydrates)}</strong
@@ -100,7 +101,7 @@
         </div>
         <div class="stat-card grid gap-1 rounded-md bg-card p-2.5 text-center">
           <span class="flex items-center justify-center gap-1 text-muted-foreground"
-            ><NutIcon aria-hidden="true" class="size-4" /> Fat</span
+            ><NutIcon aria-hidden="true" class="size-4" /> {t('fat')}</span
           ><strong class:text-[var(--macro-over)]={isOverMacro(totals.fat, targets.fat)}
             >{Math.round(totals.fat)} / {Math.round(targets.fat)}</strong
           >
@@ -117,11 +118,11 @@
           .filter((entry) => entry.date === date)
           .sort((a, b) => a.time.localeCompare(b.time)) as entry (entry.id)}
           {@const food = data.foods.find((item) => item.id === entry.foodId)}
-          {@const mealName = food?.name.en ?? entry.foodName ?? 'Food'}
+          {@const mealName = food ? foodName(food.name) : (entry.foodName ?? t('food'))}
           <button
             type="button"
             class="meal-card"
-            aria-label={`${entry.time}, ${mealName}, ${displayNumber(entry.nutrition.calories)} kcal. Edit meal.`}
+            aria-label={`${entry.time}, ${mealName}, ${displayNumber(entry.nutrition.calories)} kcal. ${t('editMeal')}.`}
             onclick={() => onEditMeal(entry.id)}
           >
             <div class="flex items-center justify-between">
@@ -145,7 +146,7 @@
             </span>
           </button>
         {:else}
-          <p>No meals recorded today.</p>
+          <p>{t('noMealsRecordedToday')}</p>
         {/each}
       </div>
     </div>

@@ -4,6 +4,7 @@
   import { Input } from '$lib/components/ui/input'
   import { Label } from '$lib/components/ui/label'
   import * as Card from '$lib/components/ui/card'
+  import { t } from '../lib/i18n.svelte'
 
   let {
     selectedBackupName,
@@ -28,37 +29,37 @@
 
 <div id="backup-panel" role="tabpanel" aria-labelledby="backup-heading">
   <Card.Root>
-    <Card.Header><Card.Title id="backup-heading">Backup and install</Card.Title></Card.Header>
+    <Card.Header><Card.Title id="backup-heading">{t('backupAndInstall')}</Card.Title></Card.Header>
     <Card.Content class="flex flex-col gap-4">
-      <Button type="button" onclick={onExport}>Export JSON backup</Button>
+      <Button type="button" onclick={onExport}>{t('exportJsonBackup')}</Button>
       <div class="flex flex-col gap-2">
-        <Label for="backup-file">Import JSON backup</Label>
+        <Label for="backup-file">{t('importJsonBackup')}</Label>
         <Input id="backup-file" class="sr-only" type="file" accept="application/json,.json" onchange={onSelectBackup} />
         <label
           for="backup-file"
           class="inline-flex min-h-10 cursor-pointer items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted focus-within:ring-3 focus-within:ring-ring/30"
         >
-          Choose backup file
+          {t('chooseBackupFile')}
         </label>
         <p class="text-sm text-muted-foreground" aria-live="polite">
-          {selectedBackupName || 'JSON files only'}
+          {selectedBackupName || t('jsonFilesOnly')}
         </p>
       </div>
       {#if backupPreview}
         <p role="status">
-          Ready to merge <strong class="font-semibold">{backupPreview.data.foods.length}</strong> foods and
-          <strong class="font-semibold">{backupPreview.data.mealEntries.length}</strong> meals.
+          {t('readyToMerge')} <strong class="font-semibold">{backupPreview.data.foods.length}</strong> {t('foodsPlural')}
+          {t('and')} <strong class="font-semibold">{backupPreview.data.mealEntries.length}</strong> {t('meals')}.
         </p>
-        <Button type="button" onclick={onRestore}>Restore backup</Button>
+        <Button type="button" onclick={onRestore}>{t('restoreBackup')}</Button>
       {/if}
       {#if installed}
-        <p class="text-sm text-muted-foreground">This app is installed.</p>
+        <p class="text-sm text-muted-foreground">{t('appInstalled')}</p>
       {:else if canInstall}
-        <Button type="button" onclick={onInstall}>Install app</Button>
+        <Button type="button" onclick={onInstall}>{t('installApp')}</Button>
       {:else}
-        <p class="text-sm text-muted-foreground">Install is available from your browser menu when supported.</p>
+        <p class="text-sm text-muted-foreground">{t('installFromBrowserMenu')}</p>
       {/if}
-      <p class="text-xs text-muted-foreground">Build {__BUILD_TIME__}</p>
+      <p class="text-xs text-muted-foreground">{t('build')} {__BUILD_TIME__}</p>
     </Card.Content>
   </Card.Root>
 </div>

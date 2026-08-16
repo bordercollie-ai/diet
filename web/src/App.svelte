@@ -19,7 +19,6 @@
     resolveDarkMode,
     previewBackup,
     resolveTargets,
-    roundForDisplay,
     type AppData,
     type Food,
     type ImportResult,
@@ -37,6 +36,7 @@
   import ProfilePanel from './pages/ProfilePanel.svelte'
   import SummaryPanel from './pages/SummaryPanel.svelte'
   import { createIndexedDBStore } from './storage/indexeddb'
+  import { getLanguage, setLanguage as setStoredLanguage, t, translate, type Language } from './lib/i18n.svelte'
 
   const store = createIndexedDBStore()
   const today = new Date().toISOString().slice(0, 10)
@@ -50,7 +50,6 @@
     day.setDate(day.getDate() - ((day.getDay() + 6) % 7) + index)
     return {
       iso: day.toISOString().slice(0, 10),
-      label: day.toLocaleDateString(undefined, { weekday: 'short' }),
       number: day.getDate(),
     }
   })
@@ -82,7 +81,7 @@
   let overrideProtein: number | undefined = $state()
   let overrideFat: number | undefined = $state()
   let overrideCarbohydrates: number | undefined = $state()
-  let status = $state('Loading local data...')
+  let status = $state(translate('loadingLocalData'))
   let error = $state('')
   let backupText = $state('')
   let selectedBackupName = $state('')
@@ -98,16 +97,17 @@
   let installPrompt: BeforeInstallPromptEvent | null = $state(null)
   let installed = $state(false)
   let themePreference: ThemePreference = $state('system')
+  let language: Language = $state(getLanguage())
   let systemPrefersDark = $state(false)
   const darkMode = $derived(resolveDarkMode(themePreference, systemPrefersDark))
   $effect(() => {
     document.documentElement.classList.toggle('dark', darkMode)
   })
   type Tab = 'summary' | 'foods' | 'profile' | 'menu' | 'calendar' | 'backup'
-  const tabs: { id: Tab; label: string; icon: typeof HouseIcon }[] = [
-    { id: 'summary', label: 'Summary', icon: HouseIcon },
-    { id: 'foods', label: 'Foods', icon: AppleIcon },
-    { id: 'menu', label: 'Menu', icon: MenuIcon },
+  const tabs: { id: Tab; labelKey: string; icon: typeof HouseIcon }[] = [
+    { id: 'summary', labelKey: 'summary', icon: HouseIcon },
+    { id: 'foods', labelKey: 'foods', icon: AppleIcon },
+    { id: 'menu', labelKey: 'menu', icon: MenuIcon },
   ]
   let activeTab: Tab = $state('summary')
   let addMealMenuOpen = $state(false)
@@ -225,15 +225,20 @@
         data = { ...data, foods }
         await save(data)
       }
-      status = 'Local data is ready.'
+      status = translate('localDataReady')
     } catch (cause) {
-      error = cause instanceof Error ? cause.message : 'Unable to open local data.'
+      error = cause instanceof Error ? cause.message : translate('unableOpenLocalData')
     }
   })
 
   function setTheme(preference: ThemePreference) {
     themePreference = preference
     localStorage.setItem('diet-theme', preference)
+  }
+
+  function setLanguage(next: Language) {
+    language = next
+    setStoredLanguage(next)
   }
 
   async function exportBackup() {
@@ -245,10 +250,10 @@
       link.download = `diet-backup-${today}.json`
       link.click()
       URL.revokeObjectURL(url)
-      status = 'Backup exported.'
+      status = translate('backupExported')
       error = ''
     } catch (cause) {
-      error = cause instanceof Error ? cause.message : 'Unable to export backup.'
+      error = cause instanceof Error ? cause.message : translate('unableExportBackup')
     }
   }
 
@@ -265,7 +270,7 @@
       backupText = ''
       selectedBackupName = ''
       backupPreview = null
-      error = cause instanceof Error ? cause.message : 'Unable to read backup.'
+      error = cause instanceof Error ? cause.message : translate('unableReadBackup')
     } finally {
       input.value = ''
     }
@@ -278,10 +283,10 @@
       data = result.data
       backupText = ''
       backupPreview = null
-      status = 'Backup restored.'
+      status = translate('backupRestored')
       error = ''
     } catch (cause) {
-      error = cause instanceof Error ? cause.message : 'Unable to restore backup.'
+      error = cause instanceof Error ? cause.message : translate('unableRestoreBackup')
     }
   }
 
@@ -291,7 +296,7 @@
       await installPrompt.prompt()
       installPrompt = null
     } catch (cause) {
-      error = cause instanceof Error ? cause.message : 'Unable to start installation.'
+      error = cause instanceof Error ? cause.message : translate('unableStartInstallation')
     }
   }
 
@@ -303,7 +308,7 @@
       data = saved
       error = ''
     } catch (cause) {
-      error = cause instanceof Error ? cause.message : 'Unable to save local data.'
+      error = cause instanceof Error ? cause.message : translate('unableSaveLocalData')
     }
   }
 
@@ -322,9 +327,9 @@
         food,
       )
       await save({ ...data, mealEntries: [...data.mealEntries, entry] })
-      showToast("Added to today's meal.")
+      showToast(translate('addedToTodaysMeal'))
     } catch (cause) {
-      error = cause instanceof Error ? cause.message : 'Unable to add meal.'
+      error = cause instanceof Error ? cause.message : translate('unableAddMeal')
     }
   }
 
@@ -345,9 +350,9 @@
       )
       resolveTargets(profile, targetOverrides)
       await save({ ...data, profile, targetOverrides })
-      showToast('Profile saved.')
+      showToast(translate('profileSaved'))
     } catch (cause) {
-      error = cause instanceof Error ? cause.message : 'Unable to save profile.'
+      error = cause instanceof Error ? cause.message : translate('unableSaveProfile')
     }
   }
 
@@ -373,7 +378,7 @@
 </script>
 
 <svelte:head>
-  <title>Diet</title>
+  <title>{t('appName')}</title>
   <meta name="theme-color" content="#ffffff" />
   <link rel="manifest" href="/manifest.webmanifest" />
 </svelte:head>
@@ -383,7 +388,7 @@
 >
   <header class="flex items-center justify-between gap-4 border-b pb-3 mb-3">
     <div>
-      <h1 class="m-0 text-2xl">Diet</h1>
+      <h1 class="m-0 text-2xl">{t('appName')}</h1>
       <p class="sr-only" role="status" aria-live="polite">{status}</p>
     </div>
   </header>
@@ -400,7 +405,7 @@
   {/if}
 
   {#snippet menuScreen()}
-    <MenuPanel onSelect={openMenuPage} {themePreference} onThemeChange={setTheme} />
+    <MenuPanel onSelect={openMenuPage} {themePreference} onThemeChange={setTheme} {language} onLanguageChange={setLanguage} />
   {/snippet}
 
   {#snippet calendarScreen()}
@@ -441,7 +446,7 @@
           {/snippet}
           {#snippet front()}
             {#snippet summaryWithBack()}
-              <BackButton label="Calendar" onclick={returnFromSummaryToCalendar}>
+              <BackButton label={t('calendar')} onclick={returnFromSummaryToCalendar}>
                 {@render summaryPanel()}
               </BackButton>
             {/snippet}
@@ -462,7 +467,7 @@
         {/snippet}
         {#snippet front()}
           {#snippet activePanel()}
-            <BackButton label="Menu" onclick={() => (activeTab = 'menu')}>
+            <BackButton label={t('menu')} onclick={() => (activeTab = 'menu')}>
               {#if activeTab === 'profile'}
                 <ProfilePanel
                   bind:profile
@@ -520,14 +525,14 @@
 </main>
 
 <nav class="fixed inset-x-0 bottom-0 z-30 border-t bg-background backdrop-blur pb-[env(safe-area-inset-bottom,0px)]">
-  <div class="mx-auto flex max-w-3xl items-center gap-2 px-3 pt-2" role="tablist" aria-label="Diet sections">
+  <div class="mx-auto flex max-w-3xl items-center gap-2 px-3 pt-2" role="tablist" aria-label={t('dietSections')}>
     <Popover bind:open={addMealMenuOpen}>
       <PopoverTrigger>
         {#snippet child({ props })}
           <button
             {...props}
             type="button"
-            aria-label="Add meal options"
+            aria-label={t('addMealOptions')}
             class="flex min-w-0 flex-1 items-center justify-center rounded-sm bg-foreground py-2 text-background transition-transform active:scale-95"
           >
             <PlusIcon aria-hidden="true" class="size-5" />
@@ -536,14 +541,14 @@
       </PopoverTrigger>
       <PopoverContent align="start" side="top" class="w-56">
         <Button type="button" variant="ghost" class="justify-start gap-2" onclick={recordMeal}>
-          <PlusIcon aria-hidden="true" class="size-4" /> Add a meal
+          <PlusIcon aria-hidden="true" class="size-4" /> {t('addAMeal')}
         </Button>
         <Button type="button" variant="ghost" class="justify-start gap-2" onclick={quickAddMeal}>
-          <ZapIcon aria-hidden="true" class="size-4" /> Quick add
+          <ZapIcon aria-hidden="true" class="size-4" /> {t('quickAdd')}
         </Button>
       </PopoverContent>
     </Popover>
-    {#each tabs as { id, label, icon: Icon }}
+    {#each tabs as { id, labelKey, icon: Icon }}
       {@const selected =
         id === 'menu'
           ? activeTab === 'menu' || activeTab === 'profile' || activeTab === 'calendar' || activeTab === 'backup'
@@ -553,7 +558,7 @@
         role="tab"
         aria-selected={selected}
         aria-controls={`${id}-panel`}
-        aria-label={label}
+        aria-label={t(labelKey)}
         size="icon-sm"
         variant="ghost"
         class="min-w-0 flex-1 rounded-lg hover:bg-transparent border-0 {selected
