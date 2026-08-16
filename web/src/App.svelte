@@ -55,6 +55,8 @@
   })
   let data: AppData = $state({ foods: [], mealEntries: [] })
   let date = $state(today)
+  // ponytail: separate state so picking a day on the calendar never leaks into the Home tab's date, and vice versa.
+  let calendarDate = $state(today)
   let foodSheet: {
     openForNew: () => void
     openForEdit: (food: Food) => void
@@ -121,7 +123,7 @@
   }
 
   function goToSummaryFromCalendar(iso: string) {
-    date = iso
+    calendarDate = iso
     activeTab = 'summary'
     returnToCalendar = true
   }
@@ -136,7 +138,8 @@
     userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>
   }
 
-  const totals = $derived(dailyTotals(data, date))
+  const summaryDate = $derived(returnToCalendar ? calendarDate : date)
+  const totals = $derived(dailyTotals(data, summaryDate))
   const profileReady = $derived(
     profile.age >= 1 &&
       profile.age <= 120 &&
@@ -408,10 +411,11 @@
     {/if}
     <SummaryPanel
       {data}
-      {date}
+      date={summaryDate}
       {today}
       {recentDays}
       {dayTones}
+      showDayStrip={!returnToCalendar}
       {totals}
       {targets}
       {caloriePercent}

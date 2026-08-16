@@ -230,6 +230,39 @@ test('opens Calendar from the menu page, jumps to a day, returns to calendar, an
   await screen.findByRole('tabpanel', { name: 'Menu' })
 })
 
+test('picking a different day on the calendar does not change the Home tab date', async () => {
+  render(App)
+
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await fireEvent.click(screen.getByRole('tab', { name: 'Menu' }))
+  await screen.findByRole('tabpanel', { name: 'Menu' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Calendar' }))
+
+  const calendarPanel = await screen.findByRole('tabpanel', { name: 'Calendar' })
+  const today = new Date().toISOString().slice(0, 10)
+  const [year, month, day] = today.split('-').map(Number)
+  const otherDay = day === 1 ? 2 : 1
+  const otherIso = `${year}-${String(month).padStart(2, '0')}-${String(otherDay).padStart(2, '0')}`
+  await fireEvent.click(within(calendarPanel).getByRole('button', { name: new RegExp(`^${otherIso}$`) }))
+
+  // Jumping from the calendar hides the day strip and shows the picked date as text instead.
+  const calendarSummaryPanel = await screen.findByRole('tabpanel', { name: 'Summary' })
+  expect(within(calendarSummaryPanel).queryByLabelText('Recent days')).toBeNull()
+  const expectedLabel = new Date(`${otherIso}T12:00:00`).toLocaleDateString(undefined, {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+  })
+  expect(within(calendarSummaryPanel).queryByText(expectedLabel)).not.toBeNull()
+
+  // Navigating Home via the bottom nav (not the "Calendar" back button) must show today, not the picked day.
+  await fireEvent.click(screen.getByRole('tab', { name: 'Summary' }))
+  const homePanel = await screen.findByRole('tabpanel', { name: 'Summary' })
+  const selectedDayButton = homePanel.querySelector('.day-strip button.selected')
+  expect(selectedDayButton?.textContent).toContain(String(day))
+})
+
 test('opens Profile from the menu page and returns via the back button', async () => {
   render(App)
 
