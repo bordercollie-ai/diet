@@ -15,9 +15,18 @@ const localStorageMock = {
 Object.defineProperty(globalThis, 'localStorage', { value: localStorageMock, configurable: true })
 Object.defineProperty(window, 'localStorage', { value: localStorageMock, configurable: true })
 Object.defineProperty(window, 'matchMedia', {
-  value: () => ({ matches: false, addListener: () => {}, removeListener: () => {} }),
+  value: () => ({ matches: false, addListener: () => {}, removeListener: () => {}, addEventListener: () => {}, removeEventListener: () => {} }),
   configurable: true
 })
+
+// jsdom doesn't implement the Pointer Capture API; bits-ui's Select trigger
+// calls `hasPointerCapture`/`releasePointerCapture` on pointerdown to avoid
+// implicit capture, which would otherwise throw in tests that open a Select.
+if (typeof Element !== 'undefined' && !Element.prototype.hasPointerCapture) {
+  Element.prototype.hasPointerCapture = () => false
+  Element.prototype.setPointerCapture = () => {}
+  Element.prototype.releasePointerCapture = () => {}
+}
 
 // jsdom doesn't implement the Web Animations API; Svelte's `transition:fade`
 // (used e.g. by the toast) calls `element.animate(...)`, which would otherwise

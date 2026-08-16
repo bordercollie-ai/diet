@@ -7,6 +7,7 @@
   import NavCircleButton from '$lib/components/nav-circle-button.svelte'
   import PlusIcon from '@lucide/svelte/icons/plus'
   import XIcon from '@lucide/svelte/icons/x'
+  import { foodName as pickFoodName, t, translate } from '../lib/i18n.svelte'
 
   let {
     data,
@@ -26,7 +27,7 @@
   let editingFoodId = $state('')
   let foodName = $state('')
   let foodDescription = $state('')
-  let serving = $state('1 serving')
+  let serving = $state(translate('oneServing'))
   let calories = $state(0)
   let protein = $state(0)
   let fat = $state(0)
@@ -47,7 +48,7 @@
     editingFoodId = ''
     foodName = ''
     foodDescription = ''
-    serving = '1 serving'
+    serving = translate('oneServing')
     calories = 0
     protein = 0
     fat = 0
@@ -61,7 +62,7 @@
 
   export function openForEdit(food: Food) {
     editingFoodId = food.id
-    foodName = food.name.en ?? Object.values(food.name)[0]
+    foodName = pickFoodName(food.name)
     foodDescription = food.description ?? ''
     serving = food.serving
     ;({ calories, protein, fat, carbohydrates } = food.nutrition)
@@ -100,7 +101,7 @@
       open = false
       if (saved) onSaved?.(saved)
     } catch (cause) {
-      onError?.(cause instanceof Error ? cause.message : 'Unable to create food.')
+      onError?.(cause instanceof Error ? cause.message : translate('unableCreateFood'))
     }
   }
 </script>
@@ -110,36 +111,36 @@
     class="fixed inset-0 z-50 flex flex-col bg-popover text-sm text-popover-foreground [touch-action:pan-y]"
     role="dialog"
     aria-modal="true"
-    aria-label={editingFoodId ? 'Custom food' : 'Add food'}
+    aria-label={editingFoodId ? t('customFood') : t('addFood')}
     use:swipeBack={close}
   >
     <div class="flex items-start justify-between gap-4 px-3 py-6 pb-0">
       <div class="flex flex-col gap-1.5">
         <h2 class="font-heading text-base font-medium text-foreground">
-          {editingFoodId ? 'Custom food' : 'Add food'}
+          {editingFoodId ? t('customFood') : t('addFood')}
         </h2>
-        <p class="text-muted-foreground">Add food to local database</p>
+        <p class="text-muted-foreground">{t('addFoodToLocalDatabase')}</p>
       </div>
-      <NavCircleButton label="Close" onclick={close}>
+      <NavCircleButton label={t('close')} onclick={close}>
         <XIcon aria-hidden="true" class="size-5" />
       </NavCircleButton>
     </div>
     <div class="flex-1 overflow-y-auto px-3 py-6">
       <form class="grid gap-4" onsubmit={handleSubmit}>
         <div class="grid gap-2">
-          <Label for="food-name">Name</Label>
+          <Label for="food-name">{t('name')}</Label>
           <Input id="food-name" bind:value={foodName} required />
         </div>
         <div class="grid gap-2">
-          <Label for="food-description">Description (e.g. brand)</Label>
-          <Input id="food-description" bind:value={foodDescription} placeholder="Optional" />
+          <Label for="food-description">{t('descriptionEgBrand')}</Label>
+          <Input id="food-description" bind:value={foodDescription} placeholder={t('optional')} />
         </div>
         <div class="grid gap-2">
-          <Label for="food-serving">Serving</Label>
+          <Label for="food-serving">{t('serving')}</Label>
           <Input id="food-serving" bind:value={serving} required />
         </div>
         <div class="grid gap-2">
-          <Label for="food-calories">Calories</Label>
+          <Label for="food-calories">{t('calories')}</Label>
           <Input
             id="food-calories"
             type="number"
@@ -150,7 +151,7 @@
           />
         </div>
         <div class="grid gap-2">
-          <Label for="food-protein">Protein</Label>
+          <Label for="food-protein">{t('protein')}</Label>
           <Input
             id="food-protein"
             type="number"
@@ -161,7 +162,7 @@
           />
         </div>
         <div class="grid gap-2">
-          <Label for="food-fat">Fat</Label>
+          <Label for="food-fat">{t('fat')}</Label>
           <Input
             id="food-fat"
             type="number"
@@ -172,7 +173,7 @@
           />
         </div>
         <div class="grid gap-2">
-          <Label for="food-carbohydrates">Carbohydrates</Label>
+          <Label for="food-carbohydrates">{t('carbohydrates')}</Label>
           <Input
             id="food-carbohydrates"
             type="number"
@@ -182,11 +183,11 @@
             oninput={(e) => (carbohydrates = e.currentTarget.valueAsNumber || 0)}
           />
         </div>
-        <Button type="submit">{editingFoodId ? 'Update food' : 'Save food'}</Button>
+        <Button type="submit">{editingFoodId ? t('updateFood') : t('saveFood')}</Button>
         {#if editingFoodId}
           <Button type="button" variant="outline" onclick={handleAddToMeal}>
             <PlusIcon aria-hidden="true" />
-            Add to today's meal
+            {t('addToTodaysMeal')}
           </Button>
         {/if}
       </form>
