@@ -37,10 +37,10 @@ import(BackupFile) -> ImportPreview | ImportError
 | W1 | 2026-08-12 | Local domain and IndexedDB persistence | `store.ts`, `indexeddb.ts`, `App.svelte`, store tests; 7 tests. |
 | W2 | 2026-08-12 | Food search and daily logging | `store.ts`, `App.svelte`, styles, store tests; 10 tests. |
 | W3 | 2026-08-12 | Profiles and targets | PRDs, `store.ts`, `App.svelte`, store tests; 11 tests. |
-| W4 | 2026-08-12 | Backup, restore and PWA UX | `store.ts`, `App.svelte`, `sw.js`, store tests; 13 tests. |
+| W4 | 2026-08-14 | Backup, restore and PWA UX | `store.ts`, `App.svelte`, `sw.js`, store tests; ID-based merge domain and UI restore coverage. |
 | W5 | 2026-08-12 | Accessibility and browser acceptance | UI library/config, `App.svelte`, styles; manual Safari/Chromium review. |
 | W6 | 2026-08-13 | UI/UX polish | `App.svelte`, pages and styles; responsive, keyboard, theme and state review. |
-| W9 | 2026-08-13 | Componentization | `App.svelte`, `src/pages/`, UI tests; 19 domain and 7 UI tests. |
+| W9 | 2026-08-13 | Componentization | `App.svelte`, `src/pages/`, UI tests; 19 domain and 8 UI tests. |
 
 All completed phases passed `pnpm check`, `pnpm build`, and their listed test suites. Browser automation was intentionally not added; Safari/Chromium coverage was manual.
 
@@ -56,7 +56,7 @@ All completed phases passed `pnpm check`, `pnpm build`, and their listed test su
 
 ### Progress and handoff
 
-- **Files changed:** `scripts/import_mcdonalds_japan.py`, `scripts/output/`, `web/src/data/mcdonalds_japan.json`, `web/src/data/starbucks_japan.json`, `web/src/domain/store.ts`, domain/UI tests, and `web/package.json`.
+- **Files changed:** `scripts/import_mcdonalds_japan.py`, `scripts/import_seven_eleven_kanto_sandwiches.py`, `scripts/output/`, `web/src/data/convenience_store_japan.json`, `web/src/data/mcdonalds_japan.json`, `web/src/data/starbucks_japan.json`, `web/src/domain/store.ts`, domain/UI tests, and `web/package.json`.
 - McDonald's Japan importer is in `scripts/import_mcdonalds_japan.py`.
 - It produced 202 unique, app-format records in `web/src/data/mcdonalds_japan.json`, also retained as a raw audit file in `scripts/output/`.
 - The dataset is bundled as immutable food data and searchable by Japanese and English names. Domain and UI coverage verifies Big Mac lookup/logging and dataset validation.
@@ -65,6 +65,7 @@ All completed phases passed `pnpm check`, `pnpm build`, and their listed test su
 - Node-based tests require Node >=23.6 because they load TypeScript and JSON ESM imports directly; this minimum is recorded in `web/package.json`.
 - Lotte Japan importer (`scripts/import_lotte_japan.py`) scrapes the official ice-cream catalogue into `web/src/data/lotte_japan.json` (147 records) and a raw audit file in `scripts/output/`. Per the no-invent-translations rule, it records only the Japanese name, since Lotte does not publish official English names for its products.
 - 36 `lotte_japan.json` records gained a `name.en` field, limited to Lotte's own official English/romanized brand names (Coolish, Lady Borden, Ghana, Zero, Calpis) plus their katakana loanword flavor terms (Vanilla, Chocolate, Strawberry, Green Tea, Matcha, etc.). Records whose name requires translating native Japanese words (e.g. 梨, ぶどう, 巨峰, 白桃, 芳醇, 深みカカオ, 焙煎, 紅茶, 業務用) were left Japanese-only to avoid inventing translations.
+- **2026-08-17 — 7-Eleven Tokyo/Kanagawa sandwiches and rolls:** `scripts/import_seven_eleven_kanto_sandwiches.py` reads the requested official Kanto sandwich-and-roll catalog, requests its listed product pages at a minimum one-second interval, and emits source-dated raw audit data. It retained 17 products currently sold in Tokyo or Kanagawa, including nationwide items such as burritos; regional SKUs with normalized equivalent names are deduplicated. The reviewed records are included directly in `web/src/data/convenience_store_japan.json`, prefixed with `711 ` for clear store identification, and domain coverage verifies valid records, unique IDs/names, and Japanese/brand search. **Checks:** both Python importer fixture suites pass; `pnpm check` and `pnpm build` pass; the 25-test domain suite passes under Node 26.7.0 (the configured minimum is Node 23.6). `pnpm run test:ui` remains blocked by 15 pre-existing `App.test.ts` failures (`ReferenceError: renderedStore is not defined` in its mocked `createIndexedDBStore`), reproduced with Node 22 and Node 24; its other 10 tests pass. **Risk:** the official category and product markup, current regional availability, and nutrition values can change; refresh via the importer and review its raw audit file.
 - **Checks:** Python fixture parsing; `pnpm check`; `pnpm build`; 20 domain tests; 4 UI tests.
 - **Risk:** No reviewed Chinese mappings exist. Product-page markup can change. Starbucks dataset is manually transcribed (no automated re-fetch) and only covers the 4 drinks/sizes provided so far.
 - **Next:** supply a reviewed mapping and rerun McDonald's importer; add more Starbucks drinks/sizes as data is provided; consider a separate 7-Eleven importer.
