@@ -178,12 +178,40 @@ test("bundles audited Kanto convenience-store counter foods", () => {
     assert.equal(item.source, "bundled");
     assert.ok(item.name.ja?.trim(), `missing Japanese name: ${item.id}`);
     assert.ok(item.description?.trim(), `missing brand description: ${item.id}`);
+    assert.doesNotMatch(item.name.ja!, /\u3000/, `full-width space in name: ${item.id}`);
+    if (item.id.startsWith("seven-jp-"))
+      assert.match(item.name.ja!, /^711 /, `missing 711 name prefix: ${item.id}`);
     assert.deepEqual(item.nutrition, expectedNutrition[item.id as keyof typeof expectedNutrition]);
   }
 
   assert.deepEqual(searchFoods(bundledFoods, "ななチキ").map((item) => item.id), ["seven-jp-nana-chiki"]);
   assert.ok(searchFoods(bundledFoods, "lawson").some((item) => item.id === "lawson-jp-l-chiki-red"));
   assert.ok(searchFoods(bundledFoods, "FamilyMart").some((item) => item.id === "familymart-jp-famichiki-red"));
+});
+
+test("bundles unique audited Tokyo and Kanagawa 7-Eleven sandwiches", () => {
+  const sandwiches = bundledFoods.filter((item) => item.id.startsWith("seven-jp-kanto-sandwich-"));
+  assert.equal(sandwiches.length, 17);
+  assert.equal(new Set(sandwiches.map((item) => item.id)).size, sandwiches.length);
+  assert.equal(new Set(sandwiches.map((item) => item.name.ja)).size, sandwiches.length);
+
+  for (const item of sandwiches) {
+    assert.doesNotThrow(() => validateFood(item), `invalid 7-Eleven sandwich: ${item.id}`);
+    assert.equal(item.source, "bundled");
+    assert.equal(item.description, "711 Japan (Tokyo/Kanagawa)");
+    assert.ok(item.name.ja?.trim(), `missing Japanese name: ${item.id}`);
+    assert.doesNotMatch(item.name.ja!, /\u3000/, `full-width space in name: ${item.id}`);
+    assert.match(item.name.ja!, /^711 /, `missing 711 name prefix: ${item.id}`);
+  }
+
+  assert.deepEqual(
+    searchFoods(bundledFoods, "ブリトーチーズ倍盛り ハム＆チーズ").map((item) => item.id),
+    ["seven-jp-kanto-sandwich-053793"],
+  );
+  assert.deepEqual(
+    searchFoods(bundledFoods, "711 Japan (Tokyo/Kanagawa)").map((item) => item.id),
+    sandwiches.map((item) => item.id),
+  );
 });
 
 test("finds a McDonald's Japan food by its English or Japanese name", () => {
