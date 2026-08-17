@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/svelte'
 import { vi, test, expect } from 'vitest'
-import { createMemoryStore, type AppData } from '../src/domain/store'
+import { createMemoryStore, type AppData, type Store } from '../src/domain/store'
 import App from '../src/App.svelte'
 
 let storeOverride: AppData | undefined
@@ -10,7 +10,10 @@ async function openAddMealMenu() {
 }
 
 vi.mock('../src/storage/indexeddb', () => ({
-  createIndexedDBStore: () => createMemoryStore(storeOverride)
+  createIndexedDBStore: () => {
+    renderedStore = createMemoryStore(storeOverride)
+    return renderedStore
+  },
 }))
 
 test('records 1.4 servings of a 68 kcal food and displays rounded calories', async () => {
@@ -78,7 +81,7 @@ test('quantity does not carry over from a previous meal into a new "Add a meal" 
   const dialog = await screen.findByRole('dialog')
   await fireEvent.click(await within(dialog).findByRole('button', { name: /68 kcal snack/ }))
 
-  expect((await screen.findByLabelText('Quantity') as HTMLInputElement).value).toBe('1')
+  expect(((await screen.findByLabelText('Quantity')) as HTMLInputElement).value).toBe('1')
 })
 
 test('clicking a recorded meal opens edit directly, and delete asks for confirmation', async () => {
@@ -109,12 +112,10 @@ test('clicking a recorded meal opens edit directly, and delete asks for confirma
   await fireEvent.click(screen.getByRole('button', { name: 'Delete meal' }))
   const confirmDialogAgain = await screen.findByRole('alertdialog')
   await fireEvent.click(within(confirmDialogAgain).getByRole('button', { name: 'Delete' }))
-  await waitFor(() =>
-    expect(screen.queryByRole('button', { name: /68 kcal snack.*Edit meal\./ })).toBeNull(),
-  )
+  await waitFor(() => expect(screen.queryByRole('button', { name: /68 kcal snack.*Edit meal\./ })).toBeNull())
 })
 
-test('records a McDonald\'s Japan meal found by its English name', async () => {
+test("records a McDonald's Japan meal found by its English name", async () => {
   render(App)
 
   await screen.findByRole('tabpanel', { name: 'Summary' })
@@ -131,7 +132,7 @@ test('records a McDonald\'s Japan meal found by its English name', async () => {
   })
 })
 
-test('records a McDonald\'s Japan meal found by its Japanese name', async () => {
+test("records a McDonald's Japan meal found by its Japanese name", async () => {
   render(App)
 
   await screen.findByRole('tabpanel', { name: 'Summary' })
@@ -181,7 +182,7 @@ test("shows a bundled food's brand/description in the Add a meal search results"
   await waitFor(() => expect(screen.getAllByText("McDonald's Japan").length).toBeGreaterThan(0))
 })
 
-test('adds a custom food to today\'s meal from its detail/edit view', async () => {
+test("adds a custom food to today's meal from its detail/edit view", async () => {
   render(App)
 
   await screen.findByRole('tabpanel', { name: 'Summary' })
@@ -319,9 +320,9 @@ test('falls back to anchor download when Web Share API is unavailable', async ()
   const click = vi.fn()
   const anchor = { click, href: '', download: '' } as unknown as HTMLAnchorElement
   const realCreateElement = document.createElement.bind(document)
-  const createElementSpy = vi.spyOn(document, 'createElement').mockImplementation((tag: string) =>
-    tag === 'a' ? anchor : realCreateElement(tag)
-  )
+  const createElementSpy = vi
+    .spyOn(document, 'createElement')
+    .mockImplementation((tag: string) => (tag === 'a' ? anchor : realCreateElement(tag)))
 
   render(App)
   await screen.findByRole('tabpanel', { name: 'Summary' })

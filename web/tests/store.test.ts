@@ -142,6 +142,50 @@ test("bundles McDonald's Japan foods with valid, unique, read-only records", () 
   }
 });
 
+test("bundles audited Kanto convenience-store counter foods", () => {
+  const counterFoodIds = [
+    "seven-jp-nana-chiki",
+    "seven-jp-karaage-stick",
+    "seven-jp-charcoal-grilled-chicken-salt",
+    "seven-jp-spice-chicken",
+    "lawson-jp-karaage-kun-regular",
+    "lawson-jp-l-chiki-red",
+    "lawson-jp-marumaru-dori",
+    "familymart-jp-famichiki",
+    "familymart-jp-famichiki-red",
+    "familymart-jp-spicy-chicken",
+    "familymart-jp-crispy-chicken-plain"
+  ];
+  const convenienceStoreCounterFoods = bundledFoods.filter((item) => counterFoodIds.includes(item.id));
+  assert.equal(convenienceStoreCounterFoods.length, counterFoodIds.length);
+  assert.equal(new Set(convenienceStoreCounterFoods.map((item) => item.id)).size, counterFoodIds.length);
+
+  const expectedNutrition = {
+    "seven-jp-nana-chiki": { calories: 174, protein: 13.4, fat: 9, carbohydrates: 10 },
+    "seven-jp-karaage-stick": { calories: 200, protein: 7.7, fat: 11.6, carbohydrates: 16.6 },
+    "seven-jp-charcoal-grilled-chicken-salt": { calories: 66, protein: 9.6, fat: 3, carbohydrates: 0.3 },
+    "seven-jp-spice-chicken": { calories: 200, protein: 14.2, fat: 11, carbohydrates: 11.2 },
+    "lawson-jp-karaage-kun-regular": { calories: 226, protein: 14.4, fat: 15.4, carbohydrates: 7.8 },
+    "lawson-jp-l-chiki-red": { calories: 247, protein: 12.4, fat: 16.4, carbohydrates: 12.7 },
+    "lawson-jp-marumaru-dori": { calories: 207, protein: 17.4, fat: 12.3, carbohydrates: 6.9 },
+    "familymart-jp-famichiki": { calories: 251.7, protein: 12.7, fat: 15.7, carbohydrates: 14.8 },
+    "familymart-jp-famichiki-red": { calories: 253.4, protein: 14.9, fat: 14.7, carbohydrates: 15.5 },
+    "familymart-jp-spicy-chicken": { calories: 207, protein: 9.5, fat: 12.2, carbohydrates: 14.7 },
+    "familymart-jp-crispy-chicken-plain": { calories: 183.1, protein: 12.2, fat: 9.6, carbohydrates: 11.9 }
+  };
+  for (const item of convenienceStoreCounterFoods) {
+    assert.doesNotThrow(() => validateFood(item), `invalid convenience-store food: ${item.id}`);
+    assert.equal(item.source, "bundled");
+    assert.ok(item.name.ja?.trim(), `missing Japanese name: ${item.id}`);
+    assert.ok(item.description?.trim(), `missing brand description: ${item.id}`);
+    assert.deepEqual(item.nutrition, expectedNutrition[item.id as keyof typeof expectedNutrition]);
+  }
+
+  assert.deepEqual(searchFoods(bundledFoods, "ななチキ").map((item) => item.id), ["seven-jp-nana-chiki"]);
+  assert.ok(searchFoods(bundledFoods, "lawson").some((item) => item.id === "lawson-jp-l-chiki-red"));
+  assert.ok(searchFoods(bundledFoods, "FamilyMart").some((item) => item.id === "familymart-jp-famichiki-red"));
+});
+
 test("finds a McDonald's Japan food by its English or Japanese name", () => {
   const byEnglish = searchFoods(bundledFoods, "Big Mac");
   assert.ok(byEnglish.some((item) => item.id === "mcd-jp-1210"));

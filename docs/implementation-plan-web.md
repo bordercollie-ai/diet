@@ -37,10 +37,10 @@ import(BackupFile) -> ImportPreview | ImportError
 | W1 | 2026-08-12 | Local domain and IndexedDB persistence | `store.ts`, `indexeddb.ts`, `App.svelte`, store tests; 7 tests. |
 | W2 | 2026-08-12 | Food search and daily logging | `store.ts`, `App.svelte`, styles, store tests; 10 tests. |
 | W3 | 2026-08-12 | Profiles and targets | PRDs, `store.ts`, `App.svelte`, store tests; 11 tests. |
-| W4 | 2026-08-12 | Backup, restore and PWA UX | `store.ts`, `App.svelte`, `sw.js`, store tests; 13 tests. |
+| W4 | 2026-08-14 | Backup, restore and PWA UX | `store.ts`, `App.svelte`, `sw.js`, store tests; ID-based merge domain and UI restore coverage. |
 | W5 | 2026-08-12 | Accessibility and browser acceptance | UI library/config, `App.svelte`, styles; manual Safari/Chromium review. |
 | W6 | 2026-08-13 | UI/UX polish | `App.svelte`, pages and styles; responsive, keyboard, theme and state review. |
-| W9 | 2026-08-13 | Componentization | `App.svelte`, `src/pages/`, UI tests; 19 domain and 7 UI tests. |
+| W9 | 2026-08-13 | Componentization | `App.svelte`, `src/pages/`, UI tests; 19 domain and 8 UI tests. |
 
 All completed phases passed `pnpm check`, `pnpm build`, and their listed test suites. Browser automation was intentionally not added; Safari/Chromium coverage was manual.
 

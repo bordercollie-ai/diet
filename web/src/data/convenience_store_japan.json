@@ -1,0 +1,167 @@
+[
+  {
+    "id": "seven-jp-nana-chiki",
+    "name": {
+      "ja": "ななチキ"
+    },
+    "description": "7-Eleven Japan",
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 174.0,
+      "protein": 13.4,
+      "fat": 9.0,
+      "carbohydrates": 10.0
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "seven-jp-karaage-stick",
+    "name": {
+      "ja": "からあげ棒"
+    },
+    "description": "7-Eleven Japan",
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 200.0,
+      "protein": 7.7,
+      "fat": 11.6,
+      "carbohydrates": 16.6
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "seven-jp-charcoal-grilled-chicken-salt",
+    "name": {
+      "ja": "炭火焼き鳥（塩）"
+    },
+    "description": "7-Eleven Japan",
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 66.0,
+      "protein": 9.6,
+      "fat": 3.0,
+      "carbohydrates": 0.3
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "seven-jp-spice-chicken",
+    "name": {
+      "ja": "スパイスチキン"
+    },
+    "description": "7-Eleven Japan",
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 200.0,
+      "protein": 14.2,
+      "fat": 11.0,
+      "carbohydrates": 11.2
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "lawson-jp-karaage-kun-regular",
+    "name": {
+      "ja": "からあげクン　レギュラー"
+    },
+    "description": "Lawson",
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 226.0,
+      "protein": 14.4,
+      "fat": 15.4,
+      "carbohydrates": 7.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "lawson-jp-l-chiki-red",
+    "name": {
+      "ja": "Ｌチキ　レッド"
+    },
+    "description": "Lawson",
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 247.0,
+      "protein": 12.4,
+      "fat": 16.4,
+      "carbohydrates": 12.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "lawson-jp-marumaru-dori",
+    "name": {
+      "ja": "まんまる鶏"
+    },
+    "description": "Lawson",
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 207.0,
+      "protein": 17.4,
+      "fat": 12.3,
+      "carbohydrates": 6.9
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "familymart-jp-famichiki",
+    "name": {
+      "ja": "ファミチキ"
+    },
+    "description": "FamilyMart",
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 251.7,
+      "protein": 12.7,
+      "fat": 15.7,
+      "carbohydrates": 14.8
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "familymart-jp-famichiki-red",
+    "name": {
+      "ja": "ファミチキ（レッド）"
+    },
+    "description": "FamilyMart",
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 253.4,
+      "protein": 14.9,
+      "fat": 14.7,
+      "carbohydrates": 15.5
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "familymart-jp-spicy-chicken",
+    "name": {
+      "ja": "スパイシーチキン"
+    },
+    "description": "FamilyMart",
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 207.0,
+      "protein": 9.5,
+      "fat": 12.2,
+      "carbohydrates": 14.7
+    },
+    "source": "bundled"
+  },
+  {
+    "id": "familymart-jp-crispy-chicken-plain",
+    "name": {
+      "ja": "クリスピーチキン（プレーン）"
+    },
+    "description": "FamilyMart",
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 183.1,
+      "protein": 12.2,
+      "fat": 9.6,
+      "carbohydrates": 11.9
+    },
+    "source": "bundled"
+  }
+]
