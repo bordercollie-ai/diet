@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/svelte'
 import { vi, test, expect } from 'vitest'
-import { createMemoryStore, type AppData, type Store } from '../src/domain/store'
+import { createMemoryStore, type AppData } from '../src/domain/store'
 import App from '../src/App.svelte'
 
 let storeOverride: AppData | undefined
@@ -10,10 +10,7 @@ async function openAddMealMenu() {
 }
 
 vi.mock('../src/storage/indexeddb', () => ({
-  createIndexedDBStore: () => {
-    renderedStore = createMemoryStore(storeOverride)
-    return renderedStore
-  },
+  createIndexedDBStore: () => createMemoryStore(storeOverride),
 }))
 
 test('records 1.4 servings of a 68 kcal food and displays rounded calories', async () => {
