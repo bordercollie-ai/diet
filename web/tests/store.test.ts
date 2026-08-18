@@ -8,10 +8,12 @@ import {
   createTemporaryMealEntry,
   createMemoryStore,
   bundledFoods,
+  calorieTargetForDate,
   dailyTotals,
   deleteFood,
   deleteMealEntry,
   estimateTargets,
+  exerciseCaloriesForDate,
   evaluateAchievements,
   estimateMaintenanceCalories,
   estimateBMR,
@@ -23,6 +25,7 @@ import {
   resolveTargets,
   searchFoods,
   setTargetPeriod,
+  setExerciseCalories,
   targetsForDate,
   type AppData,
   updateFood,
@@ -488,6 +491,27 @@ test('preserves target ranges through backup export and import', async () => {
 
   assert.equal(targetsForDate(await target.load(), '2026-08-17')?.calories, 2000)
   assert.equal(targetsForDate(await target.load(), fixedToday)?.calories, 1800)
+})
+
+test('adds saved exercise calories to that day’s calorie target and preserves them through backup', async () => {
+  const sourceData = setExerciseCalories(
+    setTargetPeriod(
+      { foods: [], mealEntries: [] },
+      { calories: 2000, protein: 100, fat: 55, carbohydrates: 270 },
+      fixedToday,
+    ),
+    fixedToday,
+    300,
+  )
+  assert.equal(exerciseCaloriesForDate(sourceData, fixedToday), 300)
+  assert.equal(calorieTargetForDate(sourceData, fixedToday), 2300)
+  assert.equal(calorieTone(2300, calorieTargetForDate(sourceData, fixedToday)), 'on-target')
+  assert.throws(() => setExerciseCalories(sourceData, fixedToday, -1), /exercise calories/)
+
+  const source = createMemoryStore(sourceData)
+  const target = createMemoryStore()
+  await target.import(await source.export())
+  assert.equal(exerciseCaloriesForDate(await target.load(), fixedToday), 300)
 })
 
 test('exports and imports a valid backup without changing supported data', async () => {

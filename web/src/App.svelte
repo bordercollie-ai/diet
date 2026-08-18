@@ -11,18 +11,21 @@
   import { fade } from 'svelte/transition'
   import {
     bundledFoods,
+    calorieTargetForDate,
     calorieTone,
     createMealEntry,
     dailyTotals,
     deleteMealEntry,
     estimateMaintenanceCalories,
     estimateTargets,
+    exerciseCaloriesForDate,
     markAchievementsRead,
     prepareAppData,
     resolveDarkMode,
     previewBackup,
     resolveTargets,
     setTargetPeriod,
+    setExerciseCalories,
     targetsForDate,
     type AppData,
     type AchievementId,
@@ -203,10 +206,12 @@
     targetsForDate(data, summaryDate) ??
       (summaryDate === today ? (profileReady ? resolveTargets(profile, data.targetOverrides, today) : estimated) : estimated),
   )
-  const calorieRatio = $derived(targets.calories > 0 ? totals.calories / targets.calories : 0)
+  const exerciseCalories = $derived(exerciseCaloriesForDate(data, summaryDate))
+  const calorieTarget = $derived(targets.calories + exerciseCalories)
+  const calorieRatio = $derived(calorieTarget > 0 ? totals.calories / calorieTarget : 0)
   const caloriePercent = $derived(Math.round(calorieRatio * 100))
-  const caloriesRemaining = $derived(targets.calories - totals.calories)
-  const todayCalorieTone = $derived(calorieTone(totals.calories, targets.calories))
+  const caloriesRemaining = $derived(calorieTarget - totals.calories)
+  const todayCalorieTone = $derived(calorieTone(totals.calories, calorieTarget))
   const unreadAchievementIds = $derived((data.achievements ?? []).filter((record) => !record.readAt).map((record) => record.id))
   const calorieColor = $derived(
     {
@@ -409,6 +414,10 @@
     await save(deleteMealEntry(data, id))
   }
 
+  async function saveExerciseCalories(calories: number) {
+    await save(setExerciseCalories(data, summaryDate, calories))
+  }
+
   async function saveProfile(event: SubmitEvent) {
     event.preventDefault()
     try {
@@ -439,7 +448,7 @@
   }
 
   function dayTone(iso: string) {
-    return calorieTone(dailyTotals(data, iso).calories, targetsForDate(data, iso)?.calories ?? 0)
+    return calorieTone(dailyTotals(data, iso).calories, calorieTargetForDate(data, iso))
   }
   const dayTones = $derived(Object.fromEntries(recentDays.map((day) => [day.iso, dayTone(day.iso)])))
 </script>
@@ -495,11 +504,14 @@
       showDayStrip={calendarJumpDate === null}
       {totals}
       {targets}
+      {exerciseCalories}
+      {calorieTarget}
       {caloriePercent}
       {caloriesRemaining}
       {calorieColor}
       onSelectDate={(iso) => (date = iso)}
       onEditMeal={(id) => mealSheet.openForEdit(id)}
+      onSaveExerciseCalories={saveExerciseCalories}
     />
   {/snippet}
 
