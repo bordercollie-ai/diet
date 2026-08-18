@@ -25,12 +25,13 @@
     onLanguageChange: (language: Language) => void
   } = $props()
 
-  const items: { id: 'profile' | 'calendar' | 'backup' | 'about'; labelKey: string; icon: typeof CalendarDaysIcon }[] = [
-    { id: 'profile', labelKey: 'profile', icon: UserIcon },
-    { id: 'calendar', labelKey: 'calendar', icon: CalendarDaysIcon },
-    { id: 'backup', labelKey: 'export', icon: DownloadIcon },
-    { id: 'about', labelKey: 'about', icon: InfoIcon },
-  ]
+  const items: { id: 'profile' | 'calendar' | 'backup' | 'about'; labelKey: string; icon: typeof CalendarDaysIcon }[] =
+    [
+      { id: 'profile', labelKey: 'profile', icon: UserIcon },
+      { id: 'calendar', labelKey: 'calendar', icon: CalendarDaysIcon },
+      { id: 'backup', labelKey: 'export', icon: DownloadIcon },
+      { id: 'about', labelKey: 'about', icon: InfoIcon },
+    ]
 
   const themeOptions: { value: ThemePreference; labelKey: string }[] = [
     { value: 'light', labelKey: 'light' },
@@ -50,11 +51,18 @@
 <div id="menu-panel" role="tabpanel" aria-labelledby="menu-tab">
   <Card.Root class="p-0 overflow-hidden">
     <Card.Content class="p-0">
-      <div class="flex h-14 w-full items-center gap-3 px-4">
+      <div class="flex h-14 w-full items-center gap-3">
         <GlobeIcon aria-hidden="true" class="size-5 text-muted-foreground" />
         <span class="flex-1 text-lg">{t('language')}</span>
-        <Select.Root type="single" value={language} onValueChange={(value) => value && onLanguageChange(value as Language)}>
-          <Select.Trigger aria-label={t('language')} class="border-input h-9 rounded-md border bg-transparent px-3 text-sm">
+        <Select.Root
+          type="single"
+          value={language}
+          onValueChange={(value) => value && onLanguageChange(value as Language)}
+        >
+          <Select.Trigger
+            aria-label={t('language')}
+            class="border-input h-9 rounded-md border bg-transparent px-3 text-sm"
+          >
             {languageLabel}
           </Select.Trigger>
           <Select.Content class="rounded-md">
@@ -64,7 +72,7 @@
           </Select.Content>
         </Select.Root>
       </div>
-      <div class="flex h-14 w-full items-center gap-3 px-4 border-t">
+      <div class="flex h-14 w-full items-center gap-3">
         <MonitorIcon aria-hidden="true" class="size-5 text-muted-foreground" />
         <span class="flex-1 text-lg">{t('appearance')}</span>
         <Select.Root
@@ -72,7 +80,10 @@
           value={themePreference}
           onValueChange={(value) => value && onThemeChange(value as ThemePreference)}
         >
-          <Select.Trigger aria-label={t('theme')} class="border-input h-9 rounded-md border bg-transparent px-3 text-sm">
+          <Select.Trigger
+            aria-label={t('theme')}
+            class="border-input h-9 rounded-md border bg-transparent px-3 text-sm"
+          >
             {themeLabel}
           </Select.Trigger>
           <Select.Content class="rounded-md">
@@ -83,11 +94,7 @@
         </Select.Root>
       </div>
       {#each items as { id, labelKey, icon: Icon }}
-        <button
-          type="button"
-          class="flex h-14 w-full items-center gap-3 px-4 text-left border-t"
-          onclick={() => onSelect(id)}
-        >
+        <button type="button" class="flex h-14 w-full items-center gap-3 text-left" onclick={() => onSelect(id)}>
           <Icon aria-hidden="true" class="size-5 text-muted-foreground" />
           <span class="flex-1 text-lg">{t(labelKey)}</span>
           <ChevronRightIcon aria-hidden="true" class="size-4 text-muted-foreground" />
