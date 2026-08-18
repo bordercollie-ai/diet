@@ -1,5 +1,5 @@
 import type { AppData, Store } from "../domain/store";
-import { createMemoryStore } from "../domain/store";
+import { createMemoryStore, prepareAppData } from "../domain/store";
 
 const DB_VERSION = 1;
 const STORE_NAME = "app";
@@ -39,11 +39,16 @@ export function createIndexedDBStore(
   const memory = createMemoryStore();
   return {
     async load() {
-      return (await read()) ?? memory.load();
+      const stored = (await read()) ?? await memory.load();
+      const prepared = prepareAppData(stored);
+      if (JSON.stringify(prepared) !== JSON.stringify(stored)) await write(prepared);
+      await memory.save(prepared);
+      return prepared;
     },
     async save(data) {
-      await memory.save(data);
-      await write(data);
+      const prepared = prepareAppData(data);
+      await memory.save(prepared);
+      await write(prepared);
     },
     export: async () => {
       const data = await (await read()) ?? await memory.load();
