@@ -27,6 +27,7 @@
   } from './domain/store'
   import BackButton from '$lib/components/back-button.svelte'
   import SwipeLayer from '$lib/components/swipe-layer.svelte'
+  import { swipeBack } from '$lib/actions/swipe-back'
   import AboutPanel from './pages/AboutPanel.svelte'
   import BackupPanel from './pages/BackupPanel.svelte'
   import CalendarPanel from './pages/CalendarPanel.svelte'
@@ -104,13 +105,18 @@
   $effect(() => {
     document.documentElement.classList.toggle('dark', darkMode)
   })
-  type Tab = 'summary' | 'foods' | 'profile' | 'menu' | 'calendar' | 'backup' | 'about'
+  type Tab = 'summary' | 'foods' | 'menu'
+  type MenuSubpage = 'profile' | 'calendar' | 'backup' | 'about'
   const tabs: { id: Tab; labelKey: string; icon: typeof HouseIcon }[] = [
     { id: 'summary', labelKey: 'summary', icon: HouseIcon },
     { id: 'foods', labelKey: 'foods', icon: AppleIcon },
     { id: 'menu', labelKey: 'menu', icon: MenuIcon },
   ]
   let activeTab: Tab = $state('summary')
+  // Menu subpages (profile/calendar/backup/about) render as a sheet on top of the
+  // real, still-mounted Menu tab — same pattern as MealSheet/FoodSheet — so swiping
+  // away reveals the actual Menu screen (real header + bottom nav), not a faked copy.
+  let menuSubpage: MenuSubpage | null = $state(null)
   let addMealMenuOpen = $state(false)
 
   function recordMeal() {
@@ -125,19 +131,26 @@
   // ponytail: remembers only "came from calendar"; cleared by any other nav, no history stack needed.
   let returnToCalendar = $state(false)
 
-  function openMenuPage(page: 'profile' | 'calendar' | 'backup' | 'about') {
-    activeTab = page
+  function openMenuPage(page: MenuSubpage) {
+    activeTab = 'menu'
+    menuSubpage = page
+  }
+
+  function closeMenuSubpage() {
+    menuSubpage = null
   }
 
   function goToSummaryFromCalendar(iso: string) {
     calendarDate = iso
     activeTab = 'summary'
+    menuSubpage = null
     returnToCalendar = true
   }
 
   function selectTab(tab: Tab) {
     activeTab = tab
     returnToCalendar = false
+    if (tab !== 'menu') menuSubpage = null
   }
 
   type BeforeInstallPromptEvent = Event & {
@@ -386,7 +399,8 @@
   const dayTones = $derived(Object.fromEntries(recentDays.map((day) => [day.iso, dayTone(day.iso)])))
 
   function returnFromSummaryToCalendar() {
-    activeTab = 'calendar'
+    activeTab = 'menu'
+    menuSubpage = 'calendar'
     returnToCalendar = false
   }
 </script>
@@ -456,7 +470,12 @@
       <div class="fixed inset-0 z-40 bg-background">
         <SwipeLayer onBack={returnFromSummaryToCalendar}>
           {#snippet back()}
-            {@render overlayPage(calendarScreen)}
+            {#snippet calendarWithBack()}
+              <BackButton label={t('menu')} onclick={returnFromSummaryToCalendar}>
+                {@render calendarScreen()}
+              </BackButton>
+            {/snippet}
+            {@render overlayPage(calendarWithBack)}
           {/snippet}
           {#snippet front()}
             {#snippet summaryWithBack()}
@@ -473,51 +492,49 @@
     {/if}
   {:else if activeTab === 'foods'}
     <FoodsPanel {data} onAddFood={startNewFood} onEditFood={editFood} />
-  {:else if activeTab === 'profile' || activeTab === 'calendar' || activeTab === 'backup' || activeTab === 'about'}
-    <div class="fixed inset-0 z-40 bg-background">
-      <SwipeLayer onBack={() => (activeTab = 'menu')}>
-        {#snippet back()}
-          {@render overlayPage(menuScreen)}
-        {/snippet}
-        {#snippet front()}
-          {#snippet activePanel()}
-            <BackButton label={t('menu')} onclick={() => (activeTab = 'menu')}>
-              {#if activeTab === 'profile'}
-                <ProfilePanel
-                  bind:profile
-                  bind:overrideCalories
-                  bind:overrideProtein
-                  bind:overrideFat
-                  bind:overrideCarbohydrates
-                  {today}
-                  {maintenanceCalories}
-                  {targets}
-                  onSave={saveProfile}
-                />
-              {:else if activeTab === 'calendar'}
-                {@render calendarScreen()}
-              {:else if activeTab === 'backup'}
-                <BackupPanel
-                  {selectedBackupName}
-                  {backupPreview}
-                  {installed}
-                  canInstall={!!installPrompt}
-                  onExport={exportBackup}
-                  onSelectBackup={selectBackup}
-                  onRestore={restoreBackup}
-                  onInstall={installApp}
-                />
-              {:else}
-                <AboutPanel />
-              {/if}
-            </BackButton>
-          {/snippet}
-          {@render overlayPage(activePanel)}
-        {/snippet}
-      </SwipeLayer>
-    </div>
   {:else if activeTab === 'menu'}
     {@render menuScreen()}
+  {/if}
+
+  {#if menuSubpage}
+    {#snippet menuSubpageContent()}
+      <BackButton label={t('menu')} onclick={closeMenuSubpage}>
+        {#if menuSubpage === 'profile'}
+          <ProfilePanel
+            bind:profile
+            bind:overrideCalories
+            bind:overrideProtein
+            bind:overrideFat
+            bind:overrideCarbohydrates
+            {today}
+            {maintenanceCalories}
+            {targets}
+            onSave={saveProfile}
+          />
+        {:else if menuSubpage === 'calendar'}
+          {@render calendarScreen()}
+        {:else if menuSubpage === 'backup'}
+          <BackupPanel
+            {selectedBackupName}
+            {backupPreview}
+            {installed}
+            canInstall={!!installPrompt}
+            onExport={exportBackup}
+            onSelectBackup={selectBackup}
+            onRestore={restoreBackup}
+            onInstall={installApp}
+          />
+        {:else}
+          <AboutPanel />
+        {/if}
+      </BackButton>
+    {/snippet}
+    <div
+      class="fixed inset-0 z-40 bg-background [touch-action:pan-y]"
+      use:swipeBack={closeMenuSubpage}
+    >
+      {@render overlayPage(menuSubpageContent)}
+    </div>
   {/if}
 
   <MealSheet
@@ -567,7 +584,7 @@
     {#each tabs as { id, labelKey, icon: Icon }}
       {@const selected =
         id === 'menu'
-          ? activeTab === 'menu' || activeTab === 'profile' || activeTab === 'calendar' || activeTab === 'backup' || activeTab === 'about'
+          ? activeTab === 'menu'
           : activeTab === id}
       <Button
         id={`${id}-tab`}
