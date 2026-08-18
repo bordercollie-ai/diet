@@ -66,7 +66,7 @@ function end(event: TouchEvent) {
   top.node.style.transition = ''
   top.node.style.transform = ''
   const dx = event.changedTouches[0].clientX - startX
-  if (dx > THRESHOLD_PX) top.onBack()
+  if (locked === 'x' && dx > THRESHOLD_PX) top.onBack()
 }
 
 let listening = false

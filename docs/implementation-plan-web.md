@@ -121,6 +121,7 @@ The importer emits app-compatible records with reviewed Chinese mappings, withou
 - **Risk:** none known. Achievements are recomputed from current local data only (no parallel event log), so future title additions must keep using `mealEntries`, `foods`, `profile`, and `targetOverrides`.
 - **Next ready phase:** W10.
 - **2026-08-18 update:** `web/src/{App.svelte,custom.css}` now gives unread badges one 180-degree Y-axis back-and-forth over three seconds while their cards retain the existing entrance. `pnpm check`, `pnpm build`, and `pnpm run test:ui` passed (27 UI tests); the known Svelte `derived_inert` stderr warning remains unchanged.
+- **2026-08-18 bug fix:** shared swipe-back now requires a gesture locked as horizontal before returning; vertical trophy-list scrolling with rightward drift remains on the trophy list. `web/tests/swipe-back.test.ts` covers this boundary. **Checks:** `pnpm check` (pass); `pnpm exec vitest run tests/swipe-back.test.ts` (4 passed).
 
 **Purpose:** motivate steady logging without rewarding restriction, shame, comparison, or social competition.
 
