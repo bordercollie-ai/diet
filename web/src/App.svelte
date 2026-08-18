@@ -476,7 +476,17 @@
 
   {#if menuSubpage}
     {#snippet menuSubpageContent()}
-      <BackButton label={t('menu')} onclick={closeMenuSubpage}>
+      <BackButton
+        label={t('menu')}
+        title={menuSubpage === 'profile'
+          ? t('profileAndTargets')
+          : menuSubpage === 'calendar'
+            ? t('calendar')
+            : menuSubpage === 'backup'
+              ? t('backupAndInstall')
+              : t('about')}
+        onclick={closeMenuSubpage}
+      >
         {#if menuSubpage === 'profile'}
           <ProfilePanel
             bind:profile
