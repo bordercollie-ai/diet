@@ -4,13 +4,13 @@ type: implementation-plan
 status: active
 version: "1.1"
 date: 2026-08-12
-updated: 2026-08-13
+updated: 2026-08-18
 current_phase: W7
 ---
 
 # Web/PWA implementation plan
 
-Read `docs/prd.md`, `docs/prd-web.md`, and ADR 0002 first. Implement phases in order; domain calculations, validation, backup, and merge logic remain independent of Svelte and browser adapters.
+Read `docs/prd.md` and ADR 0002 first. Implement phases in order; domain calculations, validation, backup, and merge logic remain independent of Svelte and browser adapters.
 
 ## Global rules
 
@@ -41,6 +41,7 @@ import(BackupFile) -> ImportPreview | ImportError
 | W5 | 2026-08-12 | Accessibility and browser acceptance | UI library/config, `App.svelte`, styles; manual Safari/Chromium review. |
 | W6 | 2026-08-13 | UI/UX polish | `App.svelte`, pages and styles; responsive, keyboard, theme and state review. |
 | W9 | 2026-08-13 | Componentization | `App.svelte`, `src/pages/`, UI tests; 19 domain and 8 UI tests. |
+| W12 | 2026-08-18 | Trophy system | `store.ts`, `indexeddb.ts`, `App.svelte`, `i18n.svelte.ts`, `TrophyPanel.svelte`, `custom.css`, domain/UI tests; `pnpm check`, `pnpm build`, `pnpm test`, `pnpm run test:ui`. |
 
 All completed phases passed `pnpm check`, `pnpm build`, and their listed test suites. Browser automation was intentionally not added; Safari/Chromium coverage was manual.
 
@@ -99,7 +100,7 @@ The importer emits app-compatible records with reviewed Chinese mappings, withou
 **Status:** done (2026-08-16).
 
 - **Scope:** added a new Language row to `MenuPanel` beside Appearance, with English / 中文 / 日本語 options persisted in `localStorage` (`diet-language`). All user-facing strings in `App.svelte` and `src/pages/*.svelte` now read from a tiny hand-rolled `src/lib/i18n.svelte.ts` dictionary with English fallback, and date labels/month names follow the selected app language. Default language falls back to the OS locale (`navigator.language` 2-letter prefix) only when no language has been chosen yet; an explicit menu pick always wins thereafter. Food names (`Food.name`, a `Record<string, string>` keyed by source language, not every food has every key) are now shown via a shared `foodName()` helper that picks the current app language, falling back to English, then Japanese, then whatever name exists — applied everywhere a food name is rendered (Foods list, meal search/detail, food edit sheet, Summary meal rows).
-- **Files changed:** `docs/prd.md`, `docs/prd-web.md`, `docs/implementation-plan-web.md`, `web/src/lib/i18n.svelte.ts`, `web/src/App.svelte`, `web/src/pages/{BackupPanel,CalendarPanel,DayStrip,FoodSheet,FoodsPanel,MealSheet,MenuPanel,ProfilePanel,SummaryPanel}.svelte`, `web/tests/i18n.test.ts` (new), `web/tests/MenuPanel.test.ts` (new), `web/tests/setup.ts` (jsdom lacks the Pointer Capture API that bits-ui's `Select` trigger calls on `pointerdown`; stubbed alongside the existing `Element.prototype.animate` shim).
+- **Files changed:** `docs/prd.md`, `web/src/lib/i18n.svelte.ts`, `web/src/App.svelte`, `web/src/pages/{BackupPanel,CalendarPanel,DayStrip,FoodSheet,FoodsPanel,MealSheet,MenuPanel,ProfilePanel,SummaryPanel}.svelte`, `web/tests/i18n.test.ts` (new), `web/tests/MenuPanel.test.ts` (new), `web/tests/setup.ts` (jsdom lacks the Pointer Capture API that bits-ui's `Select` trigger calls on `pointerdown`; stubbed alongside the existing `Element.prototype.animate` shim).
 - **Checks:** `pnpm check`; `pnpm build`; `pnpm test`; `pnpm run test:ui` — all pass. Final counts: 23 domain tests and 23 UI tests (added: `i18n.test.ts` covers language persistence/switching, English fallback for missing keys, and `foodName()`'s language-then-English-then-Japanese fallback; `MenuPanel.test.ts` covers picking a theme option and a language option each firing the correct callback with the correct value — bits-ui `Select` items only respond to `pointerup`, not `click`, in this version).
 - **Risk:** no automated translation-quality review; new UI strings must be added to the dictionary manually or they will fall back to English. Food records without a name in the selected language silently fall back (English, then Japanese, then first available) rather than showing a per-food "missing translation" indicator.
 - **Skipped:** RTL/layout mirroring, ICU/pluralization/interpolation tooling, and translation-key linting.
@@ -110,6 +111,53 @@ The importer emits app-compatible records with reviewed Chinese mappings, withou
 | --- | --- | --- |
 | W10 | Decide between History API, custom drag, or Drawer for sheet dismissal. | Selected gesture works without regressing sheet accessibility. |
 | W11 | Fix visible gap between the fixed bottom `<nav>` and Mobile Safari's own bottom toolbar (iPhone, non-installed tab). | No visible blank gap between navbar and Safari chrome across Safari tab and installed/standalone modes, verified on-device. |
+
+### W12 — trophy system
+
+**Status:** done (2026-08-18); independent of W7.
+
+- **Files changed:** `web/src/domain/store.ts`, `web/src/storage/indexeddb.ts`, `web/src/App.svelte`, `web/src/lib/i18n.svelte.ts`, `web/src/pages/TrophyPanel.svelte`, `web/src/custom.css`, `web/tests/store.test.ts`, and `web/tests/App.test.ts`.
+- **Checks:** `pnpm check` (pass, 0 errors / 0 warnings); `pnpm build` (pass); `pnpm test` (pass, 30 domain tests); `pnpm run test:ui` (pass, 27 UI tests). Vitest still prints the pre-existing Svelte 5 `derived_inert` stderr warning seen in `App.test.ts` / `MenuPanel.test.ts`, but all assertions pass and no new failures were introduced.
+- **Risk:** none known. Achievements are recomputed from current local data only (no parallel event log), so future title additions must keep using `mealEntries`, `foods`, `profile`, and `targetOverrides`.
+- **Next ready phase:** W10.
+
+**Purpose:** motivate steady logging without rewarding restriction, shame, comparison, or social competition.
+
+### Rules and design
+
+- Change the shared `calorieTone()` on-target range to 95%–105% of a nonzero calorie target. Reuse it for achievement qualification so the calendar, summary, and achievements have one definition of on-target. A missing, under-target, over-target, or unavailable-target day breaks a qualifying run.
+- The first release has exactly 22 achievements, calculated only from existing `AppData`:
+
+  | Family | Thresholds | Titles |
+  | --- | --- | --- |
+  | Valid saved profile and targets | 1 | Ready Set |
+  | Recorded meals | 1, 10, 50, 100 | First Plate, Tenfold Log, Fifty Plates, Hundred Plates |
+  | Temporary calorie entries | 5 | Quick Start |
+  | Days with at least one meal | 3, 7, 30, 100 | Three-Day Start, Week Witness, Monthly Companion, Hundred-Day Journal |
+  | Consecutive on-target days | 3, 7, 14, 30 | Steady Starter, Seven-Day Rhythm, Two-Week Pace, Monthly Rhythm |
+  | Entries of one identified food | 10, 25, 50 | Familiar Favorite, Regular, Signature Order |
+  | Unique identified foods / custom foods | 10, 25, 50 / 1, 5 | Ten Tastes, Twenty-Five Tastes, Fifty Tastes / First Custom Food, Personal Pantry |
+
+- A temporary calorie entry has no `foodId`, so it counts toward recorded meals, its five-entry onboarding achievement, and active days but never food-specific, unique-food, or custom-food achievements. Titles remain unlocked after a later break or food deletion.
+- Persist achievement records in `AppData` (optional for backward-compatible backups): ID, first `unlockedAt`, and optional `readAt`. Do not store duplicate daily summaries or a second source of nutrition truth.
+- A small trophy button sits at the header's right edge and shows a non-intrusive unread indicator only while an achievement lacks `readAt`. Its page opens directly to a badge list; selecting a badge pushes a real detail sheet above that still-mounted list, revealing the exact list on swipe-back.
+- On each save, unlock every newly qualified achievement in definition order and give that batch one shared `unlockedAt`. Never queue or stack toast/dialog celebrations.
+- The badge list places all unread records in a "New" group above the normal list. Mark them all read when the list opens. Only those unread cards receive a short CSS-only staggered scale/fade entrance animation; read cards never animate or trigger a popup again. Honor `prefers-reduced-motion`. No image assets, canvas, or animation library.
+- Use existing Lucide crown/star icons, CSS shapes, and the relevant threshold numeral for simple self-contained badge art.
+- Evaluate achievements whenever local data is saved. A profile/target change can affect future qualification checks but never removes a previously unlocked title.
+- A valid saved profile is one accepted by `validateProfile()` whose targets resolve successfully; unlock Ready Set on its first successful profile save, not on the prefilled unsaved form.
+
+### Tests and exit criteria
+
+- Domain tests: each of the 22 thresholds unlocks at its boundary but not one below; Ready Set only unlocks from valid persisted profile/targets; 95% and 105% qualify while 94% and 105%+ do not; gaps break a run; temporary entries count for Quick Start but are excluded from food-specific achievements; `unlockedAt` and `readAt` survive export/import; unlocked records are never removed.
+- UI test: the labeled header trophy control opens the 22-item badge list, groups simultaneous unread unlocks under "New" with the same acquisition date, renders translated locked/unlocked crown/star badges with their threshold numerals, keeps that real list beneath the detail sheet, exposes detail with its acquisition date, clears the unread indicator, never replays read-card animation, and honors reduced motion.
+- Run `pnpm check`, `pnpm build`, `pnpm test`, and `pnpm run test:ui`.
+
+### Explicitly skipped
+
+Nintendo Switch Sports informed the lightweight collection loop (visible weekly/short-term progress and cosmetic recognition), but W12 deliberately excludes rotation, gear, points, leaderboards, notifications, social sharing, external art assets, and animation dependencies. Add any of those only after titles show measurable retention value.
+
+**Later candidate:** add a separate, user-requested fun-statistics view (for example, most-recorded foods or steady weeks) only after W12 ships. Any later statistic may link to an achievement but must reuse `mealEntries` rather than creating a parallel event log.
 
 ### W11 — bottom nav / Safari toolbar gap (unresolved)
 

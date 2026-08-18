@@ -5,6 +5,7 @@
   import HouseIcon from '@lucide/svelte/icons/house'
   import MenuIcon from '@lucide/svelte/icons/menu'
   import PlusIcon from '@lucide/svelte/icons/plus'
+  import TrophyIcon from '@lucide/svelte/icons/trophy'
   import ZapIcon from '@lucide/svelte/icons/zap'
   import { onMount, type Snippet } from 'svelte'
   import { fade } from 'svelte/transition'
@@ -16,10 +17,13 @@
     deleteMealEntry,
     estimateMaintenanceCalories,
     estimateTargets,
+    markAchievementsRead,
+    prepareAppData,
     resolveDarkMode,
     previewBackup,
     resolveTargets,
     type AppData,
+    type AchievementId,
     type Food,
     type ImportResult,
     type Profile,
@@ -36,6 +40,7 @@
   import MenuPanel from './pages/MenuPanel.svelte'
   import ProfilePanel from './pages/ProfilePanel.svelte'
   import SummaryPanel from './pages/SummaryPanel.svelte'
+  import TrophyPanel from './pages/TrophyPanel.svelte'
   import { createIndexedDBStore } from './storage/indexeddb'
   import { getLanguage, setLanguage as setStoredLanguage, t, translate, type Language } from './lib/i18n.svelte'
 
@@ -88,6 +93,7 @@
   let selectedBackupName = $state('')
   let toastMessage = $state('')
   let toastTimer: ReturnType<typeof setTimeout>
+  let trophyAnimationTimer: ReturnType<typeof setTimeout>
 
   function showToast(message: string) {
     toastMessage = message
@@ -117,6 +123,10 @@
   // away reveals the actual Menu screen (real header + bottom nav), not a faked copy.
   let menuSubpage: MenuSubpage | null = $state(null)
   let addMealMenuOpen = $state(false)
+  let trophyOpen = $state(false)
+  let selectedAchievementId: AchievementId | null = $state(null)
+  let trophySessionUnreadIds: AchievementId[] = $state([])
+  let trophyAnimatingIds: AchievementId[] = $state([])
 
   function recordMeal() {
     addMealMenuOpen = false
@@ -149,6 +159,14 @@
 
   function returnFromSummaryToCalendar() {
     calendarJumpDate = null
+  }
+
+  function closeTrophies() {
+    trophyOpen = false
+    selectedAchievementId = null
+    trophySessionUnreadIds = []
+    trophyAnimatingIds = []
+    clearTimeout(trophyAnimationTimer)
   }
 
   function selectTab(tab: Tab) {
@@ -184,6 +202,7 @@
   const caloriePercent = $derived(Math.round(calorieRatio * 100))
   const caloriesRemaining = $derived(targets.calories - totals.calories)
   const todayCalorieTone = $derived(calorieTone(totals.calories, targets.calories))
+  const unreadAchievementIds = $derived((data.achievements ?? []).filter((record) => !record.readAt).map((record) => record.id))
   const calorieColor = $derived(
     {
       under: 'var(--calorie-under)',
@@ -193,6 +212,9 @@
       unavailable: 'var(--muted-foreground)',
     }[todayCalorieTone],
   )
+  $effect(() => {
+    if (selectedAchievementId) trophyAnimatingIds = []
+  })
 
   onMount(async () => {
     const storedTheme = localStorage.getItem('diet-theme')
@@ -334,13 +356,27 @@
   async function save(next: AppData) {
     try {
       // ponytail: $state proxies aren't structured-cloneable; snapshot before persisting.
-      const saved = $state.snapshot(next)
+      const saved = prepareAppData($state.snapshot(next))
       await store.save(saved)
       data = saved
       error = ''
     } catch (cause) {
       error = cause instanceof Error ? cause.message : translate('unableSaveLocalData')
     }
+  }
+
+  function openTrophies() {
+    const unreadIds = unreadAchievementIds
+    trophySessionUnreadIds = [...unreadIds]
+    trophyAnimatingIds = [...unreadIds]
+    selectedAchievementId = null
+    trophyOpen = true
+    clearTimeout(trophyAnimationTimer)
+    trophyAnimationTimer = setTimeout(() => {
+      trophyAnimatingIds = []
+    }, 450)
+    if (unreadIds.length === 0) return
+    void save(markAchievementsRead(data))
   }
 
   function handleFoodSaved(food: Food) {
@@ -417,6 +453,12 @@
       <h1 class="m-0 text-2xl">{t('appName')}</h1>
       <p class="sr-only" role="status" aria-live="polite">{status}</p>
     </div>
+    <Button type="button" variant="ghost" size="icon-sm" class="relative" aria-label={t('trophies')} onclick={openTrophies}>
+      <TrophyIcon aria-hidden="true" class="size-5" />
+      {#if unreadAchievementIds.length > 0}
+        <span class="trophy-unread-dot" aria-hidden="true"></span>
+      {/if}
+    </Button>
   </header>
   {#if error}<p class="text-destructive" role="alert">{error}</p>{/if}
 
@@ -539,6 +581,48 @@
       use:swipeBack={returnFromSummaryToCalendar}
     >
       {@render overlayPage(summaryJumpContent)}
+    </div>
+  {/if}
+
+  {#if trophyOpen}
+    {#snippet trophyContent()}
+      <BackButton
+        label={t('appName')}
+        title={t('trophies')}
+        onclick={closeTrophies}
+      >
+        <TrophyPanel
+          {data}
+          bind:selectedAchievementId
+          sessionUnreadIds={trophySessionUnreadIds}
+          animatedIds={trophyAnimatingIds}
+        />
+      </BackButton>
+    {/snippet}
+    <div
+      class="fixed inset-0 z-50 bg-background [touch-action:pan-y]"
+      use:swipeBack={closeTrophies}
+      inert={selectedAchievementId !== null}
+      aria-hidden={selectedAchievementId !== null || undefined}
+    >
+      {@render overlayPage(trophyContent)}
+    </div>
+  {/if}
+
+  {#if selectedAchievementId}
+    {#snippet achievementDetailContent()}
+      <BackButton label={t('trophies')} title={t('achievementDetail')} onclick={() => (selectedAchievementId = null)}>
+        <TrophyPanel
+          {data}
+          bind:selectedAchievementId
+          sessionUnreadIds={trophySessionUnreadIds}
+          animatedIds={[]}
+          mode="detail"
+        />
+      </BackButton>
+    {/snippet}
+    <div class="fixed inset-0 z-60 bg-background [touch-action:pan-y]" use:swipeBack={() => (selectedAchievementId = null)}>
+      {@render overlayPage(achievementDetailContent)}
     </div>
   {/if}
 

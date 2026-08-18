@@ -1,6 +1,8 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import {
+  achievementDefinitions,
+  calorieTone,
   createFood,
   createMealEntry,
   createTemporaryMealEntry,
@@ -10,8 +12,10 @@ import {
   deleteFood,
   deleteMealEntry,
   estimateTargets,
+  evaluateAchievements,
   estimateMaintenanceCalories,
   estimateBMR,
+  markAchievementsRead,
   previewBackup,
   roundForDisplay,
   resolveDarkMode,
@@ -22,6 +26,9 @@ import {
   updateMealEntry,
   validateFood,
 } from '../src/domain/store.ts'
+
+const fixedNow = '2026-08-18T04:49:42.173Z'
+const fixedToday = fixedNow.slice(0, 10)
 
 const food = (source: 'bundled' | 'user' = 'user') =>
   createFood({
@@ -46,10 +53,61 @@ const data: AppData = {
   ],
 }
 
+const withoutAchievements = (value: AppData): Omit<AppData, 'achievements'> => {
+  const { achievements: _achievements, ...rest } = value
+  return rest
+}
+
+const baseProfile = {
+  age: 30,
+  sex: 'female' as const,
+  heightCm: 165,
+  weightKg: 60,
+  activity: 'moderate' as const,
+  targetWeightKg: 58,
+  targetDate: '2026-12-31',
+}
+
+const identifiedFood = (id = 'identified-food', name = id) =>
+  createFood({
+    id,
+    name: { en: name },
+    serving: '1 serving',
+    nutrition: { calories: 2000, protein: 20, fat: 10, carbohydrates: 250 },
+    source: 'user',
+    updatedAt: fixedNow,
+  })
+
+const identifiedEntry = (index: number, date: string, foodId = 'identified-food') => ({
+  id: `meal-${foodId}-${index}`,
+  date,
+  time: '12:00',
+  foodId,
+  quantity: 1,
+  nutrition: { calories: 2000, protein: 20, fat: 10, carbohydrates: 250 },
+})
+
+const temporaryEntry = (index: number, date: string) =>
+  createTemporaryMealEntry({
+    id: `temporary-${index}`,
+    date,
+    time: '12:00',
+    quantity: 1,
+    foodName: `Quick ${index}`,
+    nutrition: { calories: 250, protein: 10, fat: 5, carbohydrates: 30 },
+  })
+
+const daySeries = (days: number, start = '2026-08-01') =>
+  Array.from({ length: days }, (_, index) => {
+    const day = new Date(`${start}T12:00:00Z`)
+    day.setUTCDate(day.getUTCDate() + index)
+    return day.toISOString().slice(0, 10)
+  })
+
 test('loads and saves application data through the store interface', async () => {
   const store = createMemoryStore()
   await store.save(data)
-  assert.deepEqual(await store.load(), data)
+  assert.deepEqual(withoutAchievements(await store.load()), data)
 })
 
 test('stable IDs and meal nutrition snapshots survive later food edits', () => {
@@ -384,13 +442,13 @@ test('exports and imports a valid backup without changing supported data', async
   const source = createMemoryStore(data)
   const target = createMemoryStore()
   await target.import(await source.export())
-  assert.deepEqual(await target.load(), data)
+  assert.deepEqual(withoutAchievements(await target.load()), data)
 })
 
 test('rejects invalid backups without mutating existing data', async () => {
   const store = createMemoryStore(data)
   await assert.rejects(store.import('{"schemaVersion": 99}'), /Invalid backup/)
-  assert.deepEqual(await store.load(), data)
+  assert.deepEqual(withoutAchievements(await store.load()), data)
 })
 
 test('previews valid backups and rejects unsupported versions before import', async () => {
@@ -442,6 +500,183 @@ test('imports by ID, replacing matches and preserving unrelated records', async 
   assert.equal(imported.mealEntries.find((item) => item.id === 'meal-1')?.quantity, 3)
   assert.ok(imported.foods.some((item) => item.id === 'extra-food'))
   assert.ok(imported.mealEntries.some((item) => item.id === 'extra-meal'))
+})
+
+function scenarioDataForAchievement(id: (typeof achievementDefinitions)[number]['id'], atBoundary: boolean): AppData {
+  const threshold = (value: number) => (atBoundary ? value : value - 1)
+  switch (id) {
+    case 'ready-set':
+      return atBoundary ? { foods: [], mealEntries: [], profile: baseProfile, targetOverrides: { calories: 2000 } } : { foods: [], mealEntries: [] }
+    case 'first-plate':
+    case 'tenfold-log':
+    case 'fifty-plates':
+    case 'hundred-plates': {
+      const counts = { 'first-plate': 1, 'tenfold-log': 10, 'fifty-plates': 50, 'hundred-plates': 100 }
+      const count = threshold(counts[id])
+      const mealFood = identifiedFood()
+      return {
+        foods: [mealFood],
+        mealEntries: Array.from({ length: count }, (_, index) => identifiedEntry(index, '2026-08-01', mealFood.id)),
+      }
+    }
+    case 'quick-start': {
+      const count = threshold(5)
+      return { foods: [], mealEntries: Array.from({ length: count }, (_, index) => temporaryEntry(index, '2026-08-01')) }
+    }
+    case 'three-day-start':
+    case 'week-witness':
+    case 'monthly-companion':
+    case 'hundred-day-journal': {
+      const counts = { 'three-day-start': 3, 'week-witness': 7, 'monthly-companion': 30, 'hundred-day-journal': 100 }
+      const count = threshold(counts[id])
+      return { foods: [], mealEntries: daySeries(count).map((date, index) => temporaryEntry(index, date)) }
+    }
+    case 'steady-starter':
+    case 'seven-day-rhythm':
+    case 'two-week-pace':
+    case 'monthly-rhythm': {
+      const counts = { 'steady-starter': 3, 'seven-day-rhythm': 7, 'two-week-pace': 14, 'monthly-rhythm': 30 }
+      const count = threshold(counts[id])
+      const mealFood = identifiedFood()
+      return {
+        foods: [mealFood],
+        mealEntries: daySeries(count).map((date, index) => identifiedEntry(index, date, mealFood.id)),
+        profile: baseProfile,
+        targetOverrides: { calories: 2000 },
+      }
+    }
+    case 'familiar-favorite':
+    case 'regular':
+    case 'signature-order': {
+      const counts = { 'familiar-favorite': 10, regular: 25, 'signature-order': 50 }
+      const count = threshold(counts[id])
+      const mealFood = identifiedFood()
+      return {
+        foods: [mealFood],
+        mealEntries: Array.from({ length: count }, (_, index) => identifiedEntry(index, '2026-08-01', mealFood.id)),
+      }
+    }
+    case 'ten-tastes':
+    case 'twenty-five-tastes':
+    case 'fifty-tastes': {
+      const counts = { 'ten-tastes': 10, 'twenty-five-tastes': 25, 'fifty-tastes': 50 }
+      const count = threshold(counts[id])
+      const foods = Array.from({ length: count }, (_, index) => identifiedFood(`food-${index + 1}`, `Food ${index + 1}`))
+      return {
+        foods,
+        mealEntries: foods.map((mealFood, index) => identifiedEntry(index, '2026-08-01', mealFood.id)),
+      }
+    }
+    case 'first-custom-food':
+    case 'personal-pantry': {
+      const counts = { 'first-custom-food': 1, 'personal-pantry': 5 }
+      const count = threshold(counts[id])
+      return {
+        foods: Array.from({ length: count }, (_, index) => identifiedFood(`custom-${index + 1}`, `Custom ${index + 1}`)),
+        mealEntries: [],
+      }
+    }
+  }
+  throw new Error(`Unhandled achievement scenario: ${id}`)
+}
+
+test('each of the 22 achievement thresholds unlocks exactly at its boundary and not one below', () => {
+  for (const definition of achievementDefinitions) {
+    const below = evaluateAchievements(scenarioDataForAchievement(definition.id, false), fixedNow)
+    assert.ok(
+      !(below.achievements ?? []).some((record) => record.id === definition.id),
+      `${definition.id} should stay locked one below`,
+    )
+    const at = evaluateAchievements(scenarioDataForAchievement(definition.id, true), fixedNow)
+    assert.ok(
+      (at.achievements ?? []).some((record) => record.id === definition.id),
+      `${definition.id} should unlock at its threshold`,
+    )
+  }
+})
+
+test('batches simultaneous unlocks in definition order with one shared timestamp', () => {
+  const batched = evaluateAchievements(
+    {
+      foods: [],
+      mealEntries: Array.from({ length: 5 }, (_, index) => temporaryEntry(index, daySeries(3)[index % 3])),
+      profile: baseProfile,
+      targetOverrides: { calories: 2000 },
+    },
+    fixedNow,
+  )
+  assert.deepEqual(
+    (batched.achievements ?? []).map((record) => record.id),
+    ['ready-set', 'first-plate', 'quick-start', 'three-day-start'],
+  )
+  assert.ok((batched.achievements ?? []).every((record) => record.unlockedAt === fixedNow))
+})
+
+test('uses the shared 95%-105% on-target range and gaps break qualifying streaks', () => {
+  assert.equal(calorieTone(1900, 2000), 'on-target')
+  assert.equal(calorieTone(2100, 2000), 'on-target')
+  assert.equal(calorieTone(1880, 2000), 'under')
+  assert.equal(calorieTone(2101, 2000), 'over')
+
+  const mealFood = identifiedFood()
+  const gappedRun = evaluateAchievements(
+    {
+      foods: [mealFood],
+      mealEntries: [
+        identifiedEntry(1, '2026-08-01', mealFood.id),
+        identifiedEntry(2, '2026-08-02', mealFood.id),
+        identifiedEntry(3, '2026-08-04', mealFood.id),
+      ],
+      profile: baseProfile,
+      targetOverrides: { calories: 2000 },
+    },
+    fixedNow,
+  )
+  assert.ok(!(gappedRun.achievements ?? []).some((record) => record.id === 'steady-starter'))
+})
+
+test('counts quick adds but excludes them from food-specific achievements, while deleted food IDs still count', () => {
+  const quickStart = evaluateAchievements(
+    { foods: [], mealEntries: Array.from({ length: 5 }, (_, index) => temporaryEntry(index, '2026-08-01')) },
+    fixedNow,
+  )
+  assert.ok((quickStart.achievements ?? []).some((record) => record.id === 'quick-start'))
+  assert.ok(!(quickStart.achievements ?? []).some((record) => record.id === 'familiar-favorite'))
+  assert.ok(!(quickStart.achievements ?? []).some((record) => record.id === 'ten-tastes'))
+
+  const deletedFoodHistory = evaluateAchievements(
+    {
+      foods: [],
+      mealEntries: Array.from({ length: 10 }, (_, index) => identifiedEntry(index, '2026-08-01', 'deleted-food')),
+    },
+    fixedNow,
+  )
+  assert.ok((deletedFoodHistory.achievements ?? []).some((record) => record.id === 'familiar-favorite'))
+})
+
+test('preserves unlockedAt and readAt through export/import and never removes unlocked records', async () => {
+  const sourceData = markAchievementsRead(
+    evaluateAchievements(
+      {
+        foods: [identifiedFood()],
+        mealEntries: [identifiedEntry(1, fixedToday)],
+        profile: baseProfile,
+        targetOverrides: { calories: 2000 },
+      },
+      fixedNow,
+    ),
+    '2026-08-19T04:49:42.173Z',
+  )
+
+  const source = createMemoryStore()
+  await source.save(sourceData)
+  const target = createMemoryStore()
+  await target.import(await source.export())
+  assert.deepEqual((await target.load()).achievements, sourceData.achievements)
+
+  const later = evaluateAchievements({ ...sourceData, mealEntries: [] }, '2026-08-20T04:49:42.173Z')
+  assert.ok((later.achievements ?? []).some((record) => record.id === 'ready-set'))
+  assert.ok((later.achievements ?? []).some((record) => record.id === 'first-plate'))
 })
 
 test('resolves dark mode from explicit preference or system when set to system', () => {

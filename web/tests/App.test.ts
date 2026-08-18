@@ -1,13 +1,31 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/svelte'
-import { vi, test, expect } from 'vitest'
+import { afterEach, beforeEach, vi, test, expect } from 'vitest'
 import { createMemoryStore, type AppData } from '../src/domain/store'
 import App from '../src/App.svelte'
 
 let storeOverride: AppData | undefined
 
+beforeEach(() => {
+  storeOverride = undefined
+})
+
+afterEach(() => {
+  vi.restoreAllMocks()
+})
+
 async function openAddMealMenu() {
   await fireEvent.click(screen.getByRole('button', { name: 'Add meal options' }))
 }
+
+const trophyStoreData = (): AppData => ({
+  foods: [],
+  mealEntries: [],
+  achievements: [
+    { id: 'ready-set', unlockedAt: '2026-08-18T04:49:42.173Z' },
+    { id: 'first-plate', unlockedAt: '2026-08-18T04:49:42.173Z' },
+    { id: 'quick-start', unlockedAt: '2026-08-12T04:49:42.173Z', readAt: '2026-08-12T05:00:00.000Z' },
+  ],
+})
 
 vi.mock('../src/storage/indexeddb', () => ({
   createIndexedDBStore: () => createMemoryStore(storeOverride),
@@ -293,6 +311,72 @@ test('opens Profile from the menu page and returns via the back button', async (
   await fireEvent.click(screen.getByRole('button', { name: 'Menu' }))
 
   await screen.findByRole('tabpanel', { name: 'Menu' })
+})
+
+test('opens the header trophies list, shows unread items first, clears the dot, and does not replay read animations', async () => {
+  storeOverride = trophyStoreData()
+  const { container } = render(App)
+
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  expect(container.querySelector('.trophy-unread-dot')).not.toBeNull()
+
+  await fireEvent.click(screen.getByRole('button', { name: 'Trophies' }))
+  const allBadgesHeading = await screen.findByRole('heading', { name: 'All badges' })
+  expect(screen.getByRole('heading', { name: 'New' })).toBeTruthy()
+  expect(container.querySelectorAll('.achievement-card')).toHaveLength(22)
+  expect(screen.getByRole('img', { name: 'Unlocked crown badge 1' })).toBeTruthy()
+  expect(screen.getByRole('img', { name: 'Locked crown badge 14' })).toBeTruthy()
+  expect(container.querySelectorAll('.achievement-card--enter').length).toBeGreaterThan(0)
+
+  const newHeading = screen.getByRole('heading', { name: 'New' })
+  const newSection = newHeading.parentElement?.querySelector('.achievement-list')
+  expect(newSection?.textContent).toContain('Ready Set')
+  const expectedNewTime = new Date('2026-08-18T04:49:42.173Z').toLocaleString('en-US', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  })
+  expect(within(newSection as HTMLElement).getAllByText(new RegExp(expectedNewTime.replace(',', ',?')))).toHaveLength(2)
+
+  await waitFor(() => expect(container.querySelector('.trophy-unread-dot')).toBeNull())
+
+  await fireEvent.click(screen.getByRole('button', { name: /Ready Set/ }))
+  expect(await screen.findByRole('heading', { name: 'Ready Set' })).toBeTruthy()
+  expect(container.querySelectorAll('[aria-hidden="true"] .achievement-list')).toHaveLength(2)
+  expect(screen.getByText('Save a valid profile and target.')).toBeTruthy()
+  expect(
+    screen.getByText(
+      new Date('2026-08-18T04:49:42.173Z').toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' }),
+    ),
+  ).toBeTruthy()
+
+  await fireEvent.click(screen.getAllByRole('button', { name: 'Trophies' }).at(-1)!)
+  await screen.findByRole('heading', { name: 'All badges' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Diet' }))
+  await fireEvent.click(screen.getByRole('button', { name: 'Trophies' }))
+  await screen.findByRole('heading', { name: 'All badges' })
+  expect(screen.queryByRole('heading', { name: 'New' })).toBeNull()
+  expect(container.querySelector('.achievement-card--enter')).toBeNull()
+  expect(container.querySelector('.achievement-badge--enter')).toBeNull()
+})
+
+test('skips unread badge entrance classes when reduced motion is preferred', async () => {
+  storeOverride = trophyStoreData()
+  const realMatchMedia = window.matchMedia
+  Object.defineProperty(window, 'matchMedia', {
+    configurable: true,
+    value: (query: string) =>
+      query === '(prefers-reduced-motion: reduce)'
+        ? { matches: true, addListener: () => {}, removeListener: () => {}, addEventListener: () => {}, removeEventListener: () => {} }
+        : realMatchMedia(query),
+  })
+
+  const { container } = render(App)
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Trophies' }))
+  await screen.findByRole('heading', { name: 'All badges' })
+  expect(container.querySelector('.achievement-card--enter')).toBeNull()
+  expect(container.querySelector('.achievement-badge--enter')).toBeNull()
+  Object.defineProperty(window, 'matchMedia', { configurable: true, value: realMatchMedia })
 })
 
 test('exports backup via native share when Web Share API supports files', async () => {
