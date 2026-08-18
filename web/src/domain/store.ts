@@ -38,6 +38,11 @@ export type Profile = {
 
 export type TargetOverrides = Partial<Nutrition>
 
+export type TargetPeriod = {
+  effectiveFrom: string
+  targets: Nutrition
+}
+
 export type Food = {
   id: string
   name: Record<string, string>
@@ -101,6 +106,7 @@ export type AppData = {
   mealEntries: MealEntry[]
   profile?: Profile
   targetOverrides?: TargetOverrides
+  targetPeriods?: TargetPeriod[]
   achievements?: AchievementRecord[]
 }
 
@@ -215,6 +221,13 @@ function validateAchievementRecord(record: unknown): asserts record is Achieveme
     invalid('achievement')
 }
 
+function validateTargetPeriod(period: unknown): asserts period is TargetPeriod {
+  if (typeof period !== 'object' || period === null) invalid('target period')
+  const value = period as Record<string, unknown>
+  if (typeof value.effectiveFrom !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value.effectiveFrom) || !validNutrition(value.targets))
+    invalid('target period')
+}
+
 export function validateFood(food: unknown): asserts food is Food {
   if (typeof food !== 'object' || food === null) invalid('food')
   const value = food as Record<string, unknown>
@@ -261,6 +274,12 @@ export function validateAppData(data: unknown): asserts data is AppData {
   value.mealEntries.forEach((entry) => validateMealEntry(entry, value.foods as Food[]))
   if (value.profile !== undefined) validateProfile(value.profile)
   if (value.targetOverrides !== undefined) validateTargetOverrides(value.targetOverrides)
+  if (value.targetPeriods !== undefined) {
+    if (!Array.isArray(value.targetPeriods)) invalid('target periods')
+    value.targetPeriods.forEach(validateTargetPeriod)
+    if (new Set(value.targetPeriods.map((period) => (period as TargetPeriod).effectiveFrom)).size !== value.targetPeriods.length)
+      invalid('target period')
+  }
   if (value.achievements !== undefined) {
     if (!Array.isArray(value.achievements)) invalid('application data')
     value.achievements.forEach(validateAchievementRecord)
@@ -438,6 +457,32 @@ export function estimateTargets(profile: Profile, fromDate = new Date().toISOStr
   return { calories, protein, fat, carbohydrates }
 }
 
+const LEGACY_TARGET_EFFECTIVE_FROM = '0001-01-01'
+
+function targetPeriodsFor(data: AppData): TargetPeriod[] {
+  if (data.targetPeriods?.length) return data.targetPeriods
+  if (!data.profile) return []
+  try {
+    return [{ effectiveFrom: LEGACY_TARGET_EFFECTIVE_FROM, targets: resolveTargets(data.profile, data.targetOverrides) }]
+  } catch {
+    return []
+  }
+}
+
+export function targetsForDate(data: AppData, date: string): Nutrition | null {
+  return targetPeriodsFor(data)
+    .filter((period) => period.effectiveFrom <= date)
+    .sort((left, right) => left.effectiveFrom.localeCompare(right.effectiveFrom))
+    .at(-1)?.targets ?? null
+}
+
+export function setTargetPeriod(data: AppData, targets: Nutrition, effectiveFrom: string): AppData {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(effectiveFrom) || !validNutrition(targets)) invalid('target period')
+  const targetPeriods = [...targetPeriodsFor(data).filter((period) => period.effectiveFrom !== effectiveFrom), { effectiveFrom, targets: copy(targets) }]
+    .sort((left, right) => left.effectiveFrom.localeCompare(right.effectiveFrom))
+  return { ...copy(data), targetPeriods }
+}
+
 function validateTargetOverrides(overrides: unknown): asserts overrides is TargetOverrides {
   if (typeof overrides !== 'object' || overrides === null) invalid('target overrides')
   for (const [key, value] of Object.entries(overrides)) {
@@ -466,22 +511,13 @@ function toDateStamp(iso: string): number {
   return Date.parse(`${iso}T00:00:00Z`)
 }
 
-function resolvedTargetCalories(data: AppData, asOfDate: string): number | null {
-  if (!data.profile) return null
-  try {
-    return resolveTargets(data.profile, data.targetOverrides, asOfDate).calories
-  } catch {
-    return null
-  }
-}
-
-function longestOnTargetRun(data: AppData, targetCalories: number): number {
-  if (targetCalories <= 0) return 0
+function longestOnTargetRun(data: AppData): number {
   const dates = [...new Set(data.mealEntries.map((entry) => entry.date))].sort()
   let longest = 0
   let current = 0
   let previousDate = ''
   for (const date of dates) {
+    const targetCalories = targetsForDate(data, date)?.calories ?? 0
     if (calorieTone(dailyTotals(data, date).calories, targetCalories) !== 'on-target') {
       current = 0
       previousDate = date
@@ -500,13 +536,12 @@ function achievementStats(data: AppData, asOfDate: string): AchievementStats {
     counts.set(entry.foodId, (counts.get(entry.foodId) ?? 0) + 1)
     return counts
   }, new Map<string, number>())
-  const targetCalories = resolvedTargetCalories(data, asOfDate)
   return {
-    hasResolvedTargets: targetCalories !== null,
+    hasResolvedTargets: targetsForDate(data, asOfDate) !== null,
     recordedMeals: data.mealEntries.length,
     temporaryEntries: data.mealEntries.filter((entry) => entry.foodId === '').length,
     activeDays: new Set(data.mealEntries.map((entry) => entry.date)).size,
-    longestOnTargetRun: longestOnTargetRun(data, targetCalories ?? 0),
+    longestOnTargetRun: longestOnTargetRun(data),
     maxIdentifiedFoodEntries: Math.max(0, ...countsByFoodId.values()),
     uniqueIdentifiedFoods: countsByFoodId.size,
     customFoods: data.foods.filter((food) => food.source === 'user').length,
@@ -707,13 +742,19 @@ function checkedData(data: AppData): AppData {
   return copy(data)
 }
 
+function migrateTargetPeriods(data: AppData): AppData {
+  if (data.targetPeriods !== undefined || !data.profile) return data
+  const targetPeriods = targetPeriodsFor(data)
+  return targetPeriods.length ? { ...data, targetPeriods } : data
+}
+
 function withAchievements(data: AppData, achievements: AchievementRecord[]): AppData {
   if (achievements.length === 0 && data.achievements === undefined) return data
   return { ...data, achievements }
 }
 
 export function evaluateAchievements(data: AppData, now = new Date().toISOString()): AppData {
-  const next = checkedData(data)
+  const next = migrateTargetPeriods(checkedData(data))
   const existing = new Map((next.achievements ?? []).map((record) => [record.id, record]))
   const stats = achievementStats(next, now.slice(0, 10))
   const unlocked = achievementDefinitions
@@ -731,7 +772,7 @@ export function markAchievementsRead(data: AppData, now = new Date().toISOString
 }
 
 export function prepareAppData(data: AppData, now = new Date().toISOString()): AppData {
-  return evaluateAchievements(checkedData(data), now)
+  return evaluateAchievements(migrateTargetPeriods(checkedData(data)), now)
 }
 
 function mergeData(current: AppData, imported: AppData): AppData {
@@ -746,6 +787,18 @@ function mergeData(current: AppData, imported: AppData): AppData {
     ...(current.profile || imported.profile ? { profile: imported.profile ?? current.profile } : {}),
     ...(current.targetOverrides || imported.targetOverrides
       ? { targetOverrides: imported.targetOverrides ?? current.targetOverrides }
+      : {}),
+    ...(current.targetPeriods || imported.targetPeriods
+      ? {
+          targetPeriods: [
+            ...new Map(
+              [...(current.targetPeriods ?? []), ...(imported.targetPeriods ?? [])].map((period) => [
+                period.effectiveFrom,
+                period,
+              ]),
+            ).values(),
+          ].sort((left, right) => left.effectiveFrom.localeCompare(right.effectiveFrom)),
+        }
       : {}),
     ...(current.achievements || imported.achievements
       ? { achievements: mergeById(current.achievements ?? [], imported.achievements ?? []) }
