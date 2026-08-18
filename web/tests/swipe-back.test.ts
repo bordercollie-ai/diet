@@ -27,6 +27,17 @@ test('swiping right over empty page space below short content still triggers bac
   expect(onBack).toHaveBeenCalledOnce()
 })
 
+test('scrolling vertically with rightward drift does not trigger back', () => {
+  const onBack = vi.fn()
+  render(SwipeLayerHarness, { props: { onBack } })
+
+  dispatchTouch(document.body, 'touchstart', 10, 100)
+  dispatchTouch(document.body, 'touchmove', 120, 500)
+  dispatchTouch(document.body, 'touchend', 120, 500)
+
+  expect(onBack).not.toHaveBeenCalled()
+})
+
 test('swiping a stacked (topmost) sheet does not also trigger an older sheet underneath', async () => {
   const outerBack = vi.fn()
   const innerBack = vi.fn()
