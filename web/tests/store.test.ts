@@ -16,11 +16,14 @@ import {
   estimateMaintenanceCalories,
   estimateBMR,
   markAchievementsRead,
+  prepareAppData,
   previewBackup,
   roundForDisplay,
   resolveDarkMode,
   resolveTargets,
   searchFoods,
+  setTargetPeriod,
+  targetsForDate,
   type AppData,
   updateFood,
   updateMealEntry,
@@ -436,6 +439,55 @@ test('estimates deterministic targets and restores estimates after override remo
   assert.equal(resolveTargets(profile, {}, '2026-08-12').calories, estimated.calories)
   assert.throws(() => estimateTargets({ ...profile, weightKg: 0 }), /Invalid data/)
   assert.throws(() => estimateTargets({ ...profile, targetDate: '2026-08-12' }, '2026-08-12'), /target date/)
+})
+
+test('keeps historical calorie ranges and streaks stable after a goal change', () => {
+  const oldTargets = { calories: 2000, protein: 100, fat: 55, carbohydrates: 270 }
+  const newTargets = { calories: 1800, protein: 100, fat: 50, carbohydrates: 230 }
+  const mealFood = identifiedFood()
+  const withOldGoal = setTargetPeriod(
+    {
+      foods: [mealFood],
+      mealEntries: daySeries(3).map((date, index) => identifiedEntry(index, date, mealFood.id)),
+    },
+    oldTargets,
+    '2026-08-01',
+  )
+  const withNewGoal = setTargetPeriod(withOldGoal, newTargets, fixedToday)
+
+  assert.equal(targetsForDate(withNewGoal, '2026-08-03')?.calories, 2000)
+  assert.equal(targetsForDate(withNewGoal, fixedToday)?.calories, 1800)
+  assert.equal(calorieTone(dailyTotals(withNewGoal, '2026-08-03').calories, targetsForDate(withNewGoal, '2026-08-03')!.calories), 'on-target')
+  assert.equal(calorieTone(dailyTotals(withNewGoal, '2026-08-03').calories, targetsForDate(withNewGoal, fixedToday)!.calories), 'over')
+  assert.ok((evaluateAchievements(withNewGoal, fixedNow).achievements ?? []).some((record) => record.id === 'steady-starter'))
+
+  const replacedToday = setTargetPeriod(withNewGoal, { ...newTargets, calories: 1900 }, fixedToday)
+  assert.equal(replacedToday.targetPeriods?.length, 2)
+  assert.equal(targetsForDate(replacedToday, fixedToday)?.calories, 1900)
+})
+
+test('migrates a legacy profile to one baseline target range', () => {
+  const migrated = prepareAppData(
+    { foods: [], mealEntries: [], profile: baseProfile, targetOverrides: { calories: 2000 } },
+    fixedNow,
+  )
+  assert.equal(migrated.targetPeriods?.[0].effectiveFrom, '0001-01-01')
+  assert.equal(targetsForDate(migrated, '2026-08-01')?.calories, 2000)
+})
+
+test('preserves target ranges through backup export and import', async () => {
+  const source = createMemoryStore(
+    setTargetPeriod(
+      setTargetPeriod({ foods: [], mealEntries: [] }, { calories: 2000, protein: 100, fat: 55, carbohydrates: 270 }, '2026-08-01'),
+      { calories: 1800, protein: 100, fat: 50, carbohydrates: 230 },
+      fixedToday,
+    ),
+  )
+  const target = createMemoryStore()
+  await target.import(await source.export())
+
+  assert.equal(targetsForDate(await target.load(), '2026-08-17')?.calories, 2000)
+  assert.equal(targetsForDate(await target.load(), fixedToday)?.calories, 1800)
 })
 
 test('exports and imports a valid backup without changing supported data', async () => {

@@ -22,6 +22,8 @@
     resolveDarkMode,
     previewBackup,
     resolveTargets,
+    setTargetPeriod,
+    targetsForDate,
     type AppData,
     type AchievementId,
     type Food,
@@ -197,7 +199,10 @@
     profileReady ? estimateTargets(profile, today) : { calories: 0, protein: 0, fat: 0, carbohydrates: 0 },
   )
   const maintenanceCalories = $derived(profileReady ? estimateMaintenanceCalories(profile) : 0)
-  const targets = $derived(profileReady ? resolveTargets(profile, data.targetOverrides, today) : estimated)
+  const targets = $derived(
+    targetsForDate(data, summaryDate) ??
+      (summaryDate === today ? (profileReady ? resolveTargets(profile, data.targetOverrides, today) : estimated) : estimated),
+  )
   const calorieRatio = $derived(targets.calories > 0 ? totals.calories / targets.calories : 0)
   const caloriePercent = $derived(Math.round(calorieRatio * 100))
   const caloriesRemaining = $derived(targets.calories - totals.calories)
@@ -415,8 +420,8 @@
           ['carbohydrates', overrideCarbohydrates],
         ].filter(([, value]) => value !== undefined),
       )
-      resolveTargets(profile, targetOverrides)
-      await save({ ...data, profile, targetOverrides })
+      const targets = resolveTargets(profile, targetOverrides, today)
+      await save(setTargetPeriod({ ...data, profile, targetOverrides }, targets, today))
       showToast(translate('profileSaved'))
     } catch (cause) {
       error = cause instanceof Error ? cause.message : translate('unableSaveProfile')
@@ -434,7 +439,7 @@
   }
 
   function dayTone(iso: string) {
-    return calorieTone(dailyTotals(data, iso).calories, targets.calories)
+    return calorieTone(dailyTotals(data, iso).calories, targetsForDate(data, iso)?.calories ?? 0)
   }
   const dayTones = $derived(Object.fromEntries(recentDays.map((day) => [day.iso, dayTone(day.iso)])))
 </script>
@@ -477,7 +482,7 @@
   {/snippet}
 
   {#snippet calendarScreen()}
-    <CalendarPanel {data} {today} {targets} onSelectDate={goToSummaryFromCalendar} />
+    <CalendarPanel {data} {today} onSelectDate={goToSummaryFromCalendar} />
   {/snippet}
 
   {#snippet summaryPanel()}
