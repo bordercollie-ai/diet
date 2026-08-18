@@ -104,6 +104,7 @@ export type AchievementRecord = {
 export type AppData = {
   foods: Food[]
   mealEntries: MealEntry[]
+  exerciseCalories?: Record<string, number>
   profile?: Profile
   targetOverrides?: TargetOverrides
   targetPeriods?: TargetPeriod[]
@@ -272,6 +273,16 @@ export function validateAppData(data: unknown): asserts data is AppData {
   if (!Array.isArray(value.foods) || !Array.isArray(value.mealEntries)) invalid('application data')
   value.foods.forEach(validateFood)
   value.mealEntries.forEach((entry) => validateMealEntry(entry, value.foods as Food[]))
+  if (
+    value.exerciseCalories !== undefined &&
+    (typeof value.exerciseCalories !== 'object' ||
+      value.exerciseCalories === null ||
+      Array.isArray(value.exerciseCalories) ||
+      !Object.entries(value.exerciseCalories).every(
+        ([date, calories]) => /^\d{4}-\d{2}-\d{2}$/.test(date) && typeof calories === 'number' && Number.isFinite(calories) && calories >= 0,
+      ))
+  )
+    invalid('exercise calories')
   if (value.profile !== undefined) validateProfile(value.profile)
   if (value.targetOverrides !== undefined) validateTargetOverrides(value.targetOverrides)
   if (value.targetPeriods !== undefined) {
@@ -394,7 +405,7 @@ export function calorieTone(dayCalories: number, targetCalories: number): Calori
   if (dayCalories === 0) return 'empty'
   if (targetCalories === 0) return 'unavailable'
   const ratio = dayCalories / targetCalories
-  return ratio < 0.95 ? 'under' : ratio <= 1.05 ? 'on-target' : 'over'
+  return ratio <= 1 ? 'on-target' : 'over'
 }
 
 const ACTIVITY_MULTIPLIERS = {
@@ -476,6 +487,20 @@ export function targetsForDate(data: AppData, date: string): Nutrition | null {
     .at(-1)?.targets ?? null
 }
 
+export function exerciseCaloriesForDate(data: AppData, date: string): number {
+  return data.exerciseCalories?.[date] ?? 0
+}
+
+export function calorieTargetForDate(data: AppData, date: string): number {
+  const targets = targetsForDate(data, date)
+  return targets ? targets.calories + exerciseCaloriesForDate(data, date) : 0
+}
+
+export function setExerciseCalories(data: AppData, date: string, calories: number): AppData {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(calories) || calories < 0) invalid('exercise calories')
+  return { ...copy(data), exerciseCalories: { ...data.exerciseCalories, [date]: calories } }
+}
+
 export function setTargetPeriod(data: AppData, targets: Nutrition, effectiveFrom: string): AppData {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(effectiveFrom) || !validNutrition(targets)) invalid('target period')
   const targetPeriods = [...targetPeriodsFor(data).filter((period) => period.effectiveFrom !== effectiveFrom), { effectiveFrom, targets: copy(targets) }]
@@ -517,7 +542,7 @@ function longestOnTargetRun(data: AppData): number {
   let current = 0
   let previousDate = ''
   for (const date of dates) {
-    const targetCalories = targetsForDate(data, date)?.calories ?? 0
+    const targetCalories = calorieTargetForDate(data, date)
     if (calorieTone(dailyTotals(data, date).calories, targetCalories) !== 'on-target') {
       current = 0
       previousDate = date
@@ -784,6 +809,9 @@ function mergeData(current: AppData, imported: AppData): AppData {
   return {
     foods: mergeById(current.foods, imported.foods),
     mealEntries: mergeById(current.mealEntries, imported.mealEntries),
+    ...(current.exerciseCalories || imported.exerciseCalories
+      ? { exerciseCalories: { ...current.exerciseCalories, ...imported.exerciseCalories } }
+      : {}),
     ...(current.profile || imported.profile ? { profile: imported.profile ?? current.profile } : {}),
     ...(current.targetOverrides || imported.targetOverrides
       ? { targetOverrides: imported.targetOverrides ?? current.targetOverrides }

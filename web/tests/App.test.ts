@@ -50,6 +50,35 @@ test('records 1.4 servings of a 68 kcal food and displays rounded calories', asy
   await waitFor(() => expect(screen.getAllByText('95 kcal')).toHaveLength(2))
 })
 
+test('adds extra exercise calories to the selected day’s calorie target', async () => {
+  const today = new Date().toISOString().slice(0, 10)
+  storeOverride = {
+    foods: [],
+    mealEntries: [
+      {
+        id: 'temporary-1',
+        date: today,
+        time: '12:00',
+        foodId: '',
+        foodName: 'Lunch',
+        quantity: 1,
+        nutrition: { calories: 2100, protein: 20, fat: 10, carbohydrates: 250 },
+      },
+    ],
+    targetPeriods: [{ effectiveFrom: '0001-01-01', targets: { calories: 2000, protein: 100, fat: 55, carbohydrates: 270 } }],
+  }
+  render(App)
+
+  expect(await screen.findByRole('img', { name: /^2100 of 2000 kcal/ })).toBeTruthy()
+  await fireEvent.click(screen.getByRole('button', { name: 'Extra exercise calories' }))
+  const exerciseInput = screen.getByLabelText('Calories')
+  expect((exerciseInput as HTMLInputElement).autocomplete).toBe('off')
+  await fireEvent.input(exerciseInput, { target: { value: '100' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Save exercise' }))
+
+  await waitFor(() => expect(screen.getByRole('img', { name: /^2100 of 2100 kcal/ })).toBeTruthy())
+})
+
 test('clearing a nutrition field falls back to 0 instead of blocking the save', async () => {
   render(App)
 

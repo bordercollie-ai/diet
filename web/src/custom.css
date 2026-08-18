@@ -126,38 +126,6 @@ input[type='time'] {
     0 0 4px color-mix(in oklch, var(--foreground) 15%, transparent);
 }
 
-.meal-card {
-  background: var(--muted);
-  border: 0;
-  border-radius: 1rem;
-  box-shadow: none;
-  color: inherit;
-  cursor: pointer;
-  display: grid;
-  font: inherit;
-  gap: 0.25rem;
-  padding: 0.75rem 1rem;
-  text-align: left;
-  width: 100%;
-}
-
-.meal-card:hover {
-  background: var(--accent);
-}
-
-.meal-card:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-
-.meal-card.selected {
-  background: var(--input);
-}
-
-.meal-card.selected .meal-card-topline {
-  color: var(--muted-foreground);
-}
-
 .meal-card-topline {
   color: var(--muted-foreground);
   font-size: var(--text-sm);
@@ -266,7 +234,11 @@ input[type='time'] {
 
 .achievement-badge__shape {
   align-items: center;
-  background: linear-gradient(180deg, color-mix(in oklch, var(--background) 72%, #facc15), color-mix(in oklch, var(--foreground) 10%, #f59e0b));
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--background) 72%, #facc15),
+    color-mix(in oklch, var(--foreground) 10%, #f59e0b)
+  );
   border-radius: 1.4rem;
   box-shadow:
     inset 0 1px 0 color-mix(in oklch, white 70%, transparent),
@@ -307,7 +279,11 @@ input[type='time'] {
 }
 
 .achievement-badge--locked .achievement-badge__shape {
-  background: linear-gradient(180deg, color-mix(in oklch, var(--muted) 86%, white), color-mix(in oklch, var(--muted-foreground) 28%, var(--muted)));
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklch, var(--muted) 86%, white),
+    color-mix(in oklch, var(--muted-foreground) 28%, var(--muted))
+  );
 }
 
 .achievement-badge--locked .achievement-badge__icon,

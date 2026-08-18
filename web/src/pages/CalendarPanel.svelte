@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { calorieTone, dailyTotals, targetsForDate, type AppData } from '../domain/store'
+  import { calorieTargetForDate, calorieTone, dailyTotals, type AppData } from '../domain/store'
   import { Button } from '$lib/components/ui/button'
   import * as Card from '$lib/components/ui/card'
   import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left'
@@ -75,7 +75,7 @@
         {#each weeks as week}
           {#each week as iso}
             {#if iso}
-              {@const tone = calorieTone(dailyTotals(data, iso).calories, targetsForDate(data, iso)?.calories ?? 0)}
+              {@const tone = calorieTone(dailyTotals(data, iso).calories, calorieTargetForDate(data, iso))}
               <button
                 type="button"
                 class="aspect-square rounded-full border-2 text-sm flex items-center justify-center"

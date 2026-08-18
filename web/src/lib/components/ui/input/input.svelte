@@ -16,6 +16,7 @@
 		files = $bindable(),
 		class: className,
 		"data-slot": dataSlot = "input",
+		autocomplete: _autocomplete,
 		...restProps
 	}: Props = $props();
 </script>
@@ -29,6 +30,9 @@
 			className
 		)}
 		type="file"
+		autocomplete="off"
+		data-1p-ignore="true"
+		data-lpignore="true"
 		bind:files
 		bind:value
 		{...restProps}
@@ -42,6 +46,9 @@
 			className
 		)}
 		{type}
+		autocomplete="off"
+		data-1p-ignore="true"
+		data-lpignore="true"
 		bind:value
 		{...restProps}
 	/>

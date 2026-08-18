@@ -1,8 +1,14 @@
 <script lang="ts">
   import { roundForDisplay, type AppData, type Nutrition } from '../domain/store'
+  import { Button } from '$lib/components/ui/button'
+  import * as Dialog from '$lib/components/ui/dialog'
+  import { Input } from '$lib/components/ui/input'
   import * as Card from '$lib/components/ui/card'
   import { Separator } from '$lib/components/ui/separator'
   import DayStrip from './DayStrip.svelte'
+  import DumbbellIcon from '@lucide/svelte/icons/dumbbell'
+  import ChevronRightIcon from '@lucide/svelte/icons/chevron-right'
+  import XIcon from '@lucide/svelte/icons/x'
   import FlameIcon from '@lucide/svelte/icons/flame'
   import HamIcon from '@lucide/svelte/icons/ham'
   import WheatIcon from '@lucide/svelte/icons/wheat'
@@ -20,11 +26,14 @@
     showDayStrip = true,
     totals,
     targets,
+    exerciseCalories,
+    calorieTarget,
     caloriePercent,
     caloriesRemaining,
     calorieColor,
     onSelectDate,
     onEditMeal,
+    onSaveExerciseCalories,
   }: {
     data: AppData
     date: string
@@ -34,14 +43,26 @@
     showDayStrip?: boolean
     totals: Nutrition
     targets: Nutrition
+    exerciseCalories: number
+    calorieTarget: number
     caloriePercent: number
     caloriesRemaining: number
     calorieColor: string
     onSelectDate: (iso: string) => void
     onEditMeal: (id: string) => void
+    onSaveExerciseCalories: (calories: number) => void
   } = $props()
 
   const displayNumber = roundForDisplay
+  let exerciseInput: number | undefined = $state()
+  let exerciseDialogOpen = $state(false)
+  $effect(() => {
+    exerciseInput = exerciseCalories || undefined
+  })
+  function openExerciseEditor() {
+    exerciseInput = exerciseCalories || undefined
+    exerciseDialogOpen = true
+  }
   // ponytail: macro alert threshold (120%) is intentionally looser than the calorie tone's 110%; own constant, not reused.
   const isOverMacro = (amount: number, target: number) => target > 0 && amount / target > 1.2
 </script>
@@ -65,12 +86,14 @@
         id="calorie-summary"
         class="stat-card flex items-center justify-between my-4 rounded-md bg-card p-4"
         role="img"
-        aria-label={`${displayNumber(totals.calories)} ${t('of')} ${displayNumber(targets.calories)} kcal, ${caloriePercent}% ${t('ofTarget')}`}
+        aria-label={`${displayNumber(totals.calories)} ${t('of')} ${displayNumber(calorieTarget)} kcal, ${caloriePercent}% ${t('ofTarget')}`}
       >
         <div class="flex flex-col gap-1">
           <strong class="text-2xl">{displayNumber(totals.calories)} kcal</strong>
           <span class="text-muted-foreground"
-            >{displayNumber(Math.abs(caloriesRemaining))} kcal {caloriesRemaining >= 0 ? t('caloriesLeft') : t('caloriesOver')}</span
+            >{displayNumber(Math.abs(caloriesRemaining))} kcal {caloriesRemaining >= 0
+              ? t('caloriesLeft')
+              : t('caloriesOver')}</span
           >
         </div>
         <div
@@ -94,8 +117,7 @@
         <div class="stat-card grid gap-1 rounded-md bg-card p-2.5 text-center">
           <span class="flex items-center justify-center gap-1 text-muted-foreground"
             ><WheatIcon aria-hidden="true" class="size-4" /> {t('carbs')}</span
-          ><strong
-            class:text-[var(--macro-over)]={isOverMacro(totals.carbohydrates, targets.carbohydrates)}
+          ><strong class:text-[var(--macro-over)]={isOverMacro(totals.carbohydrates, targets.carbohydrates)}
             >{Math.round(totals.carbohydrates)} / {Math.round(targets.carbohydrates)}</strong
           >
         </div>
@@ -107,6 +129,63 @@
           >
         </div>
       </div>
+      <button
+        type="button"
+        class="mt-3 flex w-full items-center gap-3 rounded-md border bg-muted/40 px-3 py-2 text-left transition-colors hover:bg-muted"
+        aria-label={t('exerciseCalories')}
+        onclick={openExerciseEditor}
+      >
+        <span class="flex size-8 shrink-0 items-center justify-center text-muted-foreground">
+          <DumbbellIcon aria-hidden="true" class="size-4" />
+        </span>
+        <span class="min-w-0 flex-1 text-sm">
+          {t('exerciseCalories')}
+          {#if exerciseCalories > 0}
+            <span class="ml-1 font-medium text-foreground">+{displayNumber(exerciseCalories)}</span>
+          {/if}
+        </span>
+        <ChevronRightIcon aria-hidden="true" class="size-4 text-muted-foreground" />
+      </button>
+      <Dialog.Root bind:open={exerciseDialogOpen}>
+        <Dialog.Content>
+          <Dialog.Header>
+            <Dialog.Title>{t('exerciseCalories')}</Dialog.Title>
+          </Dialog.Header>
+          <form
+            class="grid gap-3"
+            onsubmit={(event) => {
+              event.preventDefault()
+              onSaveExerciseCalories(exerciseInput ?? 0)
+              exerciseDialogOpen = false
+            }}
+          >
+            <label class="grid gap-1 text-sm" for="exercise-calories">
+              {t('calories')}
+              <span class="relative">
+                <Input
+                  id="exercise-calories"
+                  class="pr-9"
+                  type="number"
+                  min="0"
+                  step="1"
+                  bind:value={exerciseInput}
+                />
+                <Button
+                  class="absolute top-0 right-0"
+                  variant="ghost"
+                  size="icon-sm"
+                  type="button"
+                  aria-label={t('clear')}
+                  onclick={() => (exerciseInput = undefined)}
+                >
+                  <XIcon aria-hidden="true" />
+                </Button>
+              </span>
+            </label>
+            <Button class="w-full" type="submit">{t('saveExerciseCalories')}</Button>
+          </form>
+        </Dialog.Content>
+      </Dialog.Root>
     </Card.Content>
   </Card.Root>
 
@@ -121,7 +200,7 @@
           {@const mealName = food ? foodName(food.name) : (entry.foodName ?? t('food'))}
           <button
             type="button"
-            class="meal-card"
+            class="grid w-full cursor-pointer gap-1 rounded-md border bg-muted/40 px-4 py-3 text-left text-[inherit] font-[inherit] shadow-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring/50"
             aria-label={`${entry.time}, ${mealName}, ${displayNumber(entry.nutrition.calories)} kcal. ${t('editMeal')}.`}
             onclick={() => onEditMeal(entry.id)}
           >
