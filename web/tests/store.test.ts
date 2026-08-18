@@ -659,16 +659,15 @@ test('batches simultaneous unlocks in definition order with one shared timestamp
   )
   assert.deepEqual(
     (batched.achievements ?? []).map((record) => record.id),
-    ['ready-set', 'first-plate', 'quick-start', 'three-day-start'],
+    ['ready-set', 'first-plate', 'quick-start', 'three-day-start', 'steady-starter'],
   )
   assert.ok((batched.achievements ?? []).every((record) => record.unlockedAt === fixedNow))
 })
 
-test('uses the shared 95%-105% on-target range and gaps break qualifying streaks', () => {
-  assert.equal(calorieTone(1900, 2000), 'on-target')
-  assert.equal(calorieTone(2100, 2000), 'on-target')
-  assert.equal(calorieTone(1880, 2000), 'under')
-  assert.equal(calorieTone(2101, 2000), 'over')
+test('uses the shared at-or-below-target range and gaps break qualifying streaks', () => {
+  assert.equal(calorieTone(1, 2000), 'on-target')
+  assert.equal(calorieTone(2000, 2000), 'on-target')
+  assert.equal(calorieTone(2001, 2000), 'over')
 
   const mealFood = identifiedFood()
   const gappedRun = evaluateAchievements(

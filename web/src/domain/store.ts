@@ -394,7 +394,7 @@ export function calorieTone(dayCalories: number, targetCalories: number): Calori
   if (dayCalories === 0) return 'empty'
   if (targetCalories === 0) return 'unavailable'
   const ratio = dayCalories / targetCalories
-  return ratio < 0.95 ? 'under' : ratio <= 1.05 ? 'on-target' : 'over'
+  return ratio <= 1 ? 'on-target' : 'over'
 }
 
 const ACTIVITY_MULTIPLIERS = {

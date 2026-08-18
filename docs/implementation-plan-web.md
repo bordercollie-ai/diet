@@ -98,7 +98,7 @@ The importer emits app-compatible records with reviewed Chinese mappings, withou
 
 **Status:** done (2026-08-18).
 
-- **Scope:** saving a profile or manual target creates a target snapshot effective today. Historical dates keep their existing 95%–105% calorie range and status; summaries, the calendar, and achievement streaks resolve the snapshot for the date being evaluated.
+- **Scope:** saving a profile or manual target creates a target snapshot effective today. Historical dates keep their existing calorie target and status; summaries, the calendar, and achievement streaks resolve the snapshot for the date being evaluated.
 - **Design:** persist only the calculated `Nutrition` target and effective date, rather than daily copies. Existing saved profiles receive one baseline snapshot so their prior status remains stable after migration.
 - **Files changed:** `web/src/domain/store.ts`, `web/src/App.svelte`, `web/src/pages/CalendarPanel.svelte`, `web/tests/store.test.ts`, and `docs/prd.md`.
 - **Checks:** `pnpm test` (33 domain tests), `pnpm check` (0 errors/warnings), `pnpm build`, and `pnpm run test:ui` (28 UI tests) pass. The UI runner emits pre-existing Svelte `derived_inert` stderr warnings, but all tests pass.
@@ -133,12 +133,13 @@ The importer emits app-compatible records with reviewed Chinese mappings, withou
 - **Next ready phase:** W10.
 - **2026-08-18 update:** `web/src/{App.svelte,custom.css}` now gives unread badges one 180-degree Y-axis back-and-forth over three seconds while their cards retain the existing entrance. `pnpm check`, `pnpm build`, and `pnpm run test:ui` passed (27 UI tests); the known Svelte `derived_inert` stderr warning remains unchanged.
 - **2026-08-18 bug fix:** shared swipe-back now requires a gesture locked as horizontal before returning; vertical trophy-list scrolling with rightward drift remains on the trophy list. `web/tests/swipe-back.test.ts` covers this boundary. **Checks:** `pnpm check` (pass); `pnpm exec vitest run tests/swipe-back.test.ts` (4 passed).
+- **2026-08-18 rule update:** the shared `calorieTone()` treats every nonzero total at or below its target as on-target. This applies to the summary green circle, calendar, and achievement streaks. **Files changed:** `web/src/domain/store.ts`, `web/tests/store.test.ts`, `docs/prd.md`, and this plan. **Checks:** `pnpm test` (33 passed), `pnpm check` (0 errors / 0 warnings), and `pnpm build` (pass; existing chunk-size warning). **Next ready phase:** W10.
 
 **Purpose:** motivate steady logging without rewarding restriction, shame, comparison, or social competition.
 
 ### Rules and design
 
-- Change the shared `calorieTone()` on-target range to 95%–105% of a nonzero calorie target. Reuse it for achievement qualification so the calendar, summary, and achievements have one definition of on-target. A missing, under-target, over-target, or unavailable-target day breaks a qualifying run.
+- The shared `calorieTone()` qualifies a nonzero calorie day at or below its target (≤100%). Reuse it for achievement qualification so the calendar, summary green circle, and achievements have one definition of on-target. A missing, over-target, or unavailable-target day breaks a qualifying run.
 - The first release has exactly 22 achievements, calculated only from existing `AppData`:
 
   | Family | Thresholds | Titles |
@@ -162,7 +163,7 @@ The importer emits app-compatible records with reviewed Chinese mappings, withou
 
 ### Tests and exit criteria
 
-- Domain tests: each of the 22 thresholds unlocks at its boundary but not one below; Ready Set only unlocks from valid persisted profile/targets; 95% and 105% qualify while 94% and 105%+ do not; gaps break a run; temporary entries count for Quick Start but are excluded from food-specific achievements; `unlockedAt` and `readAt` survive export/import; unlocked records are never removed.
+- Domain tests: each of the 22 thresholds unlocks at its boundary but not one below; Ready Set only unlocks from valid persisted profile/targets; all nonzero calorie totals at or below 100% qualify while 100%+ does not; gaps break a run; temporary entries count for Quick Start but are excluded from food-specific achievements; `unlockedAt` and `readAt` survive export/import; unlocked records are never removed.
 - UI test: the labeled header trophy control opens the 22-item badge list, groups simultaneous unread unlocks under "New" with the same acquisition date, renders translated locked/unlocked crown/star badges with their threshold numerals, keeps that real list beneath the detail sheet, exposes detail with its acquisition date, applies the badge entrance class only to newly acquired badges, clears the unread indicator, never replays read-card animation, and honors reduced motion.
 - Run `pnpm check`, `pnpm build`, `pnpm test`, and `pnpm run test:ui`.
 
