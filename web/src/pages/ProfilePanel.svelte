@@ -34,7 +34,7 @@
 
 <div id="profile-panel" role="tabpanel" aria-labelledby="profile-heading">
   <Card.Root class="overflow-visible">
-    <Card.Header><Card.Title id="profile-heading">{t('profileAndTargets')}</Card.Title></Card.Header>
+    <Card.Header></Card.Header>
     <Card.Content>
       <form class="grid gap-4" onsubmit={onSave}>
         <div class="grid grid-cols-2 gap-4">
@@ -136,7 +136,9 @@
             {displayNumber(targets.calories)} kcal
           </p>
           <p class="text-muted-foreground text-sm">
-            {displayNumber(targets.protein)} g {t('protein').toLowerCase()} · {displayNumber(targets.fat)} g {t('fat').toLowerCase()} · {displayNumber(targets.carbohydrates)} g {t('carbs').toLowerCase()}
+            {displayNumber(targets.protein)} g {t('protein').toLowerCase()} · {displayNumber(targets.fat)} g {t(
+              'fat',
+            ).toLowerCase()} · {displayNumber(targets.carbohydrates)} g {t('carbs').toLowerCase()}
           </p>
         </div>
         <Button type="submit">{t('saveProfile')}</Button>

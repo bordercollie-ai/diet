@@ -142,6 +142,7 @@ const en = {
   macronutrientTotals: 'Macronutrient totals',
   food: 'Food',
   noMealsRecordedToday: 'No meals recorded today.',
+  saveToSyncFolders: 'Save backups to a cloud sync folder to sync across multiple devices.',
 } as const
 
 type TranslationKey = keyof typeof en
@@ -281,6 +282,7 @@ const dict = {
     macronutrientTotals: '三大营养素总计',
     food: '食品',
     noMealsRecordedToday: '今天还没有记录饮食。',
+    saveToSyncFolders: '将备份保存到云同步文件夹，以便在多台设备上同步。',
   },
   ja: {
     appName: '食事記録',
@@ -415,6 +417,7 @@ const dict = {
     macronutrientTotals: '主要栄養素の合計',
     food: '食品',
     noMealsRecordedToday: '今日の食事記録はまだありません。',
+    saveToSyncFolders: 'バックアップをクラウド同期フォルダに保存して、複数のデバイスで同期できます。',
   },
 } satisfies Record<Language, Record<TranslationKey, string>>
 

@@ -29,8 +29,9 @@
 
 <div id="backup-panel" role="tabpanel" aria-labelledby="backup-heading">
   <Card.Root>
-    <Card.Header><Card.Title id="backup-heading">{t('backupAndInstall')}</Card.Title></Card.Header>
+    <Card.Header></Card.Header>
     <Card.Content class="flex flex-col gap-4">
+      <p>{t('saveToSyncFolders')}</p>
       <Button type="button" onclick={onExport}>{t('exportJsonBackup')}</Button>
       <div class="flex flex-col gap-2">
         <Label for="backup-file">{t('importJsonBackup')}</Label>
@@ -47,8 +48,10 @@
       </div>
       {#if backupPreview}
         <p role="status">
-          {t('readyToMerge')} <strong class="font-semibold">{backupPreview.data.foods.length}</strong> {t('foodsPlural')}
-          {t('and')} <strong class="font-semibold">{backupPreview.data.mealEntries.length}</strong> {t('meals')}.
+          {t('readyToMerge')} <strong class="font-semibold">{backupPreview.data.foods.length}</strong>
+          {t('foodsPlural')}
+          {t('and')} <strong class="font-semibold">{backupPreview.data.mealEntries.length}</strong>
+          {t('meals')}.
         </p>
         <Button type="button" onclick={onRestore}>{t('restoreBackup')}</Button>
       {/if}
