@@ -319,7 +319,7 @@ input[type='time'] {
   background: color-mix(in oklch, var(--background) 92%, var(--muted));
 }
 
-@keyframes achievement-enter {
+@keyframes achievement-card-enter {
   from {
     opacity: 0;
     transform: translateY(0.5rem) scale(0.96);
@@ -330,9 +330,31 @@ input[type='time'] {
   }
 }
 
-.achievement-badge--enter,
 .achievement-card--enter {
-  animation: achievement-enter 260ms ease both;
+  animation: achievement-card-enter 260ms ease both;
+}
+
+@keyframes achievement-badge-enter {
+  0% {
+    opacity: 0;
+    transform: perspective(20rem) rotateY(0) scale(0.8);
+  }
+  10% {
+    opacity: 1;
+    transform: perspective(20rem) rotateY(0) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: perspective(20rem) rotateY(180deg) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(20rem) rotateY(0) scale(1);
+  }
+}
+
+.achievement-badge--enter {
+  animation: achievement-badge-enter 3s ease-in-out both;
 }
 
 @media (prefers-reduced-motion: reduce) {

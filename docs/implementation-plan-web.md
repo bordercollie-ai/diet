@@ -41,7 +41,7 @@ import(BackupFile) -> ImportPreview | ImportError
 | W5 | 2026-08-12 | Accessibility and browser acceptance | UI library/config, `App.svelte`, styles; manual Safari/Chromium review. |
 | W6 | 2026-08-13 | UI/UX polish | `App.svelte`, pages and styles; responsive, keyboard, theme and state review. |
 | W9 | 2026-08-13 | Componentization | `App.svelte`, `src/pages/`, UI tests; 19 domain and 8 UI tests. |
-| W12 | 2026-08-18 | Trophy system | `store.ts`, `indexeddb.ts`, `App.svelte`, `i18n.svelte.ts`, `TrophyPanel.svelte`, `custom.css`, domain/UI tests; `pnpm check`, `pnpm build`, `pnpm test`, `pnpm run test:ui`. |
+| W12 | 2026-08-18 | Trophy system | `store.ts`, `indexeddb.ts`, `App.svelte`, `i18n.svelte.ts`, `TrophyPanel.svelte`, `custom.css`, domain/UI tests; newly acquired badges use a one-time CSS Y-axis flip; `pnpm check`, `pnpm build`, `pnpm test`, `pnpm run test:ui`. |
 
 All completed phases passed `pnpm check`, `pnpm build`, and their listed test suites. Browser automation was intentionally not added; Safari/Chromium coverage was manual.
 
@@ -120,6 +120,7 @@ The importer emits app-compatible records with reviewed Chinese mappings, withou
 - **Checks:** `pnpm check` (pass, 0 errors / 0 warnings); `pnpm build` (pass); `pnpm test` (pass, 30 domain tests); `pnpm run test:ui` (pass, 27 UI tests). Vitest still prints the pre-existing Svelte 5 `derived_inert` stderr warning seen in `App.test.ts` / `MenuPanel.test.ts`, but all assertions pass and no new failures were introduced.
 - **Risk:** none known. Achievements are recomputed from current local data only (no parallel event log), so future title additions must keep using `mealEntries`, `foods`, `profile`, and `targetOverrides`.
 - **Next ready phase:** W10.
+- **2026-08-18 update:** `web/src/{App.svelte,custom.css}` now gives unread badges one 180-degree Y-axis back-and-forth over three seconds while their cards retain the existing entrance. `pnpm check`, `pnpm build`, and `pnpm run test:ui` passed (27 UI tests); the known Svelte `derived_inert` stderr warning remains unchanged.
 
 **Purpose:** motivate steady logging without rewarding restriction, shame, comparison, or social competition.
 
@@ -142,7 +143,7 @@ The importer emits app-compatible records with reviewed Chinese mappings, withou
 - Persist achievement records in `AppData` (optional for backward-compatible backups): ID, first `unlockedAt`, and optional `readAt`. Do not store duplicate daily summaries or a second source of nutrition truth.
 - A small trophy button sits at the header's right edge and shows a non-intrusive unread indicator only while an achievement lacks `readAt`. Its page opens directly to a badge list; selecting a badge pushes a real detail sheet above that still-mounted list, revealing the exact list on swipe-back.
 - On each save, unlock every newly qualified achievement in definition order and give that batch one shared `unlockedAt`. Never queue or stack toast/dialog celebrations.
-- The badge list places all unread records in a "New" group above the normal list. Mark them all read when the list opens. Only those unread cards receive a short CSS-only staggered scale/fade entrance animation; read cards never animate or trigger a popup again. Honor `prefers-reduced-motion`. No image assets, canvas, or animation library.
+- The badge list places all unread records in a "New" group above the normal list. Mark them all read when the list opens. Only those unread cards receive a short CSS-only entrance: the card scale/fades in while its badge flips once around the Y axis; read cards never animate or trigger a popup again. Honor `prefers-reduced-motion`. No image assets, canvas, or animation library.
 - Use existing Lucide crown/star icons, CSS shapes, and the relevant threshold numeral for simple self-contained badge art.
 - Evaluate achievements whenever local data is saved. A profile/target change can affect future qualification checks but never removes a previously unlocked title.
 - A valid saved profile is one accepted by `validateProfile()` whose targets resolve successfully; unlock Ready Set on its first successful profile save, not on the prefilled unsaved form.
@@ -150,12 +151,12 @@ The importer emits app-compatible records with reviewed Chinese mappings, withou
 ### Tests and exit criteria
 
 - Domain tests: each of the 22 thresholds unlocks at its boundary but not one below; Ready Set only unlocks from valid persisted profile/targets; 95% and 105% qualify while 94% and 105%+ do not; gaps break a run; temporary entries count for Quick Start but are excluded from food-specific achievements; `unlockedAt` and `readAt` survive export/import; unlocked records are never removed.
-- UI test: the labeled header trophy control opens the 22-item badge list, groups simultaneous unread unlocks under "New" with the same acquisition date, renders translated locked/unlocked crown/star badges with their threshold numerals, keeps that real list beneath the detail sheet, exposes detail with its acquisition date, clears the unread indicator, never replays read-card animation, and honors reduced motion.
+- UI test: the labeled header trophy control opens the 22-item badge list, groups simultaneous unread unlocks under "New" with the same acquisition date, renders translated locked/unlocked crown/star badges with their threshold numerals, keeps that real list beneath the detail sheet, exposes detail with its acquisition date, applies the badge entrance class only to newly acquired badges, clears the unread indicator, never replays read-card animation, and honors reduced motion.
 - Run `pnpm check`, `pnpm build`, `pnpm test`, and `pnpm run test:ui`.
 
 ### Explicitly skipped
 
-Nintendo Switch Sports informed the lightweight collection loop (visible weekly/short-term progress and cosmetic recognition), but W12 deliberately excludes rotation, gear, points, leaderboards, notifications, social sharing, external art assets, and animation dependencies. Add any of those only after titles show measurable retention value.
+Nintendo Switch Sports informed the lightweight collection loop (visible weekly/short-term progress and cosmetic recognition), but W12 deliberately excludes continuous/decorative rotation, gear, points, leaderboards, notifications, social sharing, external art assets, and animation dependencies. The one-time new-badge Y-axis flip is the only exception. Add any of those only after titles show measurable retention value.
 
 **Later candidate:** add a separate, user-requested fun-statistics view (for example, most-recorded foods or steady weeks) only after W12 ships. Any later statistic may link to an achievement but must reuse `mealEntries` rather than creating a parallel event log.
 

@@ -374,7 +374,7 @@
     clearTimeout(trophyAnimationTimer)
     trophyAnimationTimer = setTimeout(() => {
       trophyAnimatingIds = []
-    }, 450)
+    }, 3_100)
     if (unreadIds.length === 0) return
     void save(markAchievementsRead(data))
   }
