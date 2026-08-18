@@ -71,7 +71,9 @@ test('adds extra exercise calories to the selected day’s calorie target', asyn
 
   expect(await screen.findByRole('img', { name: /^2100 of 2000 kcal/ })).toBeTruthy()
   await fireEvent.click(screen.getByRole('button', { name: 'Extra exercise calories' }))
-  await fireEvent.input(screen.getByLabelText('Calories'), { target: { value: '100' } })
+  const exerciseInput = screen.getByLabelText('Calories')
+  expect((exerciseInput as HTMLInputElement).autocomplete).toBe('off')
+  await fireEvent.input(exerciseInput, { target: { value: '100' } })
   await fireEvent.click(screen.getByRole('button', { name: 'Save exercise' }))
 
   await waitFor(() => expect(screen.getByRole('img', { name: /^2100 of 2100 kcal/ })).toBeTruthy())

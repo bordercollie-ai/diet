@@ -8,6 +8,7 @@
   import DayStrip from './DayStrip.svelte'
   import DumbbellIcon from '@lucide/svelte/icons/dumbbell'
   import ChevronRightIcon from '@lucide/svelte/icons/chevron-right'
+  import XIcon from '@lucide/svelte/icons/x'
   import FlameIcon from '@lucide/svelte/icons/flame'
   import HamIcon from '@lucide/svelte/icons/ham'
   import WheatIcon from '@lucide/svelte/icons/wheat'
@@ -160,7 +161,26 @@
           >
             <label class="grid gap-1 text-sm" for="exercise-calories">
               {t('calories')}
-              <Input id="exercise-calories" type="number" min="0" step="1" bind:value={exerciseInput} />
+              <span class="relative">
+                <Input
+                  id="exercise-calories"
+                  class="pr-9"
+                  type="number"
+                  min="0"
+                  step="1"
+                  bind:value={exerciseInput}
+                />
+                <Button
+                  class="absolute top-0 right-0"
+                  variant="ghost"
+                  size="icon-sm"
+                  type="button"
+                  aria-label={t('clear')}
+                  onclick={() => (exerciseInput = undefined)}
+                >
+                  <XIcon aria-hidden="true" />
+                </Button>
+              </span>
             </label>
             <Button class="w-full" type="submit">{t('saveExerciseCalories')}</Button>
           </form>
