@@ -19,6 +19,12 @@ class AddManualFoodTests(unittest.TestCase):
         food = build_food("Food", "", "", "100g", 100, 10, 2, 5)
         self.assertEqual(food["name"], {"en": "Food"})
 
+    def test_rounds_to_one_decimal_and_ints_stay_ints(self) -> None:
+        food = build_food("Food", "", "", "100g", 100.0, 4.444, 3.3, 2.2)
+        self.assertEqual(food["nutrition"], {"calories": 100, "protein": 4.4, "fat": 3.3, "carbohydrates": 2.2})
+        self.assertIsInstance(food["nutrition"]["calories"], int)
+        self.assertIsInstance(food["nutrition"]["protein"], float)
+
     def test_rejects_invalid_nutrition(self) -> None:
         with self.assertRaisesRegex(ValueError, "nutrition values"):
             build_food("Food", "", "", "100g", -1, 0, 0, 0)

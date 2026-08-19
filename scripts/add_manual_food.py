@@ -22,6 +22,14 @@ def valid_nutrient(value: float) -> bool:
     return math.isfinite(value) and value >= 0
 
 
+def round_nutrient(value: float) -> float | int:
+    # ponytail: nutrition labels publish at most 1 decimal place; round instead
+    # of trusting typed-in precision, and emit whole numbers as ints to match
+    # the rest of food.json.
+    rounded = round(value, 1)
+    return int(rounded) if rounded == int(rounded) else rounded
+
+
 def build_food(
     name: str,
     name_ja: str,
@@ -39,6 +47,7 @@ def build_food(
     nutrition = {"calories": calories, "protein": protein, "fat": fat, "carbohydrates": carbohydrates}
     if not all(valid_nutrient(nutrition[nutrient]) for nutrient in NUTRIENTS):
         raise invalid("nutrition values must be non-negative finite numbers")
+    nutrition = {nutrient: round_nutrient(value) for nutrient, value in nutrition.items()}
 
     names = {"en": name.strip()}
     if name_ja.strip():
