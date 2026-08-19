@@ -1,0 +1,97 @@
+name: Add bundled food
+
+on:
+  workflow_dispatch:
+    inputs:
+      name:
+        description: Default/English name
+        required: true
+        type: string
+      name_ja:
+        description: Optional Japanese name
+        required: false
+        type: string
+      name_zh:
+        description: Optional Chinese name
+        required: false
+        type: string
+      serving:
+        description: Serving size, e.g. 100g
+        required: true
+        type: string
+        default: 100g
+      calories:
+        required: true
+        type: string
+        default: "0"
+      protein:
+        description: Protein (g)
+        required: true
+        type: string
+        default: "0"
+      fat:
+        description: Fat (g)
+        required: true
+        type: string
+        default: "0"
+      carbohydrates:
+        description: Carbohydrates (g)
+        required: true
+        type: string
+        default: "0"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  add-food:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          token: ${{ secrets.PR_TOKEN }}
+      - name: Add food
+        id: add-food
+        run: |
+          python3 scripts/add_manual_food.py \
+            --name "$NAME" \
+            --name-ja "$NAME_JA" \
+            --name-zh "$NAME_ZH" \
+            --serving "$SERVING" \
+            --calories "$CALORIES" \
+            --protein "$PROTEIN" \
+            --fat "$FAT" \
+            --carbohydrates "$CARBOHYDRATES"
+        env:
+          NAME: ${{ inputs.name }}
+          NAME_JA: ${{ inputs.name_ja }}
+          NAME_ZH: ${{ inputs.name_zh }}
+          SERVING: ${{ inputs.serving }}
+          CALORIES: ${{ inputs.calories }}
+          PROTEIN: ${{ inputs.protein }}
+          FAT: ${{ inputs.fat }}
+          CARBOHYDRATES: ${{ inputs.carbohydrates }}
+      - run: python3 scripts/test_add_manual_food.py
+      - name: Open pull request
+        run: |
+          branch="bundled-food-${ITEM_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add web/src/data/food.json
+          git commit -m "data: add bundled food"
+          git push --force origin "$branch"
+          if [ "$(gh pr list --head "$branch" --base main --json number --jq length)" -gt 0 ]; then
+            echo "Pull request already open for $branch"
+            exit 0
+          fi
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "data: add bundled food" \
+            --body "Adds ${ITEM_ID} to the bundled food database."
+        env:
+          ITEM_ID: ${{ steps.add-food.outputs.item_id }}
+          GH_TOKEN: ${{ secrets.PR_TOKEN }}
