@@ -5,45 +5,52 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from add_manual_food import add_food, main, parse_food
+from add_manual_food import add_food, build_food, main
 
 
 class AddManualFoodTests(unittest.TestCase):
-    def test_converts_names_and_nutrition_to_a_bundled_food(self) -> None:
-        food = parse_food(
-            '{"name":"Food","name_ja":"食品","name_zh":"食物","serving":"100g",'
-            '"nutrition":{"calories":100,"protein":10,"fat":2,"carbohydrates":5}}'
-        )
+    def test_builds_a_bundled_food_from_individual_fields(self) -> None:
+        food = build_food("Food", "食品", "食物", "100g", 100, 10, 2, 5)
         self.assertEqual(food["name"], {"en": "Food", "ja": "食品", "zh": "食物"})
         self.assertEqual(food["source"], "bundled")
         self.assertTrue(food["id"].startswith("manual-"))
 
+    def test_omits_untranslated_optional_names(self) -> None:
+        food = build_food("Food", "", "", "100g", 100, 10, 2, 5)
+        self.assertEqual(food["name"], {"en": "Food"})
+
     def test_rejects_invalid_nutrition(self) -> None:
         with self.assertRaisesRegex(ValueError, "nutrition values"):
-            parse_food(
-                '{"name":"Food","serving":"100g",'
-                '"nutrition":{"calories":-1,"protein":0,"fat":0,"carbohydrates":0}}'
-            )
+            build_food("Food", "", "", "100g", -1, 0, 0, 0)
+
+    def test_rejects_empty_name_or_serving(self) -> None:
+        with self.assertRaisesRegex(ValueError, "name must not be empty"):
+            build_food(" ", "", "", "100g", 0, 0, 0, 0)
+        with self.assertRaisesRegex(ValueError, "serving must not be empty"):
+            build_food("Food", "", "", " ", 0, 0, 0, 0)
 
     def test_refuses_duplicate_without_writing(self) -> None:
-        food = parse_food(
-            '{"name":"Food","serving":"100g",'
-            '"nutrition":{"calories":100,"protein":10,"fat":2,"carbohydrates":5}}'
-        )
+        food = build_food("Food", "", "", "100g", 100, 10, 2, 5)
         foods = [food]
         with self.assertRaisesRegex(ValueError, "already exists"):
             add_food(foods, food)
         self.assertEqual(foods, [food])
 
     def test_writes_the_requested_database(self) -> None:
-        raw_food = (
-            '{"name":"Food","serving":"100g",'
-            '"nutrition":{"calories":100,"protein":10,"fat":2,"carbohydrates":5}}'
-        )
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "foods.json"
             output.write_text("[]", encoding="utf-8")
-            with patch.object(sys, "argv", ["add_manual_food.py", raw_food, "--output", str(output)]):
+            argv = [
+                "add_manual_food.py",
+                "--name", "Food",
+                "--serving", "100g",
+                "--calories", "100",
+                "--protein", "10",
+                "--fat", "2",
+                "--carbohydrates", "5",
+                "--output", str(output),
+            ]
+            with patch.object(sys, "argv", argv):
                 self.assertEqual(main(), 0)
             self.assertEqual(len(json.loads(output.read_text(encoding="utf-8"))), 1)
 

@@ -3,23 +3,42 @@ name: Add bundled food
 on:
   workflow_dispatch:
     inputs:
-      food:
-        description: Replace name; name_ja and name_zh are optional.
+      name:
+        description: Default/English name
         required: true
         type: string
-        default: |
-          {
-            "name": "Food name",
-            "name_ja": "",
-            "name_zh": "",
-            "serving": "100g",
-            "nutrition": {
-              "calories": 0,
-              "protein": 0,
-              "fat": 0,
-              "carbohydrates": 0
-            }
-          }
+      name_ja:
+        description: Optional Japanese name
+        required: false
+        type: string
+      name_zh:
+        description: Optional Chinese name
+        required: false
+        type: string
+      serving:
+        description: Serving size, e.g. 100g
+        required: true
+        type: string
+        default: 100g
+      calories:
+        required: true
+        type: string
+        default: "0"
+      protein:
+        description: Protein (g)
+        required: true
+        type: string
+        default: "0"
+      fat:
+        description: Fat (g)
+        required: true
+        type: string
+        default: "0"
+      carbohydrates:
+        description: Carbohydrates (g)
+        required: true
+        type: string
+        default: "0"
 
 permissions:
   contents: write
@@ -35,9 +54,25 @@ jobs:
           token: ${{ secrets.PR_TOKEN }}
       - name: Add food
         id: add-food
-        run: python3 scripts/add_manual_food.py "$FOOD"
+        run: |
+          python3 scripts/add_manual_food.py \
+            --name "$NAME" \
+            --name-ja "$NAME_JA" \
+            --name-zh "$NAME_ZH" \
+            --serving "$SERVING" \
+            --calories "$CALORIES" \
+            --protein "$PROTEIN" \
+            --fat "$FAT" \
+            --carbohydrates "$CARBOHYDRATES"
         env:
-          FOOD: ${{ inputs.food }}
+          NAME: ${{ inputs.name }}
+          NAME_JA: ${{ inputs.name_ja }}
+          NAME_ZH: ${{ inputs.name_zh }}
+          SERVING: ${{ inputs.serving }}
+          CALORIES: ${{ inputs.calories }}
+          PROTEIN: ${{ inputs.protein }}
+          FAT: ${{ inputs.fat }}
+          CARBOHYDRATES: ${{ inputs.carbohydrates }}
       - run: python3 scripts/test_add_manual_food.py
       - name: Open pull request
         run: |

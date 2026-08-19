@@ -15,47 +15,41 @@ NUTRIENTS = ("calories", "protein", "fat", "carbohydrates")
 
 
 def invalid(message: str) -> ValueError:
-    return ValueError(f"Invalid food JSON: {message}")
+    return ValueError(f"Invalid food: {message}")
 
 
-def parse_food(raw: str) -> dict:
-    try:
-        value = json.loads(raw)
-    except json.JSONDecodeError as error:
-        raise invalid(error.msg) from error
-    if not isinstance(value, dict):
-        raise invalid("must be an object")
+def valid_nutrient(value: float) -> bool:
+    return math.isfinite(value) and value >= 0
 
-    name = value.get("name")
-    serving = value.get("serving")
-    nutrition = value.get("nutrition")
-    if not isinstance(name, str) or not name.strip():
-        raise invalid("name must be a non-empty string")
-    if not isinstance(serving, str) or not serving.strip():
-        raise invalid("serving must be a non-empty string")
-    if not isinstance(nutrition, dict) or set(nutrition) != set(NUTRIENTS):
-        raise invalid(f"nutrition must contain exactly: {', '.join(NUTRIENTS)}")
-    if not all(
-        isinstance(nutrition[nutrient], (int, float))
-        and not isinstance(nutrition[nutrient], bool)
-        and math.isfinite(nutrition[nutrient])
-        and nutrition[nutrient] >= 0
-        for nutrient in NUTRIENTS
-    ):
+
+def build_food(
+    name: str,
+    name_ja: str,
+    name_zh: str,
+    serving: str,
+    calories: float,
+    protein: float,
+    fat: float,
+    carbohydrates: float,
+) -> dict:
+    if not name.strip():
+        raise invalid("name must not be empty")
+    if not serving.strip():
+        raise invalid("serving must not be empty")
+    nutrition = {"calories": calories, "protein": protein, "fat": fat, "carbohydrates": carbohydrates}
+    if not all(valid_nutrient(nutrition[nutrient]) for nutrient in NUTRIENTS):
         raise invalid("nutrition values must be non-negative finite numbers")
 
     names = {"en": name.strip()}
-    for language in ("ja", "zh"):
-        translated_name = value.get(f"name_{language}", "")
-        if not isinstance(translated_name, str):
-            raise invalid(f"name_{language} must be a string")
-        if translated_name.strip():
-            names[language] = translated_name.strip()
+    if name_ja.strip():
+        names["ja"] = name_ja.strip()
+    if name_zh.strip():
+        names["zh"] = name_zh.strip()
     return {
         "id": f"manual-{uuid.uuid4().hex[:12]}",
         "name": names,
         "serving": serving.strip(),
-        "nutrition": {nutrient: nutrition[nutrient] for nutrient in NUTRIENTS},
+        "nutrition": nutrition,
         "source": "bundled",
     }
 
@@ -68,11 +62,27 @@ def add_food(foods: list[dict], food: dict) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("food", help="Food JSON from the workflow form")
+    parser.add_argument("--name", required=True, help="Default/English name")
+    parser.add_argument("--name-ja", default="", help="Optional Japanese name")
+    parser.add_argument("--name-zh", default="", help="Optional Chinese name")
+    parser.add_argument("--serving", required=True, help='Serving size, e.g. "100g"')
+    parser.add_argument("--calories", type=float, required=True)
+    parser.add_argument("--protein", type=float, required=True)
+    parser.add_argument("--fat", type=float, required=True)
+    parser.add_argument("--carbohydrates", type=float, required=True)
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT, help="Bundled Food[] JSON to update")
     args = parser.parse_args()
 
-    food = parse_food(args.food)
+    food = build_food(
+        args.name,
+        args.name_ja,
+        args.name_zh,
+        args.serving,
+        args.calories,
+        args.protein,
+        args.fat,
+        args.carbohydrates,
+    )
     foods = json.loads(args.output.read_text(encoding="utf-8"))
     if not isinstance(foods, list):
         raise ValueError(f"Expected a JSON array: {args.output}")
