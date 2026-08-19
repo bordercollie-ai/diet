@@ -453,5 +453,25 @@
       "carbohydrates": 8.3
     },
     "source": "bundled"
+  },
+  {
+    "id": "seven-jp-091033",
+    "name": {
+      "ja": "711 クリーミーソースの海老ドリア"
+    },
+    "description": "711 Japan",
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 412.0,
+      "protein": 13.7,
+      "fat": 11.5,
+      "carbohydrates": 65.1
+    },
+    "source": "bundled",
+    "detail": {
+      "sugar": 61.9,
+      "fiber": 3.2,
+      "salt": 3.3
+    }
   }
 ]
