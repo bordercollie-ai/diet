@@ -1,0 +1,62 @@
+name: Add bundled food
+
+on:
+  workflow_dispatch:
+    inputs:
+      food:
+        description: Replace name; name_ja and name_zh are optional.
+        required: true
+        type: string
+        default: |
+          {
+            "name": "Food name",
+            "name_ja": "",
+            "name_zh": "",
+            "serving": "100g",
+            "nutrition": {
+              "calories": 0,
+              "protein": 0,
+              "fat": 0,
+              "carbohydrates": 0
+            }
+          }
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  add-food:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          token: ${{ secrets.PR_TOKEN }}
+      - name: Add food
+        id: add-food
+        run: python3 scripts/add_manual_food.py "$FOOD"
+        env:
+          FOOD: ${{ inputs.food }}
+      - run: python3 scripts/test_add_manual_food.py
+      - name: Open pull request
+        run: |
+          branch="bundled-food-${ITEM_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add web/src/data/food.json
+          git commit -m "data: add bundled food"
+          git push --force origin "$branch"
+          if [ "$(gh pr list --head "$branch" --base main --json number --jq length)" -gt 0 ]; then
+            echo "Pull request already open for $branch"
+            exit 0
+          fi
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "data: add bundled food" \
+            --body "Adds ${ITEM_ID} to the bundled food database."
+        env:
+          ITEM_ID: ${{ steps.add-food.outputs.item_id }}
+          GH_TOKEN: ${{ secrets.PR_TOKEN }}
