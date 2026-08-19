@@ -34,7 +34,11 @@ jobs:
           git switch -c "$branch"
           git add web/src/data/convenience_store_japan.json
           git commit -m "data: add 711 food"
-          git push origin "$branch"
+          git push --force origin "$branch"
+          if [ "$(gh pr list --head "$branch" --base main --json number --jq length)" -gt 0 ]; then
+            echo "Pull request already open for $branch"
+            exit 0
+          fi
           gh pr create \
             --base main \
             --head "$branch" \
