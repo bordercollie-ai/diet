@@ -1,0 +1,19 @@
+{
+  "url": "https://www.sej.co.jp/products/a/item/250501/",
+  "retrievedAt": "2026-08-19",
+  "food": {
+    "id": "seven-jp-250501",
+    "name": {
+      "ja": "711 たんぱく質１０ｇ カニカマバー"
+    },
+    "description": "711 Japan",
+    "serving": "1 serving",
+    "nutrition": {
+      "calories": 80.0,
+      "protein": 10.9,
+      "fat": 0.5,
+      "carbohydrates": 8.3
+    },
+    "source": "bundled"
+  }
+}

@@ -291,6 +291,16 @@ test('bundles unique audited Tokyo and Kanagawa 7-Eleven sandwiches', () => {
   )
 })
 
+test('bundles the official 7-Eleven chicken and chili roll', () => {
+  const roll = bundledFoods.find((item) => item.id === 'seven-jp-053705')
+  assert.ok(roll)
+  assert.doesNotThrow(() => validateFood(roll))
+  assert.equal(roll.description, '711 Japan')
+  assert.deepEqual(roll.nutrition, { calories: 261, protein: 24.1, fat: 8.8, carbohydrates: 23.3 })
+  assert.deepEqual(roll.detail, { sugar: 19.3, fiber: 4, salt: 2.1 })
+  assert.deepEqual(searchFoods(bundledFoods, 'たんぱく質が摂れるチキン＆チリ').map((item) => item.id), ['seven-jp-053705'])
+})
+
 test("finds a McDonald's Japan food by its English or Japanese name", () => {
   const byEnglish = searchFoods(bundledFoods, 'Big Mac')
   assert.ok(byEnglish.some((item) => item.id === 'mcd-jp-1210'))

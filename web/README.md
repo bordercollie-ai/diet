@@ -2,6 +2,21 @@
 
 This template should help get you started developing with Svelte in Vite.
 
+## Add a 7-Eleven food
+
+From the repository root, paste an official product URL:
+
+```sh
+python3 scripts/add_seven_eleven_item.py 'https://www.sej.co.jp/products/a/item/053705/'
+```
+
+The script adds the product to `web/src/data/convenience_store_japan.json`. It
+rejects non-7-Eleven URLs and products already present in the food database,
+and normalizes full-width Latin letters, numbers, and spaces in its Japanese name.
+
+To open a pull request from GitHub instead, run **Actions → Add 711 food**,
+paste the official URL, and the action opens a pull request to `main`.
+
 ## Recommended IDE Setup
 
 [VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).

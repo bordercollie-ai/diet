@@ -1,0 +1,45 @@
+name: Add 711 food
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Official 711 product URL
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  add-food:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - name: Add product
+        id: add-product
+        run: python3 scripts/add_seven_eleven_item.py "$PRODUCT_URL"
+        env:
+          PRODUCT_URL: ${{ inputs.url }}
+      - run: python3 scripts/test_add_seven_eleven_item.py
+      - name: Open pull request
+        run: |
+          branch="seven-eleven-food-${ITEM_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add web/src/data/convenience_store_japan.json
+          git commit -m "data: add 711 food"
+          git push origin "$branch"
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "data: add 711 food" \
+            --body "Adds the product from ${PRODUCT_URL}."
+        env:
+          ITEM_ID: ${{ steps.add-product.outputs.item_id }}
+          PRODUCT_URL: ${{ inputs.url }}
+          GH_TOKEN: ${{ github.token }}
