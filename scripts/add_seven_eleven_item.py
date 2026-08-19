@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
@@ -129,6 +130,11 @@ def main() -> int:
         json.dumps(foods, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     print(f"Added {food['id']} to {args.output}")
+
+    github_output = os.environ.get("GITHUB_OUTPUT")
+    if github_output:
+        with open(github_output, "a", encoding="utf-8") as handle:
+            handle.write(f"item_id={product_id}\n")
     return 0
 
 

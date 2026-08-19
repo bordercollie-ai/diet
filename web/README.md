@@ -14,6 +14,9 @@ The script adds the product to `web/src/data/convenience_store_japan.json`. It
 rejects non-7-Eleven URLs and products already present in the food database,
 and normalizes full-width Latin letters, numbers, and spaces in its Japanese name.
 
+To open a pull request from GitHub instead, run **Actions → Add 711 food**,
+paste the official URL, and the action opens a pull request to `main`.
+
 ## Recommended IDE Setup
 
 [VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
