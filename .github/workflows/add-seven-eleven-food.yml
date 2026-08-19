@@ -19,6 +19,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: main
+          token: ${{ secrets.PR_TOKEN }}
       - name: Add product
         id: add-product
         run: python3 scripts/add_seven_eleven_item.py "$PRODUCT_URL"
@@ -42,4 +43,4 @@ jobs:
         env:
           ITEM_ID: ${{ steps.add-product.outputs.item_id }}
           PRODUCT_URL: ${{ inputs.url }}
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.PR_TOKEN }}
