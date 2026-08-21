@@ -678,7 +678,7 @@
           </button>
         {/snippet}
       </PopoverTrigger>
-      <PopoverContent align="start" side="top" class="w-56">
+      <PopoverContent align="start" side="top" class="w-56" onCloseAutoFocus={(event) => event.preventDefault()}>
         <Button type="button" variant="ghost" class="justify-start gap-2" onclick={recordMeal}>
           <PlusIcon aria-hidden="true" class="size-4" /> {t('addAMeal')}
         </Button>
