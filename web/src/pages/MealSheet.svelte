@@ -4,6 +4,7 @@
     createTemporaryMealEntry,
     roundForDisplay,
     searchFoods,
+    toggleFavoriteFood,
     updateMealEntry,
     type AppData,
     type Food,
@@ -18,6 +19,7 @@
   import PlusIcon from '@lucide/svelte/icons/plus'
   import MinusIcon from '@lucide/svelte/icons/minus'
   import ChevronLeftIcon from '@lucide/svelte/icons/chevron-left'
+  import StarIcon from '@lucide/svelte/icons/star'
   import XIcon from '@lucide/svelte/icons/x'
   import type { Snippet } from 'svelte'
   import { foodName, t, translate } from '../lib/i18n.svelte'
@@ -56,8 +58,13 @@
   // Filter is live on input; results are paginated on scroll rather than all rendered at once.
   const FOOD_PAGE_SIZE = 20
   let foodPage = $state(1)
-  const matchingFoods = $derived(searchFoods(data.foods, foodSearch))
+  const favoriteFoodIds = $derived(data.favoriteFoodIds ?? [])
+  const matchingFoods = $derived(searchFoods(data.foods, foodSearch, favoriteFoodIds))
   const foodResults = $derived(matchingFoods.slice(0, foodPage * FOOD_PAGE_SIZE))
+  const isFavorite = (id: string) => favoriteFoodIds.includes(id)
+  function toggleFavorite(id: string) {
+    void onSave(toggleFavoriteFood(data, id))
+  }
   const creatingMealFood = $derived(foodSearch.trim() !== '' && matchingFoods.length === 0)
 
   // Tracks an in-flight "Add food" request from the search step. `creatingMealFood`
@@ -392,7 +399,12 @@
                   >
                 </div>
                 {#if food.description}<span class="meal-card-topline">{food.description}</span>{/if}
-                <span class="meal-card-topline">{food.serving}</span>
+                <div class="flex items-center justify-between gap-2">
+                  <span class="meal-card-topline">{food.serving}</span>
+                  {#if isFavorite(food.id)}
+                    <StarIcon aria-hidden="true" class="size-4 shrink-0 fill-yellow-400 text-yellow-400" />
+                  {/if}
+                </div>
               </Button>
             {/each}
           </div>
@@ -432,7 +444,21 @@
             {#if selectedFood.description}
               <p class="text-sm text-muted-foreground">{selectedFood.description}</p>
             {/if}
-            <p class="text-sm text-muted-foreground">{selectedFood.serving}</p>
+            <div class="flex items-center justify-between gap-4">
+              <p class="text-sm text-muted-foreground">{selectedFood.serving}</p>
+              <button
+                type="button"
+                class="flex shrink-0 items-center leading-none text-muted-foreground"
+                aria-label={isFavorite(selectedFood.id) ? t('removeFromFavorites') : t('addToFavorites')}
+                aria-pressed={isFavorite(selectedFood.id)}
+                onclick={() => toggleFavorite(selectedFood.id)}
+              >
+                <StarIcon
+                  aria-hidden="true"
+                  class={`size-5 ${isFavorite(selectedFood.id) ? 'fill-yellow-400 text-yellow-400' : ''}`}
+                />
+              </button>
+            </div>
             <p class="mt-2 flex gap-4 text-sm text-muted-foreground">
               <span>{displayNumber(selectedFood.nutrition.protein)} g {t('protein').toLowerCase()}</span>
               <span>{displayNumber(selectedFood.nutrition.fat)} g {t('fat').toLowerCase()}</span>

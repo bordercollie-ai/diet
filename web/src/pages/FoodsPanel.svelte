@@ -2,6 +2,7 @@
   import { roundForDisplay, type AppData } from '../domain/store'
   import { Button } from '$lib/components/ui/button'
   import PlusIcon from '@lucide/svelte/icons/plus'
+  import StarIcon from '@lucide/svelte/icons/star'
   import { foodName, t } from '../lib/i18n.svelte'
 
   let {
@@ -42,7 +43,12 @@
           <span class="shrink-0 whitespace-nowrap">{displayNumber(food.nutrition.calories)} kcal</span>
         </div>
         {#if food.description}<span class="text-sm text-muted-foreground">{food.description}</span>{/if}
-        <span class="text-sm text-muted-foreground">{food.serving}</span>
+        <div class="flex items-center justify-between gap-2">
+          <span class="text-sm text-muted-foreground">{food.serving}</span>
+          {#if (data.favoriteFoodIds ?? []).includes(food.id)}
+            <StarIcon aria-hidden="true" class="size-4 shrink-0 fill-yellow-400 text-yellow-400" />
+          {/if}
+        </div>
       </Button>
     {:else}
       <p class="text-muted-foreground">{t('noCustomFoodsYet')}</p>

@@ -49,3 +49,28 @@ test('lists custom foods most recently updated first', () => {
     names.findIndex((text) => text?.includes('Older Food')),
   )
 })
+
+test('shows a star only next to favorited custom foods', () => {
+  const favorite = createFood({
+    id: 'favorite',
+    name: { en: 'Favorite Food' },
+    serving: '1 serving',
+    nutrition: { calories: 100, protein: 1, fat: 1, carbohydrates: 1 },
+    source: 'user'
+  })
+  const plain = createFood({
+    id: 'plain',
+    name: { en: 'Plain Food' },
+    serving: '1 serving',
+    nutrition: { calories: 100, protein: 1, fat: 1, carbohydrates: 1 },
+    source: 'user'
+  })
+  const data: AppData = { foods: [favorite, plain], mealEntries: [], favoriteFoodIds: ['favorite'] }
+
+  render(FoodsPanel, { data, onAddFood: () => {}, onEditFood: () => {} })
+
+  const favoriteRow = screen.getByText('Favorite Food').closest('button')
+  const plainRow = screen.getByText('Plain Food').closest('button')
+  expect(favoriteRow?.querySelector('svg.lucide-star')).not.toBeNull()
+  expect(plainRow?.querySelector('svg.lucide-star')).toBeNull()
+})

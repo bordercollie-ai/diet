@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/svelte'
 import { afterEach, beforeEach, vi, test, expect } from 'vitest'
-import { createMemoryStore, type AppData } from '../src/domain/store'
+import { createFood, createMemoryStore, type AppData } from '../src/domain/store'
 import App from '../src/App.svelte'
 
 let storeOverride: AppData | undefined
@@ -48,6 +48,67 @@ test('records 1.4 servings of a 68 kcal food and displays rounded calories', asy
   await fireEvent.click(screen.getByRole('button', { name: 'Add meal' }))
 
   await waitFor(() => expect(screen.getAllByText('95 kcal')).toHaveLength(2))
+})
+
+test('lists a favorited food before a non-favorited match in meal search results', async () => {
+  const bun = createFood({
+    id: 'plain-bun',
+    name: { en: 'Plain Bun' },
+    serving: '1 bun',
+    nutrition: { calories: 150, protein: 4, fat: 2, carbohydrates: 28 },
+    source: 'user',
+  })
+  const bunFavorite = createFood({
+    id: 'favorite-bun',
+    name: { en: 'Favorite Bun' },
+    serving: '1 bun',
+    nutrition: { calories: 160, protein: 4, fat: 2, carbohydrates: 30 },
+    source: 'user',
+  })
+  storeOverride = { foods: [bun, bunFavorite], mealEntries: [], favoriteFoodIds: ['favorite-bun'] }
+  render(App)
+
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await openAddMealMenu()
+  await fireEvent.click(screen.getByRole('button', { name: 'Add a meal' }))
+  await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: 'bun' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
+
+  const results = await screen.findAllByRole('button', { name: /Bun/ })
+  expect(results[0].textContent).toContain('Favorite Bun')
+  expect(results[1].textContent).toContain('Plain Bun')
+})
+
+test('toggles a food as favorite from its meal detail screen and persists it', async () => {
+  const bun = createFood({
+    id: 'plain-bun',
+    name: { en: 'Plain Bun' },
+    serving: '1 bun',
+    nutrition: { calories: 150, protein: 4, fat: 2, carbohydrates: 28 },
+    source: 'user',
+  })
+  storeOverride = { foods: [bun], mealEntries: [] }
+  render(App)
+
+  await screen.findByRole('tabpanel', { name: 'Summary' })
+  await openAddMealMenu()
+  await fireEvent.click(screen.getByRole('button', { name: 'Add a meal' }))
+  await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: 'bun' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
+  await fireEvent.click(await screen.findByRole('button', { name: /Plain Bun/ }))
+
+  const favoriteButton = await screen.findByRole('button', { name: 'Add to favorites' })
+  await fireEvent.click(favoriteButton)
+
+  await screen.findByRole('button', { name: 'Remove from favorites' })
+  await fireEvent.click(screen.getByRole('button', { name: 'Close' }))
+  await openAddMealMenu()
+  await fireEvent.click(screen.getByRole('button', { name: 'Add a meal' }))
+  await fireEvent.input(screen.getByLabelText('Search food'), { target: { value: 'bun' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Search' }))
+  await fireEvent.click(await screen.findByRole('button', { name: /Plain Bun/ }))
+
+  await screen.findByRole('button', { name: 'Remove from favorites' })
 })
 
 test('adds extra exercise calories to the selected day’s calorie target', async () => {

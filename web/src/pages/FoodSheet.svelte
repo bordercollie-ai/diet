@@ -1,11 +1,12 @@
 <script lang="ts">
-  import { createFood, updateFood, type AppData, type Food } from '../domain/store'
+  import { createFood, toggleFavoriteFood, updateFood, type AppData, type Food } from '../domain/store'
   import { Button } from '$lib/components/ui/button'
   import { Input } from '$lib/components/ui/input'
   import { Label } from '$lib/components/ui/label'
   import { swipeBack } from '$lib/actions/swipe-back'
   import NavCircleButton from '$lib/components/nav-circle-button.svelte'
   import PlusIcon from '@lucide/svelte/icons/plus'
+  import StarIcon from '@lucide/svelte/icons/star'
   import XIcon from '@lucide/svelte/icons/x'
   import { foodName as pickFoodName, t, translate } from '../lib/i18n.svelte'
 
@@ -76,6 +77,11 @@
     onAddToMeal?.(food)
   }
 
+  const isFavorite = $derived((data.favoriteFoodIds ?? []).includes(editingFoodId))
+  function toggleFavorite() {
+    void onSave(toggleFavoriteFood(data, editingFoodId))
+  }
+
   export function openWithName(name: string) {
     reset()
     foodName = name
@@ -121,9 +127,16 @@
         </h2>
         <p class="text-muted-foreground">{t('addFoodToLocalDatabase')}</p>
       </div>
-      <NavCircleButton label={t('close')} onclick={close}>
-        <XIcon aria-hidden="true" class="size-5" />
-      </NavCircleButton>
+      <div class="flex shrink-0 items-center gap-1">
+        {#if editingFoodId}
+          <NavCircleButton label={isFavorite ? t('removeFromFavorites') : t('addToFavorites')} onclick={toggleFavorite}>
+            <StarIcon aria-hidden="true" class={`size-5 ${isFavorite ? 'fill-yellow-400 text-yellow-400' : ''}`} />
+          </NavCircleButton>
+        {/if}
+        <NavCircleButton label={t('close')} onclick={close}>
+          <XIcon aria-hidden="true" class="size-5" />
+        </NavCircleButton>
+      </div>
     </div>
     <div class="flex-1 overflow-y-auto px-3 py-6">
       <form class="grid gap-4" onsubmit={handleSubmit}>
