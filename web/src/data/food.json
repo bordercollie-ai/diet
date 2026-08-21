@@ -562,5 +562,20 @@
       "carbohydrates": 20.7
     },
     "source": "bundled"
+  },
+  {
+    "id": "manual-00b37cff9725",
+    "name": {
+      "en": "Morinaga Yogurt Zero Fat",
+      "ja": "ビヒダス ヨーグルト 便通改善 脂肪ゼロ"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 52,
+      "protein": 4.3,
+      "fat": 0,
+      "carbohydrates": 10.3
+    },
+    "source": "bundled"
   }
 ]
