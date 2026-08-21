@@ -1,16 +1,34 @@
 [
   {
     "id": "bundled-rice-ball",
-    "name": { "en": "Rice ball", "ja": "おにぎり", "zh": "饭团" },
+    "name": {
+      "en": "Rice ball",
+      "ja": "おにぎり",
+      "zh": "饭团"
+    },
     "serving": "1 piece",
-    "nutrition": { "calories": 180, "protein": 4, "fat": 1, "carbohydrates": 38 },
+    "nutrition": {
+      "calories": 180,
+      "protein": 4,
+      "fat": 1,
+      "carbohydrates": 38
+    },
     "source": "bundled"
   },
   {
     "id": "bundled-milk",
-    "name": { "en": "Milk", "ja": "牛乳", "zh": "牛奶" },
+    "name": {
+      "en": "Milk",
+      "ja": "牛乳",
+      "zh": "牛奶"
+    },
     "serving": "200 ml",
-    "nutrition": { "calories": 134, "protein": 6.6, "fat": 7.6, "carbohydrates": 9.6 },
+    "nutrition": {
+      "calories": 134,
+      "protein": 6.6,
+      "fat": 7.6,
+      "carbohydrates": 9.6
+    },
     "source": "bundled"
   },
   {
@@ -529,5 +547,20 @@
       "transFat": 0,
       "cholesterol": 8
     }
+  },
+  {
+    "id": "manual-fd4a0dc31d7c",
+    "name": {
+      "en": "SUNAO Chocolate soft",
+      "ja": "チョコバニラソフト"
+    },
+    "serving": "1",
+    "nutrition": {
+      "calories": 120,
+      "protein": 2.7,
+      "fat": 8,
+      "carbohydrates": 20.7
+    },
+    "source": "bundled"
   }
 ]
