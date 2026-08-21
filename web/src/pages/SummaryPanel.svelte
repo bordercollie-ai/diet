@@ -147,7 +147,7 @@
         <ChevronRightIcon aria-hidden="true" class="size-4 text-muted-foreground" />
       </button>
       <Dialog.Root bind:open={exerciseDialogOpen}>
-        <Dialog.Content>
+        <Dialog.Content class="top-[30%]">
           <Dialog.Header>
             <Dialog.Title>{t('exerciseCalories')}</Dialog.Title>
           </Dialog.Header>
