@@ -52,6 +52,16 @@ jobs:
         with:
           ref: main
           token: ${{ secrets.PR_TOKEN }}
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+        working-directory: web
       - name: Add food
         id: add-food
         run: |
@@ -74,6 +84,12 @@ jobs:
           FAT: ${{ inputs.fat }}
           CARBOHYDRATES: ${{ inputs.carbohydrates }}
       - run: python3 scripts/test_add_manual_food.py
+      # ponytail: make prettier (already a web/ dependency) the single
+      # formatter for food.json so every PR already matches what a
+      # contributor's editor produces on save, instead of drifting and
+      # getting reformatted again at merge time.
+      - run: pnpm exec prettier --write src/data/food.json
+        working-directory: web
       - name: Open pull request
         run: |
           branch="bundled-food-${ITEM_ID}"
