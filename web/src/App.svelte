@@ -128,10 +128,6 @@
   // away reveals the actual Menu screen (real header + bottom nav), not a faked copy.
   let menuSubpage: MenuSubpage | null = $state(null)
   let addMealMenuOpen = $state(false)
-  // ponytail: opening the meal sheet has to wait for the popover's close
-  // animation to fully finish — otherwise its focus-scope teardown fights the
-  // new sheet's autofocus and the mobile keyboard never shows.
-  let pendingMealAction: (() => void) | null = $state(null)
   let trophyOpen = $state(false)
   let selectedAchievementId: AchievementId | null = $state(null)
   let trophySessionUnreadIds: AchievementId[] = $state([])
@@ -139,12 +135,12 @@
 
   function recordMeal() {
     addMealMenuOpen = false
-    pendingMealAction = () => mealSheet.openForNew()
+    mealSheet.openForNew()
   }
 
   function quickAddMeal() {
     addMealMenuOpen = false
-    pendingMealAction = () => mealSheet.openTemporary()
+    mealSheet.openTemporary()
   }
   // ponytail: remembers only "which date was picked on the calendar"; cleared by any other nav.
   let calendarJumpDate: string | null = $state(null)
@@ -669,14 +665,7 @@
 
 <nav class="fixed inset-x-0 bottom-0 z-30 border-t bg-background backdrop-blur pb-[env(safe-area-inset-bottom,0px)]">
   <div class="mx-auto flex max-w-3xl items-center gap-2 px-3 pt-2" role="tablist" aria-label={t('dietSections')}>
-    <Popover
-      bind:open={addMealMenuOpen}
-      onOpenChangeComplete={(open) => {
-        if (open || !pendingMealAction) return
-        pendingMealAction()
-        pendingMealAction = null
-      }}
-    >
+    <Popover bind:open={addMealMenuOpen}>
       <PopoverTrigger>
         {#snippet child({ props })}
           <button
@@ -689,7 +678,7 @@
           </button>
         {/snippet}
       </PopoverTrigger>
-      <PopoverContent align="start" side="top" class="w-56" onCloseAutoFocus={(event) => event.preventDefault()}>
+      <PopoverContent align="start" side="top" class="w-56">
         <Button type="button" variant="ghost" class="justify-start gap-2" onclick={recordMeal}>
           <PlusIcon aria-hidden="true" class="size-4" /> {t('addAMeal')}
         </Button>
