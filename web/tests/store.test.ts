@@ -195,6 +195,45 @@ test('toggles a food as favorite and lists favorites first in search results', (
   assert.throws(() => toggleFavoriteFood(data, 'missing'), /not found/)
 })
 
+test('sorts the full (no-query) list alphabetically by name with favorites pinned first', () => {
+  // Inserted in an order that would bury 'custom-1' behind hundreds of bundled
+  // foods if the list were left in insertion order instead of name-sorted.
+  const bundledZebra = createFood({
+    id: 'bundled-1',
+    name: { en: 'Zebra Cake' },
+    serving: '1',
+    nutrition: { calories: 95, protein: 0.5, fat: 0.3, carbohydrates: 25 },
+    source: 'bundled',
+  })
+  const custom = createFood({
+    id: 'custom-1',
+    name: { en: 'My Rice' },
+    serving: '1',
+    nutrition: { calories: 95, protein: 0.5, fat: 0.3, carbohydrates: 25 },
+    source: 'user',
+  })
+  const bundledApple = createFood({
+    id: 'bundled-2',
+    name: { en: 'Apple' },
+    serving: '1',
+    nutrition: { calories: 95, protein: 0.5, fat: 0.3, carbohydrates: 25 },
+    source: 'bundled',
+  })
+  const foods = [bundledZebra, custom, bundledApple]
+
+  assert.deepEqual(
+    searchFoods(foods, '', []).map((item) => item.id),
+    ['bundled-2', 'custom-1', 'bundled-1'],
+  )
+
+  // Favoriting the alphabetically-last item still pins it to the top, ahead
+  // of every non-favorite regardless of name or source.
+  assert.deepEqual(
+    searchFoods(foods, '', ['bundled-1']).map((item) => item.id),
+    ['bundled-1', 'bundled-2', 'custom-1'],
+  )
+})
+
 test('searches localized food names', () => {
   const foods = [
     food(),

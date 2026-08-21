@@ -321,9 +321,15 @@ export function scaleNutrition(nutrition: Nutrition, quantity: number): Nutritio
 
 export const roundForDisplay = (value: number): number => Math.round(value)
 
-// favoriteFoodIds sorts favorites first (stable, so relative order within each
-// group — including any name/relevance ordering the caller already applied —
-// is preserved).
+// Fallback display name for sorting only (mirrors the UI's language-aware
+// foodName(), without depending on the reactive i18n module from this
+// domain-only file): prefer English, then Japanese, then whatever's there.
+const sortName = (food: Food) => food.name.en ?? food.name.ja ?? Object.values(food.name)[0] ?? ''
+
+// Sorts favorites first, then the rest alphabetically by name (stable within
+// ties). Foods are otherwise stored in insertion order — bundled foods first,
+// then hundreds of them — so without a name sort, custom foods added later
+// sort dead last and are effectively invisible in the default (no-query) list.
 export function searchFoods(foods: Food[], query: string, favoriteFoodIds?: readonly string[]): Food[] {
   const needle = query.trim().toLocaleLowerCase()
   const matches = !needle
@@ -333,9 +339,11 @@ export function searchFoods(foods: Food[], query: string, favoriteFoodIds?: read
           Object.values(food.name).some((value) => value.toLocaleLowerCase().includes(needle)) ||
           (food.description ?? '').toLocaleLowerCase().includes(needle),
       )
-  if (!favoriteFoodIds?.length) return matches
-  const favorites = new Set(favoriteFoodIds)
-  return matches.toSorted((a, b) => Number(favorites.has(b.id)) - Number(favorites.has(a.id)))
+  const favorites = new Set(favoriteFoodIds ?? [])
+  return matches.toSorted((a, b) => {
+    const favoriteDiff = Number(favorites.has(b.id)) - Number(favorites.has(a.id))
+    return favoriteDiff !== 0 ? favoriteDiff : sortName(a).localeCompare(sortName(b))
+  })
 }
 
 export function toggleFavoriteFood(data: AppData, id: string): AppData {
