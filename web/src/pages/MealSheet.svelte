@@ -268,12 +268,16 @@
 
 {#snippet temporaryScreen()}
   <div class="flex h-full flex-col bg-popover">
-    {@render screenHeader(editingMealId ? t('editMeal') : t('quickAdd'), t('recordNutritionWithoutSavingFood'), closeControl)}
-    <div class="flex-1 overflow-y-auto px-3 pb-6">
+    {@render screenHeader(
+      editingMealId ? t('editMeal') : t('quickAdd'),
+      t('recordNutritionWithoutSavingFood'),
+      closeControl,
+    )}
+    <div class="flex-1 overflow-y-auto px-3 py-4">
       <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
         <div class="grid gap-2">
-          <Label for="temporary-name">{t('name')}</Label>
-          <Input id="temporary-name" bind:value={temporaryName} required />
+          <Label for="temporary-title">{t('name')}</Label>
+          <Input id="temporary-title" bind:value={temporaryName} required autofocus />
         </div>
         <div class="grid gap-2">
           <Label for="temporary-calories">{t('calories')}</Label>
@@ -357,6 +361,7 @@
             }}
             placeholder={t('searchFood')}
             aria-label={t('searchFood')}
+            autofocus
             required
           />
           <Button
@@ -382,7 +387,9 @@
               >
                 <div class="flex items-center justify-between gap-2">
                   <span class="min-w-0 truncate font-semibold">{foodName(food.name)}</span>
-                  <span class="shrink-0 font-semibold whitespace-nowrap">{displayNumber(food.nutrition.calories)} kcal</span>
+                  <span class="shrink-0 font-semibold whitespace-nowrap"
+                    >{displayNumber(food.nutrition.calories)} kcal</span
+                  >
                 </div>
                 {#if food.description}<span class="meal-card-topline">{food.description}</span>{/if}
                 <span class="meal-card-topline">{food.serving}</span>
@@ -407,14 +414,20 @@
 
 {#snippet detailScreen(control: Snippet)}
   <div class="flex h-full flex-col bg-popover">
-    {@render screenHeader(editingMealId ? t('editMeal') : t('mealDetails'), t('setTimeAndQuantityForThisMeal'), control)}
+    {@render screenHeader(
+      editingMealId ? t('editMeal') : t('mealDetails'),
+      t('setTimeAndQuantityForThisMeal'),
+      control,
+    )}
     <div class="flex-1 overflow-y-auto px-3 py-6">
       {#if selectedFood}
         <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
           <div class="grid gap-1">
             <div class="flex items-start justify-between gap-4">
               <h3 class="text-lg font-semibold">{foodName(selectedFood.name)}</h3>
-              <span class="shrink-0 text-lg font-semibold whitespace-nowrap">{displayNumber(selectedFood.nutrition.calories)} kcal</span>
+              <span class="shrink-0 text-lg font-semibold whitespace-nowrap"
+                >{displayNumber(selectedFood.nutrition.calories)} kcal</span
+              >
             </div>
             {#if selectedFood.description}
               <p class="text-sm text-muted-foreground">{selectedFood.description}</p>
@@ -437,7 +450,15 @@
                 aria-label={t('decreaseQuantity')}
                 onclick={() => (quantity = Math.max(1, quantity - 1))}><MinusIcon aria-hidden="true" /></Button
               >
-              <Input id="meal-quantity" class="text-center" type="number" min="1" step="1" bind:value={quantity} required />
+              <Input
+                id="meal-quantity"
+                class="text-center"
+                type="number"
+                min="1"
+                step="1"
+                bind:value={quantity}
+                required
+              />
               <Button
                 type="button"
                 variant="outline"

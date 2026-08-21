@@ -128,8 +128,8 @@
     <div class="flex-1 overflow-y-auto px-3 py-6">
       <form class="grid gap-4" onsubmit={handleSubmit}>
         <div class="grid gap-2">
-          <Label for="food-name">{t('name')}</Label>
-          <Input id="food-name" bind:value={foodName} required />
+          <Label for="food-title">{t('name')}</Label>
+          <Input id="food-title" bind:value={foodName} required autofocus />
         </div>
         <div class="grid gap-2">
           <Label for="food-description">{t('descriptionEgBrand')}</Label>
