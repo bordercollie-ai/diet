@@ -37,6 +37,7 @@
   import BackButton from '$lib/components/back-button.svelte'
   import { swipeBack } from '$lib/actions/swipe-back'
   import AboutPanel from './pages/AboutPanel.svelte'
+  import AdvancedPanel from './pages/AdvancedPanel.svelte'
   import BackupPanel from './pages/BackupPanel.svelte'
   import CalendarPanel from './pages/CalendarPanel.svelte'
   import FoodSheet from './pages/FoodSheet.svelte'
@@ -116,7 +117,7 @@
     document.documentElement.classList.toggle('dark', darkMode)
   })
   type Tab = 'summary' | 'foods' | 'menu'
-  type MenuSubpage = 'profile' | 'calendar' | 'backup' | 'about'
+  type MenuSubpage = 'profile' | 'calendar' | 'backup' | 'advanced' | 'about'
   const tabs: { id: Tab; labelKey: string; icon: typeof HouseIcon }[] = [
     { id: 'summary', labelKey: 'summary', icon: HouseIcon },
     { id: 'foods', labelKey: 'foods', icon: AppleIcon },
@@ -543,7 +544,9 @@
             ? t('calendar')
             : menuSubpage === 'backup'
               ? t('backupAndInstall')
-              : t('about')}
+              : menuSubpage === 'advanced'
+                ? t('advanced')
+                : t('about')}
         onclick={closeMenuSubpage}
       >
         {#if menuSubpage === 'profile'}
@@ -571,6 +574,8 @@
             onRestore={restoreBackup}
             onInstall={installApp}
           />
+        {:else if menuSubpage === 'advanced'}
+          <AdvancedPanel />
         {:else}
           <AboutPanel />
         {/if}

@@ -7,6 +7,7 @@
   import GlobeIcon from '@lucide/svelte/icons/globe'
   import InfoIcon from '@lucide/svelte/icons/info'
   import MonitorIcon from '@lucide/svelte/icons/monitor'
+  import SlidersHorizontalIcon from '@lucide/svelte/icons/sliders-horizontal'
   import UserIcon from '@lucide/svelte/icons/user'
   import type { ThemePreference } from '../domain/store'
   import { t, type Language } from '../lib/i18n.svelte'
@@ -18,20 +19,24 @@
     language,
     onLanguageChange,
   }: {
-    onSelect: (page: 'profile' | 'calendar' | 'backup' | 'about') => void
+    onSelect: (page: 'profile' | 'calendar' | 'backup' | 'advanced' | 'about') => void
     themePreference: ThemePreference
     onThemeChange: (preference: ThemePreference) => void
     language: Language
     onLanguageChange: (language: Language) => void
   } = $props()
 
-  const items: { id: 'profile' | 'calendar' | 'backup' | 'about'; labelKey: string; icon: typeof CalendarDaysIcon }[] =
-    [
-      { id: 'profile', labelKey: 'profile', icon: UserIcon },
-      { id: 'calendar', labelKey: 'calendar', icon: CalendarDaysIcon },
-      { id: 'backup', labelKey: 'export', icon: DownloadIcon },
-      { id: 'about', labelKey: 'about', icon: InfoIcon },
-    ]
+  const items: {
+    id: 'profile' | 'calendar' | 'backup' | 'advanced' | 'about'
+    labelKey: string
+    icon: typeof CalendarDaysIcon
+  }[] = [
+    { id: 'profile', labelKey: 'profile', icon: UserIcon },
+    { id: 'calendar', labelKey: 'calendar', icon: CalendarDaysIcon },
+    { id: 'backup', labelKey: 'export', icon: DownloadIcon },
+    { id: 'advanced', labelKey: 'advanced', icon: SlidersHorizontalIcon },
+    { id: 'about', labelKey: 'about', icon: InfoIcon },
+  ]
 
   const themeOptions: { value: ThemePreference; labelKey: string }[] = [
     { value: 'light', labelKey: 'light' },
