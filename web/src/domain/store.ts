@@ -109,6 +109,10 @@ export type AppData = {
   targetOverrides?: TargetOverrides
   targetPeriods?: TargetPeriod[]
   achievements?: AchievementRecord[]
+  // Favorited food ids. Kept separate from Food records (rather than a
+  // `favorite` flag on Food) because bundled foods are wholesale replaced
+  // from their canonical source on every load — a flag there would be wiped.
+  favoriteFoodIds?: string[]
 }
 
 export type Backup = {
@@ -297,6 +301,11 @@ export function validateAppData(data: unknown): asserts data is AppData {
     if (new Set(value.achievements.map((record) => (record as AchievementRecord).id)).size !== value.achievements.length)
       invalid('achievement')
   }
+  if (
+    value.favoriteFoodIds !== undefined &&
+    (!Array.isArray(value.favoriteFoodIds) || !value.favoriteFoodIds.every((id) => typeof id === 'string' && id))
+  )
+    invalid('favorite food ids')
 }
 
 export function createFood(input: Omit<Food, 'id'> & { id?: string }): Food {
@@ -312,14 +321,28 @@ export function scaleNutrition(nutrition: Nutrition, quantity: number): Nutritio
 
 export const roundForDisplay = (value: number): number => Math.round(value)
 
-export function searchFoods(foods: Food[], query: string): Food[] {
+// favoriteFoodIds sorts favorites first (stable, so relative order within each
+// group — including any name/relevance ordering the caller already applied —
+// is preserved).
+export function searchFoods(foods: Food[], query: string, favoriteFoodIds?: readonly string[]): Food[] {
   const needle = query.trim().toLocaleLowerCase()
-  if (!needle) return foods
-  return foods.filter(
-    (food) =>
-      Object.values(food.name).some((value) => value.toLocaleLowerCase().includes(needle)) ||
-      (food.description ?? '').toLocaleLowerCase().includes(needle),
-  )
+  const matches = !needle
+    ? foods
+    : foods.filter(
+        (food) =>
+          Object.values(food.name).some((value) => value.toLocaleLowerCase().includes(needle)) ||
+          (food.description ?? '').toLocaleLowerCase().includes(needle),
+      )
+  if (!favoriteFoodIds?.length) return matches
+  const favorites = new Set(favoriteFoodIds)
+  return matches.toSorted((a, b) => Number(favorites.has(b.id)) - Number(favorites.has(a.id)))
+}
+
+export function toggleFavoriteFood(data: AppData, id: string): AppData {
+  if (!data.foods.some((food) => food.id === id)) invalid('food not found')
+  const favorites = new Set(data.favoriteFoodIds ?? [])
+  favorites.has(id) ? favorites.delete(id) : favorites.add(id)
+  return { ...copy(data), favoriteFoodIds: [...favorites] }
 }
 
 export function createMealEntry(input: Omit<MealEntry, 'id' | 'nutrition'> & { id?: string }, food: Food): MealEntry {
@@ -830,6 +853,9 @@ function mergeData(current: AppData, imported: AppData): AppData {
       : {}),
     ...(current.achievements || imported.achievements
       ? { achievements: mergeById(current.achievements ?? [], imported.achievements ?? []) }
+      : {}),
+    ...(current.favoriteFoodIds || imported.favoriteFoodIds
+      ? { favoriteFoodIds: [...new Set([...(current.favoriteFoodIds ?? []), ...(imported.favoriteFoodIds ?? [])])] }
       : {}),
   }
 }

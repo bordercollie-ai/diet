@@ -27,6 +27,7 @@ import {
   setTargetPeriod,
   setExerciseCalories,
   targetsForDate,
+  toggleFavoriteFood,
   type AppData,
   updateFood,
   updateMealEntry,
@@ -156,6 +157,42 @@ test('user foods can be deleted', () => {
 test('deleting a food preserves meal snapshots', async () => {
   const store = createMemoryStore(deleteFood(data, 'user-1'))
   assert.deepEqual((await store.load()).mealEntries[0].nutrition, data.mealEntries[0].nutrition)
+})
+
+test('toggles a food as favorite and lists favorites first in search results', () => {
+  const foods = [
+    createFood({
+      id: 'a',
+      name: { en: 'Apple' },
+      serving: '1',
+      nutrition: { calories: 95, protein: 0.5, fat: 0.3, carbohydrates: 25 },
+      source: 'user',
+    }),
+    createFood({
+      id: 'b',
+      name: { en: 'Apple Pie' },
+      serving: '1',
+      nutrition: { calories: 300, protein: 3, fat: 14, carbohydrates: 42 },
+      source: 'user',
+    }),
+  ]
+  let data: AppData = { foods, mealEntries: [] }
+
+  assert.deepEqual(
+    searchFoods(data.foods, 'apple', data.favoriteFoodIds).map((item) => item.id),
+    ['a', 'b'],
+  )
+
+  data = toggleFavoriteFood(data, 'b')
+  assert.deepEqual(data.favoriteFoodIds, ['b'])
+  assert.deepEqual(
+    searchFoods(data.foods, 'apple', data.favoriteFoodIds).map((item) => item.id),
+    ['b', 'a'],
+  )
+
+  data = toggleFavoriteFood(data, 'b')
+  assert.deepEqual(data.favoriteFoodIds, [])
+  assert.throws(() => toggleFavoriteFood(data, 'missing'), /not found/)
 })
 
 test('searches localized food names', () => {
