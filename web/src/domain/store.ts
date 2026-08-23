@@ -340,9 +340,14 @@ export function searchFoods(foods: Food[], query: string, favoriteFoodIds?: read
           (food.description ?? '').toLocaleLowerCase().includes(needle),
       )
   const favorites = new Set(favoriteFoodIds ?? [])
+  // ponytail: exact name match outranks partial matches so a longer product name
+  // containing the query (e.g. "Low-fat milk") doesn't bury the plain "Milk".
+  const isExact = (food: Food) => Object.values(food.name).some((value) => value.toLocaleLowerCase() === needle)
   return matches.toSorted((a, b) => {
     const favoriteDiff = Number(favorites.has(b.id)) - Number(favorites.has(a.id))
-    return favoriteDiff !== 0 ? favoriteDiff : sortName(a).localeCompare(sortName(b))
+    if (favoriteDiff !== 0) return favoriteDiff
+    const exactDiff = Number(isExact(b)) - Number(isExact(a))
+    return exactDiff !== 0 ? exactDiff : sortName(a).localeCompare(sortName(b))
   })
 }
 
