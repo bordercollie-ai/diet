@@ -577,5 +577,21 @@
       "carbohydrates": 10.3
     },
     "source": "bundled"
+  },
+  {
+    "id": "manual-c3cfdb8485ce",
+    "name": {
+      "en": "Dried Beef",
+      "ja": "厚切ビーフ Life",
+      "zh": "牛肉干"
+    },
+    "serving": "66g",
+    "nutrition": {
+      "calories": 156,
+      "protein": 25.1,
+      "fat": 2.4,
+      "carbohydrates": 8.6
+    },
+    "source": "bundled"
   }
 ]
