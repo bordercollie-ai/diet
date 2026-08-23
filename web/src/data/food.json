@@ -577,5 +577,20 @@
       "carbohydrates": 10.3
     },
     "source": "bundled"
+  },
+  {
+    "id": "manual-47e6bc18f071",
+    "name": {
+      "en": "Beef",
+      "ja": "厚きり"
+    },
+    "serving": "100g",
+    "nutrition": {
+      "calories": 0,
+      "protein": 0,
+      "fat": 0,
+      "carbohydrates": 0
+    },
+    "source": "bundled"
   }
 ]
