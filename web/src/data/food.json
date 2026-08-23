@@ -610,5 +610,97 @@
       "carbohydrates": 8.6
     },
     "source": "bundled"
+  },
+  {
+    "id": "manual-zabass-milk-protein-yogurt-strawberry",
+    "name": {
+      "ja": "ザバス MILK PROTEIN のむヨーグルト 脂肪0 ストロベリー風味"
+    },
+    "description": "Meiji SAVAS ストロベリー風味",
+    "serving": "250g",
+    "nutrition": {
+      "calories": 140,
+      "protein": 20.0,
+      "fat": 0,
+      "carbohydrates": 15.3
+    },
+    "source": "bundled",
+    "detail": {
+      "sugar": 14.5,
+      "fiber": 0.75,
+      "salt": 0.34
+    }
+  },
+  {
+    "id": "meiji-jp-sports-4902705129900",
+    "name": {
+      "ja": "ザバス MILK PROTEIN のむヨーグルト 脂肪0 ピンクグレープフルーツ風味 250g"
+    },
+    "serving": "250g",
+    "nutrition": {
+      "calories": 140,
+      "protein": 20,
+      "fat": 0,
+      "carbohydrates": 15.4
+    },
+    "source": "bundled",
+    "description": "Meiji Japan ピンクグレープフルーツ風味",
+    "detail": {
+      "salt": 0.34
+    }
+  },
+  {
+    "id": "meiji-jp-sports-4902705131682",
+    "name": {
+      "ja": "ザバス MILK PROTEIN のむヨーグルト 脂肪0 キウイ風味 250g"
+    },
+    "serving": "250g",
+    "nutrition": {
+      "calories": 140,
+      "protein": 20,
+      "fat": 0,
+      "carbohydrates": 15.4
+    },
+    "source": "bundled",
+    "description": "Meiji Japan キウイ風味",
+    "detail": {
+      "salt": 0.34
+    }
+  },
+  {
+    "id": "manual-inprotein-cafe-au-lait-unsweetened",
+    "name": {
+      "ja": "inPROTEIN 甘くないカフェオレ"
+    },
+    "serving": "330ml",
+    "nutrition": {
+      "calories": 137,
+      "protein": 20.2,
+      "fat": 0,
+      "carbohydrates": 14.0
+    },
+    "source": "bundled",
+    "description": "Morinaga",
+    "detail": {
+      "salt": 0.32
+    }
+  },
+  {
+    "id": "manual-inprotein-matcha-au-lait-unsweetened",
+    "name": {
+      "ja": "inPROTEIN 甘くない抹茶オレ"
+    },
+    "serving": "330ml",
+    "nutrition": {
+      "calories": 140,
+      "protein": 20.4,
+      "fat": 0,
+      "carbohydrates": 14.6
+    },
+    "source": "bundled",
+    "description": "Morinaga",
+    "detail": {
+      "salt": 0.3
+    }
   }
 ]
