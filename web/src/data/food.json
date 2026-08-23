@@ -32,11 +32,28 @@
     "source": "bundled"
   },
   {
+    "id": "bundled-milk-low-fat-high-protein",
+    "name": {
+      "en": "Low-fat high-protein milk",
+      "ja": "森永低脂高たんぱく牛乳",
+      "zh": "森永低脂高蛋白牛奶"
+    },
+    "description": "森永おいしい高たんぱく高カルシウム",
+    "serving": "200 ml",
+    "nutrition": {
+      "calories": 104,
+      "protein": 10.3,
+      "fat": 0.3,
+      "carbohydrates": 15.1
+    },
+    "source": "bundled"
+  },
+  {
     "id": "icecream_shirokuma_multipack_1",
     "name": {
-      "ja": "白くま マルチパック 55ml×6本",
-      "en": "Shirokuma Multipack 55mlx6",
-      "zh": "白熊 多包裝 55mlx6"
+      "ja": "白くま マルチパック 55ml",
+      "en": "Shirokuma Multipack 55ml",
+      "zh": "白熊 多包裝 55ml"
     },
     "serving": "55ml",
     "nutrition": {
