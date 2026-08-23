@@ -280,6 +280,36 @@ test('searches foods by description (e.g. brand) and tolerates missing descripti
   )
 })
 
+test('fuzzy-matches out-of-order keywords across a name (e.g. "abc ghj" finds "abc def ghj")', () => {
+  const foods = [
+    food(),
+    createFood({
+      id: 'multi-word-1',
+      name: { en: 'Low-fat high-protein milk' },
+      serving: '200 ml',
+      nutrition: { calories: 104, protein: 10.3, fat: 0.3, carbohydrates: 15.1 },
+      source: 'bundled',
+    }),
+  ]
+  // Tokens found anywhere, any order — not just as one contiguous substring.
+  assert.deepEqual(
+    searchFoods(foods, 'protein low').map((item) => item.id),
+    ['multi-word-1'],
+  )
+  // A missing token means no match.
+  assert.deepEqual(
+    searchFoods(foods, 'protein nonexistent').map((item) => item.id),
+    [],
+  )
+})
+
+test('fuzzy-matches CJK keywords with no spaces between them (e.g. "低脂牛乳" finds "森永低脂高たんぱく牛乳")', () => {
+  assert.deepEqual(
+    searchFoods(bundledFoods, '低脂牛乳').map((item) => item.id),
+    ['bundled-milk-low-fat-high-protein'],
+  )
+})
+
 test("bundles McDonald's Japan foods with valid, unique, read-only records", () => {
   const mcdonalds = bundledFoods.filter((item) => item.id.startsWith('mcd-jp-'))
   assert.equal(mcdonalds.length, 202)

@@ -330,19 +330,32 @@ const sortName = (food: Food) => food.name.en ?? food.name.ja ?? Object.values(f
 // ties). Foods are otherwise stored in insertion order — bundled foods first,
 // then hundreds of them — so without a name sort, custom foods added later
 // sort dead last and are effectively invisible in the default (no-query) list.
+// All localized names + description joined into one lowercase blob to search against.
+const haystack = (food: Food) =>
+  [...Object.values(food.name), food.description ?? ''].join(' ').toLocaleLowerCase()
+
+const segmenter = new Intl.Segmenter(undefined, { granularity: 'word' })
+
+// Splits a query into search tokens using Unicode word-boundary rules instead
+// of whitespace, since CJK text has no spaces between words (e.g. "低脂牛乳").
+const tokenize = (text: string) =>
+  [...segmenter.segment(text)].filter((s) => s.isWordLike).map((s) => s.segment)
+
 export function searchFoods(foods: Food[], query: string, favoriteFoodIds?: readonly string[]): Food[] {
   const needle = query.trim().toLocaleLowerCase()
-  const matches = !needle
-    ? foods
-    : foods.filter(
-        (food) =>
-          Object.values(food.name).some((value) => value.toLocaleLowerCase().includes(needle)) ||
-          (food.description ?? '').toLocaleLowerCase().includes(needle),
-      )
+  // ponytail: token-AND search — every word must appear somewhere in the
+  // food's text, in any order, so "abc ghj" finds "abc def ghj" and "低脂牛乳" finds "森永低脂高たんぱく牛乳".
+  const tokens = tokenize(needle)
+  const matches = !tokens.length ? foods : foods.filter((food) => tokens.every((token) => haystack(food).includes(token)))
   const favorites = new Set(favoriteFoodIds ?? [])
+  // Exact name match outranks partial matches so a longer product name
+  // containing the query (e.g. "Low-fat milk") doesn't bury the plain "Milk".
+  const isExact = (food: Food) => Object.values(food.name).some((value) => value.toLocaleLowerCase() === needle)
   return matches.toSorted((a, b) => {
     const favoriteDiff = Number(favorites.has(b.id)) - Number(favorites.has(a.id))
-    return favoriteDiff !== 0 ? favoriteDiff : sortName(a).localeCompare(sortName(b))
+    if (favoriteDiff !== 0) return favoriteDiff
+    const exactDiff = Number(isExact(b)) - Number(isExact(a))
+    return exactDiff !== 0 ? exactDiff : sortName(a).localeCompare(sortName(b))
   })
 }
 
