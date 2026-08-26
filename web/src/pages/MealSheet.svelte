@@ -284,7 +284,7 @@
       <form class="grid gap-4" onsubmit={handleSubmit} novalidate>
         <div class="grid gap-2">
           <Label for="temporary-title">{t('name')}</Label>
-          <Input id="temporary-title" bind:value={temporaryName} required autofocus />
+          <Input id="temporary-title" bind:value={temporaryName} required />
         </div>
         <div class="grid gap-2">
           <Label for="temporary-calories">{t('calories')}</Label>
@@ -368,7 +368,6 @@
             }}
             placeholder={t('searchFood')}
             aria-label={t('searchFood')}
-            autofocus
             required
           />
           <Button

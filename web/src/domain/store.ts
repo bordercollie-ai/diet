@@ -443,13 +443,15 @@ export function resolveDarkMode(preference: ThemePreference, systemPrefersDark: 
   return preference === 'system' ? systemPrefersDark : preference === 'dark'
 }
 
-export type CalorieTone = 'empty' | 'unavailable' | 'under' | 'on-target' | 'over'
+export type CalorieTone = 'empty' | 'unavailable' | 'under' | 'on-target' | 'over' | 'danger'
 
 export function calorieTone(dayCalories: number, targetCalories: number): CalorieTone {
   if (dayCalories === 0) return 'empty'
   if (targetCalories === 0) return 'unavailable'
   const ratio = dayCalories / targetCalories
-  return ratio <= 1 ? 'on-target' : 'over'
+  if (ratio <= 1) return 'on-target'
+  // ponytail: 150% is a fixed danger threshold, add a setting if users want it tunable
+  return ratio >= 1.5 ? 'danger' : 'over'
 }
 
 const ACTIVITY_MULTIPLIERS = {

@@ -142,7 +142,7 @@
       <form class="grid gap-4" onsubmit={handleSubmit}>
         <div class="grid gap-2">
           <Label for="food-title">{t('name')}</Label>
-          <Input id="food-title" bind:value={foodName} required autofocus />
+          <Input id="food-title" bind:value={foodName} required />
         </div>
         <div class="grid gap-2">
           <Label for="food-description">{t('descriptionEgBrand')}</Label>

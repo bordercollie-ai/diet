@@ -219,6 +219,7 @@
       under: 'var(--calorie-under)',
       'on-target': 'var(--calorie-under)',
       over: 'var(--calorie-over)',
+      danger: 'var(--calorie-danger)',
       empty: 'var(--primary)',
       unavailable: 'var(--muted-foreground)',
     }[todayCalorieTone],
