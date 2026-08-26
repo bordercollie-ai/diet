@@ -84,6 +84,7 @@
                 class:border-[var(--muted-foreground)]={tone === 'unavailable'}
                 class:border-[var(--calorie-under)]={tone === 'under' || tone === 'on-target'}
                 class:border-[var(--calorie-over)]={tone === 'over'}
+                class:border-[var(--calorie-danger)]={tone === 'danger'}
                 aria-label={`${iso}${iso === today ? `, ${t('today')}` : ''}`}
                 onclick={() => onSelectDate(iso)}
               >

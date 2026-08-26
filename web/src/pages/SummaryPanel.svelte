@@ -223,7 +223,7 @@
           >
             <div class="flex items-center justify-between">
               <span class="text-sm"
-                >{mealName}{#if serving}&nbsp;({serving}){/if}</span
+                ><span>{mealName}</span>{#if serving}&nbsp;(<span>{serving}</span>){/if}</span
               >
               <time datetime={`${entry.date}T${entry.time}`} class="text-muted-foreground text-sm">{entry.time}</time>
             </div>

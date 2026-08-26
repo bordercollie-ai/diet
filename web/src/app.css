@@ -31,6 +31,8 @@
 
   --calorie-over: #dc2626;
 
+  --calorie-danger: #9333ea;
+
   --macro-over: #ea580c;
 
   --foreground: oklch(0.141 0.005 285.823);
@@ -103,6 +105,8 @@
   --calorie-under: #4ade80;
 
   --calorie-over: #f87171;
+
+  --calorie-danger: #c084fc;
 
   --macro-over: #fb923c;
 

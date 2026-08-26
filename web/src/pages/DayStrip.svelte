@@ -35,6 +35,7 @@
       class:under={tone === 'under'}
       class:on-target={tone === 'on-target'}
       class:over={tone === 'over'}
+      class:danger={tone === 'danger'}
       class:empty={tone === 'empty'}
       aria-pressed={date === day.iso}
       aria-label={`${dayLabel} ${day.number}, ${displayNumber(dayCalories)} kcal`}
@@ -49,6 +50,7 @@
         class:border-[var(--muted-foreground)]={tone === 'empty'}
         class:border-[var(--calorie-under)]={tone === 'under' || tone === 'on-target'}
         class:border-[var(--calorie-over)]={tone === 'over'}
+        class:border-[var(--calorie-danger)]={tone === 'danger'}
         aria-hidden="true"><span>{day.number}</span></span
       >
     </button>

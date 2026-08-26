@@ -808,6 +808,8 @@ test('uses the shared at-or-below-target range and gaps break qualifying streaks
   assert.equal(calorieTone(1, 2000), 'on-target')
   assert.equal(calorieTone(2000, 2000), 'on-target')
   assert.equal(calorieTone(2001, 2000), 'over')
+  assert.equal(calorieTone(2999, 2000), 'over')
+  assert.equal(calorieTone(3000, 2000), 'danger')
 
   const mealFood = identifiedFood()
   const gappedRun = evaluateAchievements(
