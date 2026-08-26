@@ -19,6 +19,7 @@
     estimateMaintenanceCalories,
     estimateTargets,
     exerciseCaloriesForDate,
+    localDateISO,
     markAchievementsRead,
     prepareAppData,
     resolveDarkMode,
@@ -51,17 +52,17 @@
   import { getLanguage, setLanguage as setStoredLanguage, t, translate, type Language } from './lib/i18n.svelte'
 
   const store = createIndexedDBStore()
-  const today = new Date().toISOString().slice(0, 10)
+  const today = localDateISO()
   const defaultTargetDate = (() => {
     const date = new Date()
     date.setMonth(date.getMonth() + 3)
-    return date.toISOString().slice(0, 10)
+    return localDateISO(date)
   })()
   const recentDays = Array.from({ length: 7 }, (_, index) => {
     const day = new Date(`${today}T12:00:00`)
     day.setDate(day.getDate() - ((day.getDay() + 6) % 7) + index)
     return {
-      iso: day.toISOString().slice(0, 10),
+      iso: localDateISO(day),
       number: day.getDate(),
     }
   })
