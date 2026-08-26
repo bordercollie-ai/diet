@@ -502,7 +502,14 @@ export function estimateBMR(profile: Profile): number {
   return Math.round(bmr)
 }
 
-export function estimateTargets(profile: Profile, fromDate = new Date().toISOString().slice(0, 10)): Nutrition {
+// Local calendar date (not UTC) as YYYY-MM-DD. toISOString() always converts
+// to UTC, which drifts a day behind local time from midnight to ~9am in JST
+// (this app's primary market) and similar positive-offset zones.
+export function localDateISO(date = new Date()): string {
+  return new Date(date.getTime() - date.getTimezoneOffset() * 60_000).toISOString().slice(0, 10)
+}
+
+export function estimateTargets(profile: Profile, fromDate = localDateISO()): Nutrition {
   const days = (Date.parse(`${profile.targetDate}T00:00:00Z`) - Date.parse(`${fromDate}T00:00:00Z`)) / 86_400_000
   if (!Number.isFinite(days) || days <= 0) invalid('target date')
   const calories = Math.round(
@@ -801,7 +808,7 @@ export const achievementDefinitions: AchievementDefinition[] = [
 export function resolveTargets(
   profile: Profile,
   overrides: TargetOverrides = {},
-  fromDate = new Date().toISOString().slice(0, 10),
+  fromDate = localDateISO(),
 ): Nutrition {
   const estimated = estimateTargets(profile, fromDate)
   validateTargetOverrides(overrides)

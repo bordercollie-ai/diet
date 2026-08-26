@@ -17,6 +17,7 @@ import {
   evaluateAchievements,
   estimateMaintenanceCalories,
   estimateBMR,
+  localDateISO,
   markAchievementsRead,
   prepareAppData,
   previewBackup,
@@ -157,6 +158,42 @@ test('user foods can be deleted', () => {
 test('deleting a food preserves meal snapshots', async () => {
   const store = createMemoryStore(deleteFood(data, 'user-1'))
   assert.deepEqual((await store.load()).mealEntries[0].nutrition, data.mealEntries[0].nutrition)
+})
+
+test('localDateISO uses the local calendar day, not UTC (regression: toISOString drifts a day behind in positive-offset zones like JST)', () => {
+  const originalTZ = process.env.TZ
+  try {
+    // 07:00 on Aug 27 in Tokyo (UTC+9) is still Aug 26 in UTC — the bug this guards against.
+    const earlyMorningJST = new Date('2026-08-26T22:00:00.000Z')
+    process.env.TZ = 'Asia/Tokyo'
+    assert.equal(localDateISO(earlyMorningJST), '2026-08-27')
+    assert.notEqual(earlyMorningJST.toISOString().slice(0, 10), localDateISO(earlyMorningJST))
+
+    // Same instant, negative-offset zone: local calendar day is still Aug 26.
+    process.env.TZ = 'America/Los_Angeles'
+    assert.equal(localDateISO(earlyMorningJST), '2026-08-26')
+  } finally {
+    process.env.TZ = originalTZ
+  }
+})
+
+test('weekday strip (Mon-first) lines up with the local calendar day across timezones', () => {
+  const originalTZ = process.env.TZ
+  try {
+    process.env.TZ = 'Asia/Tokyo'
+    const today = localDateISO(new Date('2026-08-26T22:00:00.000Z')) // Thu Aug 27 JST
+    assert.equal(today, '2026-08-27')
+    // Mirrors App.svelte's recentDays: Monday-first week containing `today`.
+    const week = Array.from({ length: 7 }, (_, index) => {
+      const day = new Date(`${today}T12:00:00`)
+      day.setDate(day.getDate() - ((day.getDay() + 6) % 7) + index)
+      return localDateISO(day)
+    })
+    assert.deepEqual(week, ['2026-08-24', '2026-08-25', '2026-08-26', '2026-08-27', '2026-08-28', '2026-08-29', '2026-08-30'])
+    assert.ok(week.includes(today))
+  } finally {
+    process.env.TZ = originalTZ
+  }
 })
 
 test('toggles a food as favorite and lists favorites first in search results', () => {
