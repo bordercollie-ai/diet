@@ -65,6 +65,14 @@
   }
   // ponytail: macro alert threshold (120%) is intentionally looser than the calorie tone's 110%; own constant, not reused.
   const isOverMacro = (amount: number, target: number) => target > 0 && amount / target > 1.2
+  const isGenericServing = (serving: string | undefined) =>
+    serving === '1 serving' || serving === '1 份' || serving === '1 食分'
+  const scaleServing = (serving: string, quantity: number) => {
+    const match = serving.match(/^(\d+(?:\.\d+)?)\s*(.+)$/)
+    if (!match) return `${quantity} × ${serving}`
+    const amount = Math.round((Number(match[1]) * quantity + Number.EPSILON) * 10) / 10
+    return `${amount} ${match[2]}`
+  }
 </script>
 
 <div id="summary-panel" role="tabpanel" aria-labelledby="summary-tab">
@@ -199,17 +207,29 @@
           .sort((a, b) => a.time.localeCompare(b.time)) as entry (entry.id)}
           {@const food = data.foods.find((item) => item.id === entry.foodId)}
           {@const mealName = food ? foodName(food.name) : (entry.foodName ?? t('food'))}
+          {@const serving =
+            food && !isGenericServing(food.serving)
+              ? entry.quantity === 1
+                ? food.serving
+                : scaleServing(food.serving, entry.quantity)
+              : entry.quantity === 1
+                ? t('oneServing')
+                : t('servings').replace('{count}', String(entry.quantity))}
           <button
             type="button"
             class="grid w-full cursor-pointer gap-1 rounded-md border bg-muted/40 px-4 py-3 text-left text-[inherit] font-[inherit] shadow-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring/50"
-            aria-label={`${entry.time}, ${mealName}, ${displayNumber(entry.nutrition.calories)} kcal. ${t('editMeal')}.`}
+            aria-label={`${entry.time}, ${mealName}${serving ? `, ${serving}` : ''}, ${displayNumber(entry.nutrition.calories)} kcal. ${t('editMeal')}.`}
             onclick={() => onEditMeal(entry.id)}
           >
             <div class="flex items-center justify-between">
-              <span>{mealName}</span>
+              <span class="text-sm"
+                >{mealName}{#if serving}&nbsp;({serving}){/if}</span
+              >
               <time datetime={`${entry.date}T${entry.time}`} class="text-muted-foreground text-sm">{entry.time}</time>
             </div>
-            <strong class="text-lg leading-[1.1]">{displayNumber(entry.nutrition.calories)} kcal</strong>
+            <div class="flex items-baseline justify-between gap-2">
+              <strong class="leading-[1.1]">{displayNumber(entry.nutrition.calories)} kcal</strong>
+            </div>
             <span class="flex items-center justify-between gap-2">
               <div class="flex items-center gap-1 text-muted-foreground">
                 <span class="text-xs"><HamIcon aria-hidden="true" class="size-4" /> </span>

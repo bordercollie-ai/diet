@@ -1,12 +1,14 @@
 import { fireEvent, render, screen, waitFor, within } from '@testing-library/svelte'
 import { afterEach, beforeEach, vi, test, expect } from 'vitest'
 import { createFood, createMemoryStore, type AppData } from '../src/domain/store'
+import { setLanguage } from '../src/lib/i18n.svelte'
 import App from '../src/App.svelte'
 
 let storeOverride: AppData | undefined
 
 beforeEach(() => {
   storeOverride = undefined
+  setLanguage('en')
 })
 
 afterEach(() => {
@@ -48,6 +50,98 @@ test('records 1.4 servings of a 68 kcal food and displays rounded calories', asy
   await fireEvent.click(screen.getByRole('button', { name: 'Add meal' }))
 
   await waitFor(() => expect(screen.getAllByText('95 kcal')).toHaveLength(2))
+  expect(screen.getByText('1.4 servings')).toBeTruthy()
+})
+
+test('shows the recorded serving quantity in Japanese', async () => {
+  const today = new Date().toISOString().slice(0, 10)
+  const food = createFood({
+    id: 'rice',
+    name: { en: 'Rice' },
+    serving: '1 serving',
+    nutrition: { calories: 200, protein: 4, fat: 0, carbohydrates: 45 },
+    source: 'user',
+  })
+  storeOverride = {
+    foods: [food],
+    mealEntries: [
+      {
+        id: 'meal',
+        date: today,
+        time: '12:00',
+        foodId: food.id,
+        quantity: 2,
+        nutrition: { calories: 400, protein: 8, fat: 0, carbohydrates: 90 },
+      },
+    ],
+  }
+  setLanguage('ja')
+  render(App)
+
+  expect(await screen.findByText('2 食分')).toBeTruthy()
+})
+
+test('shows a food’s explicit serving in the home meal list', async () => {
+  const today = new Date().toISOString().slice(0, 10)
+  const milk = createFood({
+    id: 'milk',
+    name: { en: 'Milk' },
+    serving: '200 ml',
+    nutrition: { calories: 100, protein: 7, fat: 4, carbohydrates: 10 },
+    source: 'user',
+  })
+  storeOverride = {
+    foods: [milk],
+    mealEntries: [
+      {
+        id: 'meal',
+        date: today,
+        time: '12:00',
+        foodId: milk.id,
+        quantity: 1,
+        nutrition: milk.nutrition,
+      },
+      {
+        id: 'meal-two',
+        date: today,
+        time: '13:00',
+        foodId: milk.id,
+        quantity: 2,
+        nutrition: { calories: 200, protein: 14, fat: 8, carbohydrates: 20 },
+      },
+    ],
+  }
+  render(App)
+
+  expect(await screen.findAllByText('200 ml')).toHaveLength(1)
+  expect(await screen.findByText('400 ml')).toBeTruthy()
+})
+
+test('rounds scaled servings to one decimal place', async () => {
+  const today = new Date().toISOString().slice(0, 10)
+  const protein = createFood({
+    id: 'protein',
+    name: { en: 'Protein' },
+    serving: '100.12 g',
+    nutrition: { calories: 100, protein: 20, fat: 1, carbohydrates: 2 },
+    source: 'user',
+  })
+  storeOverride = {
+    foods: [protein],
+    mealEntries: [
+      {
+        id: 'meal',
+        date: today,
+        time: '12:00',
+        foodId: protein.id,
+        quantity: 2,
+        nutrition: { calories: 200, protein: 40, fat: 2, carbohydrates: 4 },
+      },
+    ],
+  }
+  render(App)
+
+  expect(await screen.findByText('200.2 g')).toBeTruthy()
 })
 
 test('lists a favorited food before a non-favorited match in meal search results', async () => {
@@ -233,7 +327,7 @@ test("records a McDonald's Japan meal found by its English name", async () => {
 
   await waitFor(() => {
     expect(screen.getByRole('img', { name: /^524 of \d+ kcal/ })).toBeTruthy()
-    expect(screen.getByRole('button', { name: /Big Mac®, 524 kcal\. Edit meal\./ })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /Big Mac®, .+, 524 kcal\. Edit meal\./ })).toBeTruthy()
   })
 })
 
@@ -250,7 +344,7 @@ test("records a McDonald's Japan meal found by its Japanese name", async () => {
 
   await waitFor(() => {
     expect(screen.getByRole('img', { name: /^524 of \d+ kcal/ })).toBeTruthy()
-    expect(screen.getByRole('button', { name: /Big Mac®, 524 kcal\. Edit meal\./ })).toBeTruthy()
+    expect(screen.getByRole('button', { name: /Big Mac®, .+, 524 kcal\. Edit meal\./ })).toBeTruthy()
   })
 })
 
