@@ -702,5 +702,20 @@
     "detail": {
       "salt": 0.3
     }
+  },
+  {
+    "id": "manual-04678d6b5954",
+    "name": {
+      "en": "savas milk protein almond",
+      "ja": "脂肪0アーモンド"
+    },
+    "serving": "200ml",
+    "nutrition": {
+      "calories": 108,
+      "protein": 20,
+      "fat": 0,
+      "carbohydrates": 7.1
+    },
+    "source": "bundled"
   }
 ]
