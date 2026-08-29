@@ -77,9 +77,9 @@
     },
     "serving": "100g",
     "nutrition": {
-      "calories": 165,
-      "protein": 31,
-      "fat": 3.6,
+      "calories": 120,
+      "protein": 22.5,
+      "fat": 2.6,
       "carbohydrates": 0
     },
     "source": "bundled",
@@ -94,9 +94,9 @@
     },
     "serving": "100g",
     "nutrition": {
-      "calories": 121,
-      "protein": 20.1,
-      "fat": 3.8,
+      "calories": 112,
+      "protein": 19,
+      "fat": 4,
       "carbohydrates": 0
     },
     "source": "bundled",
@@ -614,9 +614,11 @@
   {
     "id": "manual-zabass-milk-protein-yogurt-strawberry",
     "name": {
-      "ja": "ザバス MILK PROTEIN のむヨーグルト 脂肪0 ストロベリー風味"
+      "ja": "ザバス MILK PROTEIN のむヨーグルト 脂肪0（たんぱく質20g）",
+      "en": "SAVAS Fat-Free Drinking Yogurt (20g protein)",
+      "zh": "SAVAS 零脂高蛋白饮用酸奶（蛋白质20g）"
     },
-    "description": "Meiji SAVAS ストロベリー風味",
+    "description": "Meiji SAVAS",
     "serving": "250g",
     "nutrition": {
       "calories": 140,
@@ -632,40 +634,38 @@
     }
   },
   {
-    "id": "meiji-jp-sports-4902705129900",
+    "id": "savas-milk-protein-milk-15g",
     "name": {
-      "ja": "ザバス MILK PROTEIN のむヨーグルト 脂肪0 ピンクグレープフルーツ風味 250g"
+      "ja": "ザバス MILK PROTEIN 脂肪0（たんぱく質15g）",
+      "en": "SAVAS Fat-Free Milk Protein (15g protein)",
+      "zh": "SAVAS 零脂高蛋白牛奶（蛋白质15g）"
     },
-    "serving": "250g",
+    "serving": "200ml",
     "nutrition": {
-      "calories": 140,
-      "protein": 20,
+      "calories": 100,
+      "protein": 15,
       "fat": 0,
-      "carbohydrates": 15.4
+      "carbohydrates": 10.8
     },
     "source": "bundled",
-    "description": "Meiji Japan ピンクグレープフルーツ風味",
-    "detail": {
-      "salt": 0.34
-    }
+    "description": "Meiji SAVAS"
   },
   {
-    "id": "meiji-jp-sports-4902705131682",
+    "id": "savas-milk-protein-yogurt-15g",
     "name": {
-      "ja": "ザバス MILK PROTEIN のむヨーグルト 脂肪0 キウイ風味 250g"
+      "ja": "ザバス MILK PROTEIN ヨーグルト 脂肪0（たんぱく質15g）",
+      "en": "SAVAS Fat-Free Milk Protein Yogurt (15g protein)",
+      "zh": "SAVAS 零脂高蛋白酸奶（蛋白质15g）"
     },
-    "serving": "250g",
+    "serving": "125g",
     "nutrition": {
-      "calories": 140,
-      "protein": 20,
+      "calories": 90,
+      "protein": 15,
       "fat": 0,
-      "carbohydrates": 15.4
+      "carbohydrates": 6.4
     },
     "source": "bundled",
-    "description": "Meiji Japan キウイ風味",
-    "detail": {
-      "salt": 0.34
-    }
+    "description": "Meiji SAVAS"
   },
   {
     "id": "manual-inprotein-cafe-au-lait-unsweetened",
@@ -706,16 +706,18 @@
   {
     "id": "manual-04678d6b5954",
     "name": {
-      "en": "savas milk protein almond",
-      "ja": "脂肪0アーモンド"
+      "ja": "ザバス MILK PROTEIN 脂肪0（たんぱく質20g）",
+      "en": "SAVAS Fat-Free Milk Protein (20g protein)",
+      "zh": "SAVAS 零脂高蛋白牛奶（蛋白质20g）"
     },
     "serving": "200ml",
     "nutrition": {
-      "calories": 108,
+      "calories": 110,
       "protein": 20,
       "fat": 0,
       "carbohydrates": 7.1
     },
-    "source": "bundled"
+    "source": "bundled",
+    "description": "Meiji SAVAS"
   }
 ]
