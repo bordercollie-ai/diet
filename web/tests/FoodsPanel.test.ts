@@ -1,6 +1,6 @@
-import { render, screen } from '@testing-library/svelte'
+import { render, screen, fireEvent } from '@testing-library/svelte'
 import { test, expect } from 'vitest'
-import { createFood, type AppData } from '../src/domain/store'
+import { createFood, encodeFoodShareCode, type AppData } from '../src/domain/store'
 import FoodsPanel from '../src/pages/FoodsPanel.svelte'
 
 test('truncates a long food name instead of wrapping it onto a second line', () => {
@@ -13,7 +13,7 @@ test('truncates a long food name instead of wrapping it onto a second line', () 
   })
   const data: AppData = { foods: [food], mealEntries: [] }
 
-  render(FoodsPanel, { data, onAddFood: () => {}, onEditFood: () => {} })
+  render(FoodsPanel, { data, onAddFood: () => {}, onEditFood: () => {}, onImportFood: () => {} })
 
   const name = screen.getByText(longName)
   expect(name.className).toContain('truncate')
@@ -42,7 +42,7 @@ test('lists custom foods most recently updated first', () => {
   })
   const data: AppData = { foods: [older, newer], mealEntries: [] }
 
-  render(FoodsPanel, { data, onAddFood: () => {}, onEditFood: () => {} })
+  render(FoodsPanel, { data, onAddFood: () => {}, onEditFood: () => {}, onImportFood: () => {} })
 
   const names = screen.getAllByRole('button').map((button) => button.textContent).filter((text) => text?.includes('Food'))
   expect(names.findIndex((text) => text?.includes('Newer Food'))).toBeLessThan(
@@ -67,10 +67,58 @@ test('shows a star only next to favorited custom foods', () => {
   })
   const data: AppData = { foods: [favorite, plain], mealEntries: [], favoriteFoodIds: ['favorite'] }
 
-  render(FoodsPanel, { data, onAddFood: () => {}, onEditFood: () => {} })
+  render(FoodsPanel, { data, onAddFood: () => {}, onEditFood: () => {}, onImportFood: () => {} })
 
   const favoriteRow = screen.getByText('Favorite Food').closest('button')
   const plainRow = screen.getByText('Plain Food').closest('button')
   expect(favoriteRow?.querySelector('svg.lucide-star')).not.toBeNull()
   expect(plainRow?.querySelector('svg.lucide-star')).toBeNull()
+})
+
+test('pasting a valid shared food code imports it', async () => {
+  const shared = createFood({
+    name: { en: 'Shared Onigiri' },
+    serving: '1 piece',
+    nutrition: { calories: 180, protein: 4, fat: 1, carbohydrates: 39 },
+    source: 'user'
+  })
+  const code = encodeFoodShareCode(shared)
+  const data: AppData = { foods: [], mealEntries: [] }
+  let imported: unknown = null
+
+  render(FoodsPanel, {
+    data,
+    onAddFood: () => {},
+    onEditFood: () => {},
+    onImportFood: (input) => {
+      imported = input
+    }
+  })
+
+  await fireEvent.click(screen.getByRole('button', { name: 'Import food' }))
+  await fireEvent.input(screen.getByLabelText('Paste a shared food code'), { target: { value: code } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Import' }))
+
+  expect(imported).toMatchObject({ name: { en: 'Shared Onigiri' }, serving: '1 piece' })
+})
+
+test('pasting an invalid code shows an error and does not import', async () => {
+  const data: AppData = { foods: [], mealEntries: [] }
+  let imported = false
+
+  render(FoodsPanel, {
+    data,
+    onAddFood: () => {},
+    onEditFood: () => {},
+    onImportFood: () => {
+      imported = true
+    }
+  })
+
+  await fireEvent.click(screen.getByRole('button', { name: 'Import food' }))
+  await fireEvent.input(screen.getByLabelText('Paste a shared food code'), { target: { value: 'not a real code' } })
+  await fireEvent.click(screen.getByRole('button', { name: 'Import' }))
+
+  expect((await screen.findByRole('alert')).textContent).toBe("That code isn't a valid shared food.")
+  expect(imported).toBe(false)
 })

@@ -13,6 +13,7 @@
     bundledFoods,
     calorieTargetForDate,
     calorieTone,
+    createFood,
     createMealEntry,
     dailyTotals,
     deleteMealEntry,
@@ -450,6 +451,15 @@
     foodSheet.openForNew()
   }
 
+  async function importFood(input: Omit<Food, 'id' | 'source' | 'updatedAt'>) {
+    try {
+      await save({ ...data, foods: [...data.foods, createFood({ ...input, source: 'user' })] })
+      showToast(translate('foodImported'))
+    } catch (cause) {
+      error = cause instanceof Error ? cause.message : translate('unableImportFood')
+    }
+  }
+
   function dayTone(iso: string) {
     return calorieTone(dailyTotals(data, iso).calories, calorieTargetForDate(data, iso))
   }
@@ -530,7 +540,7 @@
     {#if activeTab === 'summary'}
       {@render summaryPanel()}
     {:else if activeTab === 'foods'}
-      <FoodsPanel {data} onAddFood={startNewFood} onEditFood={editFood} />
+      <FoodsPanel {data} onAddFood={startNewFood} onEditFood={editFood} onImportFood={importFood} />
     {:else if activeTab === 'menu'}
       {@render menuScreen()}
     {/if}

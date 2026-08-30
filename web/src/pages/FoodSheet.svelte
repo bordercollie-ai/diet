@@ -1,13 +1,16 @@
 <script lang="ts">
-  import { createFood, toggleFavoriteFood, updateFood, type AppData, type Food } from '../domain/store'
+  import { createFood, encodeFoodShareCode, toggleFavoriteFood, updateFood, type AppData, type Food } from '../domain/store'
   import { Button } from '$lib/components/ui/button'
   import { Input } from '$lib/components/ui/input'
   import { Label } from '$lib/components/ui/label'
+  import * as Dialog from '$lib/components/ui/dialog'
   import { swipeBack } from '$lib/actions/swipe-back'
   import NavCircleButton from '$lib/components/nav-circle-button.svelte'
   import PlusIcon from '@lucide/svelte/icons/plus'
+  import ShareIcon from '@lucide/svelte/icons/share-2'
   import StarIcon from '@lucide/svelte/icons/star'
   import XIcon from '@lucide/svelte/icons/x'
+  import QRCode from 'qrcode'
   import { foodName as pickFoodName, t, translate } from '../lib/i18n.svelte'
 
   let {
@@ -82,6 +85,73 @@
     void onSave(toggleFavoriteFood(data, editingFoodId))
   }
 
+  // Sharing a custom food's nutrition as a QR code and/or a compact text code
+  // (see docs/prd.md "自定义食品分享"): both encode the exact same payload via
+  // encodeFoodShareCode, so either can be scanned or pasted back in on the
+  // receiving device.
+  const shareFood = $derived(data.foods.find((item) => item.id === editingFoodId))
+  const shareCode = $derived(shareFood ? encodeFoodShareCode(shareFood) : '')
+  let shareDialogOpen = $state(false)
+  let shareCanvas: HTMLCanvasElement | undefined = $state()
+  let shareFeedback = $state('')
+
+  $effect(() => {
+    if (shareDialogOpen && shareCanvas && shareCode) {
+      // Default margin (4 modules) is the QR spec's minimum quiet zone — a
+      // smaller one can make real scanners detect the pattern but fail to
+      // decode it ("no usable data").
+      QRCode.toCanvas(shareCanvas, shareCode, { width: 220 }).catch(() => {})
+    }
+  })
+
+  function openShare() {
+    shareFeedback = ''
+    shareDialogOpen = true
+  }
+
+  function flashFeedback(message: string) {
+    shareFeedback = message
+    setTimeout(() => (shareFeedback = ''), 2000)
+  }
+
+  async function copyShareCode() {
+    try {
+      await navigator.clipboard.writeText(shareCode)
+      flashFeedback(t('copied'))
+    } catch {
+      flashFeedback(t('unableToCopy'))
+    }
+  }
+
+  function canvasToBlob(canvas: HTMLCanvasElement): Promise<Blob | null> {
+    return new Promise((resolve) => canvas.toBlob(resolve, 'image/png'))
+  }
+
+  async function copyShareImage() {
+    if (!shareCanvas) return
+    try {
+      const blob = await canvasToBlob(shareCanvas)
+      if (!blob || !('ClipboardItem' in window)) throw new Error('unsupported')
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
+      flashFeedback(t('copied'))
+    } catch {
+      flashFeedback(t('unableToCopy'))
+    }
+  }
+
+  async function shareShareImage() {
+    if (!shareCanvas) return
+    try {
+      const blob = await canvasToBlob(shareCanvas)
+      const file = blob ? new File([blob], 'food-qr.png', { type: 'image/png' }) : undefined
+      const shareData = file && navigator.canShare?.({ files: [file] }) ? { files: [file] } : { text: shareCode }
+      await navigator.share({ title: pickFoodName(shareFood?.name ?? {}), ...shareData })
+    } catch (cause) {
+      if (cause instanceof Error && cause.name === 'AbortError') return
+      flashFeedback(t('unableToShare'))
+    }
+  }
+
   export function openWithName(name: string) {
     reset()
     foodName = name
@@ -131,6 +201,9 @@
         {#if editingFoodId}
           <NavCircleButton label={isFavorite ? t('removeFromFavorites') : t('addToFavorites')} onclick={toggleFavorite}>
             <StarIcon aria-hidden="true" class={`size-5 ${isFavorite ? 'fill-yellow-400 text-yellow-400' : ''}`} />
+          </NavCircleButton>
+          <NavCircleButton label={t('shareFood')} onclick={openShare}>
+            <ShareIcon aria-hidden="true" class="size-5" />
           </NavCircleButton>
         {/if}
         <NavCircleButton label={t('close')} onclick={close}>
@@ -206,4 +279,25 @@
       </form>
     </div>
   </div>
+
+  <Dialog.Root bind:open={shareDialogOpen}>
+    <Dialog.Content class="top-[6%] max-h-[88vh] translate-y-0 grid gap-4 overflow-y-auto text-center">
+      <Dialog.Header>
+        <Dialog.Title>{t('shareFood')}</Dialog.Title>
+      </Dialog.Header>
+      <canvas bind:this={shareCanvas} class="mx-auto" width="220" height="220" aria-label={t('shareFoodQrCode')}></canvas>
+      <Input readonly value={shareCode} class="text-center font-mono text-xs" onclick={(e) => e.currentTarget.select()} />
+      <div class="grid gap-2">
+        <Button type="button" onclick={shareShareImage}>
+          <ShareIcon aria-hidden="true" />
+          {t('share')}
+        </Button>
+        <Button type="button" variant="outline" onclick={copyShareImage}>{t('copyImage')}</Button>
+        <Button type="button" variant="outline" onclick={copyShareCode}>{t('copyText')}</Button>
+      </div>
+      {#if shareFeedback}
+        <p role="status" class="text-sm text-muted-foreground">{shareFeedback}</p>
+      {/if}
+    </Dialog.Content>
+  </Dialog.Root>
 {/if}

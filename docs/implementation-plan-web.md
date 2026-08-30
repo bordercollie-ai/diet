@@ -4,7 +4,7 @@ type: implementation-plan
 status: active
 version: "1.1"
 date: 2026-08-12
-updated: 2026-08-18
+updated: 2026-08-30
 current_phase: W7
 ---
 
@@ -119,6 +119,17 @@ The importer emits app-compatible records with reviewed Chinese mappings, withou
 - **Checks:** `pnpm check`; `pnpm build`; `pnpm test`; `pnpm run test:ui` — all pass. Final counts: 23 domain tests and 23 UI tests (added: `i18n.test.ts` covers language persistence/switching, English fallback for missing keys, and `foodName()`'s language-then-English-then-Japanese fallback; `MenuPanel.test.ts` covers picking a theme option and a language option each firing the correct callback with the correct value — bits-ui `Select` items only respond to `pointerup`, not `click`, in this version).
 - **Risk:** no automated translation-quality review; new UI strings must be added to the dictionary manually or they will fall back to English. Food records without a name in the selected language silently fall back (English, then Japanese, then first available) rather than showing a per-food "missing translation" indicator.
 - **Skipped:** RTL/layout mirroring, ICU/pluralization/interpolation tooling, and translation-key linting.
+
+## Out-of-band feature: custom food QR/text sharing and camera/paste import
+
+**Status:** done (2026-08-30).
+
+- **Scope:** a custom (`source: 'user'`) food's edit sheet gained a "Share food" button opening a dialog with a QR code and an equivalent compact text code (identical payload — name, description, serving, nutrition, detail; never id/source/updatedAt), plus Copy image, Copy text, and native Web Share (`navigator.share`, with a file-share attempt first, falling back to sharing the text code) actions. The Foods tab gained an "Import food" button opening a dialog with a "Paste a shared food code" field (always available) and, where the browser supports the native `BarcodeDetector` Shape Detection API, a camera-scan option; unsupported browsers (e.g. iOS Safari without the experimental flag) show guidance to use the paste field instead. A decoded code always creates a brand-new local custom food — it can never overwrite or collide with an existing one. Bundled foods and quick/logged meal entries are explicitly out of scope, per instruction. No network request or product-database lookup is involved at any point (see `docs/prd.md` clarification distinguishing this from the excluded retail-barcode-scanning feature).
+- **Design:** `encodeFoodShareCode`/`decodeFoodShareCode` (in `web/src/domain/store.ts`, pure/Svelte-independent) produce/parse a `DIETFOOD1:`-prefixed base64url-encoded JSON payload — UTF-8 safe (via `TextEncoder`/`TextDecoder`, not the deprecated `escape`/`unescape`), reusing `validNutrition`/`invalid` for the same validation `validateFood` already applies. QR generation uses the actively-maintained `qrcode` npm package (rendered to a `<canvas>`); QR *scanning* deliberately uses the browser-native `BarcodeDetector` API instead of adding a scanning library (the obvious option, `jsqr`, hasn't been updated in 5 years) — no new runtime dependency, and it degrades gracefully to the always-available text-paste path.
+- **Files changed:** `web/src/domain/store.ts` (codec), `web/src/pages/FoodSheet.svelte` (Share button/dialog), `web/src/pages/FoodsPanel.svelte` (Import button/dialog, camera scan loop), `web/src/App.svelte` (wires `onImportFood`), `web/src/lib/i18n.svelte.ts` (en/zh/ja strings), `web/tests/store.test.ts`, `web/tests/FoodSheet.test.ts` (new), `web/tests/FoodsPanel.test.ts`, `web/package.json`/`pnpm-lock.yaml` (added `qrcode` + `@types/qrcode`), `docs/prd.md`.
+- **Checks:** `pnpm check` (0 errors/warnings); `pnpm build` (pass; pre-existing chunk-size warning); `pnpm test` (44 domain tests, includes share-code round-trip, non-ASCII names, and malformed-code rejection); `pnpm run test:ui` (42 UI tests) — all pass.
+- **Risk / limitations:** camera QR scanning depends on `BarcodeDetector` browser support (broad on Chromium/Android; on iOS Safari it requires manually enabling Settings > Safari > Advanced > Feature Flags > Shape Detection API, and per public reports is currently broken on iOS 18 even when enabled) — the text-paste path has no such dependency and was kept as a first-class, always-available option specifically to cover this gap and to make cross-family sharing/verification easy without a working camera. No test exercises the live camera or `BarcodeDetector` path (jsdom doesn't implement either); coverage there is the manual browser-support fallback rendering only.
+- **Skipped:** sharing bundled foods and quick/logged meal entries (explicitly out of scope per instruction); a dedicated QR-scanning fallback library for browsers without `BarcodeDetector` — add only if native support proves insufficient in practice.
 
 ## Deferred work
 

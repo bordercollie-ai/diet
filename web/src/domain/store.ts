@@ -314,6 +314,67 @@ export function createFood(input: Omit<Food, 'id'> & { id?: string }): Food {
   return copy(food)
 }
 
+// Compact text/QR share code for one custom food's nutrition (see docs/prd.md
+// "自定义食品分享"). Carries only name/description/serving/nutrition/detail —
+// never id/source/updatedAt — so decoding always produces a brand-new local
+// user food, never a collision with or edit of an existing one.
+const SHARE_CODE_PREFIX = 'DIETFOOD1:'
+
+function base64UrlEncode(text: string): string {
+  const bytes = new TextEncoder().encode(text)
+  const binary = Array.from(bytes, (byte) => String.fromCharCode(byte)).join('')
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+}
+
+function base64UrlDecode(code: string): string {
+  const padded = code.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(code.length / 4) * 4, '=')
+  const bytes = Uint8Array.from(atob(padded), (char) => char.charCodeAt(0))
+  return new TextDecoder().decode(bytes)
+}
+
+export function encodeFoodShareCode(food: Food): string {
+  const payload = {
+    name: food.name,
+    description: food.description,
+    serving: food.serving,
+    nutrition: food.nutrition,
+    detail: food.detail,
+  }
+  return SHARE_CODE_PREFIX + base64UrlEncode(JSON.stringify(payload))
+}
+
+export function decodeFoodShareCode(code: string): Omit<Food, 'id' | 'source' | 'updatedAt'> {
+  const trimmed = code.trim()
+  if (!trimmed.startsWith(SHARE_CODE_PREFIX)) invalid('share code')
+  let payload: unknown
+  try {
+    payload = JSON.parse(base64UrlDecode(trimmed.slice(SHARE_CODE_PREFIX.length)))
+  } catch {
+    invalid('share code')
+  }
+  if (typeof payload !== 'object' || payload === null) invalid('share code')
+  const value = payload as Record<string, unknown>
+  const names = value.name
+  if (
+    typeof names !== 'object' ||
+    names === null ||
+    !Object.values(names).some((name) => typeof name === 'string' && name.trim()) ||
+    typeof value.serving !== 'string' ||
+    !value.serving.trim() ||
+    !validNutrition(value.nutrition) ||
+    (value.description !== undefined && typeof value.description !== 'string') ||
+    (value.detail !== undefined && (typeof value.detail !== 'object' || value.detail === null))
+  )
+    invalid('share code')
+  return {
+    name: names as Record<string, string>,
+    description: value.description as string | undefined,
+    serving: value.serving as string,
+    nutrition: value.nutrition as Nutrition,
+    detail: value.detail as NutritionDetail | undefined,
+  }
+}
+
 export function scaleNutrition(nutrition: Nutrition, quantity: number): Nutrition {
   if (!Number.isFinite(quantity) || quantity <= 0) invalid('quantity')
   return Object.fromEntries(Object.entries(nutrition).map(([key, value]) => [key, value * quantity])) as Nutrition

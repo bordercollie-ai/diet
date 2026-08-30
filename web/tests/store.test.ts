@@ -10,8 +10,10 @@ import {
   bundledFoods,
   calorieTargetForDate,
   dailyTotals,
+  decodeFoodShareCode,
   deleteFood,
   deleteMealEntry,
+  encodeFoodShareCode,
   estimateTargets,
   exerciseCaloriesForDate,
   evaluateAchievements,
@@ -158,6 +160,46 @@ test('user foods can be deleted', () => {
 test('deleting a food preserves meal snapshots', async () => {
   const store = createMemoryStore(deleteFood(data, 'user-1'))
   assert.deepEqual((await store.load()).mealEntries[0].nutrition, data.mealEntries[0].nutrition)
+})
+
+test('a food share code round-trips name, description, serving, nutrition, and detail', () => {
+  const original = createFood({
+    name: { en: 'Onigiri', ja: 'おにぎり' },
+    description: 'Seaweed rice ball',
+    serving: '1 piece (100 g)',
+    nutrition: { calories: 180, protein: 4, fat: 1, carbohydrates: 39 },
+    detail: { salt: 1.2 },
+    source: 'user',
+  })
+  const code = encodeFoodShareCode(original)
+  assert.match(code, /^DIETFOOD1:/)
+  const decoded = decodeFoodShareCode(code)
+  assert.deepEqual(decoded.name, original.name)
+  assert.equal(decoded.description, original.description)
+  assert.equal(decoded.serving, original.serving)
+  assert.deepEqual(decoded.nutrition, original.nutrition)
+  assert.deepEqual(decoded.detail, original.detail)
+  // Decoding never yields id/source/updatedAt — importing always creates a new user food.
+  const imported = createFood({ ...decoded, source: 'user' })
+  assert.notEqual(imported.id, original.id)
+})
+
+test('a food share code round-trips non-ASCII names (base64url must be UTF-8 safe)', () => {
+  const original = createFood({
+    name: { ja: 'たんぱく質が摂れるチキン＆チリ' },
+    serving: '1 個',
+    nutrition: { calories: 150, protein: 12, fat: 5, carbohydrates: 10 },
+    source: 'user',
+  })
+  const decoded = decodeFoodShareCode(encodeFoodShareCode(original))
+  assert.deepEqual(decoded.name, original.name)
+})
+
+test('decoding rejects garbage, wrong-prefix, and malformed nutrition share codes', () => {
+  assert.throws(() => decodeFoodShareCode('not a share code'), /Invalid data/)
+  assert.throws(() => decodeFoodShareCode('DIETFOOD1:not-valid-base64!!'), /Invalid data/)
+  const badPayload = 'DIETFOOD1:' + Buffer.from(JSON.stringify({ name: { en: 'X' }, serving: '', nutrition: {} })).toString('base64')
+  assert.throws(() => decodeFoodShareCode(badPayload), /Invalid data/)
 })
 
 test('localDateISO uses the local calendar day, not UTC (regression: toISOString drifts a day behind in positive-offset zones like JST)', () => {
