@@ -1,14 +1,16 @@
 <script lang="ts">
-  import { createFood, encodeFoodShareCode, toggleFavoriteFood, updateFood, type AppData, type Food } from '../domain/store'
+  import { createFood, deleteFood, encodeFoodShareCode, toggleFavoriteFood, updateFood, type AppData, type Food } from '../domain/store'
   import { Button } from '$lib/components/ui/button'
   import { Input } from '$lib/components/ui/input'
   import { Label } from '$lib/components/ui/label'
   import * as Dialog from '$lib/components/ui/dialog'
+  import * as AlertDialog from '$lib/components/ui/alert-dialog'
   import { swipeBack } from '$lib/actions/swipe-back'
   import NavCircleButton from '$lib/components/nav-circle-button.svelte'
   import PlusIcon from '@lucide/svelte/icons/plus'
   import ShareIcon from '@lucide/svelte/icons/share-2'
   import StarIcon from '@lucide/svelte/icons/star'
+  import TrashIcon from '@lucide/svelte/icons/trash-2'
   import XIcon from '@lucide/svelte/icons/x'
   import QRCode from 'qrcode'
   import { foodName as pickFoodName, t, translate } from '../lib/i18n.svelte'
@@ -83,6 +85,17 @@
   const isFavorite = $derived((data.favoriteFoodIds ?? []).includes(editingFoodId))
   function toggleFavorite() {
     void onSave(toggleFavoriteFood(data, editingFoodId))
+  }
+
+  let confirmingDelete = $state(false)
+  async function handleDelete() {
+    try {
+      await onSave(deleteFood(data, editingFoodId))
+      confirmingDelete = false
+      open = false
+    } catch (cause) {
+      onError?.(cause instanceof Error ? cause.message : translate('unableDeleteFood'))
+    }
   }
 
   // Sharing a custom food's nutrition as a QR code and/or a compact text code
@@ -279,10 +292,27 @@
             <PlusIcon aria-hidden="true" />
             {t('addToTodaysMeal')}
           </Button>
+          <Button type="button" variant="destructive" class="w-full" onclick={() => (confirmingDelete = true)}>
+            <TrashIcon aria-hidden="true" />
+            {t('delete')}
+          </Button>
         {/if}
       </form>
     </div>
   </div>
+
+  <AlertDialog.Root bind:open={confirmingDelete}>
+    <AlertDialog.Content>
+      <AlertDialog.Header>
+        <AlertDialog.Title>{t('deleteThisFood')}</AlertDialog.Title>
+        <AlertDialog.Description>{t('thisCannotBeUndone')}</AlertDialog.Description>
+      </AlertDialog.Header>
+      <AlertDialog.Footer>
+        <AlertDialog.Cancel>{t('cancel')}</AlertDialog.Cancel>
+        <AlertDialog.Action variant="destructive" onclick={handleDelete}>{t('delete')}</AlertDialog.Action>
+      </AlertDialog.Footer>
+    </AlertDialog.Content>
+  </AlertDialog.Root>
 
   <Dialog.Root bind:open={shareDialogOpen}>
     <Dialog.Content class="top-[6%] max-h-[88vh] translate-y-0 grid gap-4 overflow-y-auto text-center">

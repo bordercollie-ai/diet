@@ -35,6 +35,23 @@ test('the share dialog shows the exact code encodeFoodShareCode produces as text
   expect(screen.getByDisplayValue(encodeFoodShareCode(food))).not.toBeNull()
 })
 
+test('deleting a custom food requires confirmation, then saves the food removed', async () => {
+  const food = shareableFood()
+  const data: AppData = { foods: [food], mealEntries: [] }
+  const onSave = vi.fn().mockResolvedValue(undefined)
+
+  const { component } = render(FoodSheet, { data, onSave })
+  flushSync(() => component.openForEdit(food))
+  await fireEvent.click(screen.getByRole('button', { name: 'Delete' }))
+
+  expect(screen.getByText('Delete this food?')).not.toBeNull()
+  expect(onSave).not.toHaveBeenCalled()
+
+  await fireEvent.click(screen.getAllByRole('button', { name: 'Delete' })[1])
+
+  expect(onSave).toHaveBeenCalledWith({ ...data, foods: [] })
+})
+
 test('the copy text button copies the share code to the clipboard and confirms it', async () => {
   const food = shareableFood()
   const data: AppData = { foods: [food], mealEntries: [] }
