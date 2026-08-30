@@ -719,5 +719,21 @@
     },
     "source": "bundled",
     "description": "Meiji SAVAS"
+  },
+  {
+    "id": "manual-775e395f2dd6",
+    "name": {
+      "en": "Chicken Protein Bar",
+      "ja": "ささみプロテインバー",
+      "zh": "鸡胸蛋白棒"
+    },
+    "serving": "65g",
+    "nutrition": {
+      "calories": 81,
+      "protein": 11.4,
+      "fat": 0.4,
+      "carbohydrates": 7.9
+    },
+    "source": "bundled"
   }
 ]
