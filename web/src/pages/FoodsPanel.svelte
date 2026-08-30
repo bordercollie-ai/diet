@@ -9,6 +9,7 @@
   import StarIcon from '@lucide/svelte/icons/star'
   import { onDestroy, tick } from 'svelte'
   import { foodName, t } from '../lib/i18n.svelte'
+  import { BarcodeDetector } from '../lib/qr-scanner'
 
   let {
     data,
@@ -30,10 +31,9 @@
       .toSorted((a, b) => (b.updatedAt ?? '').localeCompare(a.updatedAt ?? '')),
   )
 
-  // Importing a shared custom food, by camera (native BarcodeDetector — see
-  // docs/prd.md "自定义食品分享"; on iOS it needs Settings > Safari > Advanced
-  // > Feature Flags > Shape Detection API) or by pasting the same text code,
-  // so it also works on browsers without QR camera support.
+  // Importing a shared custom food, by camera (QR decoder — see
+  // docs/prd.md "自定义食品分享") or by pasting the same text code, so it
+  // also works on browsers/devices without a usable camera.
   let importDialogOpen = $state(false)
   let pastedCode = $state('')
   let importError = $state('')
@@ -41,8 +41,7 @@
   let scanning = $state(false)
   let stream: MediaStream | null = null
   let scanFrame = 0
-
-  const cameraSupported = typeof window !== 'undefined' && 'BarcodeDetector' in window
+  let scanFeedback = $state('')
 
   function openImport() {
     pastedCode = ''
@@ -75,7 +74,12 @@
   async function startScan() {
     importError = ''
     try {
-      stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
+      stream = await navigator.mediaDevices.getUserMedia({
+        // Request a high resolution so the camera can resolve fine QR
+        // modules; the browser's own default (often 480x640) is too coarse
+        // for a dense QR code shown on another screen.
+        video: { facingMode: 'environment', width: { ideal: 1920 }, height: { ideal: 1080 } },
+      })
     } catch {
       importError = t('cameraUnavailable')
       return
@@ -87,22 +91,18 @@
     if (!videoEl) return
     videoEl.srcObject = stream
     await videoEl.play()
-    // @ts-expect-error BarcodeDetector is not yet in TypeScript's DOM lib
     const detector = new BarcodeDetector({ formats: ['qr_code'] })
-    // Detecting directly on a live <video> element is inconsistently supported;
-    // snapshotting each frame to a canvas first is the widely-compatible approach.
-    const frameCanvas = document.createElement('canvas')
-    const frameContext = frameCanvas.getContext('2d')
     let consecutiveFailures = 0
     const detectFrame = async () => {
-      if (!scanning || !videoEl || !frameContext) return
+      if (!scanning || !videoEl) return
       if (videoEl.videoWidth && videoEl.videoHeight) {
-        frameCanvas.width = videoEl.videoWidth
-        frameCanvas.height = videoEl.videoHeight
-        frameContext.drawImage(videoEl, 0, 0)
         try {
-          const [barcode] = await detector.detect(frameCanvas)
+          const [barcode] = await detector.detect(videoEl)
           if (barcode?.rawValue) {
+            // Pause on a recognized code for a moment so the user gets visual
+            // confirmation the scan worked, instead of it vanishing instantly.
+            scanFeedback = t('qrRecognized')
+            await new Promise((resolve) => setTimeout(resolve, 1000))
             void importCode(barcode.rawValue)
             return
           }
@@ -110,19 +110,22 @@
         } catch (cause) {
           // Surface a persistent detect() failure (as opposed to "just hasn't
           // found a code yet") instead of spinning silently forever.
-          if (++consecutiveFailures === 30) {
+          if (++consecutiveFailures === 10) {
             importError = cause instanceof Error ? cause.message : t('cameraUnavailable')
           }
         }
       }
-      scanFrame = requestAnimationFrame(detectFrame)
+      // ponytail: WASM decoding is real CPU work (unlike a native call), so
+      // poll a few times a second rather than every animation frame.
+      scanFrame = window.setTimeout(detectFrame, 200)
     }
-    scanFrame = requestAnimationFrame(detectFrame)
+    detectFrame()
   }
 
   function stopScan() {
     scanning = false
-    cancelAnimationFrame(scanFrame)
+    scanFeedback = ''
+    window.clearTimeout(scanFrame)
     stream?.getTracks().forEach((track) => track.stop())
     stream = null
   }
@@ -172,19 +175,16 @@
       <Dialog.Header>
         <Dialog.Title>{t('importFood')}</Dialog.Title>
       </Dialog.Header>
-      {#if cameraSupported}
-        {#if scanning}
-          <!-- svelte-ignore a11y_media_has_caption -->
-          <video bind:this={videoEl} class="aspect-square max-h-56 w-full rounded-md bg-black object-cover" muted playsinline></video>
-          <Button type="button" variant="outline" onclick={stopScan}>{t('stopCamera')}</Button>
-        {:else}
-          <Button type="button" onclick={startScan}>
-            <CameraIcon aria-hidden="true" />
-            {t('scanQrCode')}
-          </Button>
-        {/if}
+      {#if scanning}
+        <!-- svelte-ignore a11y_media_has_caption -->
+        <video bind:this={videoEl} class="aspect-square max-h-56 w-full rounded-md bg-black object-cover" muted playsinline></video>
+        {#if scanFeedback}<p class="text-sm font-medium text-green-600 dark:text-green-400">{scanFeedback}</p>{/if}
+        <Button type="button" variant="outline" onclick={stopScan}>{t('stopCamera')}</Button>
       {:else}
-        <p class="text-sm text-muted-foreground">{t('cameraNotSupported')}</p>
+        <Button type="button" onclick={startScan}>
+          <CameraIcon aria-hidden="true" />
+          {t('scanQrCode')}
+        </Button>
       {/if}
       <div class="grid gap-2">
         <label for="import-food-code" class="text-sm font-medium">{t('pasteShareCode')}</label>

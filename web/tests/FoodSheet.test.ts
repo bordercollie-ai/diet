@@ -24,7 +24,7 @@ test('a Share button appears only when editing an existing custom food, not when
   expect(screen.getByRole('button', { name: 'Share food' })).not.toBeNull()
 })
 
-test('the share dialog shows the exact code encodeFoodShareCode produces for that food', async () => {
+test('the share dialog shows the exact code encodeFoodShareCode produces as text', async () => {
   const food = shareableFood()
   const data: AppData = { foods: [food], mealEntries: [] }
   const { component } = render(FoodSheet, { data, onSave: async () => {} })

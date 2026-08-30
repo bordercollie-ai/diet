@@ -87,8 +87,9 @@
 
   // Sharing a custom food's nutrition as a QR code and/or a compact text code
   // (see docs/prd.md "自定义食品分享"): both encode the exact same payload via
-  // encodeFoodShareCode, so either can be scanned or pasted back in on the
-  // receiving device.
+  // encodeFoodShareCode. Scanning is handled by this app's own bundled WASM
+  // decoder (see FoodsPanel.svelte), so the code doesn't need to be a
+  // tappable URL for a system camera app to open.
   const shareFood = $derived(data.foods.find((item) => item.id === editingFoodId))
   const shareCode = $derived(shareFood ? encodeFoodShareCode(shareFood) : '')
   let shareDialogOpen = $state(false)
@@ -100,7 +101,10 @@
       // Default margin (4 modules) is the QR spec's minimum quiet zone — a
       // smaller one can make real scanners detect the pattern but fail to
       // decode it ("no usable data").
-      QRCode.toCanvas(shareCanvas, shareCode, { width: 220 }).catch(() => {})
+      // Lower error-correction level keeps the QR less dense (fewer, larger
+      // modules) for the same payload — easier for phone cameras to resolve,
+      // especially when scanning a QR shown on another screen.
+      QRCode.toCanvas(shareCanvas, shareCode, { width: 220, errorCorrectionLevel: 'L' }).catch(() => {})
     }
   })
 

@@ -109,9 +109,8 @@ const en = {
   unableToShare: "Unable to share. Your browser may not support this.",
   importFood: "Import food",
   scanQrCode: "Scan QR code",
+  qrRecognized: "QR code recognized!",
   stopCamera: "Stop camera",
-  cameraNotSupported:
-    "QR scanning isn't supported in this browser. On iOS, enable Settings > Safari > Advanced > Feature Flags > Shape Detection API, or paste the text code below instead.",
   cameraUnavailable: "Unable to access the camera.",
   pasteShareCode: "Paste a shared food code",
   import: "Import",
@@ -332,9 +331,8 @@ const dict = {
     unableToShare: "无法分享，您的浏览器可能不支持此功能。",
     importFood: "导入食品",
     scanQrCode: "扫描二维码",
+    qrRecognized: "已识别二维码！",
     stopCamera: "停止相机",
-    cameraNotSupported:
-      "此浏览器不支持二维码扫描。在 iOS 上，可在设置 > Safari > 高级 > Feature Flags 中启用 Shape Detection API，或改为粘贴下方的文本代码。",
     cameraUnavailable: "无法访问相机。",
     pasteShareCode: "粘贴分享的食品代码",
     import: "导入",
@@ -550,9 +548,8 @@ const dict = {
     unableToShare: "共有できません。お使いのブラウザは対応していない可能性があります。",
     importFood: "食品を読み込む",
     scanQrCode: "QRコードをスキャン",
+    qrRecognized: "QRコードを認識しました！",
     stopCamera: "カメラを停止",
-    cameraNotSupported:
-      "このブラウザはQRスキャンに対応していません。iOSでは設定 > Safari > 詳細 > Feature Flags で Shape Detection API を有効にするか、下のテキストコードを貼り付けてください。",
     cameraUnavailable: "カメラにアクセスできません。",
     pasteShareCode: "共有された食品コードを貼り付け",
     import: "読み込む",
