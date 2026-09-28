@@ -107,7 +107,7 @@
 		onfocus={handleFocus}
 		onblur={handleBlur}
 		bind:value
-		inputmode={type === "number" ? (String(restProps.step ?? "1") === "1" ? "numeric" : "decimal") : undefined}
+		inputmode={type === "number" ? "decimal" : undefined}
 		{...restProps}
 	/>
 {/if}
