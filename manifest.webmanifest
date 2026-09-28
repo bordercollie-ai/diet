@@ -1,0 +1,9 @@
+{
+  "name": "Diet",
+  "short_name": "Diet",
+  "start_url": "/diet/",
+  "scope": "/diet/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff"
+}
