@@ -1,4 +1,4 @@
-const CACHE = "diet-shell-v4";
+const CACHE = "diet-shell-v5";
 const ASSETS = ["/diet/", "/diet/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
@@ -15,15 +15,20 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.mode === "navigate") {
+    // ponytail: cache-first so a pure-local app opens instantly offline;
+    // network refresh runs in the background and updates the cache for next launch.
     event.respondWith(
-      fetch(event.request).then((response) => {
-        // ponytail: clone immediately, before any await — once this .then
-        // returns, the browser may start reading the response body and a
-        // later clone() throws "body already used".
-        const copy = response.clone();
-        caches.open(CACHE).then((cache) => cache.put(event.request, copy)).catch(() => {})
-        return response;
-      }).catch(() => caches.match(event.request).then((cached) => cached || caches.match("/diet/")))
+      caches.match(event.request).then((cached) => {
+        const network = fetch(event.request).then((response) => {
+          // ponytail: clone immediately, before any await — once this .then
+          // returns, the browser may start reading the response body and a
+          // later clone() throws "body already used".
+          const copy = response.clone();
+          caches.open(CACHE).then((cache) => cache.put(event.request, copy)).catch(() => {})
+          return response;
+        }).catch(() => caches.match("/diet/"));
+        return cached || network;
+      })
     );
     return;
   }
